@@ -1,0 +1,4 @@
+relationship AutoDetected_7771a253-ceb4-4ef5-abc5-bad3658f5c65
+	fromColumn: discount.OrderNumber
+	toColumn: sales.OrderNumber
+

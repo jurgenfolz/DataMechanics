@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Chain Discount Example"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4dade084-b8c4-4ed4-8766-011058511fe7"
+  }
+}

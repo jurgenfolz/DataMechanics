@@ -1,0 +1,49 @@
+table sales
+	lineageTag: 79238047-1799-437e-b443-b52eb5d647d5
+
+	column OrderNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: c1c1c3f4-b71a-4d6b-b4b8-d3515057160a
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: int64
+		formatString: 0
+		lineageTag: 332f4448-bea4-4028-9026-daf412bebb9b
+		summarizeBy: none
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 6f71e713-9b08-4b99-bec8-4de9907b21b7
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition sales = m
+		mode: import
+		source =
+				let
+				    Source = Json.Document(File.Contents("C:\Users\KlausFolz\Desktop\Repositories\DataMechanics\Posts\Chain discount\Data\sales.json")),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"OrderNumber", "Price", "Date"}, {"OrderNumber", "Price", "Date"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"OrderNumber", Int64.Type}, {"Price", Int64.Type}, {"Date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
