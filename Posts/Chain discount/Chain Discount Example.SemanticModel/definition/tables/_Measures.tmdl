@@ -1,0 +1,25 @@
+table _Measures
+	lineageTag: 07bbdc35-b3e6-4338-88c4-151b2d470324
+
+	measure PriceAfterDiscount = ```
+			
+			    SUMX(
+			        discount,
+			        discount[ProductSequenceDiscount]*RELATED(sales[Price])
+			        )
+			```
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: 4fa31f17-5e03-4a91-b5cb-7bf18cf9e256
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

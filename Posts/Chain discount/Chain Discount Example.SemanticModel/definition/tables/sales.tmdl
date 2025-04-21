@@ -39,9 +39,10 @@ table sales
 				    Source = Json.Document(File.Contents("C:\Users\KlausFolz\Desktop\Repositories\DataMechanics\Posts\Chain discount\Data\sales.json")),
 				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"OrderNumber", "Price", "Date"}, {"OrderNumber", "Price", "Date"}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"OrderNumber", Int64.Type}, {"Price", Int64.Type}, {"Date", type date}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"OrderNumber", Int64.Type}, {"Price", Int64.Type}, {"Date", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([OrderNumber] = 1001 or [OrderNumber] = 1002 or [OrderNumber] = 1003 or [OrderNumber] = 1004 or [OrderNumber] = 1005))
 				in
-				    #"Changed Type"
+				    #"Filtered Rows"
 
 	annotation PBI_NavigationStepName = Navigation
 

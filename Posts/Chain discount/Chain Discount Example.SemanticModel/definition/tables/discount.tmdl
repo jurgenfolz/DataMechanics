@@ -10,35 +10,62 @@ table discount
 
 		annotation SummarizationSetBy = Automatic
 
-	column discountValue
+	column ProductSequenceDiscount
 		dataType: double
-		lineageTag: 0527c50d-7989-4d22-85b9-03de002c814b
+		lineageTag: fce36b07-c0e3-4df9-9096-4b9f79f9e48c
 		summarizeBy: sum
-		sourceColumn: discountValue
+		sourceColumn: ProductSequenceDiscount
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column DiscountSequence
-		dataType: int64
-		formatString: 0
-		lineageTag: b84d81cd-6268-4445-b0bc-f499c190c203
-		summarizeBy: sum
-		sourceColumn: DiscountSequence
-
-		annotation SummarizationSetBy = Automatic
-
 	partition discount = m
 		mode: import
-		source =
+		source = ```
 				let
-				    Source = Json.Document(File.Contents("C:\Users\KlausFolz\Desktop\Repositories\DataMechanics\Posts\Chain discount\Data\discount.json")),
-				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"OrderNumber", "discountValue", "DiscountSequence"}, {"OrderNumber", "discountValue", "DiscountSequence"}),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"OrderNumber", Int64.Type}, {"discountValue", type number}, {"DiscountSequence", Int64.Type}})
+				  Source = Json.Document(
+				    File.Contents(
+				      "C:\Users\KlausFolz\Desktop\Repositories\DataMechanics\Posts\Chain discount\Data\discount.json"
+				    )
+				  ), 
+				  #"Converted to Table" = Table.FromList(
+				    Source, 
+				    Splitter.SplitByNothing(), 
+				    null, 
+				    null, 
+				    ExtraValues.Error
+				  ), 
+				  #"Expanded Column1" = Table.ExpandRecordColumn(
+				    #"Converted to Table", 
+				    "Column1", 
+				    {"OrderNumber", "discountValue", "DiscountSequence"}, 
+				    {"OrderNumber", "discountValue", "DiscountSequence"}
+				  ), 
+				  #"Changed Type" = Table.TransformColumnTypes(
+				    #"Expanded Column1", 
+				    {{"OrderNumber", Int64.Type}, {"discountValue", type number}, {"DiscountSequence", Int64.Type}}
+				  ), 
+				  #"Filtered Rows" = Table.SelectRows(
+				    #"Changed Type", 
+				    each (
+				      [OrderNumber] = 1001 or [OrderNumber] = 1003 or [OrderNumber] = 1004 or [OrderNumber] = 1005
+				    )
+				  ), 
+				  #"Added Custom" = Table.AddColumn(
+				    #"Filtered Rows", 
+				    "OneMinusDiscount", 
+				    each 1 - [discountValue], 
+				    type number
+				  ), 
+				  #"Grouped Rows" = Table.Group(
+				    #"Added Custom", 
+				    {"OrderNumber"}, 
+				    {{"ProductSequenceDiscount", each List.Product([OneMinusDiscount]), type number}}
+				  )
 				in
-				    #"Changed Type"
+				  #"Grouped Rows"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 
