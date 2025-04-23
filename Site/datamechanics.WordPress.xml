@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-	<!-- generator="WordPress.com" created="2025-04-09 18:58"-->
+	<!-- generator="WordPress.com" created="2025-04-23 15:46"-->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Data Mechanics</title>
 	<link>https://data-mechanics.com</link>
 	<description>Python, Business Intelligence, and Machine Learning with Klaus Folz</description>
-	<pubDate>Wed, 09 Apr 2025 18:58:21 +0000</pubDate>
+	<pubDate>Wed, 23 Apr 2025 15:46:16 +0000</pubDate>
 	<language>en</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>https://wordpress.com/</wp:base_site_url>
@@ -38,12 +38,45 @@
 		<wp:author><wp:author_id>257540457</wp:author_id><wp:author_login><![CDATA[exactly6445acab7a]]></wp:author_login><wp:author_email><![CDATA[klausjurgenfolz@gmail.com]]></wp:author_email><wp:author_display_name><![CDATA[Klaus Folz]]></wp:author_display_name><wp:author_first_name><![CDATA[Klaus]]></wp:author_first_name><wp:author_last_name><![CDATA[Folz]]></wp:author_last_name></wp:author>
 
 		<wp:category>
+		<wp:term_id>181483039</wp:term_id>
+		<wp:category_nicename><![CDATA[power-bi]]></wp:category_nicename>
+		<wp:category_parent><![CDATA[]]></wp:category_parent>
+		<wp:cat_name><![CDATA[Power BI]]></wp:cat_name>
+	</wp:category>
+		<wp:category>
+		<wp:term_id>181618148</wp:term_id>
+		<wp:category_nicename><![CDATA[power-query]]></wp:category_nicename>
+		<wp:category_parent><![CDATA[]]></wp:category_parent>
+		<wp:cat_name><![CDATA[Power Query]]></wp:cat_name>
+	</wp:category>
+		<wp:category>
+		<wp:term_id>832</wp:term_id>
+		<wp:category_nicename><![CDATA[python]]></wp:category_nicename>
+		<wp:category_parent><![CDATA[]]></wp:category_parent>
+		<wp:cat_name><![CDATA[Python]]></wp:cat_name>
+	</wp:category>
+		<wp:category>
 		<wp:term_id>1</wp:term_id>
 		<wp:category_nicename><![CDATA[uncategorized]]></wp:category_nicename>
 		<wp:category_parent><![CDATA[]]></wp:category_parent>
 		<wp:cat_name><![CDATA[Uncategorized]]></wp:cat_name>
 	</wp:category>
-					<wp:term><wp:term_id>1358</wp:term_id><wp:term_taxonomy>nav_menu</wp:term_taxonomy><wp:term_slug><![CDATA[menu]]></wp:term_slug><wp:term_name><![CDATA[Menu]]></wp:term_name>
+			<wp:tag>
+		<wp:term_id>181483039</wp:term_id>
+		<wp:tag_slug><![CDATA[power-bi]]></wp:tag_slug>
+		<wp:tag_name><![CDATA[Power BI]]></wp:tag_name>
+	</wp:tag>
+		<wp:tag>
+		<wp:term_id>181618148</wp:term_id>
+		<wp:tag_slug><![CDATA[power-query]]></wp:tag_slug>
+		<wp:tag_name><![CDATA[Power Query]]></wp:tag_name>
+	</wp:tag>
+		<wp:tag>
+		<wp:term_id>832</wp:term_id>
+		<wp:tag_slug><![CDATA[python]]></wp:tag_slug>
+		<wp:tag_name><![CDATA[Python]]></wp:tag_name>
+	</wp:tag>
+				<wp:term><wp:term_id>1358</wp:term_id><wp:term_taxonomy>nav_menu</wp:term_taxonomy><wp:term_slug><![CDATA[menu]]></wp:term_slug><wp:term_name><![CDATA[Menu]]></wp:term_name>
 </wp:term>
 	<wp:term><wp:term_id>1365</wp:term_id><wp:term_taxonomy>nav_menu</wp:term_taxonomy><wp:term_slug><![CDATA[social]]></wp:term_slug><wp:term_name><![CDATA[Social]]></wp:term_name>
 </wp:term>
@@ -719,468 +752,6 @@
 		</wp:postmeta>
 							</item>
 					<item>
-		<title><![CDATA[Projects]]></title>
-		<link>https://data-mechanics.com/</link>
-		<pubDate>Mon, 20 Jan 2025 20:15:32 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://data-mechanics.com/?page_id=32</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- wp:media-text {"mediaId":53,"mediaLink":"https://data-mechanics.com/2945099/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"PyDAX Block"},"className":"slide-left"} -->
-<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/2945099.webp" alt="" class="wp-image-53 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">PyDAX</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"placeholder":"Content…"} -->
-<p>PyDAX is a python package designed to analyze DAX, it can extract comments, remove comments, and identify columns and measures referenced in DAX expressions.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"100"}}} -->
-<p style="font-style:normal;font-weight:100"><img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/PyDAXLexer">PyDAX on GitHub</a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"100"}}} -->
-<p style="font-style:normal;font-weight:100"><img class="wp-image-89" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/pypi-logo-notext.svg_.png" alt=""> <a href="https://pypi.org/project/PyDAXLexer/">PyDAX on the Python Package Index (PyPI)</a></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->
-
-<!-- wp:jetpack/slideshow {"ids":[252,301,302],"sizeSlug":"large","className":"slide-left"} -->
-<div class="wp-block-jetpack-slideshow aligncenter slide-left" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-252" data-id="252" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/pydax-1.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-301" data-id="301" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/pydax1-2.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-302" data-id="302" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/pydax3-1.png?w=840" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
-<!-- /wp:jetpack/slideshow -->
-
-<!-- wp:separator {"className":"slide-left"} -->
-<hr class="wp-block-separator has-alpha-channel-opacity slide-left" />
-<!-- /wp:separator -->
-
-<!-- wp:media-text {"mediaId":103,"mediaLink":"https://data-mechanics.com/portfolio/mk_logo/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"Measure Killer Block"},"className":"slide-left"} -->
-<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/mk_logo.png?w=189" alt="" class="wp-image-103 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Measure Killer</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"placeholder":"Content…"} -->
-<p>Measure Killer is an external tool for Power BI and Microsoft Fabric developed by the<a href="https://en.brunner.bi/"> Brunner BI Team</a>, where I work as a lead developer. It can identify and remove unused measures and columns from Power BI models, analyze best practices and scan your Fabric tenant. </p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p><img class="wp-image-92" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/logo_welcome-old.png" alt=""><a href="https://en.brunner.bi/measurekiller">Download Measure Killer</a></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->
-
-<!-- wp:jetpack/slideshow {"align":"","ids":[163,162,161],"sizeSlug":"full","className":"slide-left"} -->
-<div class="wp-block-jetpack-slideshow slide-left" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-163" data-id="163" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/mk1.png" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-162" data-id="162" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/mk2.png" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-161" data-id="161" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/mk3.png" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
-<!-- /wp:jetpack/slideshow -->
-
-<!-- wp:separator {"className":"slide-left"} -->
-<hr class="wp-block-separator has-alpha-channel-opacity slide-left" />
-<!-- /wp:separator -->
-
-<!-- wp:media-text {"mediaId":77,"mediaLink":"https://data-mechanics.com/portfolio/new_power_bi_logo-svg-3/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"World data block"},"className":"slide-left"} -->
-<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/new_power_bi_logo.svg_-2.png?w=1024" alt="" class="wp-image-77 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">WORLD DATA REPORT</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"placeholder":"Content…"} -->
-<p>The World Data Report is a Power BI project that offers a detailed overview of global data, covering weather, geographical, demographic, and socio-economic aspects. The data is sourced from a combination of APIs, web integrations, and local CSV files.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p> <img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/WorldDataReport">World Data Report on GitHub</a></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->
-
-<!-- wp:jetpack/slideshow {"ids":[297,298,299],"sizeSlug":"large"} -->
-<div class="wp-block-jetpack-slideshow aligncenter" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-297" data-id="297" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/worlddata1.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-298" data-id="298" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/worlddata2.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-299" data-id="299" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/worlddata3.png?w=840" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
-<!-- /wp:jetpack/slideshow -->
-
-<!-- wp:separator {"className":"slide-left"} -->
-<hr class="wp-block-separator has-alpha-channel-opacity slide-left" />
-<!-- /wp:separator -->
-
-<!-- wp:media-text {"mediaId":95,"mediaLink":"https://data-mechanics.com/portfolio/youtube_logo/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"YouTube blobk"},"className":"slide-left"} -->
-<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/youtube_logo.png?w=640" alt="" class="wp-image-95 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
-<h4 class="wp-block-heading">Youtube downloader</h4>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"placeholder":"Content…"} -->
-<p>An easy to use Python GUI based application. The YouTube Downloader allows you to download videos or audio from YouTube by simply pasting the URL.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p> <img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/YoutubeDownloader">YouTube Downloader on GitHub</a></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->
-
-<!-- wp:jetpack/slideshow {"ids":[307,308],"sizeSlug":"large"} -->
-<div class="wp-block-jetpack-slideshow aligncenter" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-307" data-id="307" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/yt-1-1.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-308" data-id="308" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/yt-2-1.png?w=840" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
-<!-- /wp:jetpack/slideshow -->
-
-<!-- wp:group {"metadata":{"name":"Footer Container","categories":["footer"],"patternName":"a8c/footer-centered-address"},"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","bottom":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","left":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-left, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))","right":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
-<div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-right:var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal));padding-bottom:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-left:var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))"><!-- wp:spacer {"height":"calc( 0.25 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))"} -->
-<div style="height:calc( 0.25 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
-<!-- wp:spacer {"height":"calc( 0.25 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))"} -->
-<div style="height:calc( 0.25 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer --></div>
-<!-- /wp:group -->
-
-<!-- wp:group {"tagName":"footer","metadata":{"name":"Footer","categories":["footer"],"patternName":"a8c/footer-simple-contact-info-left"},"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","bottom":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","left":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-left, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))","right":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
-<footer class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-right:var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal));padding-bottom:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-left:var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))"><!-- wp:spacer {"height":"16px"} -->
-<div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer --></footer>
-<!-- /wp:group -->
-
-<!-- wp:separator {"tagName":"div","className":"is-style-wide"} -->
-<div class="wp-block-separator has-alpha-channel-opacity is-style-wide"></div>
-<!-- /wp:separator -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Publications</h2>
-<!-- /wp:heading -->
-
-<!-- wp:heading {"level":5} -->
-<h5 class="wp-block-heading">An investigation of machine learning strategies for electric motor anomaly detection using vibration and audio signals</h5>
-<!-- /wp:heading -->
-
-<!-- wp:media-text {"mediaId":53,"mediaLink":"https://data-mechanics.com/2945099/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top"} -->
-<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/2945099.webp" alt="" class="wp-image-53 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:paragraph -->
-<p>Published on Engineering Computations (ISSN:&nbsp;0264-4401) on 10 December 2024.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"placeholder":"Content…"} -->
-<p>An evaluation and comparison of the performance of two machine learning (ML) algorithms, i.e. support vector machines (SVMs) and random forests (RFs), when classifying seven states of operation of an electric motor using the Mel-frequency cepstral coefficients (MFCCs) as extracted representative features.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p> <img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/Machine-learning-for-anomaly-detection-in-electric-motors">Project on GitHub</a></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p><img class="wp-image-105" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/emerald-publishing-removebg-preview.png" alt=""> <a href="https://www.emerald.com/insight/content/doi/10.1108/ec-03-2024-0206">Article on Engineering Computations</a></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->
-
-<!-- wp:heading -->
-<h2 class="wp-block-heading">About the author</h2>
-<!-- /wp:heading -->
-
-<!-- wp:media-text {"mediaId":85,"mediaLink":"https://data-mechanics.com/portfolio/pic_circualr/","mediaType":"image","mediaWidth":15} -->
-<div class="wp-block-media-text is-stacked-on-mobile" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/pic_circualr.png?w=1024" alt="" class="wp-image-85 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:paragraph {"placeholder":"Content…"} -->
-<p>Hi, I’m Klaus Jürgen Folz, a Microsoft-certified Power BI Data Analyst (PL-300) and a Mechanical Engineer. I specialize in developing, optimizing, and managing Power BI solutions, using my expertise in Python for data science and automation. I’m also the lead developer of Measure Killer, a Power BI external tool.</p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->
-
-<!-- wp:paragraph -->
-<p></p>
-<!-- /wp:paragraph -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>32</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-20 21:15:32]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-20 20:15:32]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-04-09 19:24:39]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-04-09 17:24:39]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[portfolio]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-														<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_elasticsearch_data_sharing_indexed_on]]></wp:meta_key>
-		<wp:meta_value><![CDATA[2025-01-20 20:14:45]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_last_editor_used_jetpack]]></wp:meta_key>
-		<wp:meta_value><![CDATA[block-editor]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_g_feedback_shortcode_6ba00d1bf5b597104e1e0ca9a33341010a8d4634]]></wp:meta_key>
-		<wp:meta_value><![CDATA[
-				[contact-field label="Name" type="name"  required="true" /]
-				[contact-field label="Email" type="email" required="true" /]
-				[contact-field label="Website" type="url" /]
-				[contact-field label="Message" type="textarea" /]]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_g_feedback_shortcode_atts_6ba00d1bf5b597104e1e0ca9a33341010a8d4634]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:17:{s:2:"to";s:25:"klausjurgenfolz@gmail.com";s:7:"subject";s:25:"[Data Mechanics] Projects";s:12:"show_subject";s:2:"no";s:6:"widget";i:0;s:14:"block_template";N;s:19:"block_template_part";N;s:2:"id";i:32;s:18:"submit_button_text";s:6:"Submit";s:14:"customThankyou";s:0:"";s:21:"customThankyouHeading";s:26:"Your message has been sent";s:21:"customThankyouMessage";s:30:"Thank you for your submission!";s:22:"customThankyouRedirect";s:0:"";s:10:"jetpackCRM";b:1;s:9:"className";N;s:9:"postToUrl";N;s:14:"salesforceData";N;s:12:"hiddenFields";N;}]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[]]></title>
-		<link>https://data-mechanics.com/2025/01/22/34/</link>
-		<pubDate>Mon, 20 Jan 2025 20:15:32 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://data-mechanics.com/2025/01/20/34/</guid>
-		<description></description>
-		<content:encoded><![CDATA[ ]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>34</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-22 10:45:49]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-20 20:15:32]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-22 10:45:49]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-22 09:45:49]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[34]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>2</wp:menu_order>
-		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-										<category domain="nav_menu" nicename="menu"><![CDATA[Menu]]></category>
-						<wp:postmeta>
-		<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
-		<wp:meta_value><![CDATA[2025-01-20]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
-		<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
-		<wp:meta_value><![CDATA[0]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
-		<wp:meta_value><![CDATA[32]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
-		<wp:meta_value><![CDATA[page]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
-		<wp:meta_value><![CDATA[2025-01-21]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[GitHub]]></title>
-		<link>https://data-mechanics.com/2025/01/22/github/</link>
-		<pubDate>Wed, 22 Jan 2025 09:47:57 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://pixelbi.wordpress.com/2025/01/22/github/</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>141</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-22 10:47:57]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-22 10:47:57]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[github]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
-		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-										<category domain="nav_menu" nicename="social"><![CDATA[Social]]></category>
-						<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
-		<wp:meta_value><![CDATA[0]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
-		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
-		<wp:meta_value><![CDATA[141]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
-		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
-		<wp:meta_value><![CDATA[_blank]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
-		<wp:meta_value><![CDATA[https://github.com/jurgenfolz]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[LinkedIn]]></title>
-		<link>https://data-mechanics.com/2025/01/22/linkedin/</link>
-		<pubDate>Wed, 22 Jan 2025 09:47:57 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://pixelbi.wordpress.com/2025/01/22/linkedin/</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>142</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-22 10:47:57]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-22 10:47:57]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[linkedin]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>2</wp:menu_order>
-		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-										<category domain="nav_menu" nicename="social"><![CDATA[Social]]></category>
-						<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
-		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
-		<wp:meta_value><![CDATA[0]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
-		<wp:meta_value><![CDATA[142]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
-		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
-		<wp:meta_value><![CDATA[https://www.linkedin.com/in/klausjfolz/]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[]]></title>
-		<link>https://data-mechanics.com/2025/01/22/146/</link>
-		<pubDate>Wed, 22 Jan 2025 09:55:17 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://data-mechanics.com/2025/01/22/146/</guid>
-		<description></description>
-		<content:encoded><![CDATA[ ]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>146</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-22 10:55:17]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-22 09:55:17]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-22 10:55:17]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-22 09:55:17]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[146]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>2</wp:menu_order>
-		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-										<category domain="nav_menu" nicename="menu"><![CDATA[Menu]]></category>
-						<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
-		<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
-		<wp:meta_value><![CDATA[0]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
-		<wp:meta_value><![CDATA[144]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
-		<wp:meta_value><![CDATA[page]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
 		<title><![CDATA[MK2]]></title>
 		<link>https://data-mechanics.com/portfolio/mk2/</link>
 		<pubDate>Mon, 07 Apr 2025 12:08:51 +0000</pubDate>
@@ -1676,6 +1247,171 @@
 		</wp:postmeta>
 							</item>
 					<item>
+		<title><![CDATA[Sales Table]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/sales-table/</link>
+		<pubDate>Mon, 21 Apr 2025 10:55:05 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/sales-table.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>315</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 12:55:05]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 10:55:05]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 12:55:05]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 10:55:05]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[sales-table]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/sales-table.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/sales-table.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:580;s:6:"height";i:151;s:4:"file";s:88:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/sales-table.png";s:8:"filesize";i:6364;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Discounts Table]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/discounts-table/</link>
+		<pubDate>Mon, 21 Apr 2025 10:56:35 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/discounts-table.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>317</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 12:56:35]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 10:56:35]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 12:56:35]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 10:56:35]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[discounts-table]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/discounts-table.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/discounts-table.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:637;s:6:"height";i:377;s:4:"file";s:92:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/discounts-table.png";s:8:"filesize";i:12194;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Adding custom column]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/adding-custom-column/</link>
+		<pubDate>Mon, 21 Apr 2025 11:48:45 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/adding-custom-column.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>363</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 13:48:45]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 11:48:45]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 13:48:45]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 11:48:45]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[adding-custom-column]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/adding-custom-column.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/adding-custom-column.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:1315;s:6:"height";i:584;s:4:"file";s:97:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/adding-custom-column.png";s:8:"filesize";i:49439;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Replacing List Sum with List Product]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/replacing-list-sum-with-list-product/</link>
+		<pubDate>Mon, 21 Apr 2025 11:57:04 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/replacing-list-sum-with-list-product.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>371</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 13:57:04]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 11:57:04]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 13:57:04]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 11:57:04]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[replacing-list-sum-with-list-product]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/replacing-list-sum-with-list-product.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/replacing-list-sum-with-list-product.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:992;s:6:"height";i:669;s:4:"file";s:113:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/replacing-list-sum-with-list-product.png";s:8:"filesize";i:55085;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Group By]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/group-by/</link>
+		<pubDate>Mon, 21 Apr 2025 11:58:18 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/group-by.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>373</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 13:58:18]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 11:58:18]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 13:58:18]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 11:58:18]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[group-by]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/group-by.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/group-by.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:1779;s:6:"height";i:934;s:4:"file";s:85:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/group-by.png";s:8:"filesize";i:72396;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
 		<title><![CDATA[Welcome to Data Mechanics]]></title>
 		<link>https://data-mechanics.com/2024/10/29/hello-world/</link>
 		<pubDate>Tue, 29 Oct 2024 20:38:45 +0000</pubDate>
@@ -1701,8 +1437,8 @@
 		<wp:post_id>2</wp:post_id>
 		<wp:post_date><![CDATA[2024-10-29 20:38:45]]></wp:post_date>
 		<wp:post_date_gmt><![CDATA[2024-10-29 20:38:45]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-04-09 00:02:45]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-04-08 22:02:45]]></wp:post_modified_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:11:16]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:11:16]]></wp:post_modified_gmt>
 		<wp:comment_status><![CDATA[open]]></wp:comment_status>
 		<wp:ping_status><![CDATA[open]]></wp:ping_status>
 		<wp:post_name><![CDATA[hello-world]]></wp:post_name>
@@ -1756,6 +1492,10 @@
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[_g_feedback_shortcode_atts_335bb849cdbcbb193ecf25c9bd24c9684932206c]]></wp:meta_key>
 		<wp:meta_value><![CDATA[a:17:{s:2:"to";s:25:"klausjurgenfolz@gmail.com";s:7:"subject";s:42:"[Data Mechanics] Welcome to Data Mechanics";s:12:"show_subject";s:2:"no";s:6:"widget";i:0;s:14:"block_template";N;s:19:"block_template_part";N;s:2:"id";i:2;s:18:"submit_button_text";s:6:"Submit";s:14:"customThankyou";s:0:"";s:21:"customThankyouHeading";s:26:"Your message has been sent";s:21:"customThankyouMessage";s:30:"Thank you for your submission!";s:22:"customThankyouRedirect";s:0:"";s:10:"jetpackCRM";b:1;s:9:"className";N;s:9:"postToUrl";N;s:14:"salesforceData";N;s:12:"hiddenFields";N;}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[424]]></wp:meta_value>
 		</wp:postmeta>
 							</item>
 					<item>
@@ -1896,42 +1636,6 @@
 		</wp:postmeta>
 							</item>
 					<item>
-		<title><![CDATA[Header Front]]></title>
-		<link>https://data-mechanics.com/2025/01/20/header-front/</link>
-		<pubDate>Mon, 20 Jan 2025 20:03:53 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://data-mechanics.com/2025/01/20/header-front/</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"grid"}} -->
-<div class="wp-block-group"></div>
-<!-- /wp:group -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>25</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-20 21:03:53]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-20 20:03:53]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-20 21:05:58]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-20 20:05:58]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[header-front]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[wp_template_part]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-										<category domain="wp_template_part_area" nicename="header"><![CDATA[header]]></category>
-		<category domain="wp_theme" nicename="pub-hey"><![CDATA[pub/hey]]></category>
-						<wp:postmeta>
-		<wp:meta_key><![CDATA[origin]]></wp:meta_key>
-		<wp:meta_value><![CDATA[theme]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
 		<title><![CDATA[Custom Styles]]></title>
 		<link>https://data-mechanics.com/2025/01/20/wp-global-styles-pub%2ffewer/</link>
 		<pubDate>Mon, 20 Jan 2025 20:09:35 +0000</pubDate>
@@ -1958,6 +1662,277 @@
 						<wp:postmeta>
 		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
 		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Projects]]></title>
+		<link>https://data-mechanics.com/</link>
+		<pubDate>Mon, 20 Jan 2025 20:15:32 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/?page_id=32</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:media-text {"mediaId":53,"mediaLink":"https://data-mechanics.com/2945099/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"PyDAX Block"},"className":"slide-left"} -->
+<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/2945099.webp" alt="" class="wp-image-53 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">PyDAX</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>PyDAX is a python package designed to analyze DAX, it can extract comments, remove comments, and identify columns and measures referenced in DAX expressions.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"100"}}} -->
+<p style="font-style:normal;font-weight:100"><img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/PyDAXLexer">PyDAX on GitHub</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"100"}}} -->
+<p style="font-style:normal;font-weight:100"><img class="wp-image-89" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/pypi-logo-notext.svg_.png" alt=""> <a href="https://pypi.org/project/PyDAXLexer/">PyDAX on the Python Package Index (PyPI)</a></p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:media-text -->
+
+<!-- wp:jetpack/slideshow {"ids":[252,301,302],"sizeSlug":"large","className":"slide-left"} -->
+<div class="wp-block-jetpack-slideshow aligncenter slide-left" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-252" data-id="252" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/pydax-1.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-301" data-id="301" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/pydax1-2.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-302" data-id="302" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/pydax3-1.png?w=840" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
+<!-- /wp:jetpack/slideshow -->
+
+<!-- wp:separator {"className":"slide-left"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity slide-left" />
+<!-- /wp:separator -->
+
+<!-- wp:media-text {"mediaId":103,"mediaLink":"https://data-mechanics.com/portfolio/mk_logo/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"Measure Killer Block"},"className":"slide-left"} -->
+<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/mk_logo.png?w=189" alt="" class="wp-image-103 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Measure Killer</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>Measure Killer is an external tool for Power BI and Microsoft Fabric developed by the<a href="https://en.brunner.bi/"> Brunner BI Team</a>, where I work as a lead developer. It can identify and remove unused measures and columns from Power BI models, analyze best practices and scan your Fabric tenant. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><img class="wp-image-92" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/logo_welcome-old.png" alt=""><a href="https://en.brunner.bi/measurekiller">Download Measure Killer</a></p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:media-text -->
+
+<!-- wp:jetpack/slideshow {"align":"","ids":[163,162,161],"sizeSlug":"full","className":"slide-left"} -->
+<div class="wp-block-jetpack-slideshow slide-left" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-163" data-id="163" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/mk1.png" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-162" data-id="162" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/mk2.png" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-161" data-id="161" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/mk3.png" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
+<!-- /wp:jetpack/slideshow -->
+
+<!-- wp:separator {"className":"slide-left"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity slide-left" />
+<!-- /wp:separator -->
+
+<!-- wp:media-text {"mediaId":77,"mediaLink":"https://data-mechanics.com/portfolio/new_power_bi_logo-svg-3/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"World data block"},"className":"slide-left"} -->
+<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/new_power_bi_logo.svg_-2.png?w=1024" alt="" class="wp-image-77 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">WORLD DATA REPORT</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>The World Data Report is a Power BI project that offers a detailed overview of global data, covering weather, geographical, demographic, and socio-economic aspects. The data is sourced from a combination of APIs, web integrations, and local CSV files.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p> <img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/WorldDataReport">World Data Report on GitHub</a></p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:media-text -->
+
+<!-- wp:jetpack/slideshow {"ids":[297,298,299],"sizeSlug":"large"} -->
+<div class="wp-block-jetpack-slideshow aligncenter" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-297" data-id="297" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/worlddata1.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-298" data-id="298" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/worlddata2.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-299" data-id="299" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/worlddata3.png?w=840" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
+<!-- /wp:jetpack/slideshow -->
+
+<!-- wp:separator {"className":"slide-left"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity slide-left" />
+<!-- /wp:separator -->
+
+<!-- wp:media-text {"mediaId":95,"mediaLink":"https://data-mechanics.com/portfolio/youtube_logo/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top","metadata":{"name":"YouTube blobk"},"className":"slide-left"} -->
+<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top slide-left" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/youtube_logo.png?w=640" alt="" class="wp-image-95 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Youtube downloader</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>An easy to use Python GUI based application. The YouTube Downloader allows you to download videos or audio from YouTube by simply pasting the URL.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p> <img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/YoutubeDownloader">YouTube Downloader on GitHub</a></p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:media-text -->
+
+<!-- wp:jetpack/slideshow {"ids":[307,308],"sizeSlug":"large"} -->
+<div class="wp-block-jetpack-slideshow aligncenter" data-effect="slide"><div class="wp-block-jetpack-slideshow_container swiper-container"><ul class="wp-block-jetpack-slideshow_swiper-wrapper swiper-wrapper"><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-307" data-id="307" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/yt-1-1.png?w=840" /></figure></li><li class="wp-block-jetpack-slideshow_slide swiper-slide"><figure><img alt="" class="wp-block-jetpack-slideshow_image wp-image-308" data-id="308" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/yt-2-1.png?w=840" /></figure></li></ul><a class="wp-block-jetpack-slideshow_button-prev swiper-button-prev swiper-button-white" role="button"></a><a class="wp-block-jetpack-slideshow_button-next swiper-button-next swiper-button-white" role="button"></a><a aria-label="Pause Slideshow" class="wp-block-jetpack-slideshow_button-pause" role="button"></a><div class="wp-block-jetpack-slideshow_pagination swiper-pagination swiper-pagination-white"></div></div></div>
+<!-- /wp:jetpack/slideshow -->
+
+<!-- wp:group {"metadata":{"name":"Footer Container","categories":["footer"],"patternName":"a8c/footer-centered-address"},"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","bottom":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","left":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-left, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))","right":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
+<div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-right:var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal));padding-bottom:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-left:var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))"><!-- wp:spacer {"height":"calc( 0.25 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))"} -->
+<div style="height:calc( 0.25 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:spacer {"height":"calc( 0.25 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))"} -->
+<div style="height:calc( 0.25 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"tagName":"footer","metadata":{"name":"Footer","categories":["footer"],"patternName":"a8c/footer-simple-contact-info-left"},"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","bottom":"calc( 0.5 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","left":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-left, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))","right":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
+<footer class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-right:var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal));padding-bottom:calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)));padding-left:var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))"><!-- wp:spacer {"height":"16px"} -->
+<div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer --></footer>
+<!-- /wp:group -->
+
+<!-- wp:separator {"tagName":"div","className":"is-style-wide"} -->
+<div class="wp-block-separator has-alpha-channel-opacity is-style-wide"></div>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Publications</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":5} -->
+<h5 class="wp-block-heading">An investigation of machine learning strategies for electric motor anomaly detection using vibration and audio signals</h5>
+<!-- /wp:heading -->
+
+<!-- wp:media-text {"mediaId":53,"mediaLink":"https://data-mechanics.com/2945099/","mediaType":"image","mediaWidth":15,"verticalAlignment":"top"} -->
+<div class="wp-block-media-text is-stacked-on-mobile is-vertically-aligned-top" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/2945099.webp" alt="" class="wp-image-53 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:paragraph -->
+<p>Published on Engineering Computations (ISSN:&nbsp;0264-4401) on 10 December 2024.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>An evaluation and comparison of the performance of two machine learning (ML) algorithms, i.e. support vector machines (SVMs) and random forests (RFs), when classifying seven states of operation of an electric motor using the Mel-frequency cepstral coefficients (MFCCs) as extracted representative features.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p> <img class="wp-image-131" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/icone-github-violet-1.png" alt=""> <a href="https://github.com/jurgenfolz/Machine-learning-for-anomaly-detection-in-electric-motors">Project on GitHub</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><img class="wp-image-105" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/emerald-publishing-removebg-preview.png" alt=""> <a href="https://www.emerald.com/insight/content/doi/10.1108/ec-03-2024-0206">Article on Engineering Computations</a></p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:media-text -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">About the author</h2>
+<!-- /wp:heading -->
+
+<!-- wp:media-text {"mediaId":85,"mediaLink":"https://data-mechanics.com/portfolio/pic_circualr/","mediaType":"image","mediaWidth":15} -->
+<div class="wp-block-media-text is-stacked-on-mobile" style="grid-template-columns:15% auto"><figure class="wp-block-media-text__media"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/pic_circualr.png?w=1024" alt="" class="wp-image-85 size-full" /></figure><div class="wp-block-media-text__content"><!-- wp:paragraph {"placeholder":"Content…"} -->
+<p>Hi, I’m Klaus Jürgen Folz, a Microsoft-certified Power BI Data Analyst (PL-300) and a Mechanical Engineer. I specialize in developing, optimizing, and managing Power BI solutions, using my expertise in Python for data science and automation. I’m also the lead developer of Measure Killer, a Power BI external tool.</p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:media-text -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>32</wp:post_id>
+		<wp:post_date><![CDATA[2025-01-20 21:15:32]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-20 20:15:32]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-09 19:24:39]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-09 17:24:39]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[portfolio]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[page]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+														<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_elasticsearch_data_sharing_indexed_on]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-01-20 20:14:45]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_last_editor_used_jetpack]]></wp:meta_key>
+		<wp:meta_value><![CDATA[block-editor]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_g_feedback_shortcode_6ba00d1bf5b597104e1e0ca9a33341010a8d4634]]></wp:meta_key>
+		<wp:meta_value><![CDATA[
+				[contact-field label="Name" type="name"  required="true" /]
+				[contact-field label="Email" type="email" required="true" /]
+				[contact-field label="Website" type="url" /]
+				[contact-field label="Message" type="textarea" /]]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_g_feedback_shortcode_atts_6ba00d1bf5b597104e1e0ca9a33341010a8d4634]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:17:{s:2:"to";s:25:"klausjurgenfolz@gmail.com";s:7:"subject";s:25:"[Data Mechanics] Projects";s:12:"show_subject";s:2:"no";s:6:"widget";i:0;s:14:"block_template";N;s:19:"block_template_part";N;s:2:"id";i:32;s:18:"submit_button_text";s:6:"Submit";s:14:"customThankyou";s:0:"";s:21:"customThankyouHeading";s:26:"Your message has been sent";s:21:"customThankyouMessage";s:30:"Thank you for your submission!";s:22:"customThankyouRedirect";s:0:"";s:10:"jetpackCRM";b:1;s:9:"className";N;s:9:"postToUrl";N;s:14:"salesforceData";N;s:12:"hiddenFields";N;}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[]]></title>
+		<link>https://data-mechanics.com/2025/04/23/34/</link>
+		<pubDate>Mon, 20 Jan 2025 20:15:32 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/2025/01/20/34/</guid>
+		<description></description>
+		<content:encoded><![CDATA[ ]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>34</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-23 17:38:01]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-20 20:15:32]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:38:02]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:38:02]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[34]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>1</wp:menu_order>
+		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="nav_menu" nicename="menu"><![CDATA[Menu]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-01-20]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
+		<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
+		<wp:meta_value><![CDATA[0]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[32]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
+		<wp:meta_value><![CDATA[page]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-01-21]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-01-22]]></wp:meta_value>
 		</wp:postmeta>
 							</item>
 					<item>
@@ -2071,6 +2046,885 @@
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[wp_pattern_sync_status]]></wp:meta_key>
 		<wp:meta_value><![CDATA[unsynced]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Custom Styles]]></title>
+		<link>https://data-mechanics.com/2025/01/21/wp-global-styles-pub%2fmusee/</link>
+		<pubDate>Tue, 21 Jan 2025 08:59:18 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/2025/01/21/wp-global-styles-pub%2fmusee/</guid>
+		<description></description>
+		<content:encoded><![CDATA[{"styles":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-sans)"},"elements":{"heading":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"500","textTransform":"none"}},"h1":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h2":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h3":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h4":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h5":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h6":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)"}}},"blocks":{"core\/avatar":{"filter":{"duotone":"var(--wp--preset--duotone--default)"}},"core\/image":{"filter":{"duotone":"var(--wp--preset--duotone--default)"}},"core\/navigation":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"500"}},"core\/post-featured-image":{"filter":{"duotone":"var(--wp--preset--duotone--default)"}}}},"settings":{"color":{"palette":{"theme":[{"color":"#0f1416","name":"Base","slug":"base"},{"color":"#a0a6ab","name":"Contrast","slug":"contrast"},{"color":"#a0a6ab","name":"Primary","slug":"primary"},{"color":"#93999f","name":"Secondary","slug":"secondary"},{"color":"#0f1416","name":"Tertiary","slug":"tertiary"}]}}},"version":3,"isGlobalStylesUserThemeJSON":true}]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>61</wp:post_id>
+		<wp:post_date><![CDATA[2025-01-21 09:59:18]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-21 08:59:18]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-01-21 09:59:19]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-01-21 08:59:19]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[wp-global-styles-pub%2fmusee]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[wp_global_styles]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="wp_theme" nicename="pub-musee"><![CDATA[pub/musee]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[GitHub]]></title>
+		<link>https://data-mechanics.com/2025/01/22/github/</link>
+		<pubDate>Wed, 22 Jan 2025 09:47:57 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://pixelbi.wordpress.com/2025/01/22/github/</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>141</wp:post_id>
+		<wp:post_date><![CDATA[2025-01-22 10:47:57]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-01-22 10:47:57]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[github]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>1</wp:menu_order>
+		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="nav_menu" nicename="social"><![CDATA[Social]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
+		<wp:meta_value><![CDATA[0]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
+		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[141]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
+		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
+		<wp:meta_value><![CDATA[_blank]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
+		<wp:meta_value><![CDATA[https://github.com/jurgenfolz]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[LinkedIn]]></title>
+		<link>https://data-mechanics.com/2025/01/22/linkedin/</link>
+		<pubDate>Wed, 22 Jan 2025 09:47:57 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://pixelbi.wordpress.com/2025/01/22/linkedin/</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>142</wp:post_id>
+		<wp:post_date><![CDATA[2025-01-22 10:47:57]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-01-22 10:47:57]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-01-22 09:47:57]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[linkedin]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>2</wp:menu_order>
+		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="nav_menu" nicename="social"><![CDATA[Social]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
+		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
+		<wp:meta_value><![CDATA[0]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[142]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
+		<wp:meta_value><![CDATA[custom]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
+		<wp:meta_value><![CDATA[https://www.linkedin.com/in/klausjfolz/]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Posts]]></title>
+		<link>https://data-mechanics.com/posts/</link>
+		<pubDate>Wed, 22 Jan 2025 09:55:17 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/?page_id=144</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:search {"label":"Search","buttonText":"Search","buttonPosition":"button-only","buttonUseIcon":true,"isSearchFieldHidden":true,"className":"slide-left","style":{"elements":{"link":{"color":{"text":"var:preset|color|white"}}}},"backgroundColor":"medium-gray","textColor":"white"} /-->
+
+<!-- wp:group {"metadata":{"categories":["posts"],"patternName":"a8c/blog-posts-heading-and-list-of-posts-on-the-right","name":"Posts 7"},"align":"full","className":"alignfull slide-left","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group alignfull slide-left" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40)"><!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|40"}}}} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:query {"queryId":9,"query":{"perPage":"3","pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false,"status[0]":"publish","status[1]":"private"},"enhancedPagination":true,"align":"wide"} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"default","columnCount":2}} -->
+<!-- wp:group {"style":{"spacing":{"blockGap":"24px"}},"layout":{"inherit":false}} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"8px"}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:post-title {"level":3,"isLink":true,"fontSize":"medium"} /-->
+
+<!-- wp:post-featured-image {"aspectRatio":"16/9","sizeSlug":"large"} /-->
+
+<!-- wp:post-author {"textAlign":"center","byline":"Author"} /-->
+
+<!-- wp:post-terms {"term":"category"} /-->
+
+<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:paragraph -->
+<p>Published: </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:post-date /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:paragraph -->
+<p>Read time:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:post-time-to-read /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:spacer {"height":"var:preset|spacing|30"} -->
+<div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer --></div>
+<!-- /wp:group -->
+<!-- /wp:post-template --></div>
+<!-- /wp:query --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:spacer {"height":"0px","style":{"layout":{"flexSize":"calc( 0.25 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))","selfStretch":"fixed"}}} -->
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer --></div>
+<!-- /wp:group -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>144</wp:post_id>
+		<wp:post_date><![CDATA[2025-01-22 10:55:17]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-22 09:55:17]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:36:42]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:36:42]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[posts]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[page]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+														<wp:postmeta>
+		<wp:meta_key><![CDATA[_last_editor_used_jetpack]]></wp:meta_key>
+		<wp:meta_value><![CDATA[block-editor]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[advanced_seo_description]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[jetpack_seo_html_title]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[jetpack_seo_noindex]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_jetpack_post_was_ever_published]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[reader_suggested_tags]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_starter_page_template]]></wp:meta_key>
+		<wp:meta_value><![CDATA[blog-posts-heading-and-list-of-posts-on-the-right]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[firehose_sent]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1737539717]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wpcom_template_layout_category]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:1:{i:0;s:5:"posts";}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[footnotes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_elasticsearch_data_sharing_indexed_on]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-01-22 09:53:57]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_g_feedback_shortcode_f45365e534b47fb20e5df2948f539eee0cd5f13a]]></wp:meta_key>
+		<wp:meta_value><![CDATA[
+				[contact-field label="Name" type="name"  required="true" /]
+				[contact-field label="Email" type="email" required="true" /]
+				[contact-field label="Website" type="url" /]
+				[contact-field label="Message" type="textarea" /]]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_g_feedback_shortcode_atts_f45365e534b47fb20e5df2948f539eee0cd5f13a]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:17:{s:2:"to";s:25:"klausjurgenfolz@gmail.com";s:7:"subject";s:22:"[Data Mechanics] Posts";s:12:"show_subject";s:2:"no";s:6:"widget";i:0;s:14:"block_template";N;s:19:"block_template_part";N;s:2:"id";i:144;s:18:"submit_button_text";s:6:"Submit";s:14:"customThankyou";s:0:"";s:21:"customThankyouHeading";s:26:"Your message has been sent";s:21:"customThankyouMessage";s:30:"Thank you for your submission!";s:22:"customThankyouRedirect";s:0:"";s:10:"jetpackCRM";b:1;s:9:"className";N;s:9:"postToUrl";N;s:14:"salesforceData";N;s:12:"hiddenFields";N;}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[]]></title>
+		<link>https://data-mechanics.com/2025/04/23/146/</link>
+		<pubDate>Wed, 22 Jan 2025 09:55:17 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/2025/01/22/146/</guid>
+		<description></description>
+		<content:encoded><![CDATA[ ]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>146</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-23 17:38:02]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-22 09:55:17]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:38:02]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:38:02]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[146]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>2</wp:menu_order>
+		<wp:post_type><![CDATA[nav_menu_item]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="nav_menu" nicename="menu"><![CDATA[Menu]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_type]]></wp:meta_key>
+		<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_menu_item_parent]]></wp:meta_key>
+		<wp:meta_value><![CDATA[0]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[144]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_object]]></wp:meta_key>
+		<wp:meta_value><![CDATA[page]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_target]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_classes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:1:{i:0;s:0:"";}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_xfn]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_url]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_menu_item_content]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_old_date]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-01-22]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[An Easy Way to Handle Chained Discounts in Power Query]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/</link>
+		<pubDate>Mon, 21 Apr 2025 13:11:04 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/?p=311</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:heading -->
+<h2 class="wp-block-heading">Introduction</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In a recent Power BI sales project, I needed to calculate the final price for each order after applying multiple discounts. At first, I tried a "row-by-row"  approach, but I quickly realized it was complicated and had poor performance. After looking into other options, I found a <strong>simple and efficient</strong> way to calculate a series of discounts in Power Query by multiplying the discount factors together. This method avoids calculating prices step by step and doesn’t require referencing previous rows.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This method is not limited to discounts, it works well in other situations where you apply several percentage changes one after the other. For example, it can be used for things like adding multiple taxes or fees, calculating interest over time, etc. Instead of doing the math step by step, you just multiply all the parts together, which makes it easier and faster to do in Power Query.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The sample data and report used in this post can be found in this <a href="https://github.com/jurgenfolz/DataMechanics">GitHub repo </a>under <code>Posts</code> -&gt; <code>Chain</code> discount.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Problem description</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The sample data is shown below in Image 1 and Image 2. The <code>sales</code> table contains order numbers and the original price for each order, with one unique row per order. The <code>discounts</code> table lists all the discounts that apply to each order.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"columns":1,"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-1 is-cropped"><!-- wp:image {"id":315,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/sales-table.png?w=580" alt="Image 1 – Sales table" class="wp-image-315" /><figcaption class="wp-element-caption">Image&nbsp;1 –&nbsp;Sales table</figcaption></figure>
+<!-- /wp:image -->
+
+<!-- wp:image {"id":317,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/discounts-table.png?w=637" alt="Image 2 - Discounts Table" class="wp-image-317" /><figcaption class="wp-element-caption">Image 2 - Discounts Table</figcaption></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Take order <strong>1001</strong> as an example. Its initial price is <strong>3&nbsp;233&nbsp;€</strong> and it has three discounts:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex  P_0 = 3{.}233{,}00 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex  D_1 = 0,11 = 11\% &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex  D_2 = 0,21 = 21\% &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex  D_3 = 0,36 = 36\% &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Where <strong><strong>$latex  P_0 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong> is the original price of the order, <strong>$latex  D_1 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong> is the 1st discount, <strong>$latex  D_2 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong> the 2nd discount and <strong>$latex  D_3 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong> the 3rd discount. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A straightforward, “row‑by‑row” way to calculate the final price is:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex  P_1 = P_0(1-D_1) = 3{.}233{,}00(1-0{,}11) = 2{.}877{,}37 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex  P_2 = P_1(1-D_2) = 2{.}877{,}37(1-0{,}21) = 2{.}273{,}12&amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>$latex P_3 = P_2(1-D_3) = 2{.}273{,}12(1-0{,}36) = 1{.}454{,}80 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For order 1001 <strong><strong>$latex  P_3 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong> is the final price after all discounts. This approach is intuitive, but implementing it in Power Query or DAX is complicated <strong>because each step must reference the preceding row/calculation</strong>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Turning the chain into one formula</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Start by substituting <strong><strong>$latex  P_1 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong> into the expression for <strong><strong>$latex  P_2 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong>:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong><strong>$latex  P_2 = P_1 (1-D_2) = P_0 (1-D_1) (1-D_2) &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The same for <strong><strong>$latex  P_3 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong>:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong><strong>$latex P_3 = P_0 (1-D_1)(1-D_2)(1-D_3) &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Generalising to <em>n</em> discounts gives:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong><strong>$latex P_n = P_0 (1-D_1) (1-D_2)... (1-D_{n-1})(1-D_n) &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Or we can use the "fancy"&nbsp;capital Pi notation to represent the product of the sequence of discounts:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong><strong>$latex  P_n =P_0 \prod_{i=1}^{n} (1 - D_i)&amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For order&nbsp;1001 this is</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong><strong>$latex  P_3 = P_0(1-D_1)(1-D_2)(1-D_3)&amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong><strong>$latex P_3 = 3233.00 \cdot (1 - 0.11)(1 - 0.21)(1 - 0.36) = 3233.00 \cdot 0.449984 \approx 1454.80 &amp;bg=1A1A1A&amp;fg=e6e6e6$</strong></strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>which matches the row‑by‑row result.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Power Query</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Now we can use Power Query to calculate the final price. First we need to calculate the '1-discount', we do that by adding a new custom column and changing its type to decimal/number as shown in Image 3:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":363,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/adding-custom-column.png?w=1024" alt="Adding custom column with 1-discount" class="wp-image-363" /><figcaption class="wp-element-caption">Image 3 - Adding custom column with 1-discount</figcaption></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>After adding the column, we can group the data by order number. The product (multiplication) isn't available as a default aggregation in Power Query, but we can modify the generated code after. </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The quickest way is to use the Group By option in the Transform tab, we can group by  the <code>OrderNumber</code> column, and select the Sum operation for the <code>OneMinusDiscount</code> column (Image 4). This creates a new step, which we can then edit to use <code>List.Product</code> instead of <code>List.Sum</code> as shown in Image 5:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"columns":1,"imageCrop":false,"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-1"><!-- wp:image {"id":373,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/group-by.png?w=1024" alt="Grouping by the order number column" class="wp-image-373" /><figcaption class="wp-element-caption">Image 4 - Grouping by the order number column</figcaption></figure>
+<!-- /wp:image -->
+
+<!-- wp:image {"id":371,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/replacing-list-sum-with-list-product.png?w=992" alt="Calculating the price after discount with simple DAX. Order 1001 produce the same exact results" class="wp-image-371" /><figcaption class="wp-element-caption">Image 5 - Replacing the <code>List.Sum</code> with <code>List.Product</code> after using the group by option with the Sum operation</figcaption></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>And that’s it! We can now load the data into Power BI, create a relationship between the sales and discounts tables, and easily calculate the final price using a simple DAX expression, as shown in Image 6 below.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":393,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://pixelbi.wordpress.com/wp-content/uploads/2025/04/results.png?w=1024" alt="" class="wp-image-393" /><figcaption class="wp-element-caption">Image 6 - Calculating the price after discount with simple DAX.</figcaption></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Conclusion</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>By converting a chain/series of discounts into a single product, Power Query can calculate the final price of each other with any number of discounts per into one simple step without referencing previous rows, this simplifies the query, and produces exactly the same results. The only downside is that you won’t have the intermediate prices between each discount.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>311</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 15:11:04]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 13:11:04]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:11:38]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:11:38]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[open]]></wp:ping_status>
+		<wp:post_name><![CDATA[an-easy-way-to-handle-chained-discounts-in-power-query]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="category" nicename="power-bi"><![CDATA[Power BI]]></category>
+		<category domain="category" nicename="power-query"><![CDATA[Power Query]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[_g_feedback_shortcode_5621d9fcdc8cdc54092d61c68f92130fe117cc7e]]></wp:meta_key>
+		<wp:meta_value><![CDATA[
+				[contact-field label="Name" type="name"  required="true" /]
+				[contact-field label="Email" type="email" required="true" /]
+				[contact-field label="Website" type="url" /]
+				[contact-field label="Message" type="textarea" /]]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_g_feedback_shortcode_atts_5621d9fcdc8cdc54092d61c68f92130fe117cc7e]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:17:{s:2:"to";s:25:"klausjurgenfolz@gmail.com";s:7:"subject";s:71:"[Data Mechanics] An Easy Way to Handle Chained Discounts in Power Query";s:12:"show_subject";s:2:"no";s:6:"widget";i:0;s:14:"block_template";N;s:19:"block_template_part";N;s:2:"id";i:311;s:18:"submit_button_text";s:6:"Submit";s:14:"customThankyou";s:0:"";s:21:"customThankyouHeading";s:26:"Your message has been sent";s:21:"customThankyouMessage";s:30:"Thank you for your submission!";s:22:"customThankyouRedirect";s:0:"";s:10:"jetpackCRM";b:1;s:9:"className";N;s:9:"postToUrl";N;s:14:"salesforceData";N;s:12:"hiddenFields";N;}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_last_editor_used_jetpack]]></wp:meta_key>
+		<wp:meta_value><![CDATA[block-editor]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[reader_suggested_tags]]></wp:meta_key>
+		<wp:meta_value><![CDATA[["Power BI","AI","Artificial Intelligence","DAX","Machine Learning"]]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[407]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[advanced_seo_description]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[jetpack_seo_html_title]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[jetpack_seo_noindex]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_jetpack_post_was_ever_published]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_jetpack_newsletter_access]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_jetpack_dont_email_post_to_subs]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_jetpack_newsletter_tier_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[0]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[firehose_sent]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1745241066]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[footnotes]]></wp:meta_key>
+		<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wpas_feature_enabled]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wpas_options]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:2:{s:24:"image_generator_settings";a:2:{s:8:"template";s:7:"highway";s:7:"enabled";b:0;}s:7:"version";d:2;}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_job_id]]></wp:meta_key>
+		<wp:meta_value><![CDATA[103458027717]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[timeline_notification]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1745241067]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_shares]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_elasticsearch_data_sharing_indexed_on]]></wp:meta_key>
+		<wp:meta_value><![CDATA[2025-04-21 13:10:45]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[previously_liked_257540457]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[previously_liked_75316274]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Results]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/results/</link>
+		<pubDate>Mon, 21 Apr 2025 12:26:07 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/results.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>393</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 14:26:07]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 12:26:07]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 14:26:07]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 12:26:07]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[results]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/results.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/results.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:1185;s:6:"height";i:787;s:4:"file";s:84:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/results.png";s:8:"filesize";i:36804;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Discounts Table2]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/discounts-table2/</link>
+		<pubDate>Mon, 21 Apr 2025 12:41:36 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/discounts-table2.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[An Easy Way to Handle Chained Discounts in Power Query]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>400</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 14:41:36]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 12:41:36]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 14:41:47]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 12:41:47]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[discounts-table2]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/discounts-table2.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/discounts-table2.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:637;s:6:"height";i:377;s:4:"file";s:93:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/discounts-table2.png";s:8:"filesize";i:15224;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_image_alt]]></wp:meta_key>
+		<wp:meta_value><![CDATA[An Easy Way to Handle Chained Discounts in Power Query]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Linkedin image]]></title>
+		<link>https://data-mechanics.com/2025/04/21/an-easy-way-to-handle-chained-discounts-in-power-query/linkedin-image/</link>
+		<pubDate>Mon, 21 Apr 2025 13:32:06 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2025/04/linkedin-image.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>407</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-21 15:32:06]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-21 13:32:06]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-21 15:32:06]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-21 13:32:06]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[linkedin-image]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>311</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2025/04/linkedin-image.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/linkedin-image.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:1280;s:6:"height";i:720;s:4:"file";s:91:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2025/04/linkedin-image.png";s:8:"filesize";i:60310;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[DM bg]]></title>
+		<link>https://data-mechanics.com/2024/10/29/hello-world/dm-bg/</link>
+		<pubDate>Wed, 23 Apr 2025 15:09:01 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2024/10/dm-bg.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>423</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-23 17:09:01]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-23 15:09:01]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:09:01]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:09:01]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[dm-bg]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>2</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2024/10/dm-bg.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2024/10/dm-bg.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:1280;s:6:"height";i:720;s:4:"file";s:82:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2024/10/dm-bg.png";s:8:"filesize";i:26062;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[DM bg 292929]]></title>
+		<link>https://data-mechanics.com/2024/10/29/hello-world/dm-bg-292929/</link>
+		<pubDate>Wed, 23 Apr 2025 15:11:11 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">http://pixelbi.files.wordpress.com/2024/10/dm-bg-292929.png</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>424</wp:post_id>
+		<wp:post_date><![CDATA[2025-04-23 17:11:11]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-04-23 15:11:11]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-04-23 17:11:11]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-04-23 15:11:11]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[open]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[dm-bg-292929]]></wp:post_name>
+		<wp:status><![CDATA[inherit]]></wp:status>
+		<wp:post_parent>2</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[attachment]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+						<wp:attachment_url><![CDATA[https://data-mechanics.com/wp-content/uploads/2024/10/dm-bg-292929.png]]></wp:attachment_url>
+											<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attached_file]]></wp:meta_key>
+		<wp:meta_value><![CDATA[/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2024/10/dm-bg-292929.png]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_wp_attachment_metadata]]></wp:meta_key>
+		<wp:meta_value><![CDATA[a:6:{s:5:"width";i:1280;s:6:"height";i:720;s:4:"file";s:89:"/home/wpcom/public_html/wp-content/blogs.dir/f0b/238510194/files/2024/10/dm-bg-292929.png";s:8:"filesize";i:25839;s:5:"sizes";a:0:{}s:10:"image_meta";a:12:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";s:11:"orientation";s:1:"0";s:8:"keywords";a:0:{}}}]]></wp:meta_value>
+		</wp:postmeta>
+							</item>
+					<item>
+		<title><![CDATA[Header Front]]></title>
+		<link>https://data-mechanics.com/2025/01/20/header-front/</link>
+		<pubDate>Mon, 20 Jan 2025 20:03:53 +0000</pubDate>
+		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
+		<guid isPermaLink="false">https://data-mechanics.com/2025/01/20/header-front/</guid>
+		<description></description>
+		<content:encoded><![CDATA[<!-- wp:group {"layout":{"type":"grid"}} -->
+<div class="wp-block-group"></div>
+<!-- /wp:group -->]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>25</wp:post_id>
+		<wp:post_date><![CDATA[2025-01-20 21:03:53]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[2025-01-20 20:03:53]]></wp:post_date_gmt>
+		<wp:post_modified><![CDATA[2025-01-20 21:05:58]]></wp:post_modified>
+		<wp:post_modified_gmt><![CDATA[2025-01-20 20:05:58]]></wp:post_modified_gmt>
+		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
+		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
+		<wp:post_name><![CDATA[header-front]]></wp:post_name>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type><![CDATA[wp_template_part]]></wp:post_type>
+		<wp:post_password><![CDATA[]]></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+										<category domain="wp_template_part_area" nicename="header"><![CDATA[header]]></category>
+		<category domain="wp_theme" nicename="pub-hey"><![CDATA[pub/hey]]></category>
+						<wp:postmeta>
+		<wp:meta_key><![CDATA[origin]]></wp:meta_key>
+		<wp:meta_value><![CDATA[theme]]></wp:meta_value>
+		</wp:postmeta>
+							<wp:postmeta>
+		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
+		<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
 							</item>
 					<item>
@@ -2372,141 +3226,6 @@ class DataMechanics:
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
 		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[Custom Styles]]></title>
-		<link>https://data-mechanics.com/2025/01/21/wp-global-styles-pub%2fmusee/</link>
-		<pubDate>Tue, 21 Jan 2025 08:59:18 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://data-mechanics.com/2025/01/21/wp-global-styles-pub%2fmusee/</guid>
-		<description></description>
-		<content:encoded><![CDATA[{"styles":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-sans)"},"elements":{"heading":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"500","textTransform":"none"}},"h1":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h2":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h3":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h4":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h5":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"600"}},"h6":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)"}}},"blocks":{"core\/avatar":{"filter":{"duotone":"var(--wp--preset--duotone--default)"}},"core\/image":{"filter":{"duotone":"var(--wp--preset--duotone--default)"}},"core\/navigation":{"typography":{"fontFamily":"var(--wp--preset--font-family--dm-mono)","fontStyle":"normal","fontWeight":"500"}},"core\/post-featured-image":{"filter":{"duotone":"var(--wp--preset--duotone--default)"}}}},"settings":{"color":{"palette":{"theme":[{"color":"#0f1416","name":"Base","slug":"base"},{"color":"#a0a6ab","name":"Contrast","slug":"contrast"},{"color":"#a0a6ab","name":"Primary","slug":"primary"},{"color":"#93999f","name":"Secondary","slug":"secondary"},{"color":"#0f1416","name":"Tertiary","slug":"tertiary"}]}}},"version":3,"isGlobalStylesUserThemeJSON":true}]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>61</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-21 09:59:18]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-21 08:59:18]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-21 09:59:19]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-21 08:59:19]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[wp-global-styles-pub%2fmusee]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[wp_global_styles]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-										<category domain="wp_theme" nicename="pub-musee"><![CDATA[pub/musee]]></category>
-						<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							</item>
-					<item>
-		<title><![CDATA[Posts]]></title>
-		<link>https://data-mechanics.com/posts/</link>
-		<pubDate>Wed, 22 Jan 2025 09:55:17 +0000</pubDate>
-		<dc:creator><![CDATA[exactly6445acab7a]]></dc:creator>
-		<guid isPermaLink="false">https://data-mechanics.com/?page_id=144</guid>
-		<description></description>
-		<content:encoded><![CDATA[<!-- wp:group {"align":"full","className":"alignfull","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
-<div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40)"><!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"layout":{"type":"constrained","contentSize":"340px","justifyContent":"left"}} -->
-<div class="wp-block-column"><!-- wp:group {"metadata":{"name":"Content"},"style":{"position":{"type":"sticky","top":"0px"},"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|60"}}},"layout":{"type":"default"}} -->
-<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:heading {"style":{"layout":{"selfStretch":"fixed","flexSize":"100%"}}} -->
-<h2 class="wp-block-heading"><img class="wp-image-116" style="width: 40px" src="https://pixelbi.wordpress.com/wp-content/uploads/2025/01/datamechanics-2.png" alt=""> Posts</h2>
-<!-- /wp:heading --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column -->
-
-<!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:query {"queryId":9,"query":{"perPage":"3","pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false,"status[0]":"publish","status[1]":"private"},"enhancedPagination":true,"align":"wide"} -->
-<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"default","columnCount":2}} -->
-<!-- wp:group {"style":{"spacing":{"blockGap":"24px"}},"layout":{"inherit":false}} -->
-<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"8px"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-<div class="wp-block-group"><!-- wp:post-title {"level":3,"isLink":true,"fontSize":"medium"} /-->
-
-<!-- wp:post-date /--></div>
-<!-- /wp:group -->
-
-<!-- wp:post-excerpt /-->
-
-<!-- wp:spacer {"height":"var:preset|spacing|30"} -->
-<div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer --></div>
-<!-- /wp:group -->
-<!-- /wp:post-template --></div>
-<!-- /wp:query --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
-
-<!-- wp:spacer {"height":"calc( 0.25 * var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002droot\u002d\u002dpadding-right, var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dgap\u002d\u002dhorizontal)))"} -->
-<div style="height:calc( 0.25 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer --></div>
-<!-- /wp:group -->]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>144</wp:post_id>
-		<wp:post_date><![CDATA[2025-01-22 10:55:17]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2025-01-22 09:55:17]]></wp:post_date_gmt>
-		<wp:post_modified><![CDATA[2025-01-22 10:55:17]]></wp:post_modified>
-		<wp:post_modified_gmt><![CDATA[2025-01-22 09:55:17]]></wp:post_modified_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[posts]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[page]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-														<wp:postmeta>
-		<wp:meta_key><![CDATA[_last_editor_used_jetpack]]></wp:meta_key>
-		<wp:meta_value><![CDATA[block-editor]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_publicize_pending]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[advanced_seo_description]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[jetpack_seo_html_title]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[jetpack_seo_noindex]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_jetpack_post_was_ever_published]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[reader_suggested_tags]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_starter_page_template]]></wp:meta_key>
-		<wp:meta_value><![CDATA[blog-posts-heading-and-list-of-posts-on-the-right]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[firehose_sent]]></wp:meta_key>
-		<wp:meta_value><![CDATA[1737539717]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_wpcom_template_layout_category]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:1:{i:0;s:5:"posts";}]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[footnotes]]></wp:meta_key>
-		<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-							<wp:postmeta>
-		<wp:meta_key><![CDATA[_elasticsearch_data_sharing_indexed_on]]></wp:meta_key>
-		<wp:meta_value><![CDATA[2025-01-22 09:53:57]]></wp:meta_value>
 		</wp:postmeta>
 							</item>
 				</channel>
