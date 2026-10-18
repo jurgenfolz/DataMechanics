@@ -1,0 +1,26 @@
+# Local PostgreSQL for development. Start it with `docker compose up -d`.
+# The values come from .env, the same file Django reads.
+# Moving to the VPS later: see docs/postgres-migration.md.
+services:
+  db:
+    image: postgres:18
+    container_name: datamechanics-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      # Bound to localhost only: the database is never reachable from the network.
+      - "127.0.0.1:${POSTGRES_PORT}:5432"
+    volumes:
+      # Postgres 18 images keep their data under /var/lib/postgresql/<version>.
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:

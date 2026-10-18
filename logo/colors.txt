@@ -1,0 +1,3 @@
+Dark blue: #002F4F
+Gold: #FFD700
+Grey: #e6e6e6

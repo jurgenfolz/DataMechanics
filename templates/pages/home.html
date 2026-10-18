@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="wrap intro" aria-labelledby="intro-title">
+  <h1 class="intro__title" id="intro-title"><span>The world in numbers,</span> <span>free for everyone.</span></h1>
+  <p class="intro__text">Data Mechanics gathers statistics on every country from public sources like the World Bank, the IMF and the United Nations. Explore them on maps and charts, and download every number with its source. No paywall, no sign-up.</p>
+  <div class="intro__actions">
+    <a class="button" href="{% url 'metrics:list' %}">Explore the metrics {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
+    <a class="button button--outline" href="{% url 'blog:list' %}">Read the posts</a>
+  </div>
+</section>
+
+<div class="wrap layout">
+  <div>
+    {% if slides %}
+    <section class="card spotlight" aria-roledescription="carousel" aria-label="Featured metrics" data-spotlight>
+      <div class="spotlight__top">
+        <span class="icon-tile" data-spotlight-icon>{% include "partials/icon.html" with name=slides.0.metric.tags.category size="18" %}</span>
+        <div class="pager">
+          <button class="round-btn" type="button" data-prev aria-label="Previous metric">{% include "partials/icon.html" with name="chevron-left" size="16" %}</button>
+          <span aria-live="polite"><span data-index>1</span> of {{ slides|length }}</span>
+          <button class="round-btn" type="button" data-next aria-label="Next metric">{% include "partials/icon.html" with name="chevron-right" size="16" %}</button>
+        </div>
+      </div>
+
+      {% for slide in slides %}
+      <article class="slide" data-slide data-slug="{{ slide.metric.slug }}" data-source="{{ slide.load.source_name }}" data-source-url="{{ slide.load.source_url }}" aria-roledescription="slide" aria-label="{{ forloop.counter }} of {{ slides|length }}"{% if not forloop.first %} hidden{% endif %}>
+        <template data-icon>{% include "partials/icon.html" with name=slide.metric.tags.category size="18" %}</template>
+        <h2 class="slide__title"><a href="{% url 'metrics:detail' slide.metric.slug %}">{{ slide.metric.title }}</a></h2>
+        <p class="slide__subtitle">{{ slide.metric.question }}</p>
+        <div class="slide__body">
+          <div>
+            <div class="slide__head"><span>{{ slide.top.series.label }}, {{ slide.top.year }}</span><span>Value</span></div>
+            <ol class="slide__rows">
+              {% for row in slide.top.rows %}
+              <li class="country-row">
+                <img class="flag flag--round" src="{{ row.flag_round }}" alt="" width="30" height="30">
+                <span class="country-row__name">{{ row.name }}</span>
+                <a class="value-pill" href="{% url 'metrics:detail' slide.metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}">{{ row.value }}</a>
+              </li>
+              {% endfor %}
+            </ol>
+            <div class="slide__meta">
+              <span>{% if slide.top.world %}World {{ slide.top.world }} · {% endif %}{{ slide.top.count }} countries</span>
+              <a href="{% url 'metrics:detail' slide.metric.slug %}">Explore {% include "partials/icon.html" with name="arrow-right" size="14" %}</a>
+            </div>
+            <p class="slide__about"><strong>Data</strong> · {{ slide.metric.summary }}</p>
+          </div>
+          <div class="slide__map-slot" data-map-slot></div>
+        </div>
+      </article>
+      {% endfor %}
+
+      <div class="spotlight__map" data-spotlight-map-box>
+        <p class="source-line spotlight__source">Source: <a data-spotlight-source href="{{ slides.0.load.source_url }}">{{ slides.0.load.source_name }}</a></p>
+        <div class="well map-well map-well--spotlight"><div class="map-canvas" data-spotlight-map role="img" aria-label="World map of the featured metric"></div></div>
+        <p class="source-line" data-spotlight-caption></p>
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="trust">
+      <a class="card trust__item" href="{% url 'metrics:list' %}">
+        <span class="icon-tile">{% include "partials/icon.html" with name="source" size="18" %}</span>
+        <span class="trust__text"><strong>Every number sourced</strong><span>Each chart names its source and fetch date</span></span>
+      </a>
+      <a class="card trust__item" href="{% url 'metrics:list' %}">
+        <span class="icon-tile">{% include "partials/icon.html" with name="download" size="18" %}</span>
+        <span class="trust__text"><strong>Free downloads</strong><span>CSV for every metric, no sign-up</span></span>
+      </a>
+      <div class="card trust__item">
+        <span class="icon-tile">{% include "partials/icon.html" with name="open" size="18" %}</span>
+        <span class="trust__text"><strong>No paywall</strong><span>Free to view and download, no sign-up</span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <aside class="layout__rail" aria-label="Highlights">
+
+    {% if posts %}
+    <section class="card rail-card" aria-labelledby="posts-title">
+      <a class="rail-card__title" id="posts-title" href="{% url 'blog:list' %}">Latest posts {% include "partials/icon.html" with name="chevron-right" size="14" %}</a>
+      <ul class="rail-list">
+        {% for post in posts %}
+        <li><a class="rail-item" href="{{ post.get_absolute_url }}">
+          <span class="rail-item__title">{{ post.title }}</span>
+          <span class="rail-item__sub">{{ post.published_at|date:"j M Y" }} · {{ post.reading_minutes }} min read</span>
+        </a></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  </aside>
+</div>
+
+<div class="wrap">
+    <section class="section" aria-labelledby="latest-title">
+    <div class="section__head">
+      <h2 class="section__title" id="latest-title">Latest data</h2>
+      <div class="strip-controls">
+        <button class="round-btn" type="button" data-strip-prev aria-label="Scroll left">{% include "partials/icon.html" with name="chevron-left" size="16" %}</button>
+        <button class="round-btn" type="button" data-strip-next aria-label="Scroll right">{% include "partials/icon.html" with name="chevron-right" size="16" %}</button>
+      </div>
+    </div>
+    <div class="strip" data-strip>
+      {% for item in latest %}
+      <a class="card tile" href="{% url 'metrics:detail' item.metric.slug %}">
+        <span class="icon-tile icon-tile--lg">{% include "partials/icon.html" with name=item.metric.tags.category size="22" %}</span>
+        <span class="tile__title">{{ item.metric.title }}</span>
+        <span class="tile__years">{{ item.span.0 }}–{{ item.span.1 }}</span>
+        <span class="tile__tag">{{ item.metric.tags.category }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% for section in sections %}
+  <section class="section" aria-labelledby="section-{{ forloop.counter }}">
+    <div class="section__head">
+      <a class="section__title" id="section-{{ forloop.counter }}" href="{% url 'metrics:list' %}{% if section.category %}?category={{ section.category|urlencode }}{% endif %}">
+        {{ section.title }} {% include "partials/icon.html" with name="chevron-right" size="20" %}
+      </a>
+    </div>
+    <div class="market-grid">
+      {% for item in section.items %}{% include "metrics/_market_card.html" with metric=item.metric top=item.top %}{% endfor %}
+      {% if section.items|length == 1 %}
+      <a class="card market market--more" href="{% url 'metrics:list' %}">
+        <span class="market__title">Explore every metric</span>
+        <span class="market__note">{{ metric_count }} metrics on every country, each with a world map, a chart over time and a free download.</span>
+        <span class="market__foot"><span>All metrics</span>{% include "partials/icon.html" with name="arrow-right" size="18" %}</span>
+      </a>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ units|json_script:"units" }}
+<script src="{% static 'vendor/echarts.min.js' %}"></script>
+<script type="module" src="{% static 'js/home.js' %}"></script>
+{% endblock %}

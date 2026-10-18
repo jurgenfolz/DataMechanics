@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} · Data Mechanics{% endblock %}
+{% block description %}{{ post.excerpt }}{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <article class="article">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{% url 'blog:list' %}">Posts</a></nav>
+    <h1>{{ post.title }}</h1>
+    <p class="article__meta">
+      <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:'j F Y' }}</time>
+      <span aria-hidden="true">·</span><span>{{ post.reading_minutes }} min read</span>
+      {% for category in post.categories.all %}<span class="chip">{{ category.name }}</span>{% endfor %}
+    </p>
+
+    {% if post.cover_image and post.cover_on_page %}
+    <div class="article__cover"><img src="{{ post.cover_image.url }}" alt=""></div>
+    {% endif %}
+
+    <div class="prose">
+      {{ post.body|safe }}
+    </div>
+  </article>
+
+  <nav class="post-nav" aria-label="More posts">
+    {% if older %}<a class="card" href="{{ older.get_absolute_url }}" rel="prev"><span>Older</span><strong>{{ older.title }}</strong></a>{% endif %}
+    {% if newer %}<a class="card post-nav__newer" href="{{ newer.get_absolute_url }}" rel="next"><span>Newer</span><strong>{{ newer.title }}</strong></a>{% endif %}
+  </nav>
+</div>
+{% endblock %}

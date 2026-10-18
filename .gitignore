@@ -1,0 +1,54 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+#Skills
+.claude/
+.agents/
+.aider-desk/
+.impeccable/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Type checker and linter caches
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Django
+# media/ is versioned on purpose: it holds the country flags and the imported blog images.
+# They cannot be downloaded again once the old WordPress site is gone.
+db.sqlite3
+staticfiles/
+
+# Impeccable local state
+.impeccable/review/
+.impeccable/decision/

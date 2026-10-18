@@ -1,0 +1,1 @@
+{% if load %}Source: <a href="{{ load.source_url }}">{{ load.source_name }}</a>{% if load.source_updated and load.source_updated not in load.source_name %} (updated {{ load.source_updated }}){% endif %} · fetched {{ load.loaded_at|date:"j M Y" }}{% else %}Source: not loaded yet. Run <code>python manage.py etl</code>.{% endif %}

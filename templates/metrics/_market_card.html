@@ -1,0 +1,25 @@
+{% comment %}A metric as a card: its name, its question, the leading countries and the World value. Needs `metric` and `top`.{% endcomment %}
+<article class="card market">
+  <div class="market__head">
+    <span class="icon-tile">{% include "partials/icon.html" with name=metric.tags.category size="18" %}</span>
+    <div>
+      <h3 class="market__title"><a href="{% url 'metrics:detail' metric.slug %}">{{ metric.title }}</a></h3>
+      <p class="market__metric">{{ metric.question }}</p>
+    </div>
+  </div>
+  {% if top %}
+  <ul class="market__rows">
+    {% for row in top.rows|slice:":2" %}
+    <li class="country-row">
+      <img class="flag flag--round" src="{{ row.flag_round }}" alt="" width="30" height="30" loading="lazy">
+      <span class="country-row__name">{{ row.name }}</span>
+      <a class="value-pill" href="{% url 'metrics:detail' metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}. Open {{ metric.title }}">{{ row.value }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="market__foot">
+    <span>{% if top.world %}World <strong>{{ top.world }}</strong> · {% endif %}{{ top.year }}</span>
+    <span>{{ top.count }} countries</span>
+  </div>
+  {% endif %}
+</article>
