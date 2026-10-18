@@ -1,11 +1,12 @@
 // A metric page: series tabs, the world map with its year filter, and the line chart with its country filter.
 // The page state (series, year, countries) lives in the URL so any view can be shared.
+// gettext and interpolate are Django's, from the translation catalog base.html loads.
 import { createCountryPicker } from './lib/country-picker.js';
 import { escapeHtml, formatValue } from './lib/format.js';
 import { createLineChart, PALETTE, WORLD_COLOR } from './lib/line-chart.js';
 import { createWorldMap, renderLegend } from './lib/world-map.js';
 
-const { slug, units, defaultCountries } = JSON.parse(document.getElementById('metric-config').textContent);
+const { dataUrl, units, defaultCountries } = JSON.parse(document.getElementById('metric-config').textContent);
 const WORLD = 'WLD';
 const MAX_COUNTRIES = PALETTE.length;
 // A metric can name its own (metrics/catalog.py), e.g. when one country's extremes would flatten every other line.
@@ -38,7 +39,7 @@ const cache = new Map();
 function load(field) {
   if (!cache.has(field)) {
     const query = field ? `?series=${encodeURIComponent(field)}` : '';
-    cache.set(field, fetch(`/metrics/${slug}/data.json${query}`).then((response) => response.json()));
+    cache.set(field, fetch(`${dataUrl}${query}`).then((response) => response.json()));
   }
   return cache.get(field);
 }
@@ -132,14 +133,14 @@ function drawRanking() {
   if (!rank.list) return;
   const rule = units[data.unit];
   // A long unit ("per 1,000") would crowd out country names; the note above the list names it.
-  // Same rule as metrics/formatting.py (SHORT_SUFFIX).
-  const rowRule = (rule.suffix || '').length > 4 ? { ...rule, suffix: '' } : rule;
+  // Same rule as metrics/formatting.py (compact).
+  const rowRule = rule.long ? { ...rule, suffix: '' } : rule;
   const i = data.years.indexOf(state.year);
   const rows = Object.entries(data.values)
     .filter(([iso3, values]) => iso3 !== WORLD && values[i] !== null)
     .sort((a, b) => b[1][i] - a[1][i])
     .slice(0, RANK_LENGTH);
-  rank.title.textContent = `Highest values, ${state.year}`;
+  rank.title.textContent = interpolate(gettext('Highest values, %s'), [state.year]);
   rank.series.textContent = data.label;
   rank.list.innerHTML = rows.map(([iso3, values], n) => {
     const country = data.countries[iso3];
@@ -175,10 +176,10 @@ function drawKeys(shown) {
     flag.src = country?.flag || '';
     flag.alt = '';
     const name = document.createElement('span');
-    name.textContent = shown.includes(iso3) ? country.name : `${country?.name || iso3} (no data)`;
+    name.textContent = shown.includes(iso3) ? country.name : interpolate(gettext('%s (no data)'), [country?.name || iso3]);
     const remove = document.createElement('button');
     remove.type = 'button';
-    remove.setAttribute('aria-label', `Remove ${country?.name || iso3}`);
+    remove.setAttribute('aria-label', interpolate(gettext('Remove %s'), [country?.name || iso3]));
     remove.innerHTML = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.6"/></svg>';
     remove.addEventListener('click', () => removeCountry(iso3));
     key.append(lineKey, flag, name, remove);
@@ -188,7 +189,7 @@ function drawKeys(shown) {
 
 function drawTable(shown) {
   const rule = units[data.unit];
-  const head = `<thead><tr><th scope="col">Year</th>${shown.map((iso3) => `<th scope="col">${escapeHtml(data.countries[iso3].name)}</th>`).join('')}</tr></thead>`;
+  const head = `<thead><tr><th scope="col">${escapeHtml(gettext('Year'))}</th>${shown.map((iso3) => `<th scope="col">${escapeHtml(data.countries[iso3].name)}</th>`).join('')}</tr></thead>`;
   const rows = data.years.map((year, i) => ({ year, values: shown.map((iso3) => data.values[iso3][i]) }))
     .filter((row) => row.values.some((v) => v !== null))
     .reverse()

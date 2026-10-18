@@ -4,6 +4,7 @@ Every fact table is named geo_<metric>_country_year and holds one row per countr
 """
 
 from django.db import models
+from django.utils import translation
 
 
 class Country(models.Model):
@@ -11,7 +12,9 @@ class Country(models.Model):
 
     iso3 = models.CharField(primary_key=True, max_length=3)
     iso2 = models.CharField(max_length=2, blank=True, help_text='Lower-case code used for the flag file name.')
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, help_text='English name. URLs, downloads and sorting use it.')
+    name_de = models.CharField(max_length=100, blank=True)
+    name_pt = models.CharField(max_length=100, blank=True)
     continent = models.CharField(max_length=50, blank=True)
     subregion = models.CharField(max_length=50, blank=True)
     is_aggregate = models.BooleanField(default=False, help_text='True for World, which has no shape on the map.')
@@ -24,6 +27,11 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def local_name(self):
+        """The name in the active language, or the English name where there is no translation."""
+        return getattr(self, f'name_{translation.get_language()}', '') or self.name
 
 
 class EtlLoad(models.Model):

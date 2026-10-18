@@ -1,4 +1,5 @@
 // Header search: suggests metrics as you type. Without JavaScript the form still submits to /metrics/?q=.
+// gettext and interpolate are Django's, from the translation catalog base.html loads.
 const form = document.querySelector('[data-search]');
 const input = form?.querySelector('input');
 const list = form?.querySelector('[role="listbox"]');
@@ -49,7 +50,7 @@ function render() {
   if (!matches.length) {
     const empty = document.createElement('li');
     empty.className = 'search__empty';
-    empty.textContent = `No metric matches "${query}". Press Enter to search all.`;
+    empty.textContent = interpolate(gettext('No metric matches “%s”. Press Enter to search all.'), [query]);
     list.replaceChildren(empty);
   } else {
     list.replaceChildren(...matches.map(option));

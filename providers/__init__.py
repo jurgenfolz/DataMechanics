@@ -34,4 +34,7 @@ MODULES = [
     'owid.median_age',
     'owid.obesity',
     'owid.vdem_human_rights',
+    # Politics mode: parties first, administrations point at them.
+    'curated.parties',
+    'curated.administrations',
 ]

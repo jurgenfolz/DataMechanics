@@ -2,11 +2,12 @@ import csv
 
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.decorators.cache import cache_control
 
 from . import queries, search
-from .catalog import BY_SLUG, CATEGORIES, METRICS
-from .formatting import UNITS
+from .catalog import BY_SLUG, CATEGORIES, CATEGORY_LABELS, METRICS
+from .formatting import units
 
 
 def _metric(slug):
@@ -25,6 +26,7 @@ def metric_list(request):
     return render(request, 'metrics/metric_list.html', {
         'query': query,
         'category': category,
+        'category_label': CATEGORY_LABELS.get(category, ''),
         'results': [{'metric': m, 'top': queries.ranking(m, limit=2)} for m in results],
     })
 
@@ -37,7 +39,8 @@ def metric_detail(request, slug):
         'load': queries.latest_load(metric),
         'top': queries.ranking(metric, limit=10),
         'related': related or [m for m in METRICS if m is not metric][:3],
-        'config': {'slug': metric.slug, 'units': UNITS, 'defaultCountries': list(metric.default_countries)},
+        'config': {'dataUrl': reverse('metrics:data', args=[metric.slug]), 'units': units(),
+                   'defaultCountries': list(metric.default_countries)},
     })
 
 

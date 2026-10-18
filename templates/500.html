@@ -1,18 +1,18 @@
-{% load static %}<!doctype html>
-<html lang="en">
+{% load static i18n %}<!doctype html>
+{% get_current_language as LANGUAGE_CODE %}<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Something went wrong · Data Mechanics</title>
+  <title>{% translate "Something went wrong" %} · Data Mechanics</title>
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
 </head>
 <body>
   {% comment %}Kept standalone: on a server error the base template's database queries may fail too.{% endcomment %}
   <main class="wrap error-page">
     <p class="error-page__code">500</p>
-    <h1 class="page-title">Something went wrong on our side.</h1>
-    <p class="page-sub">The error has been logged. Please try again in a minute.</p>
-    <div class="intro__actions"><a class="button" href="/">Go to the home page</a></div>
+    <h1 class="page-title">{% translate "Something went wrong on our side." %}</h1>
+    <p class="page-sub">{% translate "The error has been logged. Please try again in a minute." %}</p>
+    <div class="intro__actions"><a class="button" href="{% if LANGUAGE_CODE == "en" %}/{% else %}/{{ LANGUAGE_CODE }}/{% endif %}">{% translate "Go to the home page" %}</a></div>
   </main>
 </body>
 </html>

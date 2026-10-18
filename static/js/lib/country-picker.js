@@ -1,4 +1,5 @@
 // The country filter: a button that opens a searchable list with flags. World is listed first, like a country.
+// gettext, ngettext and interpolate are Django's, from the translation catalog base.html loads.
 import { escapeHtml } from './format.js';
 
 export function createCountryPicker(root, { max, onToggle }) {
@@ -31,14 +32,16 @@ export function createCountryPicker(root, { max, onToggle }) {
         + `<span class="picker__check" aria-hidden="true"></span>`
         + `<img class="flag" src="${escapeHtml(o.flag)}" alt="" loading="lazy">`
         + `<span>${escapeHtml(o.name)}</span></li>`;
-    }).join('') || '<li class="picker__hint">No country matches.</li>';
+    }).join('') || `<li class="picker__hint">${escapeHtml(gettext('No country matches.'))}</li>`;
     search.setAttribute('aria-activedescendant', visible[active] ? `picker-${visible[active].iso3}` : '');
-    hint.textContent = full ? `${max} countries is the limit. Remove one to add another.` : `Pick up to ${max} countries.`;
+    hint.textContent = interpolate(full
+      ? ngettext('%s country is the limit. Remove one to add another.', '%s countries is the limit. Remove one to add another.', max)
+      : ngettext('Pick up to %s country.', 'Pick up to %s countries.', max), [max]);
   }
 
   function renderLabel() {
-    const names = options.filter((o) => selected.has(o.iso3)).map((o) => (o.world ? 'World' : o.name));
-    label.textContent = names.length ? (names.length > 2 ? `${names.slice(0, 2).join(', ')} +${names.length - 2}` : names.join(', ')) : 'Choose countries';
+    const names = options.filter((o) => selected.has(o.iso3)).map((o) => (o.world ? gettext('World') : o.name));
+    label.textContent = names.length ? (names.length > 2 ? `${names.slice(0, 2).join(', ')} +${names.length - 2}` : names.join(', ')) : gettext('Choose countries');
   }
 
   function toggle(iso3) {

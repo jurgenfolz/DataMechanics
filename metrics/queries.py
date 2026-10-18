@@ -40,7 +40,7 @@ def chart_data(metric, series):
         values.setdefault(iso3, [None] * len(years))[year - years[0]] = _trim(value)
 
     countries = {
-        c.iso3: {'name': metric.world_label if c.iso3 == WORLD else c.name, 'flag': flag_url(c.iso3, c.iso2)}
+        c.iso3: {'name': str(metric.world_label) if c.iso3 == WORLD else c.local_name, 'flag': flag_url(c.iso3, c.iso2)}
         for c in Country.objects.filter(iso3__in=values)
     }
     return {
@@ -60,7 +60,7 @@ def map_shapes():
     return {
         'type': 'FeatureCollection',
         'features': [
-            {'type': 'Feature', 'properties': {'iso3': c.iso3, 'name': c.name}, 'geometry': c.geometry}
+            {'type': 'Feature', 'properties': {'iso3': c.iso3, 'name': c.local_name}, 'geometry': c.geometry}
             for c in countries
         ],
     }
@@ -116,7 +116,7 @@ def _map_year(by_country, years):
 def _country_value(country, value, series):
     return {
         'iso3': country.iso3,
-        'name': country.name,
+        'name': country.local_name,
         'flag': flag_url(country.iso3, country.iso2),
         'flag_round': flag_url(country.iso3, country.iso2, '1x1'),
         'value': format_value(value, series.unit),

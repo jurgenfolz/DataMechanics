@@ -1,20 +1,30 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}{% if query %}“{{ query }}”: metrics{% elif category %}{{ category }} metrics{% else %}All metrics{% endif %} · Data Mechanics{% endblock %}
+{% block title %}{% if query %}{% blocktranslate %}“{{ query }}”: metrics{% endblocktranslate %}{% elif category %}{% blocktranslate with category=category_label %}{{ category }} metrics{% endblocktranslate %}{% else %}{% translate "All metrics" %}{% endif %} · Data Mechanics{% endblock %}
 
 {% block content %}
 <div class="wrap">
   <header class="results-head">
-    <h1>{% if query %}Metrics matching “{{ query }}”{% elif category %}{{ category }}{% else %}All metrics{% endif %}</h1>
-    <p>{{ results|length }} metric{{ results|length|pluralize }}{% if category %} in {{ category }}{% endif %}. Each one has a world map, a chart over time and a free download.</p>
+    <h1>{% if query %}{% blocktranslate %}Metrics matching “{{ query }}”{% endblocktranslate %}{% elif category %}{{ category_label }}{% else %}{% translate "All metrics" %}{% endif %}</h1>
+    <p>{% if category %}{% blocktranslate trimmed count count=results|length with category=category_label %}
+        {{ count }} metric in {{ category }}.
+      {% plural %}
+        {{ count }} metrics in {{ category }}.
+      {% endblocktranslate %}{% else %}{% blocktranslate trimmed count count=results|length %}
+        {{ count }} metric.
+      {% plural %}
+        {{ count }} metrics.
+      {% endblocktranslate %}{% endif %}
+      {% translate "Each one has a world map, a chart over time and a free download." %}</p>
     <form class="results-search" action="{% url 'metrics:list' %}" method="get" role="search">
-      <label class="visually-hidden" for="results-q">Search metrics</label>
+      <label class="visually-hidden" for="results-q">{% translate "Search metrics" %}</label>
       <div class="search__field">
         {% include "partials/icon.html" with name="search" size="18" %}
-        <input id="results-q" name="q" type="search" value="{{ query }}" placeholder="GDP, life expectancy, democracy…">
+        <input id="results-q" name="q" type="search" value="{{ query }}" placeholder="{% translate "GDP, life expectancy, democracy…" %}">
       </div>
       {% if category %}<input type="hidden" name="category" value="{{ category }}">{% endif %}
-      <button class="button" type="submit">Search</button>
+      <button class="button" type="submit">{% translate "Search" %}</button>
     </form>
   </header>
 
@@ -24,7 +34,10 @@
   </div>
   {% else %}
   <div class="card empty section">
-    <p>No metric matches “{{ query }}”. Try a broader word, like “economy” or “population”, or <a class="text-link" href="{% url 'metrics:list' %}">see all metrics</a>.</p>
+    <p>{% url 'metrics:list' as all_url %}{% blocktranslate trimmed %}
+      No metric matches “{{ query }}”.
+      Try a broader word, like “economy” or “population”, or <a class="text-link" href="{{ all_url }}">see all metrics</a>.
+    {% endblocktranslate %}</p>
   </div>
   {% endif %}
 </div>

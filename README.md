@@ -6,15 +6,18 @@ Live at https://data-mechanics.com.
 
 ## What is in it
 
-- **Metrics**: GDP, GDP per capita, the V-Dem democracy indices, the Human Development Index, life expectancy, years of schooling, population with births and deaths, unemployment and government debt. Each one has its own page with a map, a line chart, a ranking and a download.
-- **Sources**: the World Bank (World Development Indicators), the IMF (World Economic Outlook), the UNDP (Human Development Report), V-Dem via Our World in Data, and Natural Earth for country borders.
+- **Metrics**: 27 of them, from GDP, unemployment and debt to life expectancy, the V-Dem democracy indices, CO2 emissions and the homicide rate. Each one has its own page with a map, a line chart, a ranking and a download.
+- **Politics mode**: one page per country with every metric coloured by the president in office, and the change during each presidency. Brazil (presidents since 1956) and the United States (since 1953).
+- **Sources**: the World Bank (World Development Indicators), the IMF (World Economic Outlook), the UNDP (Human Development Report), Our World in Data (V-Dem and others), and Natural Earth for country borders. Presidents and parties are compiled by hand from Wikipedia into `data/politics/`, with party logos from Wikimedia Commons.
 - **Blog**: posts written by Klaus Jürgen Folz.
+- **Languages**: English, German and Portuguese. German lives under `/de/`, Portuguese under `/pt/`; the translations are in `locale/`.
 
 ## How it works
 
 - `providers/` holds the ETL: one folder per data provider, one module per source, and each module writes one table.
 - `geo/` defines the tables: the `geo_country` dimension and one `geo_<metric>_country_year` table per metric.
 - `metrics/` holds the metric catalog (texts, tags and series), the queries and the pages. The site reads only the database.
+- `politics/` holds Politics mode: the `pol_party` and `pol_administration` tables, the list of metrics it shows (`politics/metrics.py`) and its pages.
 - `blog/` holds the posts; `pages/` holds the home page.
 - Django and PostgreSQL on the server, ECharts in the browser.
 

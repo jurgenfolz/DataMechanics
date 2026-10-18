@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Runs on the VPS after each deploy, as root: installs dependencies, migrates, collects static files and restarts.
+# Runs on the VPS after each deploy, as root: installs dependencies, migrates, loads the curated tables,
+# compiles the translations, collects static files and restarts.
 set -euo pipefail
 
 APP=/srv/datamechanics
@@ -14,6 +15,11 @@ as_app .venv/bin/pip install --quiet -r requirements.txt
 docker compose up -d --wait
 
 as_app .venv/bin/python manage.py migrate --noinput
+# The curated tables (presidents and parties) ship with the code in data/, so every deploy reloads them.
+as_app .venv/bin/python manage.py etl curated.parties curated.administrations
+# The translations in locale/ are compiled here, from the .po files, with gettext's msgfmt.
+command -v msgfmt >/dev/null || apt-get install -y -qq gettext >/dev/null
+as_app .venv/bin/python manage.py compilemessages --ignore=.venv >/dev/null
 as_app .venv/bin/python manage.py collectstatic --noinput --clear >/dev/null
 as_app .venv/bin/python manage.py check --deploy --fail-level WARNING
 

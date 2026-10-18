@@ -1,0 +1,2564 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-18 21:39+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config/formats/__init__.py:10
+msgid "January"
+msgstr "janeiro"
+
+#: config/formats/__init__.py:10
+msgid "February"
+msgstr "fevereiro"
+
+#: config/formats/__init__.py:10
+msgid "March"
+msgstr "março"
+
+#: config/formats/__init__.py:10
+msgid "April"
+msgstr "abril"
+
+#: config/formats/__init__.py:11
+msgid "May"
+msgstr "maio"
+
+#: config/formats/__init__.py:11
+msgid "June"
+msgstr "junho"
+
+#: config/formats/__init__.py:11
+msgid "July"
+msgstr "julho"
+
+#: config/formats/__init__.py:11
+msgid "August"
+msgstr "agosto"
+
+#: config/formats/__init__.py:12
+msgid "September"
+msgstr "setembro"
+
+#: config/formats/__init__.py:12
+msgid "October"
+msgstr "outubro"
+
+#: config/formats/__init__.py:12
+msgid "November"
+msgstr "novembro"
+
+#: config/formats/__init__.py:12
+msgid "December"
+msgstr "dezembro"
+
+#: metrics/catalog.py:18
+msgid "Demography"
+msgstr "Demografia"
+
+#: metrics/catalog.py:19
+msgid "Development"
+msgstr "Desenvolvimento"
+
+#: metrics/catalog.py:20 pages/views.py:14
+msgid "Economy"
+msgstr "Economia"
+
+#: metrics/catalog.py:21
+msgid "Education"
+msgstr "Educação"
+
+#: metrics/catalog.py:22 pages/views.py:16
+msgid "Environment"
+msgstr "Meio ambiente"
+
+#: metrics/catalog.py:23
+msgid "Governance"
+msgstr "Governança"
+
+#: metrics/catalog.py:24
+msgid "Health"
+msgstr "Saúde"
+
+#: metrics/catalog.py:25
+msgid "Society"
+msgstr "Sociedade"
+
+#: metrics/catalog.py:51
+msgid "Country"
+msgstr "País"
+
+#: metrics/catalog.py:51 templates/metrics/metric_detail.html:35
+msgid "Year"
+msgstr "Ano"
+
+#: metrics/catalog.py:71 templates/metrics/_market_card.html:22
+#: templates/pages/home.html:50
+msgid "World"
+msgstr "Mundo"
+
+#: metrics/catalog.py:94 metrics/catalog.py:105 metrics/catalog.py:106
+#: metrics/catalog.py:127 metrics/catalog.py:296
+msgid "GDP"
+msgstr "PIB"
+
+#: metrics/catalog.py:95
+msgid "Which economies are the largest?"
+msgstr "Quais são as maiores economias?"
+
+#: metrics/catalog.py:96
+msgid ""
+"The total value of everything a country produces in a year, in US dollars."
+msgstr ""
+"O valor total de tudo o que um país produz em um ano, em dólares americanos."
+
+#: metrics/catalog.py:98
+msgid ""
+"Gross domestic product (GDP) is the total value of the goods and services "
+"produced in a country in a year. Each country's statistics office or central"
+" bank measures it from its national accounts, and the World Bank collects "
+"the figures and converts them to US dollars at each year's exchange rate. "
+"The values are in current dollars, not adjusted for inflation, so part of "
+"the growth over time is rising prices."
+msgstr ""
+"O produto interno bruto (PIB) é o valor total dos bens e serviços produzidos"
+" em um país em um ano. O instituto de estatística ou o banco central de cada"
+" país o mede a partir das contas nacionais, e o Banco Mundial reúne os "
+"números e os converte em dólares americanos pela taxa de câmbio de cada ano."
+" Os valores estão em dólares correntes, sem ajuste pela inflação, então "
+"parte do crescimento ao longo do tempo é alta de preços."
+
+#: metrics/catalog.py:106
+msgid "National accounts"
+msgstr "Contas nacionais"
+
+#: metrics/catalog.py:107
+msgid "gross domestic product"
+msgstr "produto interno bruto"
+
+#: metrics/catalog.py:107
+msgid "economy size"
+msgstr "tamanho da economia"
+
+#: metrics/catalog.py:107
+msgid "output"
+msgstr "produção"
+
+#: metrics/catalog.py:111 metrics/catalog.py:124
+msgid "GDP per capita"
+msgstr "PIB per capita"
+
+#: metrics/catalog.py:112
+msgid "Where is output per person highest?"
+msgstr "Onde a produção por pessoa é maior?"
+
+#: metrics/catalog.py:113
+msgid "GDP divided by population: what a country produces per person."
+msgstr "O PIB dividido pela população: o que um país produz por pessoa."
+
+#: metrics/catalog.py:115
+msgid ""
+"GDP per capita is a country's GDP divided by its mid-year population: the "
+"value of goods and services produced per person. It is a common gauge of "
+"average living standards, but it says nothing about how income is shared. "
+"The World Bank computes it from national accounts and population estimates "
+"in two ways: in current US dollars at market exchange rates, and at "
+"purchasing power parity (PPP), which corrects for price differences between "
+"countries using the International Comparison Program's prices. PPP is the "
+"fairer way to compare living standards. Neither measure is adjusted for "
+"inflation over time."
+msgstr ""
+"O PIB per capita é o PIB de um país dividido pela sua população no meio do "
+"ano: o valor dos bens e serviços produzidos por pessoa. É uma medida comum "
+"do padrão de vida médio, mas não diz nada sobre como a renda é distribuída. "
+"O Banco Mundial o calcula a partir das contas nacionais e das estimativas de"
+" população de duas formas: em dólares americanos correntes, pelas taxas de "
+"câmbio de mercado, e em paridade do poder de compra (PPC), que corrige as "
+"diferenças de preços entre países com os preços do International Comparison "
+"Program. A PPC é a forma mais justa de comparar padrões de vida. Nenhuma das"
+" duas medidas é ajustada pela inflação ao longo do tempo."
+
+#: metrics/catalog.py:124
+msgid "Current US$"
+msgstr "US$ correntes"
+
+#: metrics/catalog.py:125
+msgid "GDP per capita, PPP (international $)"
+msgstr "PIB per capita, PPC ($ internacionais)"
+
+#: metrics/catalog.py:125
+msgid "PPP"
+msgstr "PPC"
+
+#: metrics/catalog.py:127
+msgid "Per capita"
+msgstr "Per capita"
+
+#: metrics/catalog.py:127
+msgid "Living standards"
+msgstr "Padrão de vida"
+
+#: metrics/catalog.py:128
+msgid "income per person"
+msgstr "renda por pessoa"
+
+#: metrics/catalog.py:128
+msgid "gdp per person"
+msgstr "pib por pessoa"
+
+#: metrics/catalog.py:128
+msgid "wealth"
+msgstr "riqueza"
+
+#: metrics/catalog.py:128
+msgid "ppp"
+msgstr "ppc"
+
+#: metrics/catalog.py:128
+msgid "purchasing power parity"
+msgstr "paridade do poder de compra"
+
+#: metrics/catalog.py:132
+msgid "Democracy indices (V-Dem)"
+msgstr "Índices de democracia (V-Dem)"
+
+#: metrics/catalog.py:133
+msgid "How democratic is each country?"
+msgstr "Quão democrático é cada país?"
+
+#: metrics/catalog.py:134
+msgid "Five V-Dem indices that rate how democratic a country is, from 0 to 1."
+msgstr ""
+"Cinco índices do V-Dem que avaliam quão democrático é um país, de 0 a 1."
+
+#: metrics/catalog.py:136
+msgid ""
+"The Varieties of Democracy (V-Dem) project at the University of Gothenburg "
+"rates political regimes with five indices from 0 (least democratic) to 1 "
+"(most democratic). Each index captures one idea of democracy: free and fair "
+"elections (electoral), individual rights and limits on power (liberal), "
+"citizens taking part (participatory), decisions based on public reasoning "
+"(deliberative) and equal access to power across social groups (egalitarian)."
+" The scores combine the ratings of thousands of country experts through a "
+"statistical model. Our World in Data republishes the central estimates."
+msgstr ""
+"O projeto Varieties of Democracy (V-Dem), da Universidade de Gotemburgo, "
+"avalia regimes políticos com cinco índices de 0 (menos democrático) a 1 "
+"(mais democrático). Cada índice capta uma ideia de democracia: eleições "
+"livres e justas (eleitoral), direitos individuais e limites ao poder "
+"(liberal), participação dos cidadãos (participativa), decisões baseadas no "
+"debate público (deliberativa) e acesso igual ao poder entre os grupos "
+"sociais (igualitária). As notas combinam as avaliações de milhares de "
+"especialistas em cada país por meio de um modelo estatístico. O Our World in"
+" Data republica as estimativas centrais."
+
+#: metrics/catalog.py:145
+msgid "Electoral democracy"
+msgstr "Democracia eleitoral"
+
+#: metrics/catalog.py:145
+msgid "Electoral"
+msgstr "Eleitoral"
+
+#: metrics/catalog.py:146
+msgid "Liberal democracy"
+msgstr "Democracia liberal"
+
+#: metrics/catalog.py:146
+msgid "Liberal"
+msgstr "Liberal"
+
+#: metrics/catalog.py:147
+msgid "Participatory democracy"
+msgstr "Democracia participativa"
+
+#: metrics/catalog.py:147
+msgid "Participatory"
+msgstr "Participativa"
+
+#: metrics/catalog.py:148
+msgid "Deliberative democracy"
+msgstr "Democracia deliberativa"
+
+#: metrics/catalog.py:148
+msgid "Deliberative"
+msgstr "Deliberativa"
+
+#: metrics/catalog.py:149
+msgid "Egalitarian democracy"
+msgstr "Democracia igualitária"
+
+#: metrics/catalog.py:149
+msgid "Egalitarian"
+msgstr "Igualitária"
+
+#: metrics/catalog.py:151
+msgid "Democracy"
+msgstr "Democracia"
+
+#: metrics/catalog.py:151 metrics/catalog.py:505
+msgid "V-Dem"
+msgstr "V-Dem"
+
+#: metrics/catalog.py:151
+msgid "Elections"
+msgstr "Eleições"
+
+#: metrics/catalog.py:151
+msgid "Rights"
+msgstr "Direitos"
+
+#: metrics/catalog.py:152 metrics/catalog.py:506
+msgid "World (average of countries)"
+msgstr "Mundo (média dos países)"
+
+#: metrics/catalog.py:153 metrics/catalog.py:507
+msgid "vdem"
+msgstr "vdem"
+
+#: metrics/catalog.py:153
+msgid "varieties of democracy"
+msgstr "variedades da democracia"
+
+#: metrics/catalog.py:153
+msgid "polyarchy"
+msgstr "poliarquia"
+
+#: metrics/catalog.py:153 metrics/catalog.py:507
+msgid "freedom"
+msgstr "liberdade"
+
+#: metrics/catalog.py:153
+msgid "regime"
+msgstr "regime"
+
+#: metrics/catalog.py:157 metrics/catalog.py:168
+msgid "Human Development Index"
+msgstr "Índice de Desenvolvimento Humano"
+
+#: metrics/catalog.py:158
+msgid "Where is human development highest?"
+msgstr "Onde o desenvolvimento humano é maior?"
+
+#: metrics/catalog.py:159
+msgid "A 0 to 1 score combining health, education and income."
+msgstr "Uma nota de 0 a 1 que combina saúde, educação e renda."
+
+#: metrics/catalog.py:161
+msgid ""
+"The Human Development Index (HDI) sums up three basic dimensions of human "
+"development: a long and healthy life (life expectancy at birth), knowledge "
+"(mean and expected years of schooling) and a decent standard of living "
+"(gross national income per person, adjusted for price differences). Each "
+"dimension is scaled from 0 to 1, and the HDI is their geometric mean. The "
+"United Nations Development Programme (UNDP) publishes it every year in its "
+"Human Development Report; this data comes from the 2025 report."
+msgstr ""
+"O Índice de Desenvolvimento Humano (IDH) resume três dimensões básicas do "
+"desenvolvimento humano: uma vida longa e saudável (expectativa de vida ao "
+"nascer), conhecimento (anos médios e esperados de estudo) e um padrão de "
+"vida digno (renda nacional bruta por pessoa, ajustada pelas diferenças de "
+"preços). Cada dimensão vai de 0 a 1, e o IDH é a média geométrica delas. O "
+"Programa das Nações Unidas para o Desenvolvimento (PNUD) o publica todos os "
+"anos no Relatório de Desenvolvimento Humano; estes dados vêm do relatório de"
+" 2025."
+
+#: metrics/catalog.py:169
+msgid "Human development"
+msgstr "Desenvolvimento humano"
+
+#: metrics/catalog.py:169
+msgid "HDI"
+msgstr "IDH"
+
+#: metrics/catalog.py:169
+msgid "UNDP"
+msgstr "PNUD"
+
+#: metrics/catalog.py:170
+msgid "human development index"
+msgstr "índice de desenvolvimento humano"
+
+#: metrics/catalog.py:170
+msgid "well-being"
+msgstr "bem-estar"
+
+#: metrics/catalog.py:170
+msgid "undp"
+msgstr "pnud"
+
+#: metrics/catalog.py:174 metrics/catalog.py:186
+msgid "Life expectancy"
+msgstr "Expectativa de vida"
+
+#: metrics/catalog.py:175
+msgid "Where do people live longest?"
+msgstr "Onde as pessoas vivem mais?"
+
+#: metrics/catalog.py:176
+msgid ""
+"How many years a newborn would live if today's death rates held for life."
+msgstr ""
+"Quantos anos um recém-nascido viveria se as taxas de mortalidade de hoje "
+"valessem para toda a vida."
+
+#: metrics/catalog.py:178
+msgid ""
+"Life expectancy at birth is the number of years a newborn would live if the "
+"death rates of the year it was born stayed the same for its whole life. It "
+"describes the health of a population in that year; it is not a forecast for "
+"any one person. The World Bank publishes it mainly from the UN Population "
+"Division's World Population Prospects, which draws on national statistical "
+"offices, censuses and surveys."
+msgstr ""
+"A expectativa de vida ao nascer é o número de anos que um recém-nascido "
+"viveria se as taxas de mortalidade do ano em que nasceu continuassem as "
+"mesmas durante toda a sua vida. Ela descreve a saúde de uma população "
+"naquele ano; não é uma previsão para uma pessoa específica. O Banco Mundial "
+"a publica principalmente a partir do World Population Prospects da Divisão "
+"de População da ONU, que se baseia em institutos nacionais de estatística, "
+"censos e pesquisas."
+
+#: metrics/catalog.py:185
+msgid "Life expectancy at birth"
+msgstr "Expectativa de vida ao nascer"
+
+#: metrics/catalog.py:186 metrics/catalog.py:392
+msgid "Mortality"
+msgstr "Mortalidade"
+
+#: metrics/catalog.py:187
+msgid "lifespan"
+msgstr "tempo de vida"
+
+#: metrics/catalog.py:187
+msgid "longevity"
+msgstr "longevidade"
+
+#: metrics/catalog.py:187
+msgid "age at death"
+msgstr "idade ao morrer"
+
+#: metrics/catalog.py:191
+msgid "Years of schooling"
+msgstr "Anos de estudo"
+
+#: metrics/catalog.py:192
+msgid "How long do people stay in school?"
+msgstr "Quanto tempo as pessoas ficam na escola?"
+
+#: metrics/catalog.py:193
+msgid ""
+"Average years adults spent in school, and the years a child can expect "
+"today."
+msgstr ""
+"Média de anos que os adultos passaram na escola, e os anos que uma criança "
+"pode esperar hoje."
+
+#: metrics/catalog.py:195
+msgid ""
+"Mean years of schooling is the average number of years of education "
+"completed by people aged 25 and over. Expected years of schooling is how "
+"many years a child starting school can expect to spend in education if "
+"today's enrolment rates stay the same. The UNDP uses both in the Human "
+"Development Index and builds them from UNESCO Institute for Statistics data,"
+" Barro and Lee estimates and household surveys."
+msgstr ""
+"A média de anos de estudo é o número médio de anos de educação concluídos "
+"por pessoas com 25 anos ou mais. Os anos esperados de estudo são quantos "
+"anos uma criança que começa a escola pode esperar passar estudando se as "
+"taxas de matrícula de hoje continuarem as mesmas. O PNUD usa os dois no "
+"Índice de Desenvolvimento Humano e os calcula com dados do Instituto de "
+"Estatística da UNESCO, estimativas de Barro e Lee e pesquisas domiciliares."
+
+#: metrics/catalog.py:203
+msgid "Mean years of schooling"
+msgstr "Média de anos de estudo"
+
+#: metrics/catalog.py:203 metrics/catalog.py:206
+msgid "Mean years"
+msgstr "Média de anos"
+
+#: metrics/catalog.py:204
+msgid "Expected years of schooling"
+msgstr "Anos esperados de estudo"
+
+#: metrics/catalog.py:204 metrics/catalog.py:206
+msgid "Expected years"
+msgstr "Anos esperados"
+
+#: metrics/catalog.py:206
+msgid "Schooling"
+msgstr "Escolaridade"
+
+#: metrics/catalog.py:207
+msgid "education"
+msgstr "educação"
+
+#: metrics/catalog.py:207
+msgid "school"
+msgstr "escola"
+
+#: metrics/catalog.py:207
+msgid "enrolment"
+msgstr "matrícula"
+
+#: metrics/catalog.py:207
+msgid "literacy"
+msgstr "alfabetização"
+
+#: metrics/catalog.py:211
+msgid "Population, births and deaths"
+msgstr "População, nascimentos e mortes"
+
+#: metrics/catalog.py:212
+msgid "Where are populations growing?"
+msgstr "Onde a população está crescendo?"
+
+#: metrics/catalog.py:213
+msgid ""
+"How many people live in each country, how many are born and die, and how "
+"many move in or out."
+msgstr ""
+"Quantas pessoas vivem em cada país, quantas nascem e morrem e quantas entram"
+" ou saem."
+
+#: metrics/catalog.py:215
+msgid ""
+"Population counts everyone who lives in a country at mid-year, whatever "
+"their legal status or citizenship. The birth rate and the death rate are the"
+" live births and the deaths in a year per 1,000 people. When births "
+"outnumber deaths a population grows naturally; migration changes it too. Net"
+" migration is the number of people who moved into the country in the year "
+"minus those who left, citizens and non-citizens alike. The World Bank "
+"compiles these figures mainly from the UN Population Division's World "
+"Population Prospects, which combines censuses, civil registration and "
+"surveys."
+msgstr ""
+"A população conta todas as pessoas que vivem em um país no meio do ano, "
+"qualquer que seja sua situação legal ou cidadania. As taxas de natalidade e "
+"de mortalidade são os nascidos vivos e as mortes em um ano por 1.000 "
+"pessoas. Quando os nascimentos superam as mortes, a população cresce "
+"naturalmente; a migração também a altera. A migração líquida é o número de "
+"pessoas que entraram no país no ano menos as que saíram, cidadãos e não "
+"cidadãos. O Banco Mundial reúne esses números principalmente a partir do "
+"World Population Prospects da Divisão de População da ONU, que combina "
+"censos, registro civil e pesquisas."
+
+#: metrics/catalog.py:224 metrics/catalog.py:229
+msgid "Population"
+msgstr "População"
+
+#: metrics/catalog.py:225
+msgid "Births per 1,000 people"
+msgstr "Nascimentos por 1.000 pessoas"
+
+#: metrics/catalog.py:226
+msgid "Deaths per 1,000 people"
+msgstr "Mortes por 1.000 pessoas"
+
+#: metrics/catalog.py:227
+msgid "Net migration"
+msgstr "Migração líquida"
+
+#: metrics/catalog.py:229 metrics/catalog.py:360
+msgid "Births"
+msgstr "Nascimentos"
+
+#: metrics/catalog.py:229
+msgid "Deaths"
+msgstr "Mortes"
+
+#: metrics/catalog.py:229
+msgid "Birth rate"
+msgstr "Taxa de natalidade"
+
+#: metrics/catalog.py:230
+msgid "people"
+msgstr "pessoas"
+
+#: metrics/catalog.py:230
+msgid "inhabitants"
+msgstr "habitantes"
+
+#: metrics/catalog.py:230
+msgid "mortality"
+msgstr "mortalidade"
+
+#: metrics/catalog.py:230
+msgid "death rate"
+msgstr "taxa de mortalidade"
+
+#: metrics/catalog.py:230
+msgid "demographics"
+msgstr "demografia"
+
+#: metrics/catalog.py:230
+msgid "migration"
+msgstr "migração"
+
+#: metrics/catalog.py:230
+msgid "immigration"
+msgstr "imigração"
+
+#: metrics/catalog.py:230
+msgid "emigration"
+msgstr "emigração"
+
+#: metrics/catalog.py:230
+msgid "migrants"
+msgstr "migrantes"
+
+#: metrics/catalog.py:234 metrics/catalog.py:244
+msgid "Unemployment rate"
+msgstr "Taxa de desemprego"
+
+#: metrics/catalog.py:235
+msgid "Where is unemployment highest?"
+msgstr "Onde o desemprego é maior?"
+
+#: metrics/catalog.py:236
+msgid "The share of the labour force without a job but looking for one."
+msgstr "A parcela da força de trabalho sem emprego, mas procurando um."
+
+#: metrics/catalog.py:238
+msgid ""
+"The unemployment rate is the share of the labour force that has no job but "
+"is available for and looking for work. The labour force is everyone of "
+"working age who has a job or is looking for one. These are modelled "
+"estimates from the International Labour Organization (ILO), which fills gaps"
+" in national labour force surveys so that countries can be compared. The "
+"World Bank republishes them."
+msgstr ""
+"A taxa de desemprego é a parcela da força de trabalho que não tem emprego, "
+"mas está disponível e procurando trabalho. A força de trabalho é todo mundo "
+"em idade ativa que tem um emprego ou procura um. São estimativas modeladas "
+"da Organização Internacional do Trabalho (OIT), que preenche lacunas nas "
+"pesquisas nacionais de força de trabalho para que os países possam ser "
+"comparados. O Banco Mundial as republica."
+
+#: metrics/catalog.py:245 metrics/catalog.py:344
+msgid "Labour market"
+msgstr "Mercado de trabalho"
+
+#: metrics/catalog.py:245
+msgid "Unemployment"
+msgstr "Desemprego"
+
+#: metrics/catalog.py:245 metrics/catalog.py:344
+msgid "ILO"
+msgstr "OIT"
+
+#: metrics/catalog.py:246
+msgid "jobs"
+msgstr "empregos"
+
+#: metrics/catalog.py:246
+msgid "jobless"
+msgstr "desempregados"
+
+#: metrics/catalog.py:246
+msgid "employment"
+msgstr "emprego"
+
+#: metrics/catalog.py:246
+msgid "labor"
+msgstr "trabalho"
+
+#: metrics/catalog.py:250 metrics/catalog.py:262
+msgid "Government debt"
+msgstr "Dívida pública"
+
+#: metrics/catalog.py:251
+msgid "Which governments owe the most?"
+msgstr "Quais governos devem mais?"
+
+#: metrics/catalog.py:252
+msgid "Everything a country's governments owe, as a share of its GDP."
+msgstr "Tudo o que os governos de um país devem, como parcela do PIB."
+
+#: metrics/catalog.py:254
+msgid ""
+"General government gross debt is everything a country's governments owe: "
+"central, state and local government and social security funds together. It "
+"covers loans, bonds and other liabilities that must be repaid with interest,"
+" and is shown as a share of GDP so that countries of different sizes can be "
+"compared. The International Monetary Fund (IMF) publishes it in its World "
+"Economic Outlook. We show past years only and leave out the IMF's forecasts;"
+" the latest year can still be an IMF estimate."
+msgstr ""
+"A dívida bruta do governo geral é tudo o que os governos de um país devem: "
+"governo central, governos estaduais e municipais e fundos de seguridade "
+"social juntos. Ela abrange empréstimos, títulos e outros passivos que "
+"precisam ser pagos com juros e é mostrada como parcela do PIB para que "
+"países de tamanhos diferentes possam ser comparados. O Fundo Monetário "
+"Internacional (FMI) a publica no World Economic Outlook. Mostramos apenas "
+"anos passados e deixamos de fora as previsões do FMI; o ano mais recente "
+"ainda pode ser uma estimativa do FMI."
+
+#: metrics/catalog.py:261
+msgid "Gross debt, % of GDP"
+msgstr "Dívida bruta, % do PIB"
+
+#: metrics/catalog.py:262 metrics/catalog.py:312
+msgid "Public finance"
+msgstr "Finanças públicas"
+
+#: metrics/catalog.py:262
+msgid "IMF"
+msgstr "FMI"
+
+#: metrics/catalog.py:263
+msgid "public debt"
+msgstr "dívida pública"
+
+#: metrics/catalog.py:263
+msgid "national debt"
+msgstr "dívida nacional"
+
+#: metrics/catalog.py:263
+msgid "deficit"
+msgstr "déficit"
+
+#: metrics/catalog.py:263
+msgid "borrowing"
+msgstr "empréstimos"
+
+#: metrics/catalog.py:263
+msgid "debt to gdp"
+msgstr "dívida sobre o pib"
+
+#: metrics/catalog.py:267 metrics/catalog.py:279
+msgid "Inflation"
+msgstr "Inflação"
+
+#: metrics/catalog.py:268
+msgid "Where are prices rising fastest?"
+msgstr "Onde os preços sobem mais rápido?"
+
+#: metrics/catalog.py:269
+msgid "How fast consumer prices rise each year."
+msgstr "Quão rápido os preços ao consumidor sobem a cada ano."
+
+#: metrics/catalog.py:271
+msgid ""
+"Inflation is how fast consumer prices rise: the yearly percentage change in "
+"what an average household pays for a basket of goods and services, measured "
+"by the consumer price index. National statistics offices collect the prices,"
+" the International Monetary Fund compiles the figures, and the World Bank "
+"republishes them. A few percent a year is normal. Very high rates erode "
+"wages and savings, while falling prices (deflation) can be a sign of a weak "
+"economy."
+msgstr ""
+"A inflação mede quão rápido os preços ao consumidor sobem: a variação "
+"percentual anual do que uma família média paga por uma cesta de bens e "
+"serviços, medida pelo índice de preços ao consumidor. Os institutos "
+"nacionais de estatística coletam os preços, o Fundo Monetário Internacional "
+"compila os números e o Banco Mundial os republica. Alguns por cento ao ano é"
+" normal. Taxas muito altas corroem salários e poupanças, enquanto preços em "
+"queda (deflação) podem ser sinal de uma economia fraca."
+
+#: metrics/catalog.py:278
+msgid "Inflation, consumer prices"
+msgstr "Inflação, preços ao consumidor"
+
+#: metrics/catalog.py:279
+msgid "Prices"
+msgstr "Preços"
+
+#: metrics/catalog.py:279
+msgid "Consumer price index"
+msgstr "Índice de preços ao consumidor"
+
+#: metrics/catalog.py:280
+msgid "cpi"
+msgstr "ipc"
+
+#: metrics/catalog.py:280
+msgid "cost of living"
+msgstr "custo de vida"
+
+#: metrics/catalog.py:280
+msgid "price rises"
+msgstr "alta de preços"
+
+#: metrics/catalog.py:280
+msgid "deflation"
+msgstr "deflação"
+
+#: metrics/catalog.py:285
+msgid "GDP growth"
+msgstr "Crescimento do PIB"
+
+#: metrics/catalog.py:286
+msgid "Which economies are growing fastest?"
+msgstr "Quais economias crescem mais rápido?"
+
+#: metrics/catalog.py:287
+msgid ""
+"How much more an economy produced than the year before, after inflation."
+msgstr ""
+"Quanto uma economia produziu a mais que no ano anterior, descontada a "
+"inflação."
+
+#: metrics/catalog.py:289
+msgid ""
+"GDP growth is the yearly percentage change in a country's GDP after removing"
+" the effect of price changes, so it shows how much more the economy really "
+"produced than the year before. The World Bank computes it from national "
+"accounts at constant 2015 prices. A negative value means the economy shrank,"
+" as it did in many countries in 2020."
+msgstr ""
+"O crescimento do PIB é a variação percentual anual do PIB de um país "
+"descontado o efeito das mudanças de preços; mostra, portanto, quanto a "
+"economia realmente produziu a mais que no ano anterior. O Banco Mundial o "
+"calcula a partir das contas nacionais a preços constantes de 2015. Um valor "
+"negativo significa que a economia encolheu, como aconteceu em muitos países "
+"em 2020."
+
+#: metrics/catalog.py:295
+msgid "Real GDP growth"
+msgstr "Crescimento real do PIB"
+
+#: metrics/catalog.py:296
+msgid "Growth"
+msgstr "Crescimento"
+
+#: metrics/catalog.py:296
+msgid "Recession"
+msgstr "Recessão"
+
+#: metrics/catalog.py:297
+msgid "economic growth"
+msgstr "crescimento econômico"
+
+#: metrics/catalog.py:297
+msgid "real gdp"
+msgstr "pib real"
+
+#: metrics/catalog.py:297
+msgid "recession"
+msgstr "recessão"
+
+#: metrics/catalog.py:301
+msgid "Tax revenue"
+msgstr "Receita tributária"
+
+#: metrics/catalog.py:302
+msgid "Which governments collect the most in taxes?"
+msgstr "Quais governos arrecadam mais impostos?"
+
+#: metrics/catalog.py:303
+msgid "Taxes collected by the central government, as a share of GDP."
+msgstr "Impostos arrecadados pelo governo central, como parcela do PIB."
+
+#: metrics/catalog.py:305
+msgid ""
+"Tax revenue is what a country's central government collects in compulsory "
+"payments such as taxes on income, profits, goods and services and trade, "
+"shown as a share of GDP. Fines, penalties and most social security "
+"contributions are not counted. The International Monetary Fund compiles the "
+"figures from government finance statistics, and the World Bank republishes "
+"them."
+msgstr ""
+"A receita tributária é o que o governo central de um país arrecada em "
+"pagamentos obrigatórios, como impostos sobre renda, lucros, bens e serviços "
+"e comércio, mostrada como parcela do PIB. Multas, penalidades e a maior "
+"parte das contribuições previdenciárias não entram na conta. O Fundo "
+"Monetário Internacional compila os números a partir das estatísticas de "
+"finanças públicas, e o Banco Mundial os republica."
+
+#: metrics/catalog.py:311
+msgid "Tax revenue, % of GDP"
+msgstr "Receita tributária, % do PIB"
+
+#: metrics/catalog.py:312
+msgid "Taxes"
+msgstr "Impostos"
+
+#: metrics/catalog.py:313
+msgid "taxation"
+msgstr "tributação"
+
+#: metrics/catalog.py:313
+msgid "tax burden"
+msgstr "carga tributária"
+
+#: metrics/catalog.py:313
+msgid "government revenue"
+msgstr "receita do governo"
+
+#: metrics/catalog.py:317 metrics/catalog.py:328
+msgid "Trade"
+msgstr "Comércio"
+
+#: metrics/catalog.py:318
+msgid "Which economies trade the most?"
+msgstr "Quais economias mais comerciam?"
+
+#: metrics/catalog.py:319
+msgid "Exports plus imports, as a share of GDP."
+msgstr "Exportações mais importações, como parcela do PIB."
+
+#: metrics/catalog.py:321
+msgid ""
+"Trade is the sum of a country's exports and imports of goods and services, "
+"shown as a share of its GDP. Small, open economies often trade more than "
+"their whole GDP in a year, partly because goods pass through them on the way"
+" elsewhere, while large economies trade less relative to their size. The "
+"World Bank computes it from national accounts."
+msgstr ""
+"O comércio é a soma das exportações e importações de bens e serviços de um "
+"país, mostrada como parcela do seu PIB. Economias pequenas e abertas muitas "
+"vezes comerciam mais do que todo o seu PIB em um ano, em parte porque as "
+"mercadorias passam por elas a caminho de outros lugares, enquanto economias "
+"grandes comerciam menos em relação ao seu tamanho. O Banco Mundial o calcula"
+" a partir das contas nacionais."
+
+#: metrics/catalog.py:327
+msgid "Trade, % of GDP"
+msgstr "Comércio, % do PIB"
+
+#: metrics/catalog.py:328
+msgid "Exports"
+msgstr "Exportações"
+
+#: metrics/catalog.py:328
+msgid "Imports"
+msgstr "Importações"
+
+#: metrics/catalog.py:329
+msgid "openness"
+msgstr "abertura"
+
+#: metrics/catalog.py:329
+msgid "globalisation"
+msgstr "globalização"
+
+#: metrics/catalog.py:329
+msgid "globalization"
+msgstr "globalização"
+
+#: metrics/catalog.py:329
+msgid "exports"
+msgstr "exportações"
+
+#: metrics/catalog.py:329
+msgid "imports"
+msgstr "importações"
+
+#: metrics/catalog.py:333
+msgid "Women in the labour force"
+msgstr "Mulheres na força de trabalho"
+
+#: metrics/catalog.py:334
+msgid "Where do most women work or look for work?"
+msgstr "Onde a maioria das mulheres trabalha ou procura trabalho?"
+
+#: metrics/catalog.py:335
+msgid ""
+"The share of women aged 15 and over who have a job or are looking for one."
+msgstr ""
+"A parcela de mulheres com 15 anos ou mais que têm emprego ou procuram um."
+
+#: metrics/catalog.py:337
+msgid ""
+"The female labour force participation rate is the share of women aged 15 and"
+" over who are in the labour force: those who have a job and those who are "
+"looking for one. These are modelled estimates from the International Labour "
+"Organization (ILO), which fills gaps in national labour force surveys so "
+"that countries can be compared. The World Bank republishes them."
+msgstr ""
+"A taxa de participação feminina na força de trabalho é a parcela de mulheres"
+" com 15 anos ou mais que estão na força de trabalho: as que têm emprego e as"
+" que procuram um. São estimativas modeladas da Organização Internacional do "
+"Trabalho (OIT), que preenche lacunas nas pesquisas nacionais de força de "
+"trabalho para que os países possam ser comparados. O Banco Mundial as "
+"republica."
+
+#: metrics/catalog.py:343
+msgid "Female labour force participation"
+msgstr "Participação feminina na força de trabalho"
+
+#: metrics/catalog.py:344
+msgid "Gender"
+msgstr "Gênero"
+
+#: metrics/catalog.py:345
+msgid "female employment"
+msgstr "emprego feminino"
+
+#: metrics/catalog.py:345
+msgid "women working"
+msgstr "mulheres que trabalham"
+
+#: metrics/catalog.py:345
+msgid "gender gap"
+msgstr "desigualdade de gênero"
+
+#: metrics/catalog.py:345
+msgid "labor force participation"
+msgstr "participação na força de trabalho"
+
+#: metrics/catalog.py:349
+msgid "Fertility rate"
+msgstr "Taxa de fecundidade"
+
+#: metrics/catalog.py:350
+msgid "How many children do women have?"
+msgstr "Quantos filhos as mulheres têm?"
+
+#: metrics/catalog.py:351
+msgid "The number of children a woman would have at this year's birth rates."
+msgstr ""
+"O número de filhos que uma mulher teria com as taxas de natalidade deste "
+"ano."
+
+#: metrics/catalog.py:353
+msgid ""
+"The total fertility rate is the number of children a woman would have over "
+"her life if, at each age, she had children at the rates of that year. In "
+"countries where few children die young, about 2.1 children per woman keeps a"
+" population stable in the long run, without migration. The World Bank "
+"publishes it mainly from the UN Population Division's World Population "
+"Prospects."
+msgstr ""
+"A taxa de fecundidade total é o número de filhos que uma mulher teria ao "
+"longo da vida se, em cada idade, tivesse filhos nas taxas daquele ano. Em "
+"países onde poucas crianças morrem cedo, cerca de 2,1 filhos por mulher "
+"mantêm a população estável no longo prazo, sem migração. O Banco Mundial a "
+"publica principalmente a partir do World Population Prospects da Divisão de "
+"População da ONU."
+
+#: metrics/catalog.py:359
+msgid "Births per woman"
+msgstr "Nascimentos por mulher"
+
+#: metrics/catalog.py:360
+msgid "Fertility"
+msgstr "Fecundidade"
+
+#: metrics/catalog.py:361
+msgid "birth rate"
+msgstr "taxa de natalidade"
+
+#: metrics/catalog.py:361
+msgid "children per woman"
+msgstr "filhos por mulher"
+
+#: metrics/catalog.py:361
+msgid "total fertility rate"
+msgstr "taxa de fecundidade total"
+
+#: metrics/catalog.py:361
+msgid "tfr"
+msgstr "tft"
+
+#: metrics/catalog.py:365 metrics/catalog.py:375
+msgid "Median age"
+msgstr "Idade mediana"
+
+#: metrics/catalog.py:366
+msgid "Where are populations oldest?"
+msgstr "Onde a população é mais velha?"
+
+#: metrics/catalog.py:367
+msgid "The age that splits a population in two: half younger, half older."
+msgstr ""
+"A idade que divide a população em duas: metade mais jovem, metade mais "
+"velha."
+
+#: metrics/catalog.py:369
+msgid ""
+"The median age splits a population in two: half the people are younger and "
+"half are older. It is a simple measure of how old a population is. The UN "
+"Population Division estimates it in its World Population Prospects from "
+"censuses, surveys and registers, and Our World in Data republishes the "
+"estimates. The UN's projections for future years are left out."
+msgstr ""
+"A idade mediana divide a população em duas: metade das pessoas é mais jovem "
+"e metade é mais velha. É uma medida simples de quão velha é uma população. A"
+" Divisão de População da ONU a estima no World Population Prospects a partir"
+" de censos, pesquisas e registros, e o Our World in Data republica as "
+"estimativas. As projeções da ONU para os próximos anos ficam de fora."
+
+#: metrics/catalog.py:376
+msgid "Ageing"
+msgstr "Envelhecimento"
+
+#: metrics/catalog.py:376
+msgid "Age structure"
+msgstr "Estrutura etária"
+
+#: metrics/catalog.py:377
+msgid "aging"
+msgstr "envelhecimento"
+
+#: metrics/catalog.py:377
+msgid "ageing"
+msgstr "envelhecimento populacional"
+
+#: metrics/catalog.py:377
+msgid "old population"
+msgstr "população idosa"
+
+#: metrics/catalog.py:377
+msgid "average age"
+msgstr "idade média"
+
+#: metrics/catalog.py:381 metrics/catalog.py:392
+msgid "Child mortality"
+msgstr "Mortalidade infantil"
+
+#: metrics/catalog.py:382
+msgid "Where do most children die before age five?"
+msgstr "Onde mais crianças morrem antes dos cinco anos?"
+
+#: metrics/catalog.py:383
+msgid "Deaths before age five, per 1,000 live births."
+msgstr "Mortes antes dos cinco anos, por 1.000 nascidos vivos."
+
+#: metrics/catalog.py:385
+msgid ""
+"The under-five mortality rate is the probability that a newborn baby dies "
+"before turning five, per 1,000 live births, if the death rates of that year "
+"held. The UN Inter-agency Group for Child Mortality Estimation (UNICEF, the "
+"WHO, the World Bank and the UN Population Division) produces the estimates "
+"from surveys, censuses and vital registration, and the World Bank "
+"republishes them."
+msgstr ""
+"A taxa de mortalidade de menores de cinco anos é a probabilidade de um "
+"recém-nascido morrer antes de completar cinco anos, por 1.000 nascidos "
+"vivos, se as taxas de mortalidade daquele ano se mantivessem. O Grupo "
+"Interagencial da ONU para Estimativa da Mortalidade Infantil (UNICEF, OMS, "
+"Banco Mundial e Divisão de População da ONU) produz as estimativas a partir "
+"de pesquisas, censos e registro civil, e o Banco Mundial as republica."
+
+#: metrics/catalog.py:391
+msgid "Deaths before age 5 per 1,000 live births"
+msgstr "Mortes antes dos 5 anos por 1.000 nascidos vivos"
+
+#: metrics/catalog.py:392
+msgid "UNICEF"
+msgstr "UNICEF"
+
+#: metrics/catalog.py:393
+msgid "under-5 mortality"
+msgstr "mortalidade de menores de 5 anos"
+
+#: metrics/catalog.py:393
+msgid "infant deaths"
+msgstr "mortes de bebês"
+
+#: metrics/catalog.py:393
+msgid "child deaths"
+msgstr "mortes de crianças"
+
+#: metrics/catalog.py:397 metrics/catalog.py:408
+msgid "Obesity"
+msgstr "Obesidade"
+
+#: metrics/catalog.py:398
+msgid "Where is obesity most common?"
+msgstr "Onde a obesidade é mais comum?"
+
+#: metrics/catalog.py:399
+msgid "The share of adults with a body mass index of 30 or more."
+msgstr "A parcela de adultos com índice de massa corporal de 30 ou mais."
+
+#: metrics/catalog.py:401
+msgid ""
+"This is the share of adults aged 18 and over with obesity, meaning a body "
+"mass index (BMI) of 30 or more. The World Health Organization estimates it "
+"from national surveys and adjusts it for age, so that countries with older "
+"or younger populations can be compared. Our World in Data republishes it. "
+"The WHO licenses this data under CC BY-NC-SA 4.0: free for non-commercial "
+"use, and copies keep the same licence."
+msgstr ""
+"Esta é a parcela de adultos com 18 anos ou mais com obesidade, ou seja, com "
+"índice de massa corporal (IMC) de 30 ou mais. A Organização Mundial da Saúde"
+" a estima a partir de pesquisas nacionais e a ajusta por idade, para que "
+"países com populações mais velhas ou mais jovens possam ser comparados. O "
+"Our World in Data a republica. A OMS licencia estes dados sob CC BY-NC-SA "
+"4.0: livres para uso não comercial, e as cópias mantêm a mesma licença."
+
+#: metrics/catalog.py:407
+msgid "Adults with obesity"
+msgstr "Adultos com obesidade"
+
+#: metrics/catalog.py:408
+msgid "Nutrition"
+msgstr "Nutrição"
+
+#: metrics/catalog.py:408 metrics/catalog.py:424
+msgid "WHO"
+msgstr "OMS"
+
+#: metrics/catalog.py:409
+msgid "overweight"
+msgstr "sobrepeso"
+
+#: metrics/catalog.py:409
+msgid "bmi"
+msgstr "imc"
+
+#: metrics/catalog.py:409
+msgid "body mass index"
+msgstr "índice de massa corporal"
+
+#: metrics/catalog.py:413 metrics/catalog.py:424
+msgid "Health spending"
+msgstr "Gastos com saúde"
+
+#: metrics/catalog.py:414
+msgid "Where is most spent on health per person?"
+msgstr "Onde se gasta mais com saúde por pessoa?"
+
+#: metrics/catalog.py:415
+msgid ""
+"What a country spends on healthcare per person in a year, in US dollars."
+msgstr ""
+"O que um país gasta com saúde por pessoa em um ano, em dólares americanos."
+
+#: metrics/catalog.py:417
+msgid ""
+"Current health expenditure per person covers the healthcare goods and "
+"services a country consumes in a year, whether governments, insurers or "
+"households pay for them, in current US dollars. Investment in buildings and "
+"equipment is not included. The World Health Organization compiles it in its "
+"Global Health Expenditure Database, and the World Bank republishes it."
+msgstr ""
+"O gasto corrente com saúde por pessoa abrange os bens e serviços de saúde "
+"que um país consome em um ano, sejam pagos por governos, seguradoras ou "
+"famílias, em dólares americanos correntes. Investimentos em prédios e "
+"equipamentos não estão incluídos. A Organização Mundial da Saúde o compila "
+"na Global Health Expenditure Database, e o Banco Mundial o republica."
+
+#: metrics/catalog.py:423
+msgid "Health spending per person"
+msgstr "Gastos com saúde por pessoa"
+
+#: metrics/catalog.py:424
+msgid "Healthcare"
+msgstr "Assistência à saúde"
+
+#: metrics/catalog.py:425
+msgid "healthcare cost"
+msgstr "custo da saúde"
+
+#: metrics/catalog.py:425
+msgid "health expenditure"
+msgstr "gasto com saúde"
+
+#: metrics/catalog.py:425
+msgid "medical spending"
+msgstr "despesas médicas"
+
+#: metrics/catalog.py:429
+msgid "Extreme poverty"
+msgstr "Pobreza extrema"
+
+#: metrics/catalog.py:430
+msgid "Where do most people live on under $3 a day?"
+msgstr "Onde mais pessoas vivem com menos de US$ 3 por dia?"
+
+#: metrics/catalog.py:431
+msgid "The share of people living on less than $3.00 a day."
+msgstr "A parcela de pessoas que vivem com menos de US$ 3,00 por dia."
+
+#: metrics/catalog.py:433
+msgid ""
+"This is the share of people living on less than $3.00 a day, the World "
+"Bank's international poverty line, at 2021 prices adjusted for differences "
+"in purchasing power between countries. The World Bank's Poverty and "
+"Inequality Platform builds it from household surveys run by national "
+"statistics offices. Surveys are not held every year, so many countries have "
+"gaps between years."
+msgstr ""
+"Esta é a parcela de pessoas que vivem com menos de US$ 3,00 por dia, a linha"
+" internacional de pobreza do Banco Mundial, a preços de 2021 ajustados pelas"
+" diferenças de poder de compra entre países. A Poverty and Inequality "
+"Platform do Banco Mundial a calcula a partir de pesquisas domiciliares "
+"feitas pelos institutos nacionais de estatística. As pesquisas não são "
+"feitas todo ano, por isso muitos países têm lacunas entre os anos."
+
+#: metrics/catalog.py:439
+msgid "Living on under $3.00 a day"
+msgstr "Vivendo com menos de US$ 3,00 por dia"
+
+#: metrics/catalog.py:440
+msgid "Poverty"
+msgstr "Pobreza"
+
+#: metrics/catalog.py:440 metrics/catalog.py:456
+msgid "Income"
+msgstr "Renda"
+
+#: metrics/catalog.py:441
+msgid "poor"
+msgstr "pobres"
+
+#: metrics/catalog.py:441
+msgid "poverty line"
+msgstr "linha de pobreza"
+
+#: metrics/catalog.py:441
+msgid "extreme poverty"
+msgstr "pobreza extrema"
+
+#: metrics/catalog.py:441
+msgid "living on"
+msgstr "viver com"
+
+#: metrics/catalog.py:445
+msgid "Income inequality (Gini)"
+msgstr "Desigualdade de renda (Gini)"
+
+#: metrics/catalog.py:446
+msgid "Where is income most unequal?"
+msgstr "Onde a renda é mais desigual?"
+
+#: metrics/catalog.py:447
+msgid ""
+"The Gini index, from 0 (everyone has the same) to 100 (one person has "
+"everything)."
+msgstr ""
+"O índice de Gini, de 0 (todos têm o mesmo) a 100 (uma pessoa tem tudo)."
+
+#: metrics/catalog.py:449
+msgid ""
+"The Gini index measures how unequally income, or in some countries "
+"consumption, is shared among a country's people, from 0 (everyone has the "
+"same) to 100 (one person has everything). The World Bank's Poverty and "
+"Inequality Platform computes it from household surveys. Surveys are not held"
+" every year, so many countries have gaps between years."
+msgstr ""
+"O índice de Gini mede quão desigual é a distribuição da renda, ou em alguns "
+"países do consumo, entre as pessoas de um país, de 0 (todos têm o mesmo) a "
+"100 (uma pessoa tem tudo). A Poverty and Inequality Platform do Banco "
+"Mundial o calcula a partir de pesquisas domiciliares. As pesquisas não são "
+"feitas todo ano, por isso muitos países têm lacunas entre os anos."
+
+#: metrics/catalog.py:455
+msgid "Gini index"
+msgstr "Índice de Gini"
+
+#: metrics/catalog.py:456
+msgid "Inequality"
+msgstr "Desigualdade"
+
+#: metrics/catalog.py:456
+msgid "Gini"
+msgstr "Gini"
+
+#: metrics/catalog.py:457
+msgid "gini coefficient"
+msgstr "coeficiente de gini"
+
+#: metrics/catalog.py:457
+msgid "income distribution"
+msgstr "distribuição de renda"
+
+#: metrics/catalog.py:457
+msgid "inequality"
+msgstr "desigualdade"
+
+#: metrics/catalog.py:461
+msgid "Life satisfaction"
+msgstr "Satisfação com a vida"
+
+#: metrics/catalog.py:462
+msgid "Where are people happiest with their lives?"
+msgstr "Onde as pessoas estão mais satisfeitas com a vida?"
+
+#: metrics/catalog.py:463
+msgid ""
+"How people rate their own lives, from 0 (worst possible) to 10 (best "
+"possible)."
+msgstr ""
+"Como as pessoas avaliam a própria vida, de 0 (pior possível) a 10 (melhor "
+"possível)."
+
+#: metrics/catalog.py:465
+msgid ""
+"Life satisfaction is the average answer to one survey question: imagine a "
+"ladder where 10 is the best possible life for you and 0 the worst; on which "
+"step do you stand now? Gallup asks it in its World Poll, usually of about "
+"1,000 people per country a year, and the World Happiness Report publishes "
+"the results from the Wellbeing Research Centre at the University of Oxford. "
+"Our World in Data republishes them."
+msgstr ""
+"A satisfação com a vida é a resposta média a uma única pergunta de pesquisa:"
+" imagine uma escada em que 10 é a melhor vida possível para você e 0 a pior;"
+" em qual degrau você está agora? A Gallup faz essa pergunta na sua World "
+"Poll, em geral a cerca de 1.000 pessoas por país a cada ano, e o World "
+"Happiness Report publica os resultados do Wellbeing Research Centre da "
+"Universidade de Oxford. O Our World in Data os republica."
+
+#: metrics/catalog.py:471
+msgid "Life satisfaction (0 to 10)"
+msgstr "Satisfação com a vida (0 a 10)"
+
+#: metrics/catalog.py:472
+msgid "Happiness"
+msgstr "Felicidade"
+
+#: metrics/catalog.py:472
+msgid "Well-being"
+msgstr "Bem-estar"
+
+#: metrics/catalog.py:472
+msgid "World Happiness Report"
+msgstr "World Happiness Report"
+
+#: metrics/catalog.py:473
+msgid "happiness"
+msgstr "felicidade"
+
+#: metrics/catalog.py:473
+msgid "happiest countries"
+msgstr "países mais felizes"
+
+#: metrics/catalog.py:473
+msgid "wellbeing"
+msgstr "bem-estar"
+
+#: metrics/catalog.py:473
+msgid "cantril ladder"
+msgstr "escada de cantril"
+
+#: metrics/catalog.py:477
+msgid "Homicide rate"
+msgstr "Taxa de homicídios"
+
+#: metrics/catalog.py:478
+msgid "Where are homicide rates highest?"
+msgstr "Onde as taxas de homicídio são mais altas?"
+
+#: metrics/catalog.py:479
+msgid "Intentional killings per 100,000 people."
+msgstr "Homicídios intencionais por 100.000 pessoas."
+
+#: metrics/catalog.py:481
+msgid ""
+"The homicide rate counts intentional homicides per 100,000 people: unlawful "
+"killings meant to cause death or serious injury. The UN Office on Drugs and "
+"Crime (UNODC) collects the figures from national police and health records, "
+"and the World Bank republishes them. Countries record deaths differently, so"
+" small differences between them are uncertain."
+msgstr ""
+"A taxa de homicídios conta os homicídios intencionais por 100.000 pessoas: "
+"mortes ilegais causadas com a intenção de matar ou ferir gravemente. O "
+"Escritório das Nações Unidas sobre Drogas e Crime (UNODC) coleta os números "
+"dos registros nacionais de polícia e de saúde, e o Banco Mundial os "
+"republica. Os países registram as mortes de formas diferentes, por isso "
+"pequenas diferenças entre eles são incertas."
+
+#: metrics/catalog.py:487
+msgid "Homicides per 100,000 people"
+msgstr "Homicídios por 100.000 pessoas"
+
+#: metrics/catalog.py:488
+msgid "Crime"
+msgstr "Crime"
+
+#: metrics/catalog.py:488
+msgid "Violence"
+msgstr "Violência"
+
+#: metrics/catalog.py:488
+msgid "UNODC"
+msgstr "UNODC"
+
+#: metrics/catalog.py:489
+msgid "murder rate"
+msgstr "taxa de assassinatos"
+
+#: metrics/catalog.py:489
+msgid "crime"
+msgstr "criminalidade"
+
+#: metrics/catalog.py:489
+msgid "safety"
+msgstr "segurança"
+
+#: metrics/catalog.py:489
+msgid "violence"
+msgstr "violência"
+
+#: metrics/catalog.py:493
+msgid "Human rights index (V-Dem)"
+msgstr "Índice de direitos humanos (V-Dem)"
+
+#: metrics/catalog.py:494
+msgid "Where are civil liberties best protected?"
+msgstr "Onde as liberdades civis são mais bem protegidas?"
+
+#: metrics/catalog.py:495
+msgid ""
+"How free people are from state violence, and how far they enjoy basic "
+"freedoms, from 0 to 1."
+msgstr ""
+"Quão livres as pessoas estão da violência do Estado e quanto desfrutam das "
+"liberdades básicas, de 0 a 1."
+
+#: metrics/catalog.py:497
+msgid ""
+"The V-Dem human rights index measures how free people are from government "
+"torture, political killings and forced labour, and how far they enjoy "
+"property rights and the freedoms of movement, religion, expression and "
+"association. It runs from 0 (least free) to 1 (most free) and, like the "
+"V-Dem democracy indices, combines the ratings of thousands of country "
+"experts through a statistical model. Our World in Data republishes the "
+"central estimates."
+msgstr ""
+"O índice de direitos humanos do V-Dem mede quão livres as pessoas estão de "
+"tortura pelo governo, assassinatos políticos e trabalho forçado, e quanto "
+"desfrutam do direito de propriedade e das liberdades de locomoção, religião,"
+" expressão e associação. Ele vai de 0 (menos livre) a 1 (mais livre) e, como"
+" os índices de democracia do V-Dem, combina as avaliações de milhares de "
+"especialistas em cada país por meio de um modelo estatístico. O Our World in"
+" Data republica as estimativas centrais."
+
+#: metrics/catalog.py:504
+msgid "Human rights index"
+msgstr "Índice de direitos humanos"
+
+#: metrics/catalog.py:505
+msgid "Human rights"
+msgstr "Direitos humanos"
+
+#: metrics/catalog.py:505
+msgid "Civil liberties"
+msgstr "Liberdades civis"
+
+#: metrics/catalog.py:507
+msgid "civil liberties"
+msgstr "liberdades civis"
+
+#: metrics/catalog.py:507
+msgid "repression"
+msgstr "repressão"
+
+#: metrics/catalog.py:511
+msgid "Military spending"
+msgstr "Gastos militares"
+
+#: metrics/catalog.py:512
+msgid "Which countries spend most on their armed forces?"
+msgstr "Quais países gastam mais com suas forças armadas?"
+
+#: metrics/catalog.py:513
+msgid "Military expenditure as a share of GDP."
+msgstr "Gastos militares como parcela do PIB."
+
+#: metrics/catalog.py:515
+msgid ""
+"Military expenditure covers spending on the armed forces, including "
+"peacekeeping, defence ministries, paramilitary forces and military space "
+"activities, shown as a share of GDP. The Stockholm International Peace "
+"Research Institute (SIPRI) compiles it from official sources, and the World "
+"Bank republishes it."
+msgstr ""
+"Os gastos militares abrangem as despesas com as forças armadas, incluindo "
+"missões de paz, ministérios da defesa, forças paramilitares e atividades "
+"militares espaciais, mostrados como parcela do PIB. O Instituto "
+"Internacional de Pesquisa para a Paz de Estocolmo (SIPRI) os compila a "
+"partir de fontes oficiais, e o Banco Mundial os republica."
+
+#: metrics/catalog.py:520
+msgid "Military spending, % of GDP"
+msgstr "Gastos militares, % do PIB"
+
+#: metrics/catalog.py:521
+msgid "Defence"
+msgstr "Defesa"
+
+#: metrics/catalog.py:521
+msgid "Military"
+msgstr "Forças armadas"
+
+#: metrics/catalog.py:521
+msgid "SIPRI"
+msgstr "SIPRI"
+
+#: metrics/catalog.py:522
+msgid "defense"
+msgstr "defesa"
+
+#: metrics/catalog.py:522
+msgid "defence budget"
+msgstr "orçamento de defesa"
+
+#: metrics/catalog.py:522
+msgid "army"
+msgstr "exército"
+
+#: metrics/catalog.py:522
+msgid "armed forces"
+msgstr "forças armadas"
+
+#: metrics/catalog.py:522
+msgid "sipri"
+msgstr "sipri"
+
+#: metrics/catalog.py:526
+msgid "CO2 emissions"
+msgstr "Emissões de CO2"
+
+#: metrics/catalog.py:527
+msgid "Who emits the most carbon dioxide per person?"
+msgstr "Quem emite mais dióxido de carbono por pessoa?"
+
+#: metrics/catalog.py:528
+msgid ""
+"Carbon dioxide from fossil fuels and industry, per person and in total."
+msgstr ""
+"Dióxido de carbono de combustíveis fósseis e da indústria, por pessoa e no "
+"total."
+
+#: metrics/catalog.py:530
+msgid ""
+"These are emissions of carbon dioxide (CO2) from burning fossil fuels and "
+"from industry, such as cement, counted in the country where they are "
+"produced. Emissions from land-use change, such as deforestation, are not "
+"included. The Global Carbon Project publishes them in its yearly Global "
+"Carbon Budget, and Our World in Data adds the per-person figures and "
+"republishes them."
+msgstr ""
+"Estas são as emissões de dióxido de carbono (CO2) da queima de combustíveis "
+"fósseis e da indústria, como a do cimento, contadas no país onde são "
+"produzidas. As emissões da mudança no uso da terra, como o desmatamento, não"
+" estão incluídas. O Global Carbon Project as publica no seu Global Carbon "
+"Budget anual, e o Our World in Data acrescenta os números por pessoa e as "
+"republica."
+
+#: metrics/catalog.py:537
+msgid "CO2 per person"
+msgstr "CO2 por pessoa"
+
+#: metrics/catalog.py:537
+msgid "Per person"
+msgstr "Por pessoa"
+
+#: metrics/catalog.py:538
+msgid "Total CO2"
+msgstr "CO2 total"
+
+#: metrics/catalog.py:538
+msgid "Total"
+msgstr "Total"
+
+#: metrics/catalog.py:540
+msgid "Climate"
+msgstr "Clima"
+
+#: metrics/catalog.py:540
+msgid "CO2"
+msgstr "CO2"
+
+#: metrics/catalog.py:540
+msgid "Emissions"
+msgstr "Emissões"
+
+#: metrics/catalog.py:541
+msgid "carbon dioxide"
+msgstr "dióxido de carbono"
+
+#: metrics/catalog.py:541
+msgid "carbon emissions"
+msgstr "emissões de carbono"
+
+#: metrics/catalog.py:541
+msgid "greenhouse gas"
+msgstr "gás de efeito estufa"
+
+#: metrics/catalog.py:541
+msgid "climate change"
+msgstr "mudança climática"
+
+#: metrics/catalog.py:541
+msgid "co2"
+msgstr "co2"
+
+#: metrics/catalog.py:545
+msgid "Electricity mix"
+msgstr "Matriz elétrica"
+
+#: metrics/catalog.py:546
+msgid "Where does each country's electricity come from?"
+msgstr "De onde vem a eletricidade de cada país?"
+
+#: metrics/catalog.py:547
+msgid "The share of electricity generated by each source, from coal to solar."
+msgstr "A parcela da eletricidade gerada por cada fonte, do carvão à solar."
+
+#: metrics/catalog.py:549
+msgid ""
+"This is the share of a country's electricity generated by each source, in "
+"percent of the total. Low-carbon sources are nuclear power and renewables: "
+"hydro, wind, solar, bioenergy and others. Ember, an energy think tank, "
+"compiles the figures from national and international statistics, and Our "
+"World in Data combines them with other sources for earlier years."
+msgstr ""
+"Esta é a parcela da eletricidade de um país gerada por cada fonte, em "
+"porcentagem do total. As fontes de baixo carbono são a energia nuclear e as "
+"renováveis: hidrelétrica, eólica, solar, bioenergia e outras. A Ember, um "
+"centro de estudos sobre energia, compila os números a partir de estatísticas"
+" nacionais e internacionais, e o Our World in Data os combina com outras "
+"fontes para os anos anteriores."
+
+#: metrics/catalog.py:556
+msgid "Low-carbon share"
+msgstr "Participação de baixo carbono"
+
+#: metrics/catalog.py:556
+msgid "Low-carbon"
+msgstr "Baixo carbono"
+
+#: metrics/catalog.py:557
+msgid "Coal share"
+msgstr "Participação do carvão"
+
+#: metrics/catalog.py:557
+msgid "Coal"
+msgstr "Carvão"
+
+#: metrics/catalog.py:558
+msgid "Gas share"
+msgstr "Participação do gás"
+
+#: metrics/catalog.py:558
+msgid "Gas"
+msgstr "Gás"
+
+#: metrics/catalog.py:559
+msgid "Oil share"
+msgstr "Participação do petróleo"
+
+#: metrics/catalog.py:559
+msgid "Oil"
+msgstr "Petróleo"
+
+#: metrics/catalog.py:560
+msgid "Nuclear share"
+msgstr "Participação nuclear"
+
+#: metrics/catalog.py:560
+msgid "Nuclear"
+msgstr "Nuclear"
+
+#: metrics/catalog.py:561
+msgid "Hydro share"
+msgstr "Participação hidrelétrica"
+
+#: metrics/catalog.py:561
+msgid "Hydro"
+msgstr "Hidrelétrica"
+
+#: metrics/catalog.py:562
+msgid "Wind share"
+msgstr "Participação eólica"
+
+#: metrics/catalog.py:562
+msgid "Wind"
+msgstr "Eólica"
+
+#: metrics/catalog.py:563
+msgid "Solar share"
+msgstr "Participação solar"
+
+#: metrics/catalog.py:563
+msgid "Solar"
+msgstr "Solar"
+
+#: metrics/catalog.py:564
+msgid "Bioenergy share"
+msgstr "Participação da bioenergia"
+
+#: metrics/catalog.py:564
+msgid "Bioenergy"
+msgstr "Bioenergia"
+
+#: metrics/catalog.py:565
+msgid "Other renewables share"
+msgstr "Participação de outras renováveis"
+
+#: metrics/catalog.py:565
+msgid "Other renewables"
+msgstr "Outras renováveis"
+
+#: metrics/catalog.py:567
+msgid "Energy"
+msgstr "Energia"
+
+#: metrics/catalog.py:567
+msgid "Electricity"
+msgstr "Eletricidade"
+
+#: metrics/catalog.py:567
+msgid "Renewables"
+msgstr "Renováveis"
+
+#: metrics/catalog.py:567
+msgid "Ember"
+msgstr "Ember"
+
+#: metrics/catalog.py:568
+msgid "energy mix"
+msgstr "matriz energética"
+
+#: metrics/catalog.py:568
+msgid "renewable energy"
+msgstr "energia renovável"
+
+#: metrics/catalog.py:568
+msgid "solar power"
+msgstr "energia solar"
+
+#: metrics/catalog.py:568
+msgid "wind power"
+msgstr "energia eólica"
+
+#: metrics/catalog.py:568
+msgid "nuclear power"
+msgstr "energia nuclear"
+
+#: metrics/catalog.py:568
+msgid "coal power"
+msgstr "energia a carvão"
+
+#: metrics/formatting.py:15
+msgctxt "unit"
+msgid "$"
+msgstr "US$ "
+
+#: metrics/formatting.py:20
+msgctxt "unit"
+msgid " yrs"
+msgstr " anos"
+
+#: metrics/formatting.py:21
+msgctxt "unit"
+msgid " per 1,000"
+msgstr " por 1.000"
+
+#: metrics/formatting.py:22
+msgctxt "unit"
+msgid " per 100k"
+msgstr " por 100 mil"
+
+#: metrics/formatting.py:23
+msgctxt "unit"
+msgid " per woman"
+msgstr " por mulher"
+
+#: metrics/formatting.py:24 metrics/formatting.py:25
+msgctxt "unit"
+msgid " t"
+msgstr " t"
+
+#: metrics/formatting.py:32
+msgctxt "unit"
+msgid "tn"
+msgstr "tri"
+
+#: metrics/formatting.py:33
+msgctxt "unit"
+msgid "bn"
+msgstr "bi"
+
+#: metrics/formatting.py:34
+msgctxt "unit"
+msgid "m"
+msgstr "mi"
+
+#: metrics/formatting.py:35
+msgctxt "unit"
+msgid "k"
+msgstr "mil"
+
+#: metrics/formatting.py:85
+msgctxt "percentage points"
+msgid "pp"
+msgstr "p.p."
+
+#: pages/views.py:15
+msgid "People"
+msgstr "Pessoas"
+
+#: pages/views.py:17
+msgid "Society and politics"
+msgstr "Sociedade e política"
+
+#: politics/queries.py:24
+msgid "President"
+msgstr "Presidente"
+
+#: politics/queries.py:25
+msgid "Acting president"
+msgstr "Presidente interino"
+
+#: politics/queries.py:26
+msgid "President (military rule)"
+msgstr "Presidente (regime militar)"
+
+#: politics/queries.py:27
+msgid "Military junta"
+msgstr "Junta militar"
+
+#: politics/queries.py:105
+msgid "no change"
+msgstr "sem mudança"
+
+#: politics/queries.py:153 templates/politics/_party_logo.html:2
+msgid "No party"
+msgstr "Sem partido"
+
+#: templates/404.html:4
+msgid "Page not found"
+msgstr "Página não encontrada"
+
+#: templates/404.html:9
+msgid "This page doesn't exist."
+msgstr "Esta página não existe."
+
+#: templates/404.html:10
+msgid ""
+"The link may be old, or the page has moved. Every metric and post is still a"
+" search away."
+msgstr ""
+"O link pode estar desatualizado, ou a página mudou de lugar. Todo indicador "
+"e todo artigo continuam a uma busca de distância."
+
+#: templates/404.html:12
+msgid "Browse the metrics"
+msgstr "Ver os indicadores"
+
+#: templates/404.html:13 templates/500.html:16
+msgid "Go to the home page"
+msgstr "Ir para a página inicial"
+
+#: templates/500.html:6
+msgid "Something went wrong"
+msgstr "Algo deu errado"
+
+#: templates/500.html:14
+msgid "Something went wrong on our side."
+msgstr "Algo deu errado do nosso lado."
+
+#: templates/500.html:15
+msgid "The error has been logged. Please try again in a minute."
+msgstr "O erro foi registrado. Tente de novo em um minuto."
+
+#: templates/base.html:6
+msgid "Data Mechanics · Free public data, charted and sourced"
+msgstr "Data Mechanics · Dados públicos e gratuitos, em gráficos e com fonte"
+
+#: templates/base.html:7
+msgid ""
+"Free public statistics on every country, with maps, charts and downloads. "
+"Every number names its source."
+msgstr ""
+"Estatísticas públicas e gratuitas sobre todos os países, com mapas, gráficos"
+" e downloads. Cada número cita a sua fonte."
+
+#: templates/base.html:17
+msgid "Skip to content"
+msgstr "Pular para o conteúdo"
+
+#: templates/base.html:25
+msgid "Main"
+msgstr "Principal"
+
+#: templates/base.html:26 templates/base.html:93
+#: templates/metrics/metric_detail.html:11 templates/politics/country.html:28
+msgid "Metrics"
+msgstr "Indicadores"
+
+#: templates/base.html:27 templates/base.html:94
+#: templates/politics/country.html:12 templates/politics/index.html:4
+#: templates/politics/index.html:10
+msgid "Politics"
+msgstr "Política"
+
+#: templates/base.html:28 templates/base.html:55 templates/base.html:95
+#: templates/blog/post_detail.html:10 templates/blog/post_list.html:4
+#: templates/blog/post_list.html:10
+msgid "Posts"
+msgstr "Artigos"
+
+#: templates/base.html:29
+msgid "About"
+msgstr "Sobre"
+
+#: templates/base.html:33 templates/metrics/metric_list.html:21
+msgid "Search metrics"
+msgstr "Buscar indicadores"
+
+#: templates/base.html:36
+msgid "Search any metric"
+msgstr "Busque qualquer indicador"
+
+#: templates/base.html:40
+msgid "Matching metrics"
+msgstr "Indicadores encontrados"
+
+#: templates/base.html:43
+msgid "Language"
+msgstr "Idioma"
+
+#: templates/base.html:48
+msgid "Categories"
+msgstr "Categorias"
+
+#: templates/base.html:50 templates/metrics/metric_list.html:4
+#: templates/metrics/metric_list.html:9 templates/pages/home.html:137
+msgid "All metrics"
+msgstr "Todos os indicadores"
+
+#: templates/base.html:66
+msgid "Portrait of Klaus Jürgen Folz"
+msgstr "Retrato de Klaus Jürgen Folz"
+
+#: templates/base.html:68
+msgid "About the author"
+msgstr "Sobre o autor"
+
+#: templates/base.html:69
+msgid ""
+"Hello there, I’m Klaus Jürgen Folz, a Mechanical Engineer working with Power"
+" BI, Python, machine learning and data analysis in Austria. I’m also the "
+"lead developer of Measure Killer, a Power BI external tool with more than "
+"100k downloads. I built Data Mechanics to make public data free to explore "
+"and download, and to share the knowledge and small wins that help people who"
+" work with data."
+msgstr ""
+"Olá, eu sou Klaus Jürgen Folz, engenheiro mecânico, e trabalho com Power BI,"
+" Python, machine learning e análise de dados na Áustria. Também sou o "
+"desenvolvedor principal do Measure Killer, uma ferramenta externa para o "
+"Power BI com mais de 100 mil downloads. Criei o Data Mechanics para que "
+"dados públicos sejam livres para explorar e baixar, e para compartilhar o "
+"conhecimento e as pequenas conquistas que ajudam quem trabalha com dados."
+
+#: templates/base.html:77
+msgid "Follow on LinkedIn"
+msgstr "Seguir no LinkedIn"
+
+#: templates/base.html:80
+msgid "Follow on GitHub"
+msgstr "Seguir no GitHub"
+
+#: templates/base.html:92
+msgid "Footer"
+msgstr "Rodapé"
+
+#: templates/base.html:96
+msgid "Source code"
+msgstr "Código-fonte"
+
+#: templates/base.html:96
+msgid "Source code: coming soon"
+msgstr "Código-fonte: em breve"
+
+#: templates/base.html:98
+msgid ""
+"Data from the <a href=\"https://data.worldbank.org/\">World Bank</a>, the <a"
+" href=\"https://www.imf.org/external/datamapper/\">IMF</a>, the <a "
+"href=\"https://hdr.undp.org/\">UNDP</a>, <a "
+"href=\"https://v-dem.net/\">V-Dem</a> via <a "
+"href=\"https://ourworldindata.org/\">Our World in Data</a>, and borders from"
+" <a href=\"https://www.naturalearthdata.com/\">Natural Earth</a>. Every "
+"chart and download names its source. The site's code is licensed under the "
+"AGPL-3.0."
+msgstr ""
+"Dados do <a href=\"https://data.worldbank.org/\">Banco Mundial</a>, do <a "
+"href=\"https://www.imf.org/external/datamapper/\">FMI</a>, do <a "
+"href=\"https://hdr.undp.org/\">PNUD</a>, do <a "
+"href=\"https://v-dem.net/\">V-Dem</a> via <a "
+"href=\"https://ourworldindata.org/\">Our World in Data</a> e fronteiras do "
+"<a href=\"https://www.naturalearthdata.com/\">Natural Earth</a>. Cada "
+"gráfico e cada download cita a sua fonte. O código do site é licenciado sob "
+"a AGPL-3.0."
+
+#: templates/blog/post_detail.html:10 templates/metrics/metric_detail.html:10
+#: templates/politics/country.html:11
+msgid "Breadcrumb"
+msgstr "Trilha de navegação"
+
+#: templates/blog/post_detail.html:14 templates/blog/post_list.html:25
+#: templates/pages/home.html:94
+#, python-format
+msgid "%(minutes)s min read"
+msgstr "%(minutes)s min de leitura"
+
+#: templates/blog/post_detail.html:27
+msgid "More posts"
+msgstr "Mais artigos"
+
+#: templates/blog/post_detail.html:28
+msgid "Older"
+msgstr "Mais antigo"
+
+#: templates/blog/post_detail.html:29
+msgid "Newer"
+msgstr "Mais recente"
+
+#: templates/blog/post_list.html:5 templates/blog/post_list.html:11
+msgid "Writing on data, charts, Python and BI by Klaus Folz."
+msgstr "Textos sobre dados, gráficos, Python e BI, por Klaus Folz."
+
+#: templates/blog/post_list.html:11
+msgid "The posts are written in English."
+msgstr "Os artigos estão em inglês."
+
+#: templates/blog/post_list.html:34
+msgid "No posts yet. The first one is on its way."
+msgstr "Ainda não há artigos. O primeiro está a caminho."
+
+#: templates/metrics/_market_card.html:17
+#, python-format
+msgid "%(name)s: %(value)s. Open %(title)s"
+msgstr "%(name)s: %(value)s. Abrir %(title)s"
+
+#: templates/metrics/_market_card.html:23 templates/pages/home.html:50
+#, python-format
+msgid "%(count)s country"
+msgid_plural "%(count)s countries"
+msgstr[0] "%(count)s país"
+msgstr[1] "%(count)s países"
+
+#: templates/metrics/_source.html:1 templates/pages/home.html:61
+msgid "Source:"
+msgstr "Fonte:"
+
+#: templates/metrics/_source.html:1
+#, python-format
+msgid "updated %(date)s"
+msgstr "atualizado em %(date)s"
+
+#: templates/metrics/_source.html:1
+#, python-format
+msgid "fetched %(date)s"
+msgstr "coletado em %(date)s"
+
+#: templates/metrics/_source.html:1
+msgid "Source: not loaded yet."
+msgstr "Fonte: ainda não carregada."
+
+#: templates/metrics/metric_detail.html:4
+#, python-format
+msgid "%(title)s by country"
+msgstr "%(title)s por país"
+
+#: templates/metrics/metric_detail.html:5
+msgid "Map, chart and free download, with the source of every number."
+msgstr "Mapa, gráfico e download gratuito, com a fonte de cada número."
+
+#: templates/metrics/metric_detail.html:19
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: templates/metrics/metric_detail.html:25 templates/politics/country.html:47
+msgid "Measure"
+msgstr "Medida"
+
+#: templates/metrics/metric_detail.html:34
+msgid "World map"
+msgstr "Mapa-múndi"
+
+#: templates/metrics/metric_detail.html:41
+#, python-format
+msgid ""
+"World map of %(title)s, coloured by value. The table under the line chart "
+"lists the numbers."
+msgstr ""
+"Mapa-múndi de %(title)s, colorido por valor. A tabela abaixo do gráfico de "
+"linhas lista os números."
+
+#: templates/metrics/metric_detail.html:48
+msgid "Over time"
+msgstr "Ao longo do tempo"
+
+#: templates/metrics/metric_detail.html:50
+#: templates/metrics/metric_detail.html:51
+msgid "Choose countries"
+msgstr "Escolher países"
+
+#: templates/metrics/metric_detail.html:55
+msgid "Search countries"
+msgstr "Buscar países"
+
+#: templates/metrics/metric_detail.html:58
+msgid "Countries"
+msgstr "Países"
+
+#: templates/metrics/metric_detail.html:64
+#, python-format
+msgid ""
+"Line chart of %(title)s over time for the chosen countries. The table below "
+"lists the numbers."
+msgstr ""
+"Gráfico de linhas de %(title)s ao longo do tempo para os países escolhidos. "
+"A tabela abaixo lista os números."
+
+#: templates/metrics/metric_detail.html:66
+msgid "Countries on the chart"
+msgstr "Países no gráfico"
+
+#: templates/metrics/metric_detail.html:68 templates/politics/country.html:63
+msgid "Show the numbers"
+msgstr "Mostrar os números"
+
+#: templates/metrics/metric_detail.html:74
+msgid "Download CSV"
+msgstr "Baixar CSV"
+
+#: templates/metrics/metric_detail.html:76
+msgid "Every country, year and measure, with the source on each row."
+msgstr "Cada país, ano e medida, com a fonte em cada linha."
+
+#: templates/metrics/metric_detail.html:76
+msgid "Every country and year, with the source on each row."
+msgstr "Cada país e ano, com a fonte em cada linha."
+
+#: templates/metrics/metric_detail.html:80
+#, python-format
+msgid "More on %(title)s"
+msgstr "Mais sobre %(title)s"
+
+#: templates/metrics/metric_detail.html:83
+#, python-format
+msgid "Highest values, %(year)s"
+msgstr "Maiores valores, %(year)s"
+
+#: templates/metrics/metric_detail.html:84
+msgid "Select a country to add it to the chart."
+msgstr "Selecione um país para adicioná-lo ao gráfico."
+
+#: templates/metrics/metric_detail.html:95
+msgid "World:"
+msgstr "Mundo:"
+
+#: templates/metrics/metric_detail.html:100
+msgid "More metrics"
+msgstr "Mais indicadores"
+
+#: templates/metrics/metric_list.html:4
+#, python-format
+msgid "“%(query)s”: metrics"
+msgstr "“%(query)s”: indicadores"
+
+#: templates/metrics/metric_list.html:4
+#, python-format
+msgid "%(category)s metrics"
+msgstr "Indicadores de %(category)s"
+
+#: templates/metrics/metric_list.html:9
+#, python-format
+msgid "Metrics matching “%(query)s”"
+msgstr "Indicadores para “%(query)s”"
+
+#: templates/metrics/metric_list.html:10
+#, python-format
+msgid "%(count)s metric in %(category)s."
+msgid_plural "%(count)s metrics in %(category)s."
+msgstr[0] "%(count)s indicador em %(category)s."
+msgstr[1] "%(count)s indicadores em %(category)s."
+
+#: templates/metrics/metric_list.html:14
+#, python-format
+msgid "%(count)s metric."
+msgid_plural "%(count)s metrics."
+msgstr[0] "%(count)s indicador."
+msgstr[1] "%(count)s indicadores."
+
+#: templates/metrics/metric_list.html:19
+msgid "Each one has a world map, a chart over time and a free download."
+msgstr ""
+"Cada um tem um mapa-múndi, um gráfico ao longo do tempo e download gratuito."
+
+#: templates/metrics/metric_list.html:24
+msgid "GDP, life expectancy, democracy…"
+msgstr "PIB, expectativa de vida, democracia…"
+
+#: templates/metrics/metric_list.html:27
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/metrics/metric_list.html:37
+#, python-format
+msgid ""
+"No metric matches “%(query)s”. Try a broader word, like “economy” or "
+"“population”, or <a class=\"text-link\" href=\"%(all_url)s\">see all "
+"metrics</a>."
+msgstr ""
+"Nenhum indicador corresponde a “%(query)s”. Tente uma palavra mais ampla, "
+"como “economia” ou “população”, ou <a class=\"text-link\" "
+"href=\"%(all_url)s\">veja todos os indicadores</a>."
+
+#: templates/pages/home.html:6
+msgid "The world in numbers."
+msgstr "O mundo em números."
+
+#: templates/pages/home.html:7
+msgid ""
+"Data Mechanics gathers statistics from public sources like the World Bank, "
+"the IMF and the United Nations. Explore them on maps and charts, and "
+"download every number with its source. No paywall, no sign-up."
+msgstr ""
+"O Data Mechanics reúne estatísticas de fontes públicas como o Banco Mundial,"
+" o FMI e as Nações Unidas. Explore-as em mapas e gráficos e baixe cada "
+"número com a sua fonte. Sem paywall, sem cadastro."
+
+#: templates/pages/home.html:13
+msgid "Explore the metrics"
+msgstr "Explorar os indicadores"
+
+#: templates/pages/home.html:14
+msgid "Explore politics"
+msgstr "Explorar a política"
+
+#: templates/pages/home.html:15
+msgid "Read the posts"
+msgstr "Ler os artigos"
+
+#: templates/pages/home.html:22
+msgid "carousel"
+msgstr "carrossel"
+
+#: templates/pages/home.html:22
+msgid "Featured metrics"
+msgstr "Indicadores em destaque"
+
+#: templates/pages/home.html:26
+msgid "Previous metric"
+msgstr "Indicador anterior"
+
+#: templates/pages/home.html:27
+#, python-format
+msgid "<span data-index>1</span> of %(total)s"
+msgstr "<span data-index>1</span> de %(total)s"
+
+#: templates/pages/home.html:28
+msgid "Next metric"
+msgstr "Próximo indicador"
+
+#: templates/pages/home.html:33
+msgid "slide"
+msgstr "slide"
+
+#: templates/pages/home.html:33
+#, python-format
+msgid "%(number)s of %(total)s"
+msgstr "%(number)s de %(total)s"
+
+#: templates/pages/home.html:39
+msgid "Value"
+msgstr "Valor"
+
+#: templates/pages/home.html:51
+msgid "Explore"
+msgstr "Explorar"
+
+#: templates/pages/home.html:53
+msgid "Data"
+msgstr "Dados"
+
+#: templates/pages/home.html:62
+msgid "World map of the featured metric"
+msgstr "Mapa-múndi do indicador em destaque"
+
+#: templates/pages/home.html:71
+msgid "Every number sourced"
+msgstr "Cada número com fonte"
+
+#: templates/pages/home.html:71
+msgid "Each chart names its source and fetch date"
+msgstr "Cada gráfico cita a fonte e a data de coleta"
+
+#: templates/pages/home.html:75
+msgid "Free downloads"
+msgstr "Downloads gratuitos"
+
+#: templates/pages/home.html:75
+msgid "CSV for every metric, no sign-up"
+msgstr "CSV para cada indicador, sem cadastro"
+
+#: templates/pages/home.html:79
+msgid "No paywall"
+msgstr "Sem paywall"
+
+#: templates/pages/home.html:79
+msgid "Free to view and download, no sign-up"
+msgstr "Ver e baixar de graça, sem cadastro"
+
+#: templates/pages/home.html:85
+msgid "Highlights"
+msgstr "Destaques"
+
+#: templates/pages/home.html:89
+msgid "Latest posts"
+msgstr "Últimos artigos"
+
+#: templates/pages/home.html:106
+msgid "Latest data"
+msgstr "Dados mais recentes"
+
+#: templates/pages/home.html:108
+msgid "Scroll left"
+msgstr "Rolar para a esquerda"
+
+#: templates/pages/home.html:109
+msgid "Scroll right"
+msgstr "Rolar para a direita"
+
+#: templates/pages/home.html:135
+msgid "Explore every metric"
+msgstr "Explorar todos os indicadores"
+
+#: templates/pages/home.html:136
+#, python-format
+msgid ""
+"%(total)s metrics on every country, each with a world map, a chart over time"
+" and a free download."
+msgstr ""
+"%(total)s indicadores sobre todos os países, cada um com mapa-múndi, gráfico"
+" ao longo do tempo e download gratuito."
+
+#: templates/politics/country.html:4
+#, python-format
+msgid "%(name)s by president"
+msgstr "%(name)s por presidente"
+
+#: templates/politics/country.html:5
+#, python-format
+msgid ""
+"%(title)s and every other metric for %(name)s, coloured by president, with "
+"the change during each presidency."
+msgstr ""
+"%(title)s e todos os outros indicadores de %(name)s, coloridos por "
+"presidente, com a variação durante cada mandato."
+
+#: templates/politics/country.html:19
+#, python-format
+msgid "Every metric we have, president by president, since %(year)s."
+msgstr "Todos os nossos indicadores, presidente a presidente, desde %(year)s."
+
+#: templates/politics/country.html:23 templates/politics/index.html:28
+msgid "In office"
+msgstr "Em exercício"
+
+#: templates/politics/country.html:24
+#, python-format
+msgid "<strong>%(leader)s</strong> since %(date)s"
+msgstr "<strong>%(leader)s</strong> desde %(date)s"
+
+#: templates/politics/country.html:44
+msgid "Compare every country"
+msgstr "Comparar todos os países"
+
+#: templates/politics/country.html:53
+#, python-format
+msgid ""
+"%(title)s in %(name)s over time, coloured by the president in office. The "
+"list below gives the change during each presidency."
+msgstr ""
+"%(title)s em %(name)s ao longo do tempo, colorido pelo presidente em "
+"exercício. A lista abaixo mostra a variação durante cada mandato."
+
+#: templates/politics/country.html:55
+msgid ""
+"A year counts for the president in office on 1 July. A presidency's change "
+"runs from the year before it began to its last year with data. Drag the bar "
+"under the chart, or pick a president, to zoom."
+msgstr ""
+"Cada ano conta para o presidente em exercício em 1º de julho. A variação de "
+"um mandato vai do ano anterior ao seu início até o seu último ano com dados."
+" Arraste a barra abaixo do gráfico, ou escolha um presidente, para dar zoom."
+
+#: templates/politics/country.html:60
+msgid "Presidents"
+msgstr "Presidentes"
+
+#: templates/politics/country.html:69
+#, python-format
+msgid ""
+"Presidents, dates and parties: <a href=\"%(url)s\">Wikipedia</a>, compiled "
+"by Data Mechanics"
+msgstr ""
+"Presidentes, datas e partidos: <a href=\"%(url)s\">Wikipédia</a>, compilados"
+" pelo Data Mechanics"
+
+#: templates/politics/country.html:71
+#, python-format
+msgid "loaded %(date)s"
+msgstr "carregado em %(date)s"
+
+#: templates/politics/country.html:72
+msgid "Party logos from Wikimedia Commons"
+msgstr "Logotipos dos partidos do Wikimedia Commons"
+
+#: templates/politics/country.html:72
+#, python-format
+msgid "%(abbreviation)s logo by %(author)s"
+msgstr "Logotipo do %(abbreviation)s por %(author)s"
+
+#: templates/politics/index.html:5
+msgid ""
+"Every metric we have for a country, coloured by who was in power: president "
+"by president, with the change during each presidency."
+msgstr ""
+"Todos os nossos indicadores de um país, coloridos por quem estava no poder: "
+"presidente a presidente, com a variação durante cada mandato."
+
+#: templates/politics/index.html:11
+msgid "Settle family arguments with data. Or start new ones."
+msgstr "Resolva brigas de família com dados. Ou comece novas."
+
+#: templates/politics/index.html:12
+msgid ""
+"Every metric we have for a country, coloured by who was in power. See how "
+"each presidency began and ended, for GDP, health, democracy and more."
+msgstr ""
+"Todos os nossos indicadores de um país, coloridos por quem estava no poder. "
+"Veja como cada mandato começou e terminou, para PIB, saúde, democracia e "
+"mais."
+
+#: templates/politics/index.html:22
+#, python-format
+msgid "%(count)s president since %(year)s"
+msgid_plural "%(count)s presidents since %(year)s"
+msgstr[0] "%(count)s presidente desde %(year)s"
+msgstr[1] "%(count)s presidentes desde %(year)s"
+
+#: templates/politics/index.html:32
+#, python-format
+msgid "Open %(name)s"
+msgstr "Abrir %(name)s"
+
+#: templates/politics/index.html:36
+msgid "More countries soon"
+msgstr "Mais países em breve"
+
+#: templates/politics/index.html:37
+msgid ""
+"Every country needs its leaders, dates and parties checked by hand before it"
+" is added."
+msgstr ""
+"Os governantes, as datas e os partidos de cada país precisam ser conferidos "
+"à mão antes de ele entrar."

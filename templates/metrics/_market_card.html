@@ -1,4 +1,4 @@
-{% comment %}A metric as a card: its name, its question, the leading countries and the World value. Needs `metric` and `top`.{% endcomment %}
+{% load i18n %}{% comment %}A metric as a card: its name, its question, the leading countries and the World value. Needs `metric` and `top`.{% endcomment %}
 <article class="card market">
   <div class="market__head">
     <span class="icon-tile">{% include "partials/icon.html" with name=metric.tags.category size="18" %}</span>
@@ -13,13 +13,13 @@
     <li class="country-row">
       <img class="flag flag--round" src="{{ row.flag_round }}" alt="" width="30" height="30" loading="lazy">
       <span class="country-row__name">{{ row.name }}</span>
-      <a class="value-pill" href="{% url 'metrics:detail' metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}. Open {{ metric.title }}">{{ row.value_short }}</a>
+      <a class="value-pill" href="{% url 'metrics:detail' metric.slug %}?countries={{ row.iso3 }}" aria-label="{% blocktranslate with name=row.name value=row.value title=metric.title %}{{ name }}: {{ value }}. Open {{ title }}{% endblocktranslate %}">{{ row.value_short }}</a>
     </li>
     {% endfor %}
   </ul>
   <div class="market__foot">
-    <span>{% if top.world %}World <strong>{{ top.world_short }}</strong> · {% endif %}{{ top.year }}</span>
-    <span>{{ top.count }} countries</span>
+    <span>{% if top.world %}{% translate "World" %} <strong>{{ top.world_short }}</strong> · {% endif %}{{ top.year }}</span>
+    <span>{% blocktranslate count count=top.count %}{{ count }} country{% plural %}{{ count }} countries{% endblocktranslate %}</span>
   </div>
   {% endif %}
 </article>

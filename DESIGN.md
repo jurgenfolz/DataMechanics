@@ -31,6 +31,8 @@ colors:
   series-7: "#9085e9"
   series-8: "#e66767"
   world-line: "#c9ccd0"
+  good: "#2bc892"
+  bad: "#f2545b"
 typography:
   display-xl:
     fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
@@ -281,13 +283,13 @@ components:
 
 Data Mechanics is a market front page where every listing is a public statistic. Each listing is headed by the metric's name with its question beneath as a smaller subtitle, its leading countries are quoted in gold value pills, and a world map sits beside them like a live chart. The home page opens with a large condensed statement of what the site is before the market begins. The floor is Kalshi's: quiet charcoal greys, rounded cards with hairline borders, condensed headlines, and pills for every control. Nothing is paywalled and nothing is hidden, so the page reads as an exchange whose prices are free.
 
-The cyberpunk lives in the details rather than in costume. A faint 32 px grid is printed on the ground, chart wells carry gold HUD corner ticks, the gear logo turns, mono type marks codes, years and ranks, and focus and hover arrive as a gold glow. Colour discipline does the rest: one accent (the logo gold), greys for everything else in the interface, and data colours that keep strictly to the charts; the interface itself has no green or red. It is neither a white statistics portal nor a neon set piece, and Kalshi's bright green is not used anywhere, title included.
+The cyberpunk lives in the details rather than in costume. A faint 32 px grid is printed on the ground, chart wells carry gold HUD corner ticks, the gear logo turns, mono type marks codes, years and ranks, and focus and hover arrive as a gold glow. Colour discipline does the rest: one accent (the logo gold), greys for everything else in the interface, and data colours that keep strictly to the charts; the interface itself has no green or red, except the good and bad arrows of Politics mode. It is neither a white statistics portal nor a neon set piece, and Kalshi's bright green is not used anywhere, title included.
 
 Density is high but calm. Cards sit in a regular grid, numbers are tabular and formatted the same way in every place they appear, values are quoted for their year alone with no change on the year before, and every chart names its source before it shows a single country.
 
 **Key Characteristics:**
 - Charcoal tonal stack (ground, card, well) separated by 1 px hairlines, never by resting shadows.
-- Logo gold is the single interface accent; the interface has no green or red.
+- Logo gold is the single interface accent; green and red appear only as Politics mode's good and bad arrows.
 - Cards and the spotlight are headed by the metric's name, with its question as a smaller subtitle.
 - Archivo at 75% width for headlines; Archivo at normal width for everything else; JetBrains Mono for codes, years and ranks.
 - Pills for every control and value; 12 px corners for cards; 8 px for wells.
@@ -323,9 +325,11 @@ A near-monochrome charcoal floor with one hot gold accent and a separate, valida
 - **No-Data Grey** (#2a2c2f): every country without a value, on the map and in the legend swatch.
 - **Line series:** eight colours in a fixed order: Series Blue (#3987e5), Series Rust (#d95926), Series Teal (#199e70), Series Amber (#c98500), Series Rose (#d55181), Series Green (#008300), Series Violet (#9085e9), Series Coral (#e66767).
 - **World Line Grey** (#c9ccd0): the World line, always dashed.
+- **Party colours** (Politics mode): each party's colour from Wikipedia's timeline of the country's presidents, lightened where needed to reach 3:1 against Chart Well. They colour the line, the area under it at 16%, and the party bars on labels and president buttons. A stretch without a party is #999999.
+- **Better Green** (#2bc892) and **Worse Red** (#f2545b): the change during a presidency, good or bad for the metric. Always beside an up or down arrow and the size of the change; a change with no better direction is Quiet Ink.
 
 ### Named Rules
-**The One Gold Rule.** Gold is the only accent in the interface: primary buttons, value pills, the active nav link and series tab, focus glow, HUD corner ticks. A second accent colour is never introduced: the interface carries no green or red, and Kalshi's green is not used, for titles or anything else.
+**The One Gold Rule.** Gold is the only accent in the interface: primary buttons, value pills, the active nav link and series tab, focus glow, HUD corner ticks. A second accent colour is never introduced: the interface carries no green or red, and Kalshi's green is not used, for titles or anything else. The one exception is Politics mode, where Better Green and Worse Red mark a presidency's change, always with an arrow.
 
 **The Data Stays In The Chart Rule.** Map ramps and line colours belong to the data. They never colour interface chrome, and gold never colours a chart mark, except as the hover outline of a country.
 
@@ -363,7 +367,7 @@ A near-monochrome charcoal floor with one hot gold accent and a separate, valida
 
 ## Layout
 
-Content sits in a centred column up to 1272 px wide with fluid side gutters (16–40 px). The header is sticky and has two rows: a 68 px bar (spinning logo and wordmark, three nav links, and a search pill up to 400 px wide at the right end) and a 46 px row of category tabs. The LinkedIn and GitHub links live in the About section only.
+Content sits in a centred column up to 1272 px wide with fluid side gutters (16–40 px). The header is sticky and has two rows: a 68 px bar (spinning logo and wordmark, four nav links, a search pill up to 400 px wide, and the language switcher at the right end) and a 46 px row of category tabs. The LinkedIn and GitHub links live in the About section only.
 
 On the home page an introduction comes first, straight on the floor with 24 px of its own padding above and 40 px below, before the two-column grid; the home rail holds only the Latest posts card. Main pages use a two-column grid: a flexible content column and a 344 px rail, 48 px apart. The rail follows the scroll (sticky at 140 px from the top) only when the window is at least 1101 px wide and 1040 px tall, so it never hides its own content. Pages start 24 px below the header and leave 64 px at the bottom; home sections are 56 px apart, with 18 px between a section title and its cards. Market cards fill an auto grid of columns at least 270 px wide with 16 px gaps; the Latest data strip is a horizontal scroll of 152 px tiles with 12 px gaps and snap points; the trust row and the home post cards use three equal columns. The About the author card sits 72 px below every page's content, and the footer 40 px below that.
 
@@ -438,14 +442,15 @@ The market quote. A 36 px pill at least 88 px wide with a 1.5 px gold border, Br
 - **Country picker:** a pill button naming the first two selections and a "+N" count opens a 340 px Card Slate panel with a pop (160 ms scale from 0.97). Inside: a search field (8 px corners, gold border on focus), a hint line ("Pick up to 8 countries"), then rows of checkbox, flag and name. World is listed first, divided from the countries by a hairline. A chosen row fills its checkbox with gold and a dark tick; rows past the limit dim to 40%.
 
 ### Navigation
-- **Main nav:** three uppercase links (Nav Label) in Bright Ink; hover and the current section turn gold.
+- **Main nav:** four uppercase links (Nav Label) in Bright Ink; hover and the current section turn gold.
 - **Category tabs:** 600 at 0.9375rem in Muted Ink, scrolling without a scrollbar; hover lifts to Bright Ink, the current tab becomes Bright Ink at 800. A 16 px Strong Rule divider separates the categories from Posts.
 - **Series tabs:** the measures of a metric (Electoral, Liberal, and so on) in the same Muted Ink style over a hairline; the active one turns Bright Ink at 800 with a 2 px gold underline and its glow. When tabs overflow, the strip fades at its right edge.
+- **Language switcher:** three mono codes (EN, DE, PT) at the right end of the bar, after the search, in Muted Ink on 32 px pills; hover lifts to Bright Ink on Raised Slate, the current language is gold. Each code links to the same page in that language and keeps its filters.
 - **Breadcrumbs:** Meta size, Quiet Ink links separated by a slash, gold on hover.
 - **Mobile:** below 860 px only the wordmark, the search and the tab row remain; below 640 px the search becomes a round button.
 
 ### Introduction
-The home page's opening statement, set straight on the gridded floor with no card. A Display Extra Large headline in Bright Ink, written as two phrases that each hold together on one line on wide screens; a paragraph in Quiet Ink at 1.125rem (line-height 1.6, up to 62ch) 20 px below it; then, 26 px below that, a large primary pill with an arrow (Explore the metrics) and a large outline pill (Read the posts), 12 px apart and wrapping when narrow.
+The home page's opening statement, set straight on the gridded floor with no card. A Display Extra Large headline in Bright Ink, written as two phrases that each hold together on one line on wide screens; a paragraph in Quiet Ink at 1.125rem (line-height 1.6, up to 62ch) 20 px below it; then, 26 px below that, two large primary pills with arrows (Explore the metrics, Explore politics) and a large outline pill (Read the posts), 12 px apart and wrapping when narrow.
 
 ### Chart Card, Well and Source Line
 Every chart lives in a card: a head with the title and its control (year select or country picker), then the source line, then the well. The source line (Meta, Muted Ink) names the source with a Quiet Ink link, the source's own update date and the date it was fetched. The well is Chart Well with 8 px corners and HUD corner ticks. While data loads the well dims to 55% and keeps its size.
@@ -455,6 +460,13 @@ A classic Mercator projection without Antarctica (latitudes clamped at ±85°), 
 
 ### Line Chart
 One 2 px line per country with round caps, no point markers and no smoothing; hover thickens the line and dims the others. Each line ends in its 20×15 flag, with the country's name in Quiet Ink on wide charts (flag only below 560 px). Gridlines are Hairline, the x-axis line Strong Rule, axis labels Muted Ink, years in mono. Under the chart, series keys repeat each country as a pill (line swatch, flag, name, remove button), and "Show the numbers" opens a scrolling table with a mono year column and a sticky header.
+
+### Politics Mode
+The country page heads with a 68 px round flag, the condensed country name and an In office card (party logo tile, mono label, leader and start date). Metrics sit under it in two rows: category tabs with their icons in the series-tab style (the active icon turns gold), then the open category's metrics as 38 px outline pills, the current one gold-bordered on Gold Wash. Measures of a metric are series tabs inside the chart card.
+
+The chart is one line with the area under it, both in the colour of the party in office; a stretch of line that ends at a year belongs to that year's leader (in office on 1 July). Thin dashed Strong Rule lines mark where each presidency begins. An HTML card sits over the canvas at each presidency's last point: the logo of the party it ended in, the leader's name, "End of term" (or "In office"), the value and the change. One presidency's end is the next one's start, so there is no separate start label. A card never covers another card or the line; without room it drops "End of term" and the value, then the name, then hides. Only the In office card may cross the line. Cards are Card Slate at 94% with a Strong Rule border and a 3 px party bar on the side nearest their point, with a 1 px party-coloured stem to a 10 px Bright Ink dot. A gold slider under the chart zooms; it opens on about the last 40 years (fewer on phones).
+
+Under the chart, the presidents with data for the measure form a timeline from today back: years in mono, a 2 px rail in each party's colour with a 12 px dot (ringed for the leader in office), the logo tiles, the short name with its parties, the start and end values, and the change with its arrow. A note counts the presidents left out for lack of data. Each row is a button: pressing it zooms the chart to that presidency, pressing it again zooms back. On phones the years move under the name and the values drop out. Party logos always sit on a #f2f3f4 tile, because many have black lettering; a party without a logo shows its initials on its colour. "Show the numbers" lists every year with its value, the leader in office on 1 July and the party.
 
 ### Tooltip
 Card Slate with a Strong Rule border, 10 px corners and the tooltip shadow. A bold head with a flag, then the value in 800 at 1.125rem, then a Muted Ink line ("2024 · rank 3 of 215"). Line-chart tooltips list every country for the hovered year, sorted high to low, each with its colour swatch, flag and value.
@@ -474,7 +486,7 @@ The closing card on every page: a 96 px round portrait ringed in gold at 55% ove
 
 **The Kept Colour Rule.** Line colours are handed out in the fixed eight-colour order, and a country keeps its colour for as long as it stays selected; a freed colour goes to the next country added. At most eight countries plus World. World is always the dashed light grey line.
 
-**The Ink-Only Chart Text Rule.** Chart text (axis labels, end labels, legends, tooltips) uses the ink tokens, never a series colour. Series colours appear only in lines, swatches and map fills.
+**The Ink-Only Chart Text Rule.** Chart text (axis labels, end labels, legends, tooltips) uses the ink tokens, never a series colour. Series colours appear only in lines, swatches and map fills. The only coloured text is a presidency's change, in Better Green or Worse Red beside its arrow.
 
 ## Do's and Don'ts
 
@@ -489,7 +501,7 @@ The closing card on every page: a 96 px round portrait ringed in gold at 55% ove
 - **Do** stop the logo spin and slide animations under reduced motion.
 
 ### Don't:
-- **Don't** introduce a second accent colour or any green or red in the interface, and don't use Kalshi's bright green for the title or anything else.
+- **Don't** introduce a second accent colour or any green or red in the interface (Politics mode's arrows aside), and don't use Kalshi's bright green for the title or anything else.
 - **Don't** colour chart text with series colours.
 - **Don't** place an eyebrow or kicker label above a heading; the question goes under the metric's name.
 - **Don't** put resting shadows on cards; shadows belong only to dropdowns, the picker and tooltips.

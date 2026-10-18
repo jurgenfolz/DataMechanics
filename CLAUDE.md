@@ -77,12 +77,12 @@ Fabric file formats, Microsoft APIs, Power BI Desktop, the service, and the code
 
 ### Architecture
 
-- **One folder per data provider** in `providers/`: `worldbank/`, `imf/`, `undp/`, `owid/` (Our World in Data), `naturalearth/`.
+- **One folder per data provider** in `providers/`: `worldbank/`, `imf/`, `undp/`, `owid/` (Our World in Data), `naturalearth/`, and `curated/` for tables we compile by hand as CSV files in `data/`.
 - **One module per source** inside a provider folder (a `.py` file). The module calls the provider's API, transforms the data and writes it to PostgreSQL. The whole ETL for that source lives in the module.
 - **Each module writes one table, and only one.** It replaces the table in one transaction through `providers/load.py`, which also logs the load in `etl_load`.
 - **Run the ETL** with `python manage.py etl` (every module, in the order of `providers.MODULES`) or `python manage.py etl worldbank.gdp` (one module).
 - **The website reads only the database**, never a provider's API. Keep transformations on read small: reshaping and ranking (`metrics/queries.py`).
-- **Table names**: country data starts with `geo_` and names its grain, e.g. GDP by country and year is `geo_gdp_country_year`. The models live in `geo/models.py`.
+- **Table names**: country data starts with `geo_` and names its grain, e.g. GDP by country and year is `geo_gdp_country_year`. The models live in `geo/models.py`. Political data starts with `pol_` (`pol_party`, `pol_administration`); its models live in `politics/models.py`.
 - **Country dimension**: `geo_country` (codes, names, shapes from Natural Earth, plus a World row with `is_aggregate`). Every fact table points at it. Map other sources' codes to it in `providers/load.py` (`_ALIASES`, e.g. IMF `UVK` → `XKX`).
 - **One page per metric**: each metric (GDP, life expectancy, ...) has its own page with charts. Metrics are defined once, in `metrics/catalog.py`.
 - **Database**: PostgreSQL 18 in Docker for now (`docker-compose.yml`). Moving it to the VPS: `docs/postgres-migration.md`.
@@ -120,3 +120,28 @@ Country data gets two families of charts:
   - each country's flag in the dropdown and as the line's data label (flags are SVGs in `media/flags/4x3` and `media/flags/1x1`, named by ISO 3166-1 alpha-2 code).
 
 Charts follow the dataviz skill: one axis, colours assigned to a country when it is added and kept while it stays, a legend for two or more series, a table view ("Show the numbers"), tooltips on hover.
+
+## Languages
+
+The site speaks English, German and Portuguese (Brazilian). English lives at the root, German under `/de/`, Portuguese under `/pt/`.
+
+- **English is the source.** Write every visible text in English and mark it: `{% translate %}` or `{% blocktranslate %}` in templates, `gettext_lazy` in module-level Python (the catalog), `gettext` in functions, and the global `gettext`, `ngettext` and `interpolate` in `static/js` (Django's catalog, loaded by `base.html`).
+- **Keys stay English.** Slugs, fields, category keys, the CSV and the JSON keys do not change with the language. Category names on the page come from `CATEGORY_LABELS` in `metrics/catalog.py`.
+- **Update the translations** after adding or changing a text:
+  `python manage.py makemessages -l de -l pt --ignore='staticfiles/*' --ignore='static/vendor/*' --ignore='media/*' --ignore='old_word_press_export/*' --ignore='docs/*'`,
+  the same with `-d djangojs` for `static/js`, then fill every new `msgstr` in `locale/de` and `locale/pt`, then `python manage.py compilemessages --ignore=.venv`.
+  A test fails while any entry is empty or fuzzy. Every deploy compiles the `.po` files again on the server.
+- **Numbers and dates** follow the language: `metrics/formatting.py` hands its unit rules, with the language's words and decimal marks, to the browser. Date formats are in `config/formats/<language>/formats.py`.
+- **Country names** come from Natural Earth in all three languages (`name`, `name_de`, `name_pt` in `geo_country`). Fix a name in `NAME_FIXES` in `providers/naturalearth/countries.py`; Portuguese names use Brazilian spelling.
+- **Blog posts stay in English.** Their pages mark them `lang="en"`.
+
+## Politics mode
+
+Politics mode shows one country at a time, president by president (`/politics/<country>/`).
+
+- **Data**: leaders, parties and dates are compiled by hand from Wikipedia into `data/politics/<country>/administrations.csv` and `parties.csv`. Party logos go in `media/politics/<country>/`, with their licence and author in `parties.csv`. Credit every logo that is not in the public domain.
+- **One row per stretch in office under one party.** A leader who changes party mid-term gets a row per party. Consecutive rows of one leader make one presidency.
+- **Add a country**: add its folder to `data/politics/` and to `COUNTRIES` in `providers/curated/__init__.py`, then run `python manage.py etl curated.parties curated.administrations`. Every deploy runs this too.
+- **Metrics**: `politics/metrics.py` lists the metrics Politics mode shows, grouped into tabs. Add a metric there once it has country data.
+- **A year belongs to the leader in office on 1 July.** On the chart, the stretch of line that ends at a year takes that leader's party colour. A presidency's change runs from the year before its first year to its last year with data.
+- **Colours**: each party's colour comes from Wikipedia's timeline of the country's presidents, lightened where needed to reach 3:1 against the chart. Green and red mean good and bad change for the metric. They appear only in Politics mode, always beside an arrow.

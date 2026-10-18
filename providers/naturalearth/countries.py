@@ -2,6 +2,7 @@
 
 Natural Earth gives every country its ISO codes and its border shape.
 Shapes are simplified here so a world map stays small enough to load on every metric page.
+Names come in English, German and Portuguese. The site's Portuguese is Brazilian, and Natural Earth writes Portugal's.
 """
 
 import math
@@ -20,19 +21,35 @@ SOURCE_PAGE = 'https://www.naturalearthdata.com/downloads/50m-cultural-vectors/5
 TOLERANCE = 0.05
 DECIMALS = 2
 
+# Where Natural Earth's name doesn't suit the site, by Natural Earth's ADM0_A3 code.
+# German: the short common name. Portuguese: the Brazilian spelling.
+NAME_FIXES = {
+    'de': {
+        'CHN': 'China', 'TWN': 'Taiwan', 'CYP': 'Zypern', 'CYN': 'Nordzypern', 'FSM': 'Mikronesien',
+        'CYM': 'Kaimaninseln',
+    },
+    'pt': {
+        'ARM': 'Armênia', 'BEN': 'Benin', 'BLM': 'São Bartolomeu', 'CYM': 'Ilhas Cayman', 'CYN': 'Chipre do Norte',
+        'CZE': 'Tchéquia', 'DJI': 'Djibuti', 'EST': 'Estônia', 'IRL': 'Irlanda', 'IRN': 'Irã', 'KAS': 'Geleira de Siachen',
+        'KEN': 'Quênia', 'LVA': 'Letônia', 'MCO': 'Mônaco', 'MDG': 'Madagascar', 'MKD': 'Macedônia do Norte',
+        'MUS': 'Maurício', 'NCL': 'Nova Caledônia', 'POL': 'Polônia', 'ROU': 'Romênia', 'SVN': 'Eslovênia',
+        'SXM': 'Sint Maarten', 'TKM': 'Turcomenistão', 'VNM': 'Vietnã', 'YEM': 'Iêmen',
+    },
+}
+
 
 def run():
     features = http.get_json(URL)['features']
     own_codes = {feature['properties']['ADM0_A3'] for feature in features}
     countries = [_country(feature, own_codes) for feature in features]
-    countries.append(Country(iso3=WORLD, iso2='', name='World', is_aggregate=True))
+    countries.append(Country(iso3=WORLD, iso2='', name='World', name_de='Welt', name_pt='Mundo', is_aggregate=True))
 
     with transaction.atomic():
         for country in countries:
             Country.objects.update_or_create(
                 iso3=country.iso3,
                 defaults={field: getattr(country, field) for field in
-                          ('iso2', 'name', 'continent', 'subregion', 'is_aggregate', 'geometry')},
+                          ('iso2', 'name', 'name_de', 'name_pt', 'continent', 'subregion', 'is_aggregate', 'geometry')},
             )
         EtlLoad.objects.create(
             table_name=Country._meta.db_table,
@@ -60,6 +77,8 @@ def _country(feature, own_codes):
         iso3=country_code(iso3),
         iso2=iso2.lower(),
         name=name,
+        name_de=NAME_FIXES['de'].get(p['ADM0_A3'], p.get('NAME_DE') or ''),
+        name_pt=NAME_FIXES['pt'].get(p['ADM0_A3'], p.get('NAME_PT') or ''),
         continent=p['CONTINENT'],
         subregion=p['SUBREGION'],
         geometry=_simplify_geometry(feature['geometry']),

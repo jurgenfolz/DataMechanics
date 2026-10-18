@@ -1,21 +1,31 @@
-"""sitemap.xml: the home page, every metric page and every published post."""
+"""sitemap.xml: the home page, every metric page, every Politics country and every published post, in every language.
+
+Each URL lists its other languages, so search engines show people the page in theirs.
+"""
 
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 
 from blog.models import Post
 from metrics.catalog import METRICS
+from politics.queries import countries
 
 
-class PageSitemap(Sitemap):
+class LanguagesSitemap(Sitemap):
+    i18n = True
+    alternates = True
+    x_default = True
+
+
+class PageSitemap(LanguagesSitemap):
     def items(self):
-        return ['home', 'metrics:list', 'blog:list']
+        return ['home', 'metrics:list', 'politics:index', 'blog:list']
 
     def location(self, item):
         return reverse(item)
 
 
-class MetricSitemap(Sitemap):
+class MetricSitemap(LanguagesSitemap):
     def items(self):
         return list(METRICS)
 
@@ -23,7 +33,15 @@ class MetricSitemap(Sitemap):
         return reverse('metrics:detail', args=[metric.slug])
 
 
-class PostSitemap(Sitemap):
+class PoliticsSitemap(LanguagesSitemap):
+    def items(self):
+        return [item['slug'] for item in countries()]
+
+    def location(self, slug):
+        return reverse('politics:country', args=[slug])
+
+
+class PostSitemap(LanguagesSitemap):
     def items(self):
         return Post.published.all()
 
@@ -31,4 +49,4 @@ class PostSitemap(Sitemap):
         return post.published_at
 
 
-SITEMAPS = {'pages': PageSitemap, 'metrics': MetricSitemap, 'posts': PostSitemap}
+SITEMAPS = {'pages': PageSitemap, 'metrics': MetricSitemap, 'politics': PoliticsSitemap, 'posts': PostSitemap}

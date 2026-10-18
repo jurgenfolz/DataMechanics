@@ -1,4 +1,5 @@
 // Home page: the spotlight carousel (its map recolours for each metric) and the "Latest data" strip.
+// gettext and interpolate are Django's, from the translation catalog base.html loads.
 import { createWorldMap } from './lib/world-map.js';
 
 const units = JSON.parse(document.getElementById('units').textContent);
@@ -20,18 +21,21 @@ if (spotlight) {
   const cache = new Map();
   let current = 0;
 
-  const load = (slug) => {
-    if (!cache.has(slug)) cache.set(slug, fetch(`/metrics/${slug}/data.json`).then((response) => response.json()));
+  const load = (slide) => {
+    const { slug, dataUrl } = slide.dataset;
+    if (!cache.has(slug)) cache.set(slug, fetch(dataUrl).then((response) => response.json()));
     return cache.get(slug);
   };
 
-  async function drawMap(slug) {
-    const data = await load(slug);
+  async function drawMap(slide) {
+    const { slug } = slide.dataset;
+    const data = await load(slide);
     if (slides[current].dataset.slug !== slug) return;  // the visitor moved on while it loaded
     await map.render(data, data.mapYear);
-    caption.textContent = data.better
-      ? `${data.label}, ${data.mapYear}. Red is worse, blue is better; grey is the median country.`
-      : `${data.label}, ${data.mapYear}. Brighter blue is higher.`;
+    const text = data.better
+      ? gettext('%(label)s, %(year)s. Red is worse, blue is better; grey is the median country.')
+      : gettext('%(label)s, %(year)s. Brighter blue is higher.');
+    caption.textContent = interpolate(text, { label: data.label, year: data.mapYear }, true);
   }
 
   function show(i) {
@@ -48,7 +52,7 @@ if (spotlight) {
     source.href = slide.dataset.sourceUrl;
     icon.innerHTML = slide.querySelector('template[data-icon]').innerHTML;
     index.textContent = current + 1;
-    drawMap(slide.dataset.slug);
+    drawMap(slide);
   }
 
   prev.addEventListener('click', () => show(current - 1));
@@ -59,9 +63,9 @@ if (spotlight) {
     if (event.key === 'ArrowRight') show(current + 1);
   });
   slides[0].querySelector('[data-map-slot]').append(mapBox);
-  drawMap(slides[0].dataset.slug);
+  drawMap(slides[0]);
   // Warm the next slide's data so the first click recolours at once.
-  if (slides[1]) load(slides[1].dataset.slug);
+  if (slides[1]) load(slides[1]);
 }
 
 // ---------- Latest data strip ----------

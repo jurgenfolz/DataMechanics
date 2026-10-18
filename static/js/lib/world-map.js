@@ -1,5 +1,5 @@
 // World choropleth on a Mercator projection.
-// Used by the metric page and the home page spotlight. Needs the global `echarts`.
+// Used by the metric page and the home page spotlight. Needs the global `echarts`, and Django's gettext and interpolate.
 import { escapeHtml, formatValue } from './format.js';
 
 // Metrics with a better direction: red (worse) -> neutral grey -> blue (better). Midpoint: the median country.
@@ -28,11 +28,16 @@ function unproject([x, y]) {
 }
 
 let shapes;
+// Country names from the shapes file, for the tooltip of a country without data.
+const names = new Map();
 export function loadShapes() {
-  // base.html sets the URL with a version that changes whenever the countries are reloaded.
-  shapes ??= fetch(document.body.dataset.shapesUrl || '/metrics/countries.geojson')
+  // base.html sets the URL, in the page's language, with a version that changes whenever the countries are reloaded.
+  shapes ??= fetch(document.body.dataset.shapesUrl)
     .then((response) => response.json())
-    .then((geojson) => echarts.registerMap('world', geojson));
+    .then((geojson) => {
+      for (const feature of geojson.features) names.set(feature.properties.iso3, feature.properties.name);
+      echarts.registerMap('world', geojson);
+    });
   return shapes;
 }
 
@@ -119,14 +124,15 @@ export function createWorldMap(element, { units, onSelect, roam = false }) {
         extraCssText: 'border-radius:10px;box-shadow:0 12px 30px rgb(0 0 0 / .5);',
         formatter(params) {
           const country = data.countries[params.name];
-          const name = escapeHtml(country?.name || params.data?.label || params.name);
+          const name = escapeHtml(country?.name || names.get(params.name) || params.name);
           const flag = country?.flag ? `<img src="${escapeHtml(country.flag)}" alt="">` : '';
           if (params.data?.raw === undefined) {
-            return `<div class="tip"><div class="tip__head">${flag}${name}</div><div class="tip__muted">No data for ${year}</div></div>`;
+            const muted = escapeHtml(interpolate(gettext('No data for %s'), [year]));
+            return `<div class="tip"><div class="tip__head">${flag}${name}</div><div class="tip__muted">${muted}</div></div>`;
           }
           return `<div class="tip"><div class="tip__head">${flag}${name}</div>`
             + `<div class="tip__value">${escapeHtml(formatValue(params.data.raw, rule))}</div>`
-            + `<div class="tip__muted">${year} · rank ${rank.get(params.name)} of ${rows.length}</div></div>`;
+            + `<div class="tip__muted">${escapeHtml(interpolate(gettext('%(year)s · rank %(rank)s of %(count)s'), { year, rank: rank.get(params.name), count: rows.length }, true))}</div></div>`;
         },
       },
       series: [{
@@ -163,7 +169,7 @@ export function createWorldMap(element, { units, onSelect, roam = false }) {
 export function renderLegend(container, data, scale, units) {
   const rule = units[data.unit];
   const stops = scale.colors.map((c, i) => `${c} ${(i / (scale.colors.length - 1)) * 100}%`).join(', ');
-  const [left, right] = scale.diverging ? ['Worse', 'Better'] : ['Lower', 'Higher'];
+  const [left, right] = scale.diverging ? [gettext('Worse'), gettext('Better')] : [gettext('Lower'), gettext('Higher')];
   const lowEnd = scale.diverging && data.better === 'lower' ? scale.ends.high : scale.ends.low;
   const highEnd = scale.diverging && data.better === 'lower' ? scale.ends.low : scale.ends.high;
 
@@ -185,11 +191,11 @@ export function renderLegend(container, data, scale, units) {
     tick.textContent = formatValue(value, rule);
     ends.append(tick);
   }
-  if (scale.diverging) ends.children[1].title = 'Median country';
+  if (scale.diverging) ends.children[1].title = gettext('Median country');
   block.append(leftLabel, bar, rightLabel, ends);
 
   const noData = document.createElement('span');
   noData.className = 'legend__nodata';
-  noData.append(document.createElement('i'), 'No data');
+  noData.append(document.createElement('i'), gettext('No data'));
   container.append(block, noData);
 }

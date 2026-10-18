@@ -7,7 +7,7 @@ APP=/srv/datamechanics
 DOMAIN=data-mechanics.com
 
 apt-get update
-apt-get install -y python3 python3-venv rsync curl gpg
+apt-get install -y python3 python3-venv rsync curl gpg gettext
 
 # Docker: keep an existing install (Hostinger's images ship Docker CE); otherwise use Ubuntu's packages.
 command -v docker >/dev/null || apt-get install -y docker.io docker-compose-v2

@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.urls import reverse
+from django.urls import reverse, translate_url
+from django.utils import translation
 
 from geo.models import Country, EtlLoad
 from metrics import search
-from metrics.catalog import CATEGORIES
+from metrics.catalog import CATEGORIES, CATEGORY_LABELS
 
 
 def site(request):
@@ -11,10 +12,27 @@ def site(request):
         'GITHUB_URL': settings.GITHUB_URL,
         'AUTHOR_LINKEDIN_URL': settings.AUTHOR_LINKEDIN_URL,
         'AUTHOR_GITHUB_URL': settings.AUTHOR_GITHUB_URL,
-        'METRIC_CATEGORIES': CATEGORIES,
+        # (key, label) pairs, in the order of the labels in the active language.
+        'METRIC_CATEGORIES': sorted(((key, CATEGORY_LABELS[key]) for key in CATEGORIES), key=lambda item: str(item[1])),
         'SEARCH_INDEX': search.index(),
         'SHAPES_URL': _shapes_url(),
+        'LANGUAGES_HERE': _languages_here(request),
     }
+
+
+def _languages_here(request):
+    """This page in every language: the switcher links to `url`, the head's hreflang links to `canonical`."""
+    current = translation.get_language()
+    return [
+        {
+            'code': code,
+            'name': name,
+            'current': code == current,
+            'url': translate_url(request.get_full_path(), code),
+            'canonical': request.build_absolute_uri(translate_url(request.path, code)),
+        }
+        for code, name in settings.LANGUAGES
+    ]
 
 
 def _shapes_url():

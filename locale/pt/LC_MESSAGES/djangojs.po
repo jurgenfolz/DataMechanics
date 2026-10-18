@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-18 21:09+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/js/home.js:36
+msgid ""
+"%(label)s, %(year)s. Red is worse, blue is better; grey is the median "
+"country."
+msgstr ""
+"%(label)s, %(year)s. Vermelho é pior, azul é melhor; cinza é o país mediano."
+
+#: static/js/home.js:37
+msgid "%(label)s, %(year)s. Brighter blue is higher."
+msgstr "%(label)s, %(year)s. Azul mais claro é mais alto."
+
+#: static/js/lib/country-picker.js:35
+msgid "No country matches."
+msgstr "Nenhum país encontrado."
+
+#: static/js/lib/country-picker.js:38
+#, javascript-format
+msgid "%s country is the limit. Remove one to add another."
+msgid_plural "%s countries is the limit. Remove one to add another."
+msgstr[0] "O limite é %s país. Remova um para adicionar outro."
+msgstr[1] "O limite é %s países. Remova um para adicionar outro."
+
+#: static/js/lib/country-picker.js:39
+#, javascript-format
+msgid "Pick up to %s country."
+msgid_plural "Pick up to %s countries."
+msgstr[0] "Escolha até %s país."
+msgstr[1] "Escolha até %s países."
+
+#: static/js/lib/country-picker.js:43
+msgid "World"
+msgstr "Mundo"
+
+#: static/js/lib/country-picker.js:44
+msgid "Choose countries"
+msgstr "Escolher países"
+
+#: static/js/lib/line-chart.js:88 static/js/lib/world-map.js:199
+msgid "No data"
+msgstr "Sem dados"
+
+#: static/js/lib/term-chart.js:196 static/js/politics-page.js:170
+msgid "In office"
+msgstr "Em exercício"
+
+#: static/js/lib/term-chart.js:196
+msgid "End of term"
+msgstr "Fim do mandato"
+
+#: static/js/lib/term-chart.js:321
+#, javascript-format
+msgid "Up %s, better"
+msgstr "Subiu %s, melhor"
+
+#: static/js/lib/term-chart.js:321
+#, javascript-format
+msgid "Up %s, worse"
+msgstr "Subiu %s, pior"
+
+#: static/js/lib/term-chart.js:321
+#, javascript-format
+msgid "Up %s"
+msgstr "Subiu %s"
+
+#: static/js/lib/term-chart.js:322
+#, javascript-format
+msgid "Down %s, better"
+msgstr "Caiu %s, melhor"
+
+#: static/js/lib/term-chart.js:322
+#, javascript-format
+msgid "Down %s, worse"
+msgstr "Caiu %s, pior"
+
+#: static/js/lib/term-chart.js:322
+#, javascript-format
+msgid "Down %s"
+msgstr "Caiu %s"
+
+#: static/js/lib/world-map.js:130
+#, javascript-format
+msgid "No data for %s"
+msgstr "Sem dados para %s"
+
+#: static/js/lib/world-map.js:135
+msgid "%(year)s · rank %(rank)s of %(count)s"
+msgstr "%(year)s · posição %(rank)s de %(count)s"
+
+#: static/js/lib/world-map.js:172
+msgid "Worse"
+msgstr "Pior"
+
+#: static/js/lib/world-map.js:172
+msgid "Better"
+msgstr "Melhor"
+
+#: static/js/lib/world-map.js:172
+msgid "Lower"
+msgstr "Mais baixo"
+
+#: static/js/lib/world-map.js:172
+msgid "Higher"
+msgstr "Mais alto"
+
+#: static/js/lib/world-map.js:194
+msgid "Median country"
+msgstr "País mediano"
+
+#: static/js/metric-page.js:143
+#, javascript-format
+msgid "Highest values, %s"
+msgstr "Maiores valores, %s"
+
+#: static/js/metric-page.js:179
+#, javascript-format
+msgid "%s (no data)"
+msgstr "%s (sem dados)"
+
+#: static/js/metric-page.js:182
+#, javascript-format
+msgid "Remove %s"
+msgstr "Remover %s"
+
+#: static/js/metric-page.js:192 static/js/politics-page.js:201
+msgid "Year"
+msgstr "Ano"
+
+#: static/js/politics-page.js:59
+msgid "The data did not load. Reload the page to try again."
+msgstr "Os dados não carregaram. Recarregue a página para tentar de novo."
+
+#: static/js/politics-page.js:69
+#, javascript-format
+msgid "No data for %s on this measure yet."
+msgstr "Ainda não há dados de %s nesta medida."
+
+#: static/js/politics-page.js:112
+msgid ""
+"%(title)s in %(name)s over time, coloured by the president in office. The "
+"list below gives the change during each presidency."
+msgstr ""
+"%(title)s em %(name)s ao longo do tempo, colorido pelo presidente em "
+"exercício. A lista abaixo mostra a variação durante cada mandato."
+
+#: static/js/politics-page.js:129
+msgid "%(name)s by president: %(title)s"
+msgstr "%(name)s por presidente: %(title)s"
+
+#: static/js/politics-page.js:142
+msgid "Source: not loaded yet."
+msgstr "Fonte: ainda não carregada."
+
+#: static/js/politics-page.js:146
+msgid "updated %(date)s"
+msgstr "atualizado em %(date)s"
+
+#: static/js/politics-page.js:147
+msgid "fetched %(date)s"
+msgstr "coletado em %(date)s"
+
+#: static/js/politics-page.js:148
+msgid "Source:"
+msgstr "Fonte:"
+
+#: static/js/politics-page.js:158
+msgid "now"
+msgstr "hoje"
+
+#: static/js/politics-page.js:168
+msgid "%(years)s, %(name)s, %(parties)s: from %(start)s to %(end)s."
+msgstr "%(years)s, %(name)s, %(parties)s: de %(start)s para %(end)s."
+
+#: static/js/politics-page.js:181
+#, javascript-format
+msgid "%s president without enough data for this measure is not listed."
+msgid_plural ""
+"%s presidents without enough data for this measure are not listed."
+msgstr[0] ""
+"%s presidente sem dados suficientes nesta medida não aparece na lista."
+msgstr[1] ""
+"%s presidentes sem dados suficientes nesta medida não aparecem na lista."
+
+#: static/js/politics-page.js:201
+msgid "In office on 1 July"
+msgstr "Em exercício em 1º de julho"
+
+#: static/js/politics-page.js:201
+msgid "Party"
+msgstr "Partido"
+
+#: static/js/search.js:53
+#, javascript-format
+msgid "No metric matches “%s”. Press Enter to search all."
+msgstr ""
+"Nenhum indicador corresponde a “%s”. Pressione Enter para buscar em todos."

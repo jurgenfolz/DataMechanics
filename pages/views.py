@@ -1,19 +1,20 @@
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 
 from blog.models import Post
 from metrics import queries
 from metrics.catalog import BY_SLUG, METRICS
-from metrics.formatting import UNITS
+from metrics.formatting import units
 
 # The spotlight cycles through these metrics, in this order.
 SPOTLIGHT = ['life-expectancy', 'gdp-per-capita', 'co2-emissions', 'democracy', 'inflation', 'life-satisfaction',
              'government-debt', 'fertility-rate', 'hdi', 'electricity-mix', 'unemployment', 'population', 'gdp']
 # Home page sections: (title, category to link to or '' for all metrics, up to four metric slugs).
 SECTIONS = [
-    ('Economy', 'Economy', ['gdp-per-capita', 'gdp-growth', 'inflation', 'government-debt']),
-    ('People', '', ['population', 'fertility-rate', 'life-expectancy', 'child-mortality']),
-    ('Environment', 'Environment', ['co2-emissions', 'electricity-mix']),
-    ('Society and politics', '', ['democracy', 'human-rights', 'life-satisfaction', 'homicide-rate']),
+    (_('Economy'), 'Economy', ['gdp-per-capita', 'gdp-growth', 'inflation', 'government-debt']),
+    (_('People'), '', ['population', 'fertility-rate', 'life-expectancy', 'child-mortality']),
+    (_('Environment'), 'Environment', ['co2-emissions', 'electricity-mix']),
+    (_('Society and politics'), '', ['democracy', 'human-rights', 'life-satisfaction', 'homicide-rate']),
 ]
 
 
@@ -26,7 +27,7 @@ def home(request):
                    for slug in SPOTLIGHT if tops[slug]],
         # Newest data first: the metrics whose latest year is most recent lead the strip.
         'latest': sorted(({'metric': m, 'span': queries.year_span(m)} for m in METRICS if tops[m.slug]),
-                         key=lambda item: (-item['span'][1], item['metric'].title)),
+                         key=lambda item: (-item['span'][1], str(item['metric'].title))),
         'sections': [
             {'title': title, 'category': category,
              'items': [{'metric': BY_SLUG[slug], 'top': tops[slug]} for slug in slugs]}
@@ -34,5 +35,5 @@ def home(request):
         ],
         'metric_count': len(METRICS),
         'posts': Post.published.prefetch_related('categories')[:3],
-        'units': UNITS,
+        'units': units(),
     })

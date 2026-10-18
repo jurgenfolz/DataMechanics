@@ -1,18 +1,20 @@
-{% load static %}<!doctype html>
-<html lang="en">
+{% load static i18n %}<!doctype html>
+{% get_current_language as LANGUAGE_CODE %}<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Data Mechanics · Free public data, charted and sourced{% endblock %}</title>
-  <meta name="description" content="{% block description %}Free public statistics on every country, with maps, charts and downloads. Every number names its source.{% endblock %}">
+  <title>{% block title %}{% translate "Data Mechanics · Free public data, charted and sourced" %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% translate "Free public statistics on every country, with maps, charts and downloads. Every number names its source." %}{% endblock %}">
   <meta name="theme-color" content="#121416">
-  <link rel="icon" href="{% static 'brand/logo.svg' %}" type="image/svg+xml">
+  {% for language in LANGUAGES_HERE %}<link rel="alternate" hreflang="{{ language.code }}" href="{{ language.canonical }}">
+  {% if language.code == "en" %}<link rel="alternate" hreflang="x-default" href="{{ language.canonical }}">
+  {% endif %}{% endfor %}<link rel="icon" href="{% static 'brand/logo.svg' %}" type="image/svg+xml">
   <link rel="preload" href="{% static 'fonts/archivo-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
   {% block head %}{% endblock %}
 </head>
 <body data-shapes-url="{{ SHAPES_URL }}">
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">{% translate "Skip to content" %}</a>
 
   <header class="site-header">
     <div class="wrap bar">
@@ -20,32 +22,37 @@
         <img class="spin" src="{% static 'brand/logo.svg' %}" alt="" width="34" height="34">
         <span>Data Mechanics</span>
       </a>
-      <nav class="nav" aria-label="Main">
-        <a href="{% url 'metrics:list' %}"{% if request.resolver_match.app_name == 'metrics' %} aria-current="page"{% endif %}>Metrics</a>
-        <a href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>Posts</a>
-        <a href="#about">About</a>
+      <nav class="nav" aria-label="{% translate "Main" %}">
+        <a href="{% url 'metrics:list' %}"{% if request.resolver_match.app_name == 'metrics' %} aria-current="page"{% endif %}>{% translate "Metrics" %}</a>
+        <a href="{% url 'politics:index' %}"{% if request.resolver_match.app_name == 'politics' %} aria-current="page"{% endif %}>{% translate "Politics" %}</a>
+        <a href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>{% translate "Posts" %}</a>
+        <a href="#about">{% translate "About" %}</a>
       </nav>
 
       <form class="search" action="{% url 'metrics:list' %}" method="get" role="search" data-search>
-        <label class="visually-hidden" for="site-search">Search metrics</label>
+        <label class="visually-hidden" for="site-search">{% translate "Search metrics" %}</label>
         <div class="search__field">
           {% include "partials/icon.html" with name="search" size="18" %}
-          <input id="site-search" name="q" type="search" placeholder="Search any metric" autocomplete="off"
+          <input id="site-search" name="q" type="search" placeholder="{% translate "Search any metric" %}" autocomplete="off"
                  role="combobox" aria-expanded="false" aria-controls="site-search-results" aria-autocomplete="list"
                  value="{{ query|default:'' }}">
         </div>
-        <ul class="search__results" id="site-search-results" role="listbox" aria-label="Matching metrics" hidden></ul>
+        <ul class="search__results" id="site-search-results" role="listbox" aria-label="{% translate "Matching metrics" %}" hidden></ul>
       </form>
+
+      <nav class="langs" aria-label="{% translate "Language" %}">
+        {% for language in LANGUAGES_HERE %}<a href="{{ language.url }}" hreflang="{{ language.code }}" lang="{{ language.code }}" aria-label="{{ language.name }}" title="{{ language.name }}" data-language{% if language.current %} aria-current="true"{% endif %}>{{ language.code|upper }}</a>{% endfor %}
+      </nav>
     </div>
 
-    <nav class="wrap tabs" aria-label="Categories">
+    <nav class="wrap tabs" aria-label="{% translate "Categories" %}">
       {% with current=request.GET.category %}
-      <a href="{% url 'metrics:list' %}"{% if request.resolver_match.url_name == 'list' and request.resolver_match.app_name == 'metrics' and not current %} aria-current="page"{% endif %}>All metrics</a>
-      {% for category in METRIC_CATEGORIES %}
-      <a href="{% url 'metrics:list' %}?category={{ category|urlencode }}"{% if current == category %} aria-current="page"{% endif %}>{{ category }}</a>
+      <a href="{% url 'metrics:list' %}"{% if request.resolver_match.url_name == 'list' and request.resolver_match.app_name == 'metrics' and not current %} aria-current="page"{% endif %}>{% translate "All metrics" %}</a>
+      {% for key, label in METRIC_CATEGORIES %}
+      <a href="{% url 'metrics:list' %}?category={{ key|urlencode }}"{% if current == key %} aria-current="page"{% endif %}>{{ label }}</a>
       {% endfor %}
       <span class="tabs__divider" aria-hidden="true"></span>
-      <a href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>Posts</a>
+      <a href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>{% translate "Posts" %}</a>
       {% endwith %}
     </nav>
   </header>
@@ -56,17 +63,21 @@
 
   <section class="wrap about" id="about" aria-labelledby="about-title">
     <div class="card about__card">
-      <img class="about__photo" src="{% static 'brand/author.webp' %}" alt="Portrait of Klaus Jürgen Folz" width="96" height="96" loading="lazy">
+      <img class="about__photo" src="{% static 'brand/author.webp' %}" alt="{% translate "Portrait of Klaus Jürgen Folz" %}" width="96" height="96" loading="lazy">
       <div>
-        <h2 id="about-title">About the author</h2>
-        <p>Hello there, I’m Klaus Jürgen Folz, a Microsoft-certified Power BI Data Analyst (PL-300) and a Mechanical Engineer. I work as a Python and Power BI developer in Austria. I’m also the lead developer of Measure Killer, a Power BI external tool with more than 100k downloads. My goal with this site is to share my knowledge and the small wins to help developers like me.</p>
+        <h2 id="about-title">{% translate "About the author" %}</h2>
+        <p>{% blocktranslate trimmed %}
+          Hello there, I’m Klaus Jürgen Folz, a Mechanical Engineer working with Power BI, Python, machine learning and data analysis in Austria.
+          I’m also the lead developer of Measure Killer, a Power BI external tool with more than 100k downloads.
+          I built Data Mechanics to make public data free to explore and download, and to share the knowledge and small wins that help people who work with data.
+        {% endblocktranslate %}</p>
       </div>
       <div class="about__links">
         <a class="button button--outline" href="{{ AUTHOR_LINKEDIN_URL }}" rel="me noopener">
-          {% include "partials/brand_icon.html" with name="linkedin" %} Follow on LinkedIn
+          {% include "partials/brand_icon.html" with name="linkedin" %} {% translate "Follow on LinkedIn" %}
         </a>
         <a class="button" href="{{ AUTHOR_GITHUB_URL }}" rel="me noopener">
-          {% include "partials/brand_icon.html" with name="github" %} Follow on GitHub
+          {% include "partials/brand_icon.html" with name="github" %} {% translate "Follow on GitHub" %}
         </a>
       </div>
     </div>
@@ -78,21 +89,26 @@
         <img class="spin" src="{% static 'brand/logo.svg' %}" alt="" width="28" height="28">
         Data Mechanics
       </div>
-      <nav aria-label="Footer">
-        <a href="{% url 'metrics:list' %}">Metrics</a>
-        <a href="{% url 'blog:list' %}">Posts</a>
-        {% if GITHUB_URL %}<a href="{{ GITHUB_URL }}">Source code</a>{% else %}<span class="site-footer__soon">Source code: coming soon</span>{% endif %}
+      <nav aria-label="{% translate "Footer" %}">
+        <a href="{% url 'metrics:list' %}">{% translate "Metrics" %}</a>
+        <a href="{% url 'politics:index' %}">{% translate "Politics" %}</a>
+        <a href="{% url 'blog:list' %}">{% translate "Posts" %}</a>
+        {% if GITHUB_URL %}<a href="{{ GITHUB_URL }}">{% translate "Source code" %}</a>{% else %}<span class="site-footer__soon">{% translate "Source code: coming soon" %}</span>{% endif %}
       </nav>
-      <p class="site-footer__credit">
+      <p class="site-footer__credit">{% blocktranslate trimmed %}
         Data from the <a href="https://data.worldbank.org/">World Bank</a>, the <a href="https://www.imf.org/external/datamapper/">IMF</a>,
         the <a href="https://hdr.undp.org/">UNDP</a>, <a href="https://v-dem.net/">V-Dem</a> via <a href="https://ourworldindata.org/">Our World in Data</a>,
-        and borders from <a href="https://www.naturalearthdata.com/">Natural Earth</a>. Every chart and download names its source. The site's code is licensed under the AGPL-3.0.
-      </p>
+        and borders from <a href="https://www.naturalearthdata.com/">Natural Earth</a>.
+        Every chart and download names its source.
+        The site's code is licensed under the AGPL-3.0.
+      {% endblocktranslate %}</p>
     </div>
   </footer>
 
   {{ SEARCH_INDEX|json_script:"search-index" }}
+  <script src="{% url 'javascript-catalog' %}"></script>
   <script type="module" src="{% static 'js/search.js' %}"></script>
+  <script type="module" src="{% static 'js/language.js' %}"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'geo',
     'metrics',
+    'politics',
     'pages',
 ]
 
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -101,7 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+# English is the source language and lives at the root. German and Portuguese (Brazilian) live under /de/ and /pt/.
+LANGUAGE_CODE = 'en'
+LANGUAGES = [('en', 'English'), ('de', 'Deutsch'), ('pt', 'Português')]
+LOCALE_PATHS = [BASE_DIR / 'locale']
+# The site's own date formats per language (config/formats/<language>/formats.py).
+FORMAT_MODULE_PATH = ['config.formats']
 
 TIME_ZONE = 'UTC'
 

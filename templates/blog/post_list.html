@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Posts · Data Mechanics{% endblock %}
-{% block description %}Writing on data, charts, Python and BI by Klaus Folz.{% endblock %}
+{% block title %}{% translate "Posts" %} · Data Mechanics{% endblock %}
+{% block description %}{% translate "Writing on data, charts, Python and BI by Klaus Folz." %}{% endblock %}
 
 {% block content %}
 <div class="wrap">
   <header>
-    <h1 class="page-title">Posts</h1>
-    <p class="page-sub">Writing on data, charts, Python and BI by Klaus Folz.</p>
+    <h1 class="page-title">{% translate "Posts" %}</h1>
+    <p class="page-sub">{% translate "Writing on data, charts, Python and BI by Klaus Folz." %}{% get_current_language as LANGUAGE_CODE %}{% if LANGUAGE_CODE != "en" %} {% translate "The posts are written in English." %}{% endif %}</p>
   </header>
 
   {% if posts %}
@@ -17,12 +18,12 @@
       <a class="card post-row" href="{{ post.get_absolute_url }}">
         {% if post.cover_image %}<img src="{{ post.cover_image.url }}" alt="" loading="{% if forloop.counter > 3 %}lazy{% else %}eager{% endif %}">{% endif %}
         <span class="post-row__body">
-          <span class="post-row__title">{{ post.title }}</span>
-          <span class="post-row__excerpt">{{ post.excerpt }}</span>
+          <span class="post-row__title" lang="en">{{ post.title }}</span>
+          <span class="post-row__excerpt" lang="en">{{ post.excerpt }}</span>
           <span class="post-row__meta">
-            <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:'j M Y' }}</time>
-            <span aria-hidden="true">·</span><span>{{ post.reading_minutes }} min read</span>
-            {% for category in post.categories.all %}<span class="chip">{{ category.name }}</span>{% endfor %}
+            <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"SHORT_DATE_FORMAT" }}</time>
+            <span aria-hidden="true">·</span><span>{% blocktranslate with minutes=post.reading_minutes %}{{ minutes }} min read{% endblocktranslate %}</span>
+            {% for category in post.categories.all %}<span class="chip" lang="en">{{ category.name }}</span>{% endfor %}
           </span>
         </span>
       </a>
@@ -30,7 +31,7 @@
     {% endfor %}
   </ol>
   {% else %}
-  <div class="card empty section"><p>No posts yet. The first one is on its way.</p></div>
+  <div class="card empty section"><p>{% translate "No posts yet. The first one is on its way." %}</p></div>
   {% endif %}
 </div>
 {% endblock %}

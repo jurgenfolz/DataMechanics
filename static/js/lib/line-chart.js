@@ -1,4 +1,5 @@
 // Countries over time: one line per country, its flag and name at the end of the line. Needs the global `echarts`.
+// gettext is Django's, from the translation catalog base.html loads.
 import { escapeHtml, formatTick, formatValue } from './format.js';
 
 // The validated eight-colour order (dark surface). A country keeps its colour while it stays selected.
@@ -84,7 +85,7 @@ export function createLineChart(element, { units }) {
                 + `<strong>${escapeHtml(formatValue(p.value, rule))}</strong></div>`;
             });
           const year = escapeHtml(params[0]?.axisValue ?? '');
-          return `<div class="tip"><div class="tip__head">${year}</div>${rows.join('') || '<div class="tip__muted">No data</div>'}</div>`;
+          return `<div class="tip"><div class="tip__head">${year}</div>${rows.join('') || `<div class="tip__muted">${escapeHtml(gettext('No data'))}</div>`}</div>`;
         },
       },
       series: lines,

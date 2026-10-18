@@ -5,7 +5,7 @@ from geo.models import Country, EtlLoad, GdpPerCapitaCountryYear, UnemploymentCo
 
 from . import queries, search
 from .catalog import BY_SLUG, METRICS
-from .formatting import UNITS, format_value
+from .formatting import UNITS, format_change, format_value
 
 
 class CatalogTests(TestCase):
@@ -37,6 +37,13 @@ class FormattingTests(TestCase):
         self.assertEqual(format_value(37_790_000_000, 'tonnes_total'), '37.8 bn t')
         self.assertEqual(format_value(2.312, 'per_woman'), '2.31 per woman')
         self.assertEqual(format_value(-1_234_567, 'people'), '-1.23 m')
+
+    def test_changes(self):
+        self.assertEqual(format_change(8.0, 6.5, 'percent'), '1.5 pp')
+        self.assertEqual(format_change(1000, 3000, 'usd', relative=True), '200%')
+        self.assertEqual(format_change(1000, 1053, 'usd', relative=True), '5.3%')
+        self.assertEqual(format_change(70.1, 73.4, 'years'), '3.3 yrs')
+        self.assertEqual(format_change(12.0, 10.5, 'per_1000'), '1.5')
 
 
 class SearchTests(TestCase):

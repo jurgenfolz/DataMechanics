@@ -1,28 +1,28 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}{{ metric.title }} by country · Data Mechanics{% endblock %}
-{% block description %}{{ metric.summary }} Map, chart and free download, with the source of every number.{% endblock %}
+{% block title %}{% blocktranslate with title=metric.title %}{{ title }} by country{% endblocktranslate %} · Data Mechanics{% endblock %}
+{% block description %}{{ metric.summary }} {% translate "Map, chart and free download, with the source of every number." %}{% endblock %}
 
 {% block content %}
 <div class="wrap layout">
   <div>
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="{% url 'metrics:list' %}">Metrics</a><span aria-hidden="true">/</span>
-      <a href="{% url 'metrics:list' %}?category={{ metric.tags.category|urlencode }}">{{ metric.tags.category }}</a>
+    <nav class="crumbs" aria-label="{% translate "Breadcrumb" %}">
+      <a href="{% url 'metrics:list' %}">{% translate "Metrics" %}</a><span aria-hidden="true">/</span>
+      <a href="{% url 'metrics:list' %}?category={{ metric.tags.category|urlencode }}">{{ metric.tags.category_label }}</a>
     </nav>
 
     <header class="metric-head">
       <h1>{{ metric.title }}</h1>
       <p class="metric-head__summary">{{ metric.summary }}</p>
       <p class="metric-head__about">{{ metric.description }}</p>
-      <ul class="chips" aria-label="Tags" role="list">
+      <ul class="chips" aria-label="{% translate "Tags" %}" role="list">
         {% for tag in metric.tags.all %}<li><a class="chip" href="{% url 'metrics:list' %}?q={{ tag|urlencode }}">{{ tag }}</a></li>{% endfor %}
       </ul>
     </header>
 
     {% if metric.series|length > 1 %}
-    <div class="series-tabs" role="group" aria-label="Measure">
+    <div class="series-tabs" role="group" aria-label="{% translate "Measure" %}">
       {% for series in metric.series %}
       <button type="button" data-series="{{ series.field }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ series.tab_label }}</button>
       {% endfor %}
@@ -31,57 +31,57 @@
 
     <section class="card chart-card" aria-labelledby="map-title" data-map-card>
       <div class="chart-card__head">
-        <h2 class="chart-card__title" id="map-title">World map <span data-series-label>· {{ metric.series.0.label }}</span></h2>
-        <label class="select">Year
+        <h2 class="chart-card__title" id="map-title">{% translate "World map" %} <span data-series-label>· {{ metric.series.0.label }}</span></h2>
+        <label class="select">{% translate "Year" %}
           <select data-year></select>
         </label>
       </div>
       <p class="source-line">{% include "metrics/_source.html" %}</p>
       <div class="well map-well">
-        <div class="map-canvas" data-map role="img" aria-label="World map of {{ metric.title }}, coloured by value. The table under the line chart lists the numbers."></div>
+        <div class="map-canvas" data-map role="img" aria-label="{% blocktranslate with title=metric.title %}World map of {{ title }}, coloured by value. The table under the line chart lists the numbers.{% endblocktranslate %}"></div>
       </div>
       <div class="legend" data-legend></div>
     </section>
 
     <section class="card chart-card" aria-labelledby="line-title" data-line-card>
       <div class="chart-card__head">
-        <h2 class="chart-card__title" id="line-title">Over time <span data-series-label>· {{ metric.series.0.label }}</span></h2>
+        <h2 class="chart-card__title" id="line-title">{% translate "Over time" %} <span data-series-label>· {{ metric.series.0.label }}</span></h2>
         <div class="picker" data-picker>
-          <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="Choose countries">
-            <span data-picker-label>Choose countries</span>
+          <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="{% translate "Choose countries" %}">
+            <span data-picker-label>{% translate "Choose countries" %}</span>
             <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
           </button>
           <div class="picker__panel" data-picker-panel hidden>
-            <input class="picker__search" data-picker-search type="search" placeholder="Search countries" aria-label="Search countries"
+            <input class="picker__search" data-picker-search type="search" placeholder="{% translate "Search countries" %}" aria-label="{% translate "Search countries" %}"
                    role="combobox" aria-controls="picker-list" aria-expanded="true" autocomplete="off">
             <p class="picker__hint" data-picker-hint></p>
-            <ul class="picker__list" id="picker-list" data-picker-list role="listbox" aria-multiselectable="true" aria-label="Countries"></ul>
+            <ul class="picker__list" id="picker-list" data-picker-list role="listbox" aria-multiselectable="true" aria-label="{% translate "Countries" %}"></ul>
           </div>
         </div>
       </div>
       <p class="source-line">{% include "metrics/_source.html" %}</p>
       <div class="well line-well">
-        <div class="map-canvas" data-line role="img" aria-label="Line chart of {{ metric.title }} over time for the chosen countries. The table below lists the numbers."></div>
+        <div class="map-canvas" data-line role="img" aria-label="{% blocktranslate with title=metric.title %}Line chart of {{ title }} over time for the chosen countries. The table below lists the numbers.{% endblocktranslate %}"></div>
       </div>
-      <div class="series-keys" data-keys role="list" aria-label="Countries on the chart"></div>
+      <div class="series-keys" data-keys role="list" aria-label="{% translate "Countries on the chart" %}"></div>
       <details class="numbers">
-        <summary>Show the numbers</summary>
+        <summary>{% translate "Show the numbers" %}</summary>
         <div class="table-scroll"><table data-table></table></div>
       </details>
     </section>
 
     <div class="downloads">
-      <a class="button" href="{% url 'metrics:csv' metric.slug %}" download>{% include "partials/icon.html" with name="download" size="16" %} Download CSV</a>
+      <a class="button" href="{% url 'metrics:csv' metric.slug %}" download>{% include "partials/icon.html" with name="download" size="16" %} {% translate "Download CSV" %}</a>
       <a class="text-link" href="{% url 'metrics:data' metric.slug %}">JSON</a>
-      <p>Every country and year{% if metric.series|length > 1 %} and every measure{% endif %}, with the source on each row.</p>
+      <p>{% if metric.series|length > 1 %}{% translate "Every country, year and measure, with the source on each row." %}{% else %}{% translate "Every country and year, with the source on each row." %}{% endif %}</p>
     </div>
   </div>
 
-  <aside class="layout__rail" aria-label="More on {{ metric.title }}">
+  <aside class="layout__rail" aria-label="{% blocktranslate with title=metric.title %}More on {{ title }}{% endblocktranslate %}">
     {% if top %}
     <section class="card rail-card" aria-labelledby="top-title">
-      <h2 class="rail-card__title" id="top-title" data-rank-title>Highest values, {{ top.year }}</h2>
-      <p class="rail-note rail-note--top"><span data-rank-series>{{ top.series.label }}</span>. Select a country to add it to the chart.</p>
+      <h2 class="rail-card__title" id="top-title" data-rank-title>{% blocktranslate with year=top.year %}Highest values, {{ year }}{% endblocktranslate %}</h2>
+      <p class="rail-note rail-note--top"><span data-rank-series>{{ top.series.label }}</span>. {% translate "Select a country to add it to the chart." %}</p>
       <ol class="rank-list" data-rank-list>
         {% for row in top.rows %}
         <li>
@@ -92,12 +92,12 @@
         </li>
         {% endfor %}
       </ol>
-      <p class="rail-note" data-rank-world{% if not top.world %} hidden{% endif %}>World: <strong>{{ top.world }}</strong></p>
+      <p class="rail-note" data-rank-world{% if not top.world %} hidden{% endif %}>{% translate "World:" %} <strong>{{ top.world }}</strong></p>
     </section>
     {% endif %}
 
     <section class="card rail-card" aria-labelledby="related-title">
-      <a class="rail-card__title" id="related-title" href="{% url 'metrics:list' %}">More metrics {% include "partials/icon.html" with name="chevron-right" size="14" %}</a>
+      <a class="rail-card__title" id="related-title" href="{% url 'metrics:list' %}">{% translate "More metrics" %} {% include "partials/icon.html" with name="chevron-right" size="14" %}</a>
       <ul class="rail-list">
         {% for item in related %}
         <li><a class="rail-item" href="{% url 'metrics:detail' item.slug %}">
