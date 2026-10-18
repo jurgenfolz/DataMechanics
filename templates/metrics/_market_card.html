@@ -13,12 +13,12 @@
     <li class="country-row">
       <img class="flag flag--round" src="{{ row.flag_round }}" alt="" width="30" height="30" loading="lazy">
       <span class="country-row__name">{{ row.name }}</span>
-      <a class="value-pill" href="{% url 'metrics:detail' metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}. Open {{ metric.title }}">{{ row.value }}</a>
+      <a class="value-pill" href="{% url 'metrics:detail' metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}. Open {{ metric.title }}">{{ row.value_short }}</a>
     </li>
     {% endfor %}
   </ul>
   <div class="market__foot">
-    <span>{% if top.world %}World <strong>{{ top.world }}</strong> · {% endif %}{{ top.year }}</span>
+    <span>{% if top.world %}World <strong>{{ top.world_short }}</strong> · {% endif %}{{ top.year }}</span>
     <span>{{ top.count }} countries</span>
   </div>
   {% endif %}

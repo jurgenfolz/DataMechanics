@@ -1,4 +1,4 @@
-// World choropleth on an Equal Earth projection (equal-area, so big countries don't look bigger than they are).
+// World choropleth on a Mercator projection.
 // Used by the metric page and the home page spotlight. Needs the global `echarts`.
 import { escapeHtml, formatValue } from './format.js';
 
@@ -11,37 +11,26 @@ const BORDER = '#121416';
 const HOVER = '#ffd700';
 const WORLD = 'WLD';
 
-// ---------- Equal Earth (Šavrič, Patterson & Jenny, 2018) ----------
-const A1 = 1.340264, A2 = -0.081106, A3 = 0.000893, A4 = 0.003796, M = Math.sqrt(3) / 2;
+// ---------- Mercator ----------
+// The classic web map: country shapes stay true, areas grow towards the poles.
 const RAD = Math.PI / 180;
+const MAX_LATITUDE = 85;
 // Width / height of the projected map, Antarctica left out (latitudes -56 to 84).
-export const MAP_ASPECT = 2.31;
+export const MAP_ASPECT = 1.54;
 
 function project([lon, lat]) {
-  const theta = Math.asin(M * Math.sin(lat * RAD));
-  const t2 = theta * theta, t6 = t2 * t2 * t2;
-  const x = (lon * RAD * Math.cos(theta)) / (M * (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2)));
-  const y = theta * (A1 + A2 * t2 + t6 * (A3 + A4 * t2));
-  return [x * 100, -y * 100];
+  const phi = Math.max(-MAX_LATITUDE, Math.min(MAX_LATITUDE, lat)) * RAD;
+  return [lon * RAD * 100, -Math.log(Math.tan(Math.PI / 4 + phi / 2)) * 100];
 }
 
-function unproject([px, py]) {
-  const x = px / 100, y = -py / 100;
-  let theta = y, t2 = theta * theta, t6 = t2 * t2 * t2;
-  for (let i = 0; i < 12; i += 1) {
-    const delta = (theta * (A1 + A2 * t2 + t6 * (A3 + A4 * t2)) - y) / (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2));
-    theta -= delta;
-    t2 = theta * theta;
-    t6 = t2 * t2 * t2;
-    if (Math.abs(delta) < 1e-12) break;
-  }
-  const lon = (M * x * (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2))) / Math.cos(theta);
-  return [lon / RAD, Math.asin(Math.sin(theta) / M) / RAD];
+function unproject([x, y]) {
+  return [x / 100 / RAD, (2 * Math.atan(Math.exp(-y / 100)) - Math.PI / 2) / RAD];
 }
 
 let shapes;
 export function loadShapes() {
-  shapes ??= fetch('/metrics/countries.geojson')
+  // base.html sets the URL with a version that changes whenever the countries are reloaded.
+  shapes ??= fetch(document.body.dataset.shapesUrl || '/metrics/countries.geojson')
     .then((response) => response.json())
     .then((geojson) => echarts.registerMap('world', geojson));
   return shapes;

@@ -48,3 +48,24 @@ class PostPagesTests(TestCase):
     def test_detail_and_draft_404(self):
         self.assertContains(self.client.get('/posts/hello/'), '3 min read')
         self.assertEqual(self.client.get('/posts/draft/').status_code, 404)
+
+
+class LaunchTests(TestCase):
+    def setUp(self):
+        Post.objects.create(title='Hello', slug='hello', body='<p>x</p>', published_at=timezone.now())
+
+    def test_old_wordpress_links_redirect_for_good(self):
+        response = self.client.get('/hello/')
+        self.assertEqual((response.status_code, response['Location']), (301, '/posts/hello/'))
+        self.assertEqual(self.client.get('/home/')['Location'], '/')
+
+    def test_unknown_old_link_is_404(self):
+        response = self.client.get('/no-such-post/')
+        self.assertEqual(response.status_code, 404)
+        self.assertContains(response, "This page doesn't exist.", status_code=404)
+
+    def test_sitemap_and_robots(self):
+        sitemap = self.client.get('/sitemap.xml').content.decode()
+        self.assertIn('/posts/hello/', sitemap)
+        self.assertIn('/metrics/gdp-per-capita/', sitemap)
+        self.assertIn('Sitemap: http://testserver/sitemap.xml', self.client.get('/robots.txt').content.decode())

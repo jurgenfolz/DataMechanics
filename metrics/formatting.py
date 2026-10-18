@@ -11,16 +11,29 @@ UNITS = {
     'percent': {'suffix': '%', 'decimals': 1},
     'years': {'suffix': ' yrs', 'decimals': 1},
     'per_1000': {'suffix': ' per 1,000', 'decimals': 1},
+    'per_100k': {'suffix': ' per 100k', 'decimals': 1},
+    'per_woman': {'suffix': ' per woman', 'decimals': 2},
+    'tonnes': {'suffix': ' t', 'decimals': 1},
+    'tonnes_total': {'compact': True, 'digits': 3, 'suffix': ' t'},
     'index': {'decimals': 3},
+    'score': {'decimals': 2},
+    'points': {'decimals': 1},
 }
 
 _SCALES = [(1e12, 'tn'), (1e9, 'bn'), (1e6, 'm'), (1e3, 'k')]
 
 
-def format_value(value, unit):
+# Units longer than this ("per 1,000", "per woman") are left out where space is tight and the label names them.
+SHORT_SUFFIX = 4
+
+
+def format_value(value, unit, compact=False):
+    """compact=True drops a long unit (see SHORT_SUFFIX); static/js/metric-page.js applies the same rule."""
     if value is None:
         return '–'
     rule = UNITS[unit]
+    if compact and len(rule.get('suffix', '')) > SHORT_SUFFIX:
+        rule = {**rule, 'suffix': ''}
     if rule.get('compact'):
         number = _compact(value, rule['digits'])
     else:

@@ -1,0 +1,19 @@
+# Never sent to the server by deploy/deploy.sh (read by tar locally and by rsync on the server).
+.git
+.venv
+.env
+staticfiles
+backups
+db.sqlite3
+__pycache__
+*.pyc
+.impeccable
+.claude
+.agents
+.aider-desk
+.vscode
+.idea
+.pytest_cache
+CLAUDE.md
+skills-lock.json
+old_word_press_export

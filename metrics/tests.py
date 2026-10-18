@@ -34,12 +34,17 @@ class FormattingTests(TestCase):
         self.assertEqual(format_value(4.83, 'percent'), '4.8%')
         self.assertEqual(format_value(0.9134, 'index'), '0.913')
         self.assertEqual(format_value(None, 'index'), '–')
+        self.assertEqual(format_value(37_790_000_000, 'tonnes_total'), '37.8 bn t')
+        self.assertEqual(format_value(2.312, 'per_woman'), '2.31 per woman')
+        self.assertEqual(format_value(-1_234_567, 'people'), '-1.23 m')
 
 
 class SearchTests(TestCase):
     def test_every_word_must_match(self):
-        # Government debt matches too: it is measured as a share of GDP.
-        self.assertEqual([m.slug for m in search.find('gdp')], ['gdp', 'gdp-per-capita', 'government-debt'])
+        # Metrics named after GDP come first; those measured as a share of GDP (debt, tax, trade...) follow.
+        slugs = [m.slug for m in search.find('gdp')]
+        self.assertEqual(slugs[:3], ['gdp', 'gdp-per-capita', 'gdp-growth'])
+        self.assertIn('government-debt', slugs)
         self.assertEqual([m.slug for m in search.find('gdp person')], ['gdp-per-capita'])
         self.assertEqual(search.find('no such thing'), [])
 

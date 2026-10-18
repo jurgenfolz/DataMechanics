@@ -6,13 +6,14 @@ from metrics.catalog import BY_SLUG, METRICS
 from metrics.formatting import UNITS
 
 # The spotlight cycles through these metrics, in this order.
-SPOTLIGHT = ['life-expectancy', 'gdp-per-capita', 'democracy', 'government-debt', 'hdi', 'unemployment',
-             'schooling', 'population', 'gdp']
-# Home page sections: (title, category to link to or '' for all metrics, metric slugs).
+SPOTLIGHT = ['life-expectancy', 'gdp-per-capita', 'co2-emissions', 'democracy', 'inflation', 'life-satisfaction',
+             'government-debt', 'fertility-rate', 'hdi', 'electricity-mix', 'unemployment', 'population', 'gdp']
+# Home page sections: (title, category to link to or '' for all metrics, up to four metric slugs).
 SECTIONS = [
-    ('Economy', 'Economy', ['gdp', 'gdp-per-capita', 'unemployment', 'government-debt']),
-    ('People', '', ['population', 'life-expectancy', 'schooling', 'hdi']),
-    ('Politics', 'Politics', ['democracy']),
+    ('Economy', 'Economy', ['gdp-per-capita', 'gdp-growth', 'inflation', 'government-debt']),
+    ('People', '', ['population', 'fertility-rate', 'life-expectancy', 'child-mortality']),
+    ('Environment', 'Environment', ['co2-emissions', 'electricity-mix']),
+    ('Society and politics', '', ['democracy', 'human-rights', 'life-satisfaction', 'homicide-rate']),
 ]
 
 

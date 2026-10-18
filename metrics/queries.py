@@ -82,6 +82,7 @@ def ranking(metric, series=None, limit=3):
         'series': series,
         'count': rows.count(),
         'world': format_value(world, series.unit) if world is not None else None,
+        'world_short': format_value(world, series.unit, compact=True) if world is not None else None,
         'rows': [_country_value(row.country, getattr(row, series.field), series) for row in rows[:limit]],
     }
 
@@ -119,6 +120,7 @@ def _country_value(country, value, series):
         'flag': flag_url(country.iso3, country.iso2),
         'flag_round': flag_url(country.iso3, country.iso2, '1x1'),
         'value': format_value(value, series.unit),
+        'value_short': format_value(value, series.unit, compact=True),
     }
 
 

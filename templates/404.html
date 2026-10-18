@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found · Data Mechanics{% endblock %}
+
+{% block content %}
+<div class="wrap error-page">
+  <p class="error-page__code">404</p>
+  <h1 class="page-title">This page doesn't exist.</h1>
+  <p class="page-sub">The link may be old, or the page has moved. Every metric and post is still a search away.</p>
+  <div class="intro__actions">
+    <a class="button" href="{% url 'metrics:list' %}">Browse the metrics</a>
+    <a class="button button--outline" href="{% url 'home' %}">Go to the home page</a>
+  </div>
+</div>
+{% endblock %}

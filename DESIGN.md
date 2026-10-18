@@ -292,7 +292,7 @@ Density is high but calm. Cards sit in a regular grid, numbers are tabular and f
 - Archivo at 75% width for headlines; Archivo at normal width for everything else; JetBrains Mono for codes, years and ranks.
 - Pills for every control and value; 12 px corners for cards; 8 px for wells.
 - Cyberpunk details: grid ground, HUD corner ticks, gold glow on focus and hover, spinning gear, mono for codes, years and ranks.
-- Charts are first-class: an equal-area world map and country lines with flags, each under its source line.
+- Charts are first-class: a Mercator world map and country lines with flags, each under its source line.
 
 ## Colors
 
@@ -363,13 +363,13 @@ A near-monochrome charcoal floor with one hot gold accent and a separate, valida
 
 ## Layout
 
-Content sits in a centred column up to 1272 px wide with fluid side gutters (16–40 px). The header is sticky and has two rows: a 68 px bar (spinning logo and wordmark, three nav links, a search pill up to 400 px wide, LinkedIn outline and GitHub solid pills) and a 46 px row of category tabs.
+Content sits in a centred column up to 1272 px wide with fluid side gutters (16–40 px). The header is sticky and has two rows: a 68 px bar (spinning logo and wordmark, three nav links, and a search pill up to 400 px wide at the right end) and a 46 px row of category tabs. The LinkedIn and GitHub links live in the About section only.
 
 On the home page an introduction comes first, straight on the floor with 24 px of its own padding above and 40 px below, before the two-column grid; the home rail holds only the Latest posts card. Main pages use a two-column grid: a flexible content column and a 344 px rail, 48 px apart. The rail follows the scroll (sticky at 140 px from the top) only when the window is at least 1101 px wide and 1040 px tall, so it never hides its own content. Pages start 24 px below the header and leave 64 px at the bottom; home sections are 56 px apart, with 18 px between a section title and its cards. Market cards fill an auto grid of columns at least 270 px wide with 16 px gaps; the Latest data strip is a horizontal scroll of 152 px tiles with 12 px gaps and snap points; the trust row and the home post cards use three equal columns. The About the author card sits 72 px below every page's content, and the footer 40 px below that.
 
 Responsive behaviour:
-- **At 1100 px and below,** the rail drops under the content as a two-column grid and the header's LinkedIn pill hides.
-- **At 860 px and below,** the bar shrinks to 60 px, the nav links and both social pills hide (the About section carries the links), the category tabs fade at their right edge, the spotlight stacks its map under the country rows, and the trust row and post cards become one column.
+- **At 1100 px and below,** the rail drops under the content as a two-column grid.
+- **At 860 px and below,** the bar shrinks to 60 px, the nav links hide, the category tabs fade at their right edge, the spotlight stacks its map under the country rows, and the trust row and post cards become one column.
 - **At 640 px and below,** the search folds into a 44 px round button that opens across the whole bar when focused, the rail becomes one column, post rows stack their image above the text, and chart cards tighten to 16/14 px padding.
 
 ## Elevation & Depth
@@ -405,9 +405,9 @@ Chart wells carry HUD corner ticks: 12 px L-shaped brackets inset 6 px at the to
 ### Buttons
 Confident gold pills that press.
 - **Shape:** full pill (999px), 40 px tall, 18 px side padding, 16 px icon with 8 px gap.
-- **Primary:** Gear Gold fill, Exchange Floor text, 700 weight at 0.875rem. Used for GitHub, Search, Download CSV, the About links and Explore the metrics in the home introduction.
+- **Primary:** Gear Gold fill, Exchange Floor text, 700 weight at 0.875rem. Used for Search, Download CSV, the About links and Explore the metrics in the home introduction.
 - **Hover / Focus:** fill shifts to Bright Gear Gold in 150 ms; focus shows the gold glow; pressing scales to 0.97 over 120 ms with the system's ease-out (cubic-bezier(0.23, 1, 0.32, 1)).
-- **Outline:** transparent with a gold border and gold text (LinkedIn, Read the posts); hover adds Gold Wash.
+- **Outline:** transparent with a gold border and gold text (Follow on LinkedIn, Read the posts); hover adds Gold Wash.
 - **Large:** in the home introduction, primary and outline pills grow to 44 px tall with 20 px side padding and a 0.9375rem label.
 - **Round:** 36 px circle with a Strong Rule border and a 16 px chevron, used for carousel and strip arrows; hover turns border and icon gold, press scales to 0.94, disabled drops to 35% opacity.
 - **Text link:** Quiet Ink, 600, underlined in Strong Rule; hover turns both gold (JSON download, inline links in notes).
@@ -451,7 +451,7 @@ The home page's opening statement, set straight on the gridded floor with no car
 Every chart lives in a card: a head with the title and its control (year select or country picker), then the source line, then the well. The source line (Meta, Muted Ink) names the source with a Quiet Ink link, the source's own update date and the date it was fetched. The well is Chart Well with 8 px corners and HUD corner ticks. While data loads the well dims to 55% and keeps its size.
 
 ### World Map
-An equal-area Equal Earth projection without Antarctica, held at its own 2.31:1 proportions (up to 560 px tall; 2.05:1 on the home spotlight), never stretched. Countries are separated by thin borders in the floor colour. The colour scale clamps at the 5th and 95th percentiles; skewed metrics (GDP, GDP per capita, population) are coloured on a log scale. Hover outlines a country in gold with its glow and shows a tooltip with flag, value, year and rank; on the metric page a click adds the country to the line chart, and a fine pointer can zoom and pan. The legend under the map is a 10 px rounded colour bar labelled Worse/Better (or Lower/Higher) with the end values, the median under the middle of a diverging bar, and a No data swatch.
+A classic Mercator projection without Antarctica (latitudes clamped at ±85°), held at its own 1.54:1 proportions (up to 580 px tall; 1.5:1 on the home spotlight), never stretched. The shapes file is cached by browsers and versioned by the latest country load, so a reload of the countries reaches every visitor at once. Countries are separated by thin borders in the floor colour. The colour scale clamps at the 5th and 95th percentiles; skewed metrics (GDP, GDP per capita, population) are coloured on a log scale. Hover outlines a country in gold with its glow and shows a tooltip with flag, value, year and rank; on the metric page a click adds the country to the line chart, and a fine pointer can zoom and pan. The legend under the map is a 10 px rounded colour bar labelled Worse/Better (or Lower/Higher) with the end values, the median under the middle of a diverging bar, and a No data swatch.
 
 ### Line Chart
 One 2 px line per country with round caps, no point markers and no smoothing; hover thickens the line and dims the others. Each line ends in its 20×15 flag, with the country's name in Quiet Ink on wide charts (flag only below 560 px). Gridlines are Hairline, the x-axis line Strong Rule, axis labels Muted Ink, years in mono. Under the chart, series keys repeat each country as a pill (line swatch, flag, name, remove button), and "Show the numbers" opens a scrolling table with a mono year column and a sticky header.

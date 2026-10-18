@@ -5,10 +5,11 @@ import { escapeHtml, formatValue } from './lib/format.js';
 import { createLineChart, PALETTE, WORLD_COLOR } from './lib/line-chart.js';
 import { createWorldMap, renderLegend } from './lib/world-map.js';
 
-const { slug, units } = JSON.parse(document.getElementById('metric-config').textContent);
+const { slug, units, defaultCountries } = JSON.parse(document.getElementById('metric-config').textContent);
 const WORLD = 'WLD';
 const MAX_COUNTRIES = PALETTE.length;
-const DEFAULT_COUNTRIES = ['USA', 'CHN', 'IND', 'DEU', 'BRA'];
+// A metric can name its own (metrics/catalog.py), e.g. when one country's extremes would flatten every other line.
+const DEFAULT_COUNTRIES = defaultCountries.length ? defaultCountries : ['USA', 'CHN', 'IND', 'DEU', 'BRA'];
 
 const mapCard = document.querySelector('[data-map-card]');
 const lineCard = document.querySelector('[data-line-card]');
@@ -131,6 +132,7 @@ function drawRanking() {
   if (!rank.list) return;
   const rule = units[data.unit];
   // A long unit ("per 1,000") would crowd out country names; the note above the list names it.
+  // Same rule as metrics/formatting.py (SHORT_SUFFIX).
   const rowRule = (rule.suffix || '').length > 4 ? { ...rule, suffix: '' } : rule;
   const i = data.years.indexOf(state.year);
   const rows = Object.entries(data.values)

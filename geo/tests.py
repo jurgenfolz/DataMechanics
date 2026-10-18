@@ -101,5 +101,23 @@ class NaturalEarthTests(TestCase):
                            'NAME_LONG': 'Kosovo', 'CONTINENT': 'Europe', 'SUBREGION': 'Southern Europe'},
             'geometry': {'type': 'Polygon', 'coordinates': [[[20, 42], [21, 42], [21, 43], [20, 42]]]},
         }
-        country = countries._country(feature)
+        country = countries._country(feature, own_codes={'KOS'})
         self.assertEqual((country.iso3, country.iso2, country.name), ('XKX', 'xk', 'Kosovo'))
+
+    def test_territories_never_take_their_countrys_code(self):
+        territory = {
+            'properties': {'ISO_A3_EH': 'AUS', 'ADM0_A3': 'ATC', 'ISO_A2_EH': 'AU', 'NAME': 'Ashmore and Cartier Is.',
+                           'NAME_LONG': 'Ashmore and Cartier Islands', 'CONTINENT': 'Oceania', 'SUBREGION': 'Australia and New Zealand'},
+            'geometry': {'type': 'Polygon', 'coordinates': [[[123, -12], [123.1, -12], [123.1, -12.1], [123, -12]]]},
+        }
+        self.assertEqual(countries._country(territory, own_codes={'AUS', 'ATC'}).iso3, 'ATC')
+
+
+class OwidTests(TestCase):
+    CSV = 'entity,code,year,emissions_total_per_capita\nNorway,NOR,2024,7.5\nAsia,,2024,4.1\nWorld,OWID_WRL,2024,4.7\nNorway,NOR,2023,\n'
+
+    def test_reads_columns_skips_regions_and_blanks(self):
+        from providers.owid import grapher
+        with mock.patch('providers.http.get_text', return_value=self.CSV):
+            rows = grapher.read_chart('co-emissions-per-capita', {'emissions_total_per_capita': 'per_capita'})
+        self.assertEqual(rows, {('NOR', 2024): {'per_capita': 7.5}, ('OWID_WRL', 2024): {'per_capita': 4.7}})

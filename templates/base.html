@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
   {% block head %}{% endblock %}
 </head>
-<body>
+<body data-shapes-url="{{ SHAPES_URL }}">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -36,15 +36,6 @@
         </div>
         <ul class="search__results" id="site-search-results" role="listbox" aria-label="Matching metrics" hidden></ul>
       </form>
-
-      <div class="social">
-        <a class="button button--outline" href="{{ AUTHOR_LINKEDIN_URL }}" rel="me noopener">
-          {% include "partials/brand_icon.html" with name="linkedin" %} LinkedIn
-        </a>
-        <a class="button" href="{{ AUTHOR_GITHUB_URL }}" rel="me noopener">
-          {% include "partials/brand_icon.html" with name="github" %} GitHub
-        </a>
-      </div>
     </div>
 
     <nav class="wrap tabs" aria-label="Categories">
@@ -95,7 +86,7 @@
       <p class="site-footer__credit">
         Data from the <a href="https://data.worldbank.org/">World Bank</a>, the <a href="https://www.imf.org/external/datamapper/">IMF</a>,
         the <a href="https://hdr.undp.org/">UNDP</a>, <a href="https://v-dem.net/">V-Dem</a> via <a href="https://ourworldindata.org/">Our World in Data</a>,
-        and borders from <a href="https://www.naturalearthdata.com/">Natural Earth</a>. Every chart and download names its source.
+        and borders from <a href="https://www.naturalearthdata.com/">Natural Earth</a>. Every chart and download names its source. The site's code is licensed under the AGPL-3.0.
       </p>
     </div>
   </footer>

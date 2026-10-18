@@ -23,7 +23,8 @@ DECIMALS = 2
 
 def run():
     features = http.get_json(URL)['features']
-    countries = [_country(feature) for feature in features]
+    own_codes = {feature['properties']['ADM0_A3'] for feature in features}
+    countries = [_country(feature, own_codes) for feature in features]
     countries.append(Country(iso3=WORLD, iso2='', name='World', is_aggregate=True))
 
     with transaction.atomic():
@@ -43,10 +44,14 @@ def run():
     return len(countries)
 
 
-def _country(feature):
+def _country(feature, own_codes):
     p = feature['properties']
     # ISO_A3_EH fills most gaps in ISO_A3; the few units without an ISO code keep Natural Earth's own code.
     iso3 = p['ISO_A3_EH'] if p['ISO_A3_EH'] != '-99' else p['ADM0_A3']
+    # Some territories carry their country's code (Ashmore and Cartier Islands say AUS).
+    # They keep their own code, so they never overwrite the country itself.
+    if iso3 != p['ADM0_A3'] and iso3 in own_codes:
+        iso3 = p['ADM0_A3']
     iso2 = p['ISO_A2_EH'] if p['ISO_A2_EH'] != '-99' else ''
     # The shorter of the common name and the long name, skipping abbreviations like "Dem. Rep. Congo".
     spelled_out = [n for n in (p['NAME'], p['NAME_LONG']) if '.' not in n]

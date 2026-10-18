@@ -3,8 +3,8 @@
 
 {% block content %}
 <section class="wrap intro" aria-labelledby="intro-title">
-  <h1 class="intro__title" id="intro-title"><span>The world in numbers,</span> <span>free for everyone.</span></h1>
-  <p class="intro__text">Data Mechanics gathers statistics on every country from public sources like the World Bank, the IMF and the United Nations. Explore them on maps and charts, and download every number with its source. No paywall, no sign-up.</p>
+  <h1 class="intro__title" id="intro-title"><span>The world in numbers.</span></h1>
+  <p class="intro__text">Data Mechanics gathers statistics from public sources like the World Bank, the IMF and the United Nations. Explore them on maps and charts, and download every number with its source. No paywall, no sign-up.</p>
   <div class="intro__actions">
     <a class="button" href="{% url 'metrics:list' %}">Explore the metrics {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
     <a class="button button--outline" href="{% url 'blog:list' %}">Read the posts</a>
@@ -37,7 +37,7 @@
               <li class="country-row">
                 <img class="flag flag--round" src="{{ row.flag_round }}" alt="" width="30" height="30">
                 <span class="country-row__name">{{ row.name }}</span>
-                <a class="value-pill" href="{% url 'metrics:detail' slide.metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}">{{ row.value }}</a>
+                <a class="value-pill" href="{% url 'metrics:detail' slide.metric.slug %}?countries={{ row.iso3 }}" aria-label="{{ row.name }}: {{ row.value }}">{{ row.value_short }}</a>
               </li>
               {% endfor %}
             </ol>
@@ -125,7 +125,7 @@
     </div>
     <div class="market-grid">
       {% for item in section.items %}{% include "metrics/_market_card.html" with metric=item.metric top=item.top %}{% endfor %}
-      {% if section.items|length == 1 %}
+      {% if section.items|length < 4 %}
       <a class="card market market--more" href="{% url 'metrics:list' %}">
         <span class="market__title">Explore every metric</span>
         <span class="market__note">{{ metric_count }} metrics on every country, each with a world map, a chart over time and a free download.</span>

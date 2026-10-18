@@ -1,11 +1,17 @@
-"""GDP per person in current US dollars, World Bank indicator NY.GDP.PCAP.CD. Writes geo_gdp_per_capita_country_year."""
+"""GDP per person, in current US dollars and at purchasing power parity. Writes geo_gdp_per_capita_country_year.
+
+NY.GDP.PCAP.CD converts at market exchange rates; NY.GDP.PCAP.PP.CD adjusts for price differences between countries.
+"""
 
 from geo.models import GdpPerCapitaCountryYear
 
 from . import api
 
-CODE = 'NY.GDP.PCAP.CD'
+COLUMNS = {
+    'NY.GDP.PCAP.CD': 'value',
+    'NY.GDP.PCAP.PP.CD': 'ppp',
+}
 
 
 def run():
-    return api.load_indicator(GdpPerCapitaCountryYear, CODE)
+    return api.load_indicators(GdpPerCapitaCountryYear, COLUMNS)

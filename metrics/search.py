@@ -4,13 +4,14 @@ from .catalog import METRICS
 
 
 def find(query='', category=''):
-    """Metrics that match every word of the query, in catalog order."""
+    """Metrics that match every word of the query. Those whose title holds every word come first."""
     words = query.lower().split()
-    return [
+    matches = [
         metric for metric in METRICS
         if (not category or metric.tags.category == category)
         and all(word in metric.search_text() for word in words)
     ]
+    return sorted(matches, key=lambda metric: not all(word in metric.title.lower() for word in words))
 
 
 def index():

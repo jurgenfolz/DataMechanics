@@ -30,6 +30,17 @@ def source(code, updated):
 
 def load_indicator(model, code):
     """Load one indicator into a fact table whose only measure is `value`."""
-    values, updated = fetch_indicator(code)
-    rows = {key: {'value': value} for key, value in values.items()}
-    return replace_table(model, rows, source(code, updated))
+    return load_indicators(model, {code: 'value'})
+
+
+def load_indicators(model, columns):
+    """Load several indicators into one fact table. columns maps indicator code -> table column.
+
+    The first indicator names the source link.
+    """
+    rows, updated = {}, ''
+    for code, column in columns.items():
+        values, updated = fetch_indicator(code)
+        for key, value in values.items():
+            rows.setdefault(key, dict.fromkeys(columns.values()))[column] = value
+    return replace_table(model, rows, source(next(iter(columns)), updated))

@@ -35,7 +35,8 @@ Free where Statista is paywalled, and open where it is closed: the site's code i
 
 - Confirmed: free data, charts, data export (CSV per metric), search, blog.
 - Data architecture (CLAUDE.md, Data design): ETL modules in providers/<provider>/<source>.py, one table each; the site reads only the database. Country tables are named geo_<metric>_country_year and point at the geo_country dimension.
-- Metrics live (2026-10-18): GDP, GDP per capita, V-Dem democracy indices, HDI, life expectancy, years of schooling, population with births and deaths, unemployment, government debt.
+- Metrics (27, 2026-10-18): GDP, GDP per capita (current US$ and PPP), GDP growth, inflation, unemployment, government debt, tax revenue, trade, women in the labour force; population (with births, deaths and net migration), fertility rate, median age; life expectancy, child mortality, obesity, health spending; years of schooling; HDI, extreme poverty, income inequality (Gini); V-Dem democracy indices, human rights index, military spending; CO2 emissions, electricity mix; life satisfaction, homicide rate.
+- Licence notes: WHO obesity data is CC BY-NC-SA 4.0 (non-commercial, share-alike); World Happiness Report data is free to download with a citation but has no formal open licence.
 - Every metric page has a world map (year filter, good/mid/bad colours) and a line chart (country filter with flags and a World option).
 - Undecided: the public GitHub URL for the site's code, data licence wording beyond the World Bank's CC BY 4.0.
 

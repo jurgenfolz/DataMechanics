@@ -1,0 +1,10 @@
+# Downloads every source again and replaces the data tables (python manage.py etl).
+[Unit]
+Description=Data Mechanics ETL
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+User=datamechanics
+WorkingDirectory=/srv/datamechanics
+ExecStart=/srv/datamechanics/.venv/bin/python manage.py etl

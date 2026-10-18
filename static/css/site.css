@@ -230,7 +230,6 @@ p { margin: 0; text-wrap: pretty; }
 }
 .search__empty { padding: 12px; color: var(--ink-3); font-size: 0.875rem; }
 
-.social { display: flex; gap: 8px; flex-shrink: 0; }
 
 .button {
   display: inline-flex;
@@ -688,8 +687,8 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .chart-card.is-loading .well { opacity: 0.55; transition: opacity 150ms ease; }
 
 /* The map box keeps the projection's proportions, so the map fills it without stretching. */
-.map-well { aspect-ratio: 2.31 / 1; max-height: 560px; }
-.map-well--spotlight { aspect-ratio: 2.05 / 1; }
+.map-well { aspect-ratio: 1.54 / 1; max-height: 580px; }
+.map-well--spotlight { aspect-ratio: 1.5 / 1; }
 .line-well { height: clamp(320px, 36vw, 420px); }
 
 .select {
@@ -940,6 +939,13 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .post-nav a strong { font-size: 1rem; line-height: 1.3; }
 .post-nav__newer { grid-column: 2; text-align: right; }
 
+/* ---------- Error pages ---------- */
+
+.error-page { padding-block: 48px 24px; }
+.error-page__code { font-family: var(--mono); font-size: 0.875rem; letter-spacing: 0.1em; color: var(--gold); }
+.error-page .page-title { margin-top: 12px; }
+.error-page .page-sub { max-width: 56ch; }
+
 /* ---------- About the author + footer ---------- */
 
 .about { margin-top: 72px; }
@@ -996,15 +1002,13 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 @media (max-width: 1100px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
   .layout__rail { position: static; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .social .button--outline { display: none; }
 }
 
 @media (max-width: 860px) {
   .tabs { mask-image: linear-gradient(90deg, #000 85%, transparent); }
   .bar { gap: 16px; height: 60px; }
   .nav { display: none; }
-  .social { display: none; }
-  .search { flex: 1; }
+    .search { flex: 1; }
   .slide__body { grid-template-columns: minmax(0, 1fr); }
   .trust { grid-template-columns: minmax(0, 1fr); }
   .post-cards { grid-template-columns: minmax(0, 1fr); }

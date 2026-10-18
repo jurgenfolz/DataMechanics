@@ -8,10 +8,15 @@ const MAX_RESULTS = 6;
 let matches = [];
 let active = -1;
 
+// Same rule as metrics/search.py: every word must match; metrics whose title holds every word come first.
 function find(query) {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean);
   if (!words.length) return [];
-  return index.filter((metric) => words.every((word) => metric.text.includes(word))).slice(0, MAX_RESULTS);
+  const inTitle = (metric) => words.every((word) => metric.title.toLowerCase().includes(word));
+  return index
+    .filter((metric) => words.every((word) => metric.text.includes(word)))
+    .sort((a, b) => Number(inTitle(b)) - Number(inTitle(a)))
+    .slice(0, MAX_RESULTS);
 }
 
 function option(metric, i) {
