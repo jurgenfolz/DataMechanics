@@ -39,7 +39,7 @@ def metric_detail(request, slug):
         'load': queries.latest_load(metric),
         'top': queries.ranking(metric, limit=10),
         'related': related or [m for m in METRICS if m is not metric][:3],
-        'config': {'dataUrl': reverse('metrics:data', args=[metric.slug]), 'units': units(),
+        'config': {'slug': metric.slug, 'dataUrl': reverse('metrics:data', args=[metric.slug]), 'units': units(),
                    'defaultCountries': list(metric.default_countries)},
     })
 

@@ -55,9 +55,9 @@ class LanguageTests(LanguageTestCase):
 class LocalFormatTests(LanguageTestCase):
     def test_numbers_and_units(self):
         cases = {
-            'en': ('$30.8 tn', '73.4 yrs', '1,234.5', '1.5 pp'),
-            'de': ('$30,8 Bio.', '73,4 Jahre', '1.234,5', '1,5 Pp.'),
-            'pt': ('US$ 30,8 tri', '73,4 anos', '1.234,5', '1,5 p.p.'),
+            'en': ('$30.8 tn', '73.4 yrs', '1,234.5', '1.5%'),
+            'de': ('$30,8 Bio.', '73,4 Jahre', '1.234,5', '1,5%'),
+            'pt': ('US$ 30,8 tri', '73,4 anos', '1.234,5', '1,5%'),
         }
         for lang, (usd, years, points, change) in cases.items():
             with translation.override(lang):

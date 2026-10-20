@@ -45,7 +45,7 @@ def chart_data(metric, series):
     }
     return {
         'field': series.field, 'label': series.label, 'unit': series.unit,
-        'better': series.better, 'logScale': series.log_scale,
+        'better': series.better, 'logScale': series.log_scale, 'note': str(series.note),
         'years': years,
         'mapYear': _map_year(values, years),
         'world': WORLD if WORLD in values else None,

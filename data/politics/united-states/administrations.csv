@@ -1,15 +1,15 @@
 leader,short_name,role,party,start_date,end_date,notes,source_url
-Dwight D. Eisenhower,Eisenhower,President,R,1953-01-20,1961-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-John F. Kennedy,Kennedy,President,D,1961-01-20,1963-11-22,Assassinated.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Lyndon B. Johnson,Johnson,President,D,1963-11-22,1969-01-20,Succeeded on Kennedy's death.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Richard Nixon,Nixon,President,R,1969-01-20,1974-08-09,Resigned.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Gerald Ford,Ford,President,R,1974-08-09,1977-01-20,Succeeded on Nixon's resignation.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Jimmy Carter,Carter,President,D,1977-01-20,1981-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Ronald Reagan,Reagan,President,R,1981-01-20,1989-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-George H. W. Bush,H. W. Bush,President,R,1989-01-20,1993-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Bill Clinton,Clinton,President,D,1993-01-20,2001-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-George W. Bush,G. W. Bush,President,R,2001-01-20,2009-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Barack Obama,Obama,President,D,2009-01-20,2017-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Donald Trump,Trump,President,R,2017-01-20,2021-01-20,First term.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Joe Biden,Biden,President,D,2021-01-20,2025-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
-Donald Trump,Trump,President,R,2025-01-20,,Second term.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Dwight D. Eisenhower,Eisenhower,President,Republican,1953-01-20,1961-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+John F. Kennedy,Kennedy,President,Democratic,1961-01-20,1963-11-22,Assassinated.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Lyndon B. Johnson,Johnson,President,Democratic,1963-11-22,1969-01-20,Succeeded on Kennedy's death.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Richard Nixon,Nixon,President,Republican,1969-01-20,1974-08-09,Resigned.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Gerald Ford,Ford,President,Republican,1974-08-09,1977-01-20,Succeeded on Nixon's resignation.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Jimmy Carter,Carter,President,Democratic,1977-01-20,1981-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Ronald Reagan,Reagan,President,Republican,1981-01-20,1989-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+George H. W. Bush,H. W. Bush,President,Republican,1989-01-20,1993-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Bill Clinton,Clinton,President,Democratic,1993-01-20,2001-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+George W. Bush,G. W. Bush,President,Republican,2001-01-20,2009-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Barack Obama,Obama,President,Democratic,2009-01-20,2017-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Donald Trump,Trump,President,Republican,2017-01-20,2021-01-20,First term.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Joe Biden,Biden,President,Democratic,2021-01-20,2025-01-20,,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States
+Donald Trump,Trump,President,Republican,2025-01-20,,Second term.,https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States

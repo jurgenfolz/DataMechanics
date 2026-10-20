@@ -1,6 +1,7 @@
 // Home page: the spotlight carousel (its map recolours for each metric) and the "Latest data" strip.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
-import { createWorldMap } from './lib/world-map.js';
+import { bindSaveButton, imageName, saveChartImage } from './lib/chart-image.js';
+import { createWorldMap, mapImageParts } from './lib/world-map.js';
 
 const units = JSON.parse(document.getElementById('units').textContent);
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -62,6 +63,18 @@ if (spotlight) {
     if (event.key === 'ArrowLeft') show(current - 1);
     if (event.key === 'ArrowRight') show(current + 1);
   });
+  bindSaveButton(spotlight.querySelector('[data-save-image]'), async () => {
+    const slide = slides[current];
+    const data = await load(slide);
+    return saveChartImage({
+      title: slide.querySelector('.slide__title')?.textContent.trim(),
+      subtitle: `${data.label}, ${data.mapYear}`,
+      sources: [spotlight.querySelector('.spotlight__source')?.textContent.replace(/\s+/g, ' ').trim()],
+      filename: imageName(slide.dataset.slug, data.field, data.mapYear),
+      ...mapImageParts(data, data.mapYear, units),
+    });
+  });
+
   slides[0].querySelector('[data-map-slot]').append(mapBox);
   drawMap(slides[0]);
   // Warm the next slide's data so the first click recolours at once.

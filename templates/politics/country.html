@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% blocktranslate with name=country.local_name %}{{ name }} by president{% endblocktranslate %} · Data Mechanics{% endblock %}
+{% block title %}{{ page_title }} · Data Mechanics{% endblock %}
 {% block description %}{% blocktranslate trimmed with title=metric.title name=country.local_name %}
-  {{ title }} and every other metric for {{ name }}, coloured by president, with the change during each presidency.
+  {{ title }} and every other metric for {{ name }}, coloured by who was in power, with the change during each term.
 {% endblocktranslate %}{% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
     <img class="flag flag--round pol-head__flag" src="{{ flag }}" alt="" width="64" height="64">
     <div>
       <h1>{{ country.local_name }}</h1>
-      <p>{% blocktranslate with year=first_year %}Every metric we have, president by president, since {{ year }}.{% endblocktranslate %}</p>
+      <p>{{ lead }}</p>
     </div>
     <p class="pol-head__current">
       <span class="party-chip">{% include "politics/_party_logo.html" with party=current_party %}</span>
@@ -26,10 +26,14 @@
   </header>
 
   <nav class="pol-picker" aria-label="{% translate "Metrics" %}">
-    <div class="pol-cats">
-      {% for key, label, items in groups %}
-      <a class="pol-cat" href="?metric={{ items.0.slug }}" data-group="{{ key }}"{% if key == group %} aria-current="true"{% endif %}>{% include "partials/icon.html" with name=key size="18" %}<span>{{ label }}</span></a>
-      {% endfor %}
+    <div class="pol-cats-wrap">
+      <button class="round-btn pol-cats__arrow pol-cats__arrow--prev" type="button" data-cats-scroll="-1" aria-label="{% translate "Scroll left" %}" hidden>{% include "partials/icon.html" with name="chevron-left" size="16" %}</button>
+      <div class="pol-cats">
+        {% for key, label, items in groups %}
+        <a class="pol-cat" href="?metric={{ items.0.slug }}" data-group="{{ key }}"{% if key == group %} aria-current="true"{% endif %}>{% include "partials/icon.html" with name=key size="18" %}<span>{{ label }}</span></a>
+        {% endfor %}
+      </div>
+      <button class="round-btn pol-cats__arrow pol-cats__arrow--next" type="button" data-cats-scroll="1" aria-label="{% translate "Scroll right" %}" hidden>{% include "partials/icon.html" with name="chevron-right" size="16" %}</button>
     </div>
     {% for key, label, items in groups %}
     <div class="pol-metrics" data-group-panel="{{ key }}"{% if key != group %} hidden{% endif %}>
@@ -47,17 +51,45 @@
     <div class="series-tabs" role="group" aria-label="{% translate "Measure" %}" data-series-tabs{% if metric.series|length < 2 %} hidden{% endif %}>
       {% for s in metric.series %}<button type="button" data-series="{{ s.field }}" aria-pressed="{% if s.field == series.field %}true{% else %}false{% endif %}">{{ s.tab_label }}</button>{% endfor %}
     </div>
+    <p class="series-note" data-series-note{% if not series.note %} hidden{% endif %}>{{ series.note }}</p>
     <p class="source-line" data-source>{% include "metrics/_source.html" %}</p>
     <div class="well term-well">
+      {% include "partials/save_image.html" %}
       <p class="term-empty" data-empty hidden></p>
-      <div class="map-canvas" data-term-chart role="img" aria-label="{% blocktranslate with title=metric.title name=country.local_name %}{{ title }} in {{ name }} over time, coloured by the president in office. The list below gives the change during each presidency.{% endblocktranslate %}"></div>
+      <div class="map-canvas" data-term-chart role="img" aria-label="{% blocktranslate with title=metric.title name=country.local_name %}{{ title }} in {{ name }} over time, coloured by the leader in office. The list below gives the change during each term.{% endblocktranslate %}"></div>
+    </div>
+    <div class="year-slicer" data-year-slicer>
+      <span class="year-slicer__label">{% translate "Years" %}</span>
+      <output class="year-slicer__year" data-year-from></output>
+      <div class="year-slicer__track" data-slicer-track>
+        <input type="range" step="1" data-from aria-label="{% translate "First year" %}">
+        <input type="range" step="1" data-to aria-label="{% translate "Last year" %}">
+      </div>
+      <output class="year-slicer__year" data-year-to></output>
     </div>
     <p class="pol-chart__note">{% blocktranslate trimmed %}
-      A year counts for the president in office on 1 July.
-      A presidency's change runs from the year before it began to its last year with data.
-      Drag the bar under the chart, or pick a president, to zoom.
-    {% endblocktranslate %}</p>
-    <ol class="timeline" data-presidencies aria-label="{% translate "Presidents" %}"></ol>
+        A year counts for whoever was in office on 1 July.
+        A term's change runs from the year before it began to its last year with data.
+        The years above, or a name in the timeline, set the years of the chart and of every list below.
+      {% endblocktranslate %}</p>
+    <div class="timeline-bar">
+      <div class="series-tabs timeline-views" role="group" aria-label="{% translate "View" %}" data-views>
+        <button type="button" data-view="timeline" aria-pressed="true">{% translate "Timeline" %}</button>
+        <button type="button" data-view="party" aria-pressed="false">{% translate "By party" %}</button>
+        <button type="button" data-view="president" aria-pressed="false">{{ by_leader }}</button>
+      </div>
+      {% include "partials/save_image.html" with timeline=True %}
+    </div>
+    <ol class="timeline" data-presidencies aria-label="{% translate "Timeline" %}"></ol>
+    <div class="ranking" data-ranking hidden>
+      <div class="group-row group-head" aria-hidden="true"><span></span><span></span><span></span><span></span><span>{% translate "Per year" %}</span><span>{% translate "Total" %}</span></div>
+      <ol class="ranking__list" data-ranking-list></ol>
+      <p class="timeline__note">{% blocktranslate trimmed %}
+        Ranked by the average change per year: the best first, or the highest where neither direction is better.
+        Only years with data count.
+        For growth that multiplies, like GDP, the average compounds; other changes are divided by the years.
+      {% endblocktranslate %}</p>
+    </div>
     <p class="timeline__note" data-presidencies-note hidden></p>
     <details class="numbers">
       <summary>{% translate "Show the numbers" %}</summary>
@@ -67,7 +99,7 @@
 
   <p class="source-line pol-credits">
     {% blocktranslate trimmed with url=politics_source_url %}
-      Presidents, dates and parties: <a href="{{ url }}">Wikipedia</a>, compiled by Data Mechanics
+      Leaders, dates and parties: <a href="{{ url }}">Wikipedia</a>, compiled by Data Mechanics
     {% endblocktranslate %}{% if politics_load %} · {% blocktranslate with date=politics_load.loaded_at|date:"SHORT_DATE_FORMAT" %}loaded {{ date }}{% endblocktranslate %}{% endif %}.
     {% translate "Party logos from Wikimedia Commons" %}{% for party in logo_credits %}{% if forloop.first %}; {% endif %}{% blocktranslate with abbreviation=party.abbreviation author=party.logo_author %}{{ abbreviation }} logo by {{ author }}{% endblocktranslate %}, <a href="{{ party.logo_source }}">{{ party.logo_licence }}</a>{% if not forloop.last %}; {% endif %}{% endfor %}.
   </p>

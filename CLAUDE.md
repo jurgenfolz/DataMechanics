@@ -121,6 +121,10 @@ Country data gets two families of charts:
 
 Charts follow the dataviz skill: one axis, colours assigned to a country when it is added and kept while it stays, a legend for two or more series, a table view ("Show the numbers"), tooltips on hover.
 
+Missing years: a gap of up to 25 years is drawn as the straight line between its ends, with a dot on each real value at the ends; a longer gap stays open, and a value alone between open gaps gets a dot (`BRIDGE` in `static/js/lib/gaps.js`, used by the line chart and the Politics chart). Tooltips show real values only.
+
+Every chart has a quiet "Save as image" button in its well (`templates/partials/save_image.html`). It saves a 1080 × 1350 PNG for Instagram, with the source and a semi-transparent watermark (`static/js/lib/chart-image.js`). Each chart module gives it a `*ImageParts` helper that draws the chart again off screen. The Politics timeline saves as several images when its rows do not fit one (`static/js/lib/timeline.js`); rows keep their size.
+
 ## Languages
 
 The site speaks English, German and Portuguese (Brazilian). English lives at the root, German under `/de/`, Portuguese under `/pt/`.
@@ -137,11 +141,15 @@ The site speaks English, German and Portuguese (Brazilian). English lives at the
 
 ## Politics mode
 
-Politics mode shows one country at a time, president by president (`/politics/<country>/`).
+Politics mode shows one country at a time, leader by leader (`/politics/<country>/`).
 
 - **Data**: leaders, parties and dates are compiled by hand from Wikipedia into `data/politics/<country>/administrations.csv` and `parties.csv`. Party logos go in `media/politics/<country>/`, with their licence and author in `parties.csv`. Credit every logo that is not in the public domain.
-- **One row per stretch in office under one party.** A leader who changes party mid-term gets a row per party. Consecutive rows of one leader make one presidency.
+- **One row per stretch in office under one party.** A leader who changes party mid-term gets a row per party. A party that is only renamed stays one party, under its name at the end of the term (LREM, renamed Renaissance in 2022, is RE). A merger into a new party is a change: Chirac has a row for the RPR and one for the UMP. Consecutive rows of one leader make one presidency.
 - **Add a country**: add its folder to `data/politics/` and to `COUNTRIES` in `providers/curated/__init__.py`, then run `python manage.py etl curated.parties curated.administrations`. Every deploy runs this too.
+- **Follow the office that governs**: the president in Brazil, France and the United States, the chancellor in Germany (its president has little power). Germany starts with the Federal Republic in 1949, so the Nazi dictatorship is not in Politics mode. France starts with the Fifth Republic in 1959: the Fourth Republic's presidents had little power, and Vichy is left out. Each role in the CSV is in `ROLES` in `politics/offices.py`, which names its office. The current leader's office picks the page's words in `OFFICES` ("chancellor by chancellor", "By chancellor"). Text shared by every office says "term" or "leader", never "president".
 - **Metrics**: `politics/metrics.py` lists the metrics Politics mode shows, grouped into tabs. Add a metric there once it has country data.
-- **A year belongs to the leader in office on 1 July.** On the chart, the stretch of line that ends at a year takes that leader's party colour. A presidency's change runs from the year before its first year to its last year with data.
-- **Colours**: each party's colour comes from Wikipedia's timeline of the country's presidents, lightened where needed to reach 3:1 against the chart. Green and red mean good and bad change for the metric. They appear only in Politics mode, always beside an arrow.
+- **A year belongs to the leader in office on 1 July.** On the chart, the stretch of line that ends at a year belongs to that leader. A presidency's change runs from the year before its first year to its last year with data.
+- **One window of years** (the page's year slider, or a president pressed in the timeline) limits the chart's zoom, the timeline, the rankings and the table. The data view takes it as `?from=&to=`; a presidency that starts before the window is measured from the window's first year.
+- **Rankings by party and by president** (`politics/queries.py`, `grouped_changes`): a presidency counts for the party it ended in, and a president's non-consecutive terms count together. Only years with data count. Growth that multiplies (series on a log scale, like GDP) compounds: the total multiplies the changes, and the average per year is the rate that gives the total. Other changes add up, and the average divides by the years. Best first; the highest first where no direction is better.
+- **One colour per presidency: the party it ended in.** A leader who changed party in office (Bolsonaro: PSL, then none, then PL) is drawn and named in the tooltip in the final party's colour. The timeline lists every party they held, and "Show the numbers" gives the party of each year.
+- **Colours**: each party's colour comes from Wikipedia's timeline of the country's presidents or chancellors, lightened where needed to reach 3:1 against the chart (the CDU's black becomes #6e6e6e). Green and red mean good and bad change for the metric. They appear only in Politics mode, always beside an arrow.

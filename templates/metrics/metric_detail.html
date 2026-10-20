@@ -28,6 +28,7 @@
       {% endfor %}
     </div>
     {% endif %}
+    <p class="series-note" data-series-note{% if not metric.series.0.note %} hidden{% endif %}>{{ metric.series.0.note }}</p>
 
     <section class="card chart-card" aria-labelledby="map-title" data-map-card>
       <div class="chart-card__head">
@@ -38,6 +39,7 @@
       </div>
       <p class="source-line">{% include "metrics/_source.html" %}</p>
       <div class="well map-well">
+        {% include "partials/save_image.html" %}
         <div class="map-canvas" data-map role="img" aria-label="{% blocktranslate with title=metric.title %}World map of {{ title }}, coloured by value. The table under the line chart lists the numbers.{% endblocktranslate %}"></div>
       </div>
       <div class="legend" data-legend></div>
@@ -61,6 +63,7 @@
       </div>
       <p class="source-line">{% include "metrics/_source.html" %}</p>
       <div class="well line-well">
+        {% include "partials/save_image.html" %}
         <div class="map-canvas" data-line role="img" aria-label="{% blocktranslate with title=metric.title %}Line chart of {{ title }} over time for the chosen countries. The table below lists the numbers.{% endblocktranslate %}"></div>
       </div>
       <div class="series-keys" data-keys role="list" aria-label="{% translate "Countries on the chart" %}"></div>

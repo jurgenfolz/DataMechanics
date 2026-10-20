@@ -39,7 +39,8 @@ class FormattingTests(TestCase):
         self.assertEqual(format_value(-1_234_567, 'people'), '-1.23 m')
 
     def test_changes(self):
-        self.assertEqual(format_change(8.0, 6.5, 'percent'), '1.5 pp')
+        self.assertEqual(format_change(8.0, 6.5, 'percent'), '1.5%')
+        self.assertEqual(format_change(952.0, 2075.9, 'percent'), '1,123.9%')
         self.assertEqual(format_change(1000, 3000, 'usd', relative=True), '200%')
         self.assertEqual(format_change(1000, 1053, 'usd', relative=True), '5.3%')
         self.assertEqual(format_change(70.1, 73.4, 'years'), '3.3 yrs')

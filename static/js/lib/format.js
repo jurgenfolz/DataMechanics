@@ -33,6 +33,12 @@ export function formatTick(value, rule) {
   return `${rule.prefix || ''}${marks(value.toLocaleString('en', { maximumFractionDigits: decimals }), rule)}${rule.suffix === '%' ? '%' : ''}`;
 }
 
+// The smallest gap between axis ticks whose labels still differ: one step of the rule's last decimal.
+// Without it, a narrow range of an index (0.053 to 0.055) labels two ticks the same.
+export function tickStep(rule) {
+  return rule.compact || rule.decimals === undefined ? undefined : 10 ** -rule.decimals;
+}
+
 export function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 }

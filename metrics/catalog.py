@@ -15,11 +15,13 @@ from geo import models as geo
 
 # Category keys and how each is named on the page.
 CATEGORY_LABELS = {
+    'Corruption': _('Corruption'),
     'Demography': _('Demography'),
     'Development': _('Development'),
     'Economy': _('Economy'),
     'Education': _('Education'),
     'Environment': _('Environment'),
+    'Food': _('Food'),
     'Governance': _('Governance'),
     'Health': _('Health'),
     'Society': _('Society'),
@@ -36,6 +38,7 @@ class Series:
     better: str = ''  # 'higher', 'lower' or '' when neither is better
     log_scale: bool = False  # colour the map on a log scale (for very skewed values)
     short: str = ''  # tab label, when the full label is too long for a tab
+    note: str = ''  # what sets this measure apart from the metric's others, shown under the measure tabs
 
     @property
     def tab_label(self):
@@ -121,8 +124,13 @@ METRICS = (
         ),
         model=geo.GdpPerCapitaCountryYear,
         series=(
-            Series('value', _('GDP per capita'), 'usd', better='higher', log_scale=True, short=_('Current US$')),
-            Series('ppp', _('GDP per capita, PPP (international $)'), 'usd', better='higher', log_scale=True, short=_('PPP')),
+            Series('value', _('GDP per capita'), 'usd', better='higher', log_scale=True, short=_('Current US$'),
+                   note=_('In current US dollars, converted at each year\'s market exchange rate. Prices differ between '
+                          'countries, so a dollar does not buy the same everywhere.')),
+            Series('ppp', _('GDP per capita, PPP (international $)'), 'usd', better='higher', log_scale=True, short=_('PPP'),
+                   note=_('At purchasing power parity (PPP), in international dollars: a dollar that buys the same amount '
+                          'of goods and services in every country, using the prices of the International Comparison '
+                          'Program. This is the fairer way to compare living standards between countries.')),
         ),
         tags=Tags('Economy', (_('GDP'), _('Per capita'), _('Living standards'))),
         keywords=(_('income per person'), _('gdp per person'), _('wealth'), _('ppp'), _('purchasing power parity')),
@@ -205,6 +213,60 @@ METRICS = (
         ),
         tags=Tags('Education', (_('Schooling'), _('Mean years'), _('Expected years'))),
         keywords=(_('education'), _('school'), _('enrolment'), _('literacy')),
+    ),
+    Metric(
+        slug='literacy-rate',
+        title=_('Literacy rate'),
+        question=_('Where can most adults read and write?'),
+        summary=_('The share of people aged 15 and older who can read and write a simple sentence about their daily life.'),
+        description=(
+            _('The literacy rate is the share of people aged 15 and older who can read and write a simple sentence about '
+            'their everyday life. Our World in Data combines historical estimates, back to the 15th century for some '
+            'European countries, with recent figures from UNESCO and other sources. What counts as literate has varied '
+            'between countries and over time, so compare with care. Many rich countries stopped tracking literacy in the '
+            'late 20th century, once nearly everyone could read, so their series end early. It measures basic literacy, '
+            'not whether people can follow complex written texts.')
+        ),
+        model=geo.LiteracyCountryYear,
+        series=(Series('value', _('Adult literacy rate'), 'percent', better='higher'),),
+        tags=Tags('Education', (_('Literacy'), _('Reading'), _('UNESCO'))),
+        keywords=(_('literacy'), _('illiteracy'), _('reading'), _('writing')),
+        # Rich countries' series end around 1950 and some start in 1475; these run from about 1900 to today.
+        default_countries=('BRA', 'MEX', 'IND', 'EGY', 'TUR'),
+    ),
+    Metric(
+        slug='education-spending',
+        title=_('Government spending on education'),
+        question=_('Which governments spend the most on education?'),
+        summary=_('What governments spend on education at every level, as a share of GDP.'),
+        description=(
+            _("This is what a country's central, regional and local governments spend on education at every level in a "
+            'year, as a share of GDP. It includes salaries, textbooks, buildings and donor money that passes through the '
+            'budget. Recent figures come from UNESCO; older ones from records such as League of Nations yearbooks and '
+            'OECD reports, which differ in method, so read them with care. A higher share means more of the economy goes '
+            'to education, not more per student or better results. Our World in Data combines the sources.')
+        ),
+        model=geo.EducationSpendingCountryYear,
+        series=(Series('value', _('Education spending, % of GDP'), 'percent'),),
+        tags=Tags('Education', (_('Education spending'), _('Public finance'), _('UNESCO'))),
+        keywords=(_('education budget'), _('school funding'), _('public spending'), _('unesco')),
+    ),
+    Metric(
+        slug='scientific-articles',
+        title=_('Scientific and technical articles'),
+        question=_('Which countries publish the most science?'),
+        summary=_('Articles in science and engineering journals and conference proceedings, per year.'),
+        description=(
+            _('This counts the articles from each country published each year in peer-reviewed journals and conference '
+            'proceedings in science and engineering, from physics, biology and chemistry to clinical medicine, '
+            'engineering and earth and space sciences. The US National Science Foundation compiles the counts from the '
+            'Scopus database, and the World Bank republishes them. Big countries publish more partly because they are '
+            'big, so compare countries of a similar size, or follow one country over time.')
+        ),
+        model=geo.ScientificArticlesCountryYear,
+        series=(Series('value', _('Articles per year'), 'count', log_scale=True),),
+        tags=Tags('Education', (_('Science'), _('Research'), _('Publications'))),
+        keywords=(_('research'), _('papers'), _('publications'), _('science')),
     ),
     Metric(
         slug='population',
@@ -489,6 +551,108 @@ METRICS = (
         keywords=(_('murder rate'), _('crime'), _('safety'), _('violence')),
     ),
     Metric(
+        slug='gender-wage-gap',
+        title=_('Gender wage gap'),
+        question=_("Where is the gap between men's and women's pay widest?"),
+        summary=_("How much less women earn than men on average, as a share of men's earnings."),
+        description=(
+            _("The gender wage gap is the difference between men's and women's average hourly earnings, as a share of "
+            "men's earnings. A positive gap means men earn more; a negative one means women do. It is unadjusted: it "
+            'does not account for education, experience or the kind of job, so it reflects both unequal pay for similar '
+            'work and the different jobs men and women hold. It covers employees only, not the self-employed. The '
+            'International Labour Organization compiles it from national surveys, which differ, so compare countries '
+            'with care. Our World in Data leaves out the figures the ILO flags as unreliable.')
+        ),
+        model=geo.GenderWageGapCountryYear,
+        series=(Series('value', _('Gender wage gap'), 'percent', better='lower'),),
+        tags=Tags('Society', (_('Gender'), _('Wages'), _('ILO'))),
+        keywords=(_('pay gap'), _('equal pay'), _('women'), _('earnings')),
+    ),
+    Metric(
+        slug='women-political-empowerment',
+        title=_("Women's political empowerment index (V-Dem)"),
+        question=_('Where do women have the most political power?'),
+        summary=_('How far women enjoy civil liberties, take part in civil society and are represented in politics, from 0 to 1.'),
+        description=(
+            _("The V-Dem women's political empowerment index measures how far women enjoy civil liberties, can take part "
+            'in civil society and are represented in politics. It runs from 0 (least empowered) to 1 (most empowered) '
+            "and is made up of three sub-indices: women's civil liberties, women's civil society participation and "
+            "women's political participation. It rests mainly on the ratings of V-Dem's country experts, combined "
+            'through a statistical model, and also uses the share of women in parliament. Our World in Data republishes '
+            'the central estimates.')
+        ),
+        model=geo.WomenPoliticalEmpowermentCountryYear,
+        series=(Series('value', _("Women's political empowerment index"), 'index', better='higher'),),
+        tags=Tags('Society', (_('Gender'), _("Women's rights"), _('V-Dem'))),
+        world_label=_('World (average of countries)'),
+        keywords=(_('women'), _('gender equality'), _('vdem'), _('empowerment')),
+    ),
+    Metric(
+        slug='women-in-parliament',
+        title=_('Share of women in parliament'),
+        question=_('Where do women hold the most seats in parliament?'),
+        summary=_('The share of seats in the lower or only chamber of parliament held by women.'),
+        description=(
+            _("This is the share of seats in the lower or only chamber of a country's parliament held by women. V-Dem "
+            'compiles it from sources such as the Inter-Parliamentary Union, and Our World in Data republishes it. The '
+            'World value is the average of the countries, each counted once.')
+        ),
+        model=geo.WomenInParliamentCountryYear,
+        series=(Series('value', _('Women in parliament'), 'percent', better='higher'),),
+        tags=Tags('Society', (_('Gender'), _('Parliament'), _('V-Dem'))),
+        world_label=_('World (average of countries)'),
+        keywords=(_('women'), _('parliament'), _('representation'), _('legislators')),
+    ),
+    Metric(
+        slug='undernourishment',
+        title=_('Undernourished people'),
+        question=_('Where do the most people go hungry?'),
+        summary=_('People whose food does not give them the minimum energy they need.'),
+        description=(
+            _('This counts the people whose usual diet does not give them enough calories to meet their minimum energy '
+            'needs. The Food and Agriculture Organization of the United Nations (FAO) estimates it for each country from '
+            'national food and population data, and Our World in Data republishes it. Big countries have more '
+            'undernourished people partly because they have more people, so compare countries of a similar size, or '
+            'follow one country over time.')
+        ),
+        model=geo.UndernourishmentCountryYear,
+        series=(Series('value', _('Undernourished people'), 'people', log_scale=True),),
+        tags=Tags('Food', (_('Hunger'), _('Nutrition'), _('FAO'))),
+        keywords=(_('hunger'), _('malnutrition'), _('food security'), _('fao')),
+    ),
+    Metric(
+        slug='healthy-diet-unaffordable',
+        title=_('People who cannot afford a healthy diet'),
+        question=_('Where is a healthy diet out of reach?'),
+        summary=_('The share of people whose income cannot pay for the cheapest healthy diet and basic needs.'),
+        description=(
+            _("This is the share of people who cannot afford the cheapest healthy diet in their country: the lowest-cost "
+            "set of foods that meets the dietary guidelines of governments and public health agencies. A diet counts as "
+            'unaffordable when its cost, plus basic non-food needs such as housing and transport, is more than daily '
+            'income. FAO and the World Bank compute it with methods from Bai et al. (2024), and Our World in Data '
+            'republishes it.')
+        ),
+        model=geo.HealthyDietUnaffordableCountryYear,
+        series=(Series('value', _('Cannot afford a healthy diet'), 'percent', better='lower'),),
+        tags=Tags('Food', (_('Food prices'), _('Nutrition'), _('World Bank'))),
+        keywords=(_('food prices'), _('cost of a healthy diet'), _('affordability'), _('hunger')),
+    ),
+    Metric(
+        slug='meat-production',
+        title=_('Meat production'),
+        question=_('Which countries produce the most meat?'),
+        summary=_('Meat produced in a year, in tonnes: cattle, poultry, pigs, sheep, goats and game.'),
+        description=(
+            _('This is the meat a country produces in a year, in tonnes, from cattle, poultry, pigs, sheep, goats and '
+            'wild game. The Food and Agriculture Organization of the United Nations (FAO) compiles it, and Our World in '
+            'Data republishes it.')
+        ),
+        model=geo.MeatProductionCountryYear,
+        series=(Series('value', _('Meat production'), 'tonnes_total', log_scale=True),),
+        tags=Tags('Food', (_('Meat'), _('Agriculture'), _('FAO'))),
+        keywords=(_('meat'), _('livestock'), _('beef'), _('chicken'), _('pork')),
+    ),
+    Metric(
         slug='human-rights',
         title=_('Human rights index (V-Dem)'),
         question=_('Where are civil liberties best protected?'),
@@ -505,6 +669,94 @@ METRICS = (
         tags=Tags('Governance', (_('Human rights'), _('Civil liberties'), _('V-Dem'))),
         world_label=_('World (average of countries)'),
         keywords=(_('civil liberties'), _('freedom'), _('vdem'), _('repression')),
+    ),
+    Metric(
+        slug='political-corruption',
+        title=_('Political corruption index (V-Dem)'),
+        question=_('Where is political corruption most widespread?'),
+        summary=_('How far leaders and officials take bribes and steal public money, from 0 (least corrupt) to 1 (most corrupt).'),
+        description=(
+            _('The V-Dem political corruption index measures how far a country\'s government, parliament, courts and '
+            'public officials take bribes or steal public money, and how far corruption shapes how laws are made and '
+            'carried out. It runs from 0 (least corrupt) to 1 (most corrupt) and is made up of four sub-indices: '
+            'executive, legislative, judicial and public sector corruption. Like the other V-Dem indices, it combines '
+            'the ratings of thousands of country experts through a statistical model. It is about bribery and theft at '
+            'high levels, not the corruption people meet in daily life. Our World in Data republishes the central '
+            'estimates.')
+        ),
+        model=geo.PoliticalCorruptionCountryYear,
+        series=(Series('value', _('Political corruption index'), 'index', better='lower'),),
+        tags=Tags('Corruption', (_('Bribery'), _('Embezzlement'), _('V-Dem'))),
+        keywords=(_('corruption'), _('bribery'), _('embezzlement'), _('vdem')),
+    ),
+    Metric(
+        slug='executive-corruption',
+        title=_('Executive corruption index (V-Dem)'),
+        question=_('Where do leaders and ministers take the most bribes?'),
+        summary=_('How far heads of government and ministers take bribes or steal public money, from 0 (least corrupt) to 1 (most corrupt).'),
+        description=(
+            _('The V-Dem executive corruption index measures how far high-ranking members of the executive, such as the '
+            'head of government and cabinet ministers, take bribes or steal public money. It runs from 0 (least '
+            'corrupt) to 1 (most corrupt) and is one of the four parts of the political corruption index. Like the '
+            'other V-Dem indices, it combines the ratings of thousands of country experts through a statistical model. '
+            'Our World in Data republishes the central estimates.')
+        ),
+        model=geo.ExecutiveCorruptionCountryYear,
+        series=(Series('value', _('Executive corruption index'), 'index', better='lower'),),
+        tags=Tags('Corruption', (_('Executive'), _('Bribery'), _('V-Dem'))),
+        keywords=(_('corruption'), _('government corruption'), _('ministers'), _('vdem')),
+    ),
+    Metric(
+        slug='public-sector-corruption',
+        title=_('Public sector corruption index (V-Dem)'),
+        question=_('Where do public officials take the most bribes?'),
+        summary=_('How far public sector employees take bribes or steal public money, from 0 (least corrupt) to 1 (most corrupt).'),
+        description=(
+            _('The V-Dem public sector corruption index measures how far public sector employees take bribes or steal '
+            'public money. It runs from 0 (least corrupt) to 1 (most corrupt) and is one of the four parts of the '
+            'political corruption index. Like the other V-Dem indices, it combines the ratings of thousands of country '
+            'experts through a statistical model. Our World in Data republishes the central estimates.')
+        ),
+        model=geo.PublicSectorCorruptionCountryYear,
+        series=(Series('value', _('Public sector corruption index'), 'index', better='lower'),),
+        tags=Tags('Corruption', (_('Public sector'), _('Bribery'), _('V-Dem'))),
+        keywords=(_('corruption'), _('civil servants'), _('bureaucracy'), _('vdem')),
+    ),
+    Metric(
+        slug='judicial-corruption',
+        title=_('Judicial corruption score (V-Dem)'),
+        question=_('Where can court decisions be bought?'),
+        summary=_('How often people and businesses bribe the courts. Higher means less corruption; 0 is about the average.'),
+        description=(
+            _('The V-Dem judicial corruption score measures how often people or businesses make undocumented extra '
+            'payments or bribes to speed up or delay a court case, or to win a favourable decision. Unlike the V-Dem '
+            'corruption indices, a higher score means less corruption. A score of 0 is about the average across all '
+            'countries and years, and scores run from about -3 to 4. It is one of the four parts of the political '
+            'corruption index. Like the other V-Dem measures, it combines the ratings of thousands of country experts '
+            'through a statistical model. Our World in Data republishes the central estimates.')
+        ),
+        model=geo.JudicialCorruptionCountryYear,
+        series=(Series('value', _('Judicial corruption score'), 'score', better='higher'),),
+        tags=Tags('Corruption', (_('Courts'), _('Bribery'), _('V-Dem'))),
+        keywords=(_('corruption'), _('courts'), _('judges'), _('justice'), _('vdem')),
+    ),
+    Metric(
+        slug='corruption-perceptions',
+        title=_('Corruption Perceptions Index (CPI)'),
+        question=_('Which countries are seen as the most corrupt?'),
+        summary=_("How corrupt experts and business people see a country's public sector, from 0 (very corrupt) to 100 (very clean)."),
+        description=(
+            _("Transparency International's Corruption Perceptions Index scores how corrupt a country's public sector "
+            'is seen to be by experts and business people. Each year it averages up to 13 independent sources, such as '
+            'expert assessments and business surveys, each converted to a scale from 0 (very corrupt) to 100 (very '
+            'clean). It measures perceptions, not corruption itself, because no fully objective national measure of '
+            'corruption exists. The method has stayed the same since 2012, so scores from 2012 on can be compared over '
+            'time. Our World in Data republishes the scores.')
+        ),
+        model=geo.CorruptionPerceptionsCountryYear,
+        series=(Series('value', _('Corruption Perceptions Index'), 'score_100', better='higher'),),
+        tags=Tags('Corruption', (_('Perceptions'), _('Public sector'), _('Transparency International'))),
+        keywords=(_('corruption'), _('cpi'), _('transparency international'), _('bribery')),
     ),
     Metric(
         slug='military-spending',
@@ -566,6 +818,28 @@ METRICS = (
         ),
         tags=Tags('Environment', (_('Energy'), _('Electricity'), _('Renewables'), _('Ember'))),
         keywords=(_('energy mix'), _('renewable energy'), _('solar power'), _('wind power'), _('nuclear power'), _('coal power')),
+    ),
+    Metric(
+        slug='air-pollution',
+        title=_('Air pollution'),
+        question=_('Where is the air most polluted?'),
+        summary=_('How much fine-particle pollution people breathe, and how many live above the WHO guideline.'),
+        description=(
+            _('Fine particles smaller than 2.5 microns (PM2.5) reach deep into the lungs and cause severe harm. The first '
+            'measure is the average yearly concentration people are exposed to, weighted by where they live, in cities '
+            "and the countryside; IHME's Global Burden of Disease study estimates it. The second is the share of people "
+            'living where it is above 10 micrograms per cubic metre, the guideline value of the World Health '
+            'Organization (WHO) that these estimates use. The World Bank republishes both.')
+        ),
+        model=geo.AirPollutionCountryYear,
+        series=(
+            Series('pm25', _('PM2.5 exposure'), 'ugm3', better='lower'),
+            Series('above_guideline', _('People above the WHO guideline'), 'percent', better='lower',
+                   short=_('Above WHO guideline'),
+                   note=_('The share of people living where PM2.5 is above 10 µg/m³, the WHO guideline these estimates use. The data ends in 2017.')),
+        ),
+        tags=Tags('Environment', (_('Air pollution'), _('PM2.5'), _('Health'))),
+        keywords=(_('smog'), _('air quality'), _('particulate matter'), _('pollution')),
     ),
 )
 

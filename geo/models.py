@@ -252,6 +252,41 @@ class HumanRightsCountryYear(CountryYear):
         db_table = 'geo_human_rights_country_year'
 
 
+class PoliticalCorruptionCountryYear(CountryYear):
+    value = models.FloatField(help_text='V-Dem political corruption index, 0 (least corrupt) to 1 (most corrupt).')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_political_corruption_country_year'
+
+
+class ExecutiveCorruptionCountryYear(CountryYear):
+    value = models.FloatField(help_text='V-Dem executive corruption index, 0 (least corrupt) to 1 (most corrupt).')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_executive_corruption_country_year'
+
+
+class PublicSectorCorruptionCountryYear(CountryYear):
+    value = models.FloatField(help_text='V-Dem public sector corruption index, 0 (least corrupt) to 1 (most corrupt).')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_public_sector_corruption_country_year'
+
+
+class JudicialCorruptionCountryYear(CountryYear):
+    value = models.FloatField(help_text='V-Dem judicial corruption score: higher is less corrupt, 0 is about the average.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_judicial_corruption_country_year'
+
+
+class CorruptionPerceptionsCountryYear(CountryYear):
+    value = models.FloatField(help_text='Transparency International CPI, 0 (very corrupt) to 100 (very clean).')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_corruption_perceptions_country_year'
+
+
 class Co2EmissionsCountryYear(CountryYear):
     """CO2 from fossil fuels and industry, excluding land-use change."""
 
@@ -278,3 +313,74 @@ class ElectricityMixCountryYear(CountryYear):
 
     class Meta(CountryYear.Meta):
         db_table = 'geo_electricity_mix_country_year'
+
+
+class LiteracyCountryYear(CountryYear):
+    value = models.FloatField(help_text='Share of people aged 15 and older who can read and write, %.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_literacy_country_year'
+
+
+class EducationSpendingCountryYear(CountryYear):
+    value = models.FloatField(help_text='General government spending on education, % of GDP.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_education_spending_country_year'
+
+
+class ScientificArticlesCountryYear(CountryYear):
+    value = models.FloatField(help_text='Articles in science and engineering journals and proceedings, per year.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_scientific_articles_country_year'
+
+
+class GenderWageGapCountryYear(CountryYear):
+    value = models.FloatField(help_text="Men's minus women's average hourly earnings, % of men's (unadjusted).")
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_gender_wage_gap_country_year'
+
+
+class WomenPoliticalEmpowermentCountryYear(CountryYear):
+    value = models.FloatField(help_text="V-Dem women's political empowerment index, 0 to 1.")
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_women_political_empowerment_country_year'
+
+
+class WomenInParliamentCountryYear(CountryYear):
+    value = models.FloatField(help_text='Share of seats in the lower or only chamber held by women, %.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_women_in_parliament_country_year'
+
+
+class UndernourishmentCountryYear(CountryYear):
+    value = models.FloatField(help_text='People whose food intake is below their minimum energy needs (FAO).')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_undernourishment_country_year'
+
+
+class HealthyDietUnaffordableCountryYear(CountryYear):
+    value = models.FloatField(help_text='Share of people who cannot afford the cheapest healthy diet, %.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_healthy_diet_unaffordable_country_year'
+
+
+class MeatProductionCountryYear(CountryYear):
+    value = models.FloatField(help_text='Meat produced in a year, tonnes (FAO).')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_meat_production_country_year'
+
+
+class AirPollutionCountryYear(CountryYear):
+    pm25 = models.FloatField(null=True, help_text='Mean annual exposure to PM2.5, micrograms per cubic metre.')
+    above_guideline = models.FloatField(null=True, help_text='Share of people exposed to PM2.5 above 10 µg/m³, %.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_air_pollution_country_year'

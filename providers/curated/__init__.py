@@ -13,4 +13,6 @@ DATA = Path(settings.BASE_DIR) / 'data' / 'politics'
 COUNTRIES = {
     'brazil': 'BRA',
     'united-states': 'USA',
+    'germany': 'DEU',
+    'france': 'FRA',
 }

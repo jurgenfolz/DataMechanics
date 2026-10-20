@@ -2,14 +2,14 @@
 {% load i18n %}
 
 {% block title %}{% translate "Politics" %} · Data Mechanics{% endblock %}
-{% block description %}{% translate "Every metric we have for a country, coloured by who was in power: president by president, with the change during each presidency." %}{% endblock %}
+{% block description %}{% translate "Every metric we have for a country, coloured by who was in power, with the change during each term." %}{% endblock %}
 
 {% block content %}
 <div class="wrap">
   <header class="results-head">
     <h1>{% translate "Politics" %}</h1>
     <p class="results-head__quip">{% translate "Settle family arguments with data. Or start new ones." %}</p>
-    <p>{% translate "Every metric we have for a country, coloured by who was in power. See how each presidency began and ended, for GDP, health, democracy and more." %}</p>
+    <p>{% translate "Every metric we have for a country, coloured by who was in power. See how each term began and ended, for GDP, health, democracy and more." %}</p>
   </header>
 
   <div class="market-grid results-grid">
@@ -19,7 +19,7 @@
         <img class="flag flag--round country-card__flag" src="{{ card.flag }}" alt="" width="48" height="48">
         <span>
           <span class="country-card__name">{{ card.country.local_name }}</span>
-          <span class="country-card__meta">{% blocktranslate count count=card.count with year=card.since %}{{ count }} president since {{ year }}{% plural %}{{ count }} presidents since {{ year }}{% endblocktranslate %}</span>
+          <span class="country-card__meta">{{ card.leaders }}</span>
         </span>
       </span>
       <span class="country-card__current">

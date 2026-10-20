@@ -59,7 +59,7 @@
 
       <div class="spotlight__map" data-spotlight-map-box>
         <p class="source-line spotlight__source">{% translate "Source:" %} <a data-spotlight-source href="{{ slides.0.load.source_url }}">{{ slides.0.load.source_name }}</a></p>
-        <div class="well map-well map-well--spotlight"><div class="map-canvas" data-spotlight-map role="img" aria-label="{% translate "World map of the featured metric" %}"></div></div>
+        <div class="well map-well map-well--spotlight">{% include "partials/save_image.html" %}<div class="map-canvas" data-spotlight-map role="img" aria-label="{% translate "World map of the featured metric" %}"></div></div>
         <p class="source-line" data-spotlight-caption></p>
       </div>
     </section>

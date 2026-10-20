@@ -1,10 +1,13 @@
 // One country's metric over time, coloured by who was in office. Needs the global `echarts`, and Django's gettext and interpolate.
-// The line and the area under it take the colour of the party in office. An HTML card sits over the canvas where each
+// The line and the area under it take, for each presidency, the colour of the party it ended in: one colour per
+// presidency keeps the chart simple when a leader changed party in office. An HTML card sits over the canvas where each
 // presidency ends: the party's logo, the leader, the value and the change during the presidency. One presidency's end is
 // the next one's start, so that point needs no second label.
 // A card goes where it covers neither another card nor the line. Without such a place it shrinks, then hides;
 // only the card of the leader in office may cross the line, so the latest change always shows.
-import { escapeHtml, formatTick, formatValue } from './format.js';
+import { drawContained, loadImage, MONO, whenFinished } from './chart-image.js';
+import { escapeHtml, formatTick, formatValue, tickStep } from './format.js';
+import { BRIDGE } from './gaps.js';
 
 const INK_3 = '#8b8f94';
 const GRID = '#2c2e30';
@@ -16,7 +19,7 @@ const GAP = 4;           // the space kept clear around a label
 const FORMS = ['', 'is-compact', 'is-mini'];
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-export function createTermChart(element, { units, onZoom }) {
+export function createTermChart(element, { units, onZoom, animate = true, slider = true }) {
   const chart = echarts.init(element, null, { renderer: 'canvas' });
   const layer = document.createElement('div');
   layer.className = 'term-labels';
@@ -24,6 +27,7 @@ export function createTermChart(element, { units, onZoom }) {
   element.parentElement.append(layer);
 
   let data = null;
+  let stretches = [];
   let labels = [];
   let dots = [];
   let frame = 0;
@@ -33,10 +37,11 @@ export function createTermChart(element, { units, onZoom }) {
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(place);
   };
-  new ResizeObserver(() => {
+  const observer = new ResizeObserver(() => {
     chart.resize();
     schedule();
-  }).observe(element);
+  });
+  observer.observe(element);
   chart.on('finished', schedule);
   chart.on('datazoom', () => {
     schedule();
@@ -46,16 +51,16 @@ export function createTermChart(element, { units, onZoom }) {
   function render(next, range) {
     data = next;
     const rule = units[data.unit];
-    const spans = data.presidencies.flatMap((p) => p.spans.map((span) => ({ ...span, presidency: p })));
+    stretches = presidencyStretches(data);
     const starts = data.presidencies.filter((p) => p.spans.length).map((p) => p.spans[0].from);
     layer.classList.remove('is-shown');
 
     chart.setOption({
-      animation: !REDUCED_MOTION,
+      animation: animate && !REDUCED_MOTION,
       animationDuration: 500,
       animationDurationUpdate: 250,
       animationEasing: 'cubicOut',
-      grid: { left: 8, right: 20, top: 28, bottom: 56, containLabel: true },
+      grid: { left: 8, right: 20, top: 28, bottom: slider ? 56 : 12, containLabel: true },
       xAxis: {
         type: 'value',
         min: 'dataMin',
@@ -73,6 +78,7 @@ export function createTermChart(element, { units, onZoom }) {
         type: 'value',
         scale: true,
         splitNumber: 5,
+        minInterval: tickStep(rule),
         splitLine: { lineStyle: { color: GRID, width: 1 } },
         axisLabel: { color: INK_3, fontSize: 11, fontFamily: 'Archivo, sans-serif', formatter: (v) => formatTick(v, rule) },
       },
@@ -82,11 +88,12 @@ export function createTermChart(element, { units, onZoom }) {
         type: 'piecewise',
         dimension: 0,
         seriesIndex: 0,
-        pieces: spans.map((span) => ({ gt: span.from, lte: span.to, color: span.party.color })),
+        pieces: stretches.map((stretch) => ({ gt: stretch.from, lte: stretch.to, color: stretch.party.color })),
         outOfRange: { color: NOBODY },
       },
       dataZoom: [{
         type: 'slider',
+        show: slider,
         xAxisIndex: 0,
         startValue: range?.[0],
         endValue: range?.[1],
@@ -114,7 +121,7 @@ export function createTermChart(element, { units, onZoom }) {
         extraCssText: 'border-radius:10px;box-shadow:0 12px 30px rgb(0 0 0 / .5);',
         formatter(params) {
           const [year, value] = params[0]?.value || [];
-          if (year === undefined) return '';
+          if (year === undefined || value === null) return '';
           const span = spanOf(year);
           const who = span
             ? `<div class="tip__who">${logoHtml(span.party)}<span>${escapeHtml(span.presidency.shortName)}`
@@ -126,7 +133,7 @@ export function createTermChart(element, { units, onZoom }) {
       },
       series: [{
         type: 'line',
-        data: data.points,
+        data: withBreaks(data.points),
         showSymbol: false,
         symbolSize: 8,
         lineStyle: { width: 2.5, cap: 'round', join: 'round' },
@@ -141,6 +148,13 @@ export function createTermChart(element, { units, onZoom }) {
           lineStyle: { color: AXIS, type: [3, 4], width: 1 },
           data: starts.map((x) => ({ xAxis: x })),
         },
+      }, {
+        // A value alone between open gaps: no line reaches it, so a dot in its leader's party colour shows it.
+        type: 'scatter',
+        data: lonePoints(data.points).map((point) => ({ value: point, itemStyle: { color: spanOf(point[0])?.party.color || INK_3 } })),
+        symbolSize: 6,
+        silent: true,
+        z: 3,
       }],
     }, { replaceMerge: ['series', 'visualMap', 'dataZoom'] });
 
@@ -149,11 +163,7 @@ export function createTermChart(element, { units, onZoom }) {
 
   // The presidency in office in a year, by the 1 July rule (politics/queries.py).
   function spanOf(year) {
-    for (const p of data.presidencies) {
-      const span = p.spans.find((s) => s.from < year && year <= s.to);
-      if (span) return { party: span.party, presidency: p };
-    }
-    return null;
+    return stretches.find((stretch) => stretch.from < year && year <= stretch.to) || null;
   }
 
   function buildLabels() {
@@ -199,7 +209,7 @@ export function createTermChart(element, { units, onZoom }) {
     const stem = document.createElement('span');
     stem.className = 'term-stem';
     stem.style.setProperty('--party', party.color);
-    return { el, stem, point: [s.endYear, s.endValue], current: p.current };
+    return { el, stem, point: [s.endYear, s.endValue], current: p.current, party, presidency: p, placed: null };
   }
 
   function setForm(el, form) {
@@ -216,10 +226,15 @@ export function createTermChart(element, { units, onZoom }) {
     const visible = ([x, y]) => x >= rect.x - 1 && x <= rect.x + rect.width + 1 && y >= rect.y - 1 && y <= rect.y + rect.height + 1;
     const line = data.points.map((point) => chart.convertToPixel({ seriesIndex: 0 }, point));
     const taken = [];
+    // The well's "Save as image" button sits in the top right corner: cards keep clear of it.
+    if (element.parentElement.querySelector('[data-save-image]')) {
+      taken.push({ left: element.clientWidth - 44, top: 0, right: element.clientWidth, bottom: 40 });
+    }
 
     for (const dot of dots) {
       const [x, y] = chart.convertToPixel({ seriesIndex: 0 }, dot.point);
       dot.el.hidden = !visible([x, y]);
+      dot.at = dot.el.hidden ? null : [x, y];
       if (dot.el.hidden) continue;
       dot.el.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
       taken.push({ left: x - 6, top: y - 6, right: x + 6, bottom: y + 6 });
@@ -240,6 +255,7 @@ export function createTermChart(element, { units, onZoom }) {
       }
       item.el.hidden = !box;
       item.stem.hidden = !box;
+      item.placed = null;
       if (!box) continue;
       taken.push(box);
       setForm(item.el, FORMS[form]);
@@ -249,6 +265,7 @@ export function createTermChart(element, { units, onZoom }) {
       const to = above ? y - 5 : box.top;
       item.stem.style.transform = `translate(${Math.round(x)}px, ${Math.round(from)}px)`;
       item.stem.style.height = `${Math.max(0, Math.round(to - from))}px`;
+      item.placed = { box, form, stem: { x, from, to } };
     }
     layer.classList.add('is-shown');
   }
@@ -279,11 +296,214 @@ export function createTermChart(element, { units, onZoom }) {
     quiet = false;
   }
 
-  return { render, zoomTo, visibleRange, chart };
+  // ---------- The saved image (lib/chart-image.js) ----------
+  // The cards are HTML, so the chart's own image leaves them out: this paints them, their stems and the dots on a canvas
+  // where the chart's image sits at (x0, y0) at `scale` times its size.
+  async function paintLabels(ctx, x0, y0, scale) {
+    place();
+    const logos = new Map(await Promise.all(labels.filter((l) => l.placed && l.party.logo)
+      .map(async (l) => [l.party.logo, await loadImage(l.party.logo)])));
+    ctx.save();
+    ctx.translate(x0, y0);
+    ctx.scale(scale, scale);
+    for (const item of labels) {
+      if (!item.placed) continue;
+      const { x, from, to } = item.placed.stem;
+      ctx.strokeStyle = item.party.color;
+      ctx.globalAlpha = 0.75;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, from);
+      ctx.lineTo(x, to);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    for (const dot of dots) {
+      if (!dot.at) continue;
+      ctx.beginPath();
+      ctx.arc(dot.at[0], dot.at[1], 7, 0, 2 * Math.PI);
+      ctx.fillStyle = '#1d1f21';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(dot.at[0], dot.at[1], 5, 0, 2 * Math.PI);
+      ctx.fillStyle = '#f2f3f4';
+      ctx.fill();
+    }
+    for (const item of labels) if (item.placed) paintCard(ctx, item, logos.get(item.party.logo));
+    ctx.restore();
+  }
+
+  // Nothing to show: the line, the cards and the dots all go, and the old data with them, so a resize draws nothing back.
+  function clear() {
+    cancelAnimationFrame(frame);
+    data = null;
+    labels = [];
+    dots = [];
+    layer.replaceChildren();
+    layer.classList.remove('is-shown');
+    chart.clear();
+  }
+
+  function dispose() {
+    observer.disconnect();
+    cancelAnimationFrame(frame);
+    chart.dispose();
+  }
+
+  return { render, clear, zoomTo, visibleRange, paintLabels, dispose, chart };
+}
+
+/**
+ * Each presidency's stretch of the line, from the year before its first year to its last, in the colour of the party
+ * it ended in. The rule keeps one colour per presidency; the table and the timeline still show every party it held.
+ */
+function presidencyStretches(data) {
+  return data.presidencies.filter((p) => p.spans.length).map((p) => ({
+    from: p.spans[0].from,
+    to: p.spans.at(-1).to,
+    party: p.spans.at(-1).party,
+    presidency: p,
+  }));
+}
+
+/** What saveChartImage needs for this chart: how to draw it, without its slider, at the zoom on screen. */
+export function termImageParts(data, range, units) {
+  return {
+    async draw(element) {
+      const term = createTermChart(element, { units, animate: false, slider: false });
+      const finished = whenFinished(term.chart);
+      term.render(data, range);
+      await finished;
+      return { chart: term.chart, dispose: term.dispose, paint: term.paintLabels };
+    },
+  };
+}
+
+const SANS = 'Archivo, "Helvetica Neue", Arial, sans-serif';
+const TONES = { good: '#2bc892', bad: '#f2545b', neutral: '#b6b9bd' };
+
+// One card, laid out like .term-label in site.css: logo tile, then the name line and the value and change line.
+function paintCard(ctx, item, logo) {
+  const { box, form } = item.placed;
+  const { left, top } = box;
+  const w = box.right - box.left;
+  const h = box.bottom - box.top;
+  const p = item.presidency;
+  const s = p.summary;
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(left, top, w, h, 8);
+  ctx.fillStyle = 'rgba(23, 25, 27, 0.94)';
+  ctx.fill();
+  ctx.clip();
+  ctx.fillStyle = item.party.color;
+  ctx.fillRect(left + w - 4, top, 4, h);
+  ctx.restore();
+  ctx.beginPath();
+  ctx.roundRect(left + 0.5, top + 0.5, w - 1, h - 1, 8);
+  ctx.strokeStyle = '#3a3d41';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  const tile = FORMS[form] === 'is-mini' ? 26 : 32;
+  const tileX = left + 6;
+  const tileY = top + (h - tile) / 2;
+  paintLogoTile(ctx, item.party, logo, tileX, tileY, tile);
+
+  const textX = tileX + tile + 8;
+  ctx.textBaseline = 'middle';
+  if (FORMS[form] === 'is-mini') {
+    paintTrend(ctx, s, textX, top + h / 2);
+    return;
+  }
+  const kickerY = top + h / 2 - 9;
+  const rowY = top + h / 2 + 9;
+  ctx.font = `700 12px ${SANS}`;
+  ctx.fillStyle = '#f2f3f4';
+  ctx.fillText(p.shortName, textX, kickerY);
+  let rowX = textX;
+  if (!FORMS[form]) {
+    const nameW = ctx.measureText(p.shortName).width;
+    ctx.font = `400 11px ${SANS}`;
+    ctx.fillStyle = '#8b8f94';
+    ctx.fillText(` · ${p.current ? gettext('In office') : gettext('End of term')}`, textX + nameW, kickerY);
+    ctx.font = `700 12px ${MONO}`;
+    ctx.fillStyle = '#f2f3f4';
+    ctx.fillText(s.endLabel, textX, rowY);
+    rowX += ctx.measureText(s.endLabel).width + 8;
+  }
+  paintTrend(ctx, s, rowX, rowY);
+}
+
+export function paintLogoTile(ctx, party, logo, x, y, size) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, size, size, 7);
+  ctx.fillStyle = '#f2f3f4';
+  ctx.fill();
+  if (logo) {
+    drawContained(ctx, logo, x + 2, y + 2, size - 4, size - 4);
+  } else if (party.abbreviation) {
+    ctx.beginPath();
+    ctx.roundRect(x + 2, y + 2, size - 4, size - 4, 5);
+    ctx.fillStyle = party.color;
+    ctx.fill();
+    ctx.fillStyle = '#121416';
+    ctx.font = `700 9px ${MONO}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(party.abbreviation, x + size / 2, y + size / 2);
+    ctx.textAlign = 'left';
+  }
+}
+
+// The arrow in its tinted circle, then the size of the change, like trendHtml.
+export function paintTrend(ctx, summary, x, y) {
+  ctx.font = `700 12px ${MONO}`;
+  ctx.textBaseline = 'middle';
+  if (summary.up === null) {
+    ctx.fillStyle = TONES.neutral;
+    ctx.fillText(summary.change, x, y);
+    return;
+  }
+  const color = TONES[toneOf(summary)];
+  ctx.fillStyle = color;
+  ctx.globalAlpha = 0.16;
+  ctx.beginPath();
+  ctx.arc(x + 8, y, 8, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.6;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  if (summary.up) {
+    ctx.moveTo(x + 5.5, y + 2.5); ctx.lineTo(x + 10.5, y - 2.5);
+    ctx.moveTo(x + 6.5, y - 2.5); ctx.lineTo(x + 10.5, y - 2.5); ctx.lineTo(x + 10.5, y + 1.5);
+  } else {
+    ctx.moveTo(x + 5.5, y - 2.5); ctx.lineTo(x + 10.5, y + 2.5);
+    ctx.moveTo(x + 10.5, y - 1.5); ctx.lineTo(x + 10.5, y + 2.5); ctx.lineTo(x + 6.5, y + 2.5);
+  }
+  ctx.stroke();
+  ctx.fillText(summary.change, x + 20, y);
 }
 
 function overlaps(a, b) {
   return a.left < b.right + GAP && b.left < a.right + GAP && a.top < b.bottom + GAP && b.top < a.bottom + GAP;
+}
+
+// The points with a break in the middle of every gap longer than BRIDGE years (lib/gaps.js).
+function withBreaks(points) {
+  return points.flatMap((point, i) => {
+    const before = points[i - 1];
+    return before && point[0] - before[0] > BRIDGE ? [[Math.round((before[0] + point[0]) / 2), null], point] : [point];
+  });
+}
+
+// The points with an open gap of more than BRIDGE years on both sides.
+function lonePoints(points) {
+  const gap = (i, j) => (points[i] && points[j] ? Math.abs(points[i][0] - points[j][0]) : Infinity);
+  return points.filter((_, i) => gap(i, i - 1) > BRIDGE && gap(i, i + 1) > BRIDGE);
 }
 
 // Whether the line passes through a box. Between two points the line is straight, so its height over the part of
@@ -322,7 +542,8 @@ const SAID = {
   down: { good: gettext('Down %s, better'), bad: gettext('Down %s, worse'), neutral: gettext('Down %s') },
 };
 
-function toneOf(summary) {
+/** 'good', 'bad' or 'neutral': how a presidency's change reads for the metric. */
+export function toneOf(summary) {
   return summary.good === null ? 'neutral' : summary.good ? 'good' : 'bad';
 }
 
@@ -334,7 +555,7 @@ export function trendSaid(summary) {
 
 // The change during a presidency: an arrow and the size of the change, green when it is good for the metric, red when bad.
 export function trendHtml(summary) {
-  if (summary.up === null) return `<span class="trend">${escapeHtml(summary.change)}</span>`;
+  if (summary.up === null) return `<span class="trend trend--none">${escapeHtml(summary.change)}</span>`;
   const tone = toneOf(summary);
   const direction = summary.up ? 'up' : 'down';
   const said = escapeHtml(trendSaid(summary));

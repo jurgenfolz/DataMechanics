@@ -1,6 +1,7 @@
 """Political parties, from data/politics/<country>/parties.csv. Writes pol_party.
 
-Parties are updated in place, never deleted, so the administrations that point at them keep their links.
+Parties are updated in place, so the administrations that point at them keep their links.
+A party no longer in its country's file is deleted; run providers/curated/administrations.py next, as the ETL order does.
 """
 
 import csv
@@ -20,7 +21,9 @@ def run():
     with transaction.atomic():
         for folder, iso3 in COUNTRIES.items():
             with open(DATA / folder / 'parties.csv', encoding='utf-8') as file:
-                for row in csv.DictReader(file):
+                rows = list(csv.DictReader(file))
+                Party.objects.filter(country_id=iso3).exclude(abbreviation__in=[row['abbreviation'] for row in rows]).delete()
+                for row in rows:
                     Party.objects.update_or_create(
                         country_id=iso3,
                         abbreviation=row['abbreviation'],

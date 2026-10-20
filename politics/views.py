@@ -12,6 +12,7 @@ from metrics.queries import flag_url, latest_load
 from . import queries
 from .metrics import GROUPS
 from .models import Administration, Party
+from .offices import office_of
 
 
 def _country(slug):
@@ -40,8 +41,13 @@ def country_page(request, slug):
     groups = [(key, CATEGORY_LABELS[key], [BY_SLUG[s] for s in slugs if s in BY_SLUG]) for key, slugs in GROUPS]
     group = next(key for key, _, items in groups if metric.slug in {m.slug for m in items})
     tenures = queries.tenures(country.iso3)
+    office = office_of(tenures)
+    title = office.title % {'name': country.local_name}
     return render(request, 'politics/country.html', {
         'country': country,
+        'page_title': title,
+        'lead': office.lead % {'year': tenures[0].start.year},
+        'by_leader': office.by_leader,
         'flag': flag_url(country.iso3, country.iso2, '1x1'),
         'groups': groups,
         'group': group,
@@ -49,7 +55,6 @@ def country_page(request, slug):
         'series': series,
         'current': tenures[-1],
         'current_party': queries.party_info(tenures[-1].periods[-1].party),
-        'first_year': tenures[0].start.year,
         'load': latest_load(metric),
         'politics_load': EtlLoad.objects.filter(table_name=Administration._meta.db_table).first(),
         'politics_source_url': tenures[0].periods[0].source_url,
@@ -57,6 +62,8 @@ def country_page(request, slug):
         'config': {
             'dataUrl': reverse('politics:data', args=[slug]),
             'countryName': country.local_name,
+            'pageTitle': title,
+            'subtitle': office.subtitle % {'name': country.local_name},
             'units': units(),
             'metrics': {m.slug: {'title': m.title, 'summary': m.summary, 'url': reverse('metrics:detail', args=[m.slug]),
                                  'series': [{'field': s.field, 'label': s.tab_label} for s in m.series]}
@@ -69,12 +76,21 @@ def country_page(request, slug):
 
 @cache_control(public=True, max_age=3600)
 def country_data(request, slug):
+    """One series as JSON. ?from=&to= (years) limit the presidents' changes and rankings to those years."""
     metric, series = _metric_and_series(request)
-    data = queries.chart_data(metric, series, _country(slug))
+    data = queries.chart_data(metric, series, _country(slug), _window(request))
     load = latest_load(metric)
     data['source'] = {'name': load.source_name, 'url': load.source_url, 'updated': load.source_updated,
                       'fetched': date_format(load.loaded_at, 'SHORT_DATE_FORMAT')} if load else None
     return JsonResponse(data)
+
+
+def _window(request):
+    try:
+        first, last = int(request.GET['from']), int(request.GET['to'])
+    except (KeyError, ValueError):
+        return None
+    return (first, last) if first <= last else None
 
 
 def _logo_credits(country):

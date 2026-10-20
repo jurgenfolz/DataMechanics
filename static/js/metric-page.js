@@ -3,10 +3,11 @@
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 import { createCountryPicker } from './lib/country-picker.js';
 import { escapeHtml, formatValue } from './lib/format.js';
-import { createLineChart, PALETTE, WORLD_COLOR } from './lib/line-chart.js';
-import { createWorldMap, renderLegend } from './lib/world-map.js';
+import { bindSaveButton, imageName, saveChartImage } from './lib/chart-image.js';
+import { createLineChart, lineImageParts, PALETTE, shownSpan, WORLD_COLOR } from './lib/line-chart.js';
+import { createWorldMap, mapImageParts, renderLegend } from './lib/world-map.js';
 
-const { dataUrl, units, defaultCountries } = JSON.parse(document.getElementById('metric-config').textContent);
+const { slug, dataUrl, units, defaultCountries } = JSON.parse(document.getElementById('metric-config').textContent);
 const WORLD = 'WLD';
 const MAX_COUNTRIES = PALETTE.length;
 // A metric can name its own (metrics/catalog.py), e.g. when one country's extremes would flatten every other line.
@@ -20,6 +21,7 @@ const keys = document.querySelector('[data-keys]');
 const table = document.querySelector('[data-table]');
 const seriesButtons = [...document.querySelectorAll('[data-series]')];
 const seriesTabs = document.querySelector('.series-tabs');
+const seriesNote = document.querySelector('[data-series-note]');
 const rank = {
   title: document.querySelector('[data-rank-title]'),
   series: document.querySelector('[data-rank-series]'),
@@ -96,6 +98,8 @@ async function drawAll() {
   if (state.selected === null) initialSelection(data);
 
   document.querySelectorAll('[data-series-label]').forEach((el) => { el.textContent = `· ${data.label}`; });
+  seriesNote.textContent = data.note;
+  seriesNote.hidden = !data.note;
   seriesButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.series === data.field)));
 
   const options = [
@@ -233,5 +237,25 @@ if (seriesTabs) {
   seriesTabs.addEventListener('scroll', markOverflow, { passive: true });
   new ResizeObserver(markOverflow).observe(seriesTabs);
 }
+
+// ---------- Save as image ----------
+const metricTitle = document.querySelector('.metric-head h1')?.textContent.trim();
+const sourceOf = (card) => card.querySelector('.source-line')?.textContent.replace(/\s+/g, ' ').trim();
+
+bindSaveButton(mapCard.querySelector('[data-save-image]'), () => data && saveChartImage({
+  title: metricTitle,
+  subtitle: `${data.label}, ${state.year}`,
+  sources: [sourceOf(mapCard)],
+  filename: imageName(slug, state.field, state.year),
+  ...mapImageParts(data, state.year, units),
+}));
+
+bindSaveButton(lineCard.querySelector('[data-save-image]'), () => data && saveChartImage({
+  title: metricTitle,
+  subtitle: `${data.label} · ${shownSpan(data, state.selected).map((i) => data.years[i]).join('–')}`,
+  sources: [sourceOf(lineCard)],
+  filename: imageName(slug, state.field, 'over-time'),
+  ...lineImageParts(data, state.selected, units),
+}));
 
 drawAll();

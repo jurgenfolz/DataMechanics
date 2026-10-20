@@ -1,5 +1,6 @@
 // World choropleth on a Mercator projection.
 // Used by the metric page and the home page spotlight. Needs the global `echarts`, and Django's gettext and interpolate.
+import { loadImage, MONO, whenFinished, wrap } from './chart-image.js';
 import { escapeHtml, formatValue } from './format.js';
 
 // Metrics with a better direction: red (worse) -> neutral grey -> blue (better). Midpoint: the median country.
@@ -86,16 +87,17 @@ export function colorScale(series, values) {
 }
 
 // ---------- The map ----------
-export function createWorldMap(element, { units, onSelect, roam = false }) {
+export function createWorldMap(element, { units, onSelect, roam = false, animate = true }) {
   const chart = echarts.init(element, null, { renderer: 'canvas' });
   let current = null;
 
   // The map's width in pixels, as large as the box allows without stretching it.
   const fit = () => Math.min(element.clientWidth, element.clientHeight * MAP_ASPECT) * 0.98;
-  new ResizeObserver(() => {
+  const observer = new ResizeObserver(() => {
     chart.resize();
     if (current) chart.setOption({ series: [{ layoutSize: fit() }] });
-  }).observe(element);
+  });
+  observer.observe(element);
 
   if (onSelect) {
     chart.on('click', (event) => {
@@ -116,6 +118,7 @@ export function createWorldMap(element, { units, onSelect, roam = false }) {
 
     current = { data, year, scale };
     chart.setOption({
+      animation: animate,
       tooltip: {
         trigger: 'item',
         backgroundColor: '#17191b',
@@ -162,7 +165,12 @@ export function createWorldMap(element, { units, onSelect, roam = false }) {
     return { scale, count: rows.length };
   }
 
-  return { render, chart, get current() { return current; } };
+  function dispose() {
+    observer.disconnect();
+    chart.dispose();
+  }
+
+  return { render, dispose, chart, get current() { return current; } };
 }
 
 /** The legend under a map: a colour bar with its end values, and the "No data" swatch. */
@@ -199,3 +207,115 @@ export function renderLegend(container, data, scale, units) {
   noData.append(document.createElement('i'), gettext('No data'));
   container.append(block, noData);
 }
+
+// ---------- The saved image (lib/chart-image.js) ----------
+const FONT = 'Archivo, "Helvetica Neue", Arial, sans-serif';
+
+/** What saveChartImage needs for a map: its proportions, and how to draw it with its legend and top list under it. */
+export function mapImageParts(data, year, units) {
+  return {
+    aspect: MAP_ASPECT,
+    async draw(element) {
+      const map = createWorldMap(element, { units, animate: false });
+      const finished = whenFinished(map.chart);
+      const { scale } = await map.render(data, year);
+      await finished;
+      return {
+        chart: map.chart,
+        dispose: map.dispose,
+        async below(ctx, box) {
+          const legend = paintMapLegend(ctx, box, data, scale, units);
+          await paintTopList(ctx, { ...box, y: box.y + legend + 28, h: box.h - legend - 28 }, data, year, units);
+        },
+      };
+    },
+  };
+}
+
+/** The legend of the saved image: the colour bar with its end values and the median, then the "No data" swatch. */
+export function paintMapLegend(ctx, box, data, scale, units) {
+  const rule = units[data.unit];
+  const [left, right] = scale.diverging ? [gettext('Worse'), gettext('Better')] : [gettext('Lower'), gettext('Higher')];
+  const lowEnd = scale.diverging && data.better === 'lower' ? scale.ends.high : scale.ends.low;
+  const highEnd = scale.diverging && data.better === 'lower' ? scale.ends.low : scale.ends.high;
+  ctx.save();
+  ctx.textBaseline = 'middle';
+  ctx.font = `600 17px ${FONT}`;
+  ctx.fillStyle = '#b6b9bd';
+  const barX = box.x + ctx.measureText(left).width + 14;
+  const barW = Math.min(480, box.w - 380);
+  const y = box.y + 10;
+  ctx.fillText(left, box.x, y);
+  ctx.fillText(right, barX + barW + 14, y);
+  const gradient = ctx.createLinearGradient(barX, 0, barX + barW, 0);
+  scale.colors.forEach((color, i) => gradient.addColorStop(i / (scale.colors.length - 1), color));
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.roundRect(barX, y - 6, barW, 12, 6);
+  ctx.fill();
+  ctx.font = `500 15px ${MONO}`;
+  ctx.fillStyle = '#8b8f94';
+  ctx.textAlign = 'left';
+  ctx.fillText(formatValue(lowEnd, rule), barX, y + 24);
+  ctx.textAlign = 'right';
+  ctx.fillText(formatValue(highEnd, rule), barX + barW, y + 24);
+  if (scale.diverging) {
+    ctx.textAlign = 'center';
+    ctx.fillText(formatValue(scale.ends.mid, rule), barX + barW / 2, y + 24);
+  }
+  ctx.textAlign = 'left';
+  ctx.font = `500 16px ${FONT}`;
+  const noDataX = box.x + box.w - ctx.measureText(gettext('No data')).width - 24;
+  ctx.fillStyle = NO_DATA;
+  ctx.fillRect(noDataX, y - 6, 14, 12);
+  ctx.fillStyle = '#b6b9bd';
+  ctx.fillText(gettext('No data'), noDataX + 22, y);
+  ctx.restore();
+  return 50;
+}
+
+/** The highest values in the map's year, in two columns, as many rows as fit the box (at most ten countries). */
+export async function paintTopList(ctx, box, data, year, units) {
+  const rule = units[data.unit];
+  const i = data.years.indexOf(year);
+  const rows = Object.entries(data.values)
+    .filter(([iso3, values]) => iso3 !== WORLD && values[i] !== null && values[i] !== undefined)
+    .sort((a, b) => b[1][i] - a[1][i]);
+  const rowHeight = 40;
+  const perColumn = Math.min(5, Math.floor((box.h - 40) / rowHeight));
+  if (perColumn < 1) return;
+  const shown = rows.slice(0, perColumn * 2);
+  const flags = await Promise.all(shown.map(([iso3]) => loadImage(data.countries[iso3]?.flag)));
+  ctx.save();
+  ctx.textBaseline = 'middle';
+  ctx.font = `700 19px ${FONT}`;
+  ctx.fillStyle = '#f2f3f4';
+  ctx.fillText(interpolate(gettext('Highest values, %s'), [year]), box.x, box.y + 12);
+  const columnW = (box.w - 40) / 2;
+  shown.forEach(([iso3, values], n) => {
+    const x = box.x + (n >= perColumn ? columnW + 40 : 0);
+    const y = box.y + 40 + (n % perColumn) * rowHeight + rowHeight / 2;
+    ctx.font = `500 14px ${MONO}`;
+    ctx.fillStyle = '#8b8f94';
+    ctx.fillText(String(n + 1), x, y);
+    if (flags[n]) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(x + 28, y - 10, 28, 21, 3);
+      ctx.clip();
+      ctx.drawImage(flags[n], x + 28, y - 10, 28, 21);
+      ctx.restore();
+    }
+    const value = formatValue(values[i], rule.long ? { ...rule, suffix: '' } : rule);
+    ctx.font = `700 17px ${MONO}`;
+    const valueW = ctx.measureText(value).width;
+    ctx.fillStyle = '#f2f3f4';
+    ctx.textAlign = 'right';
+    ctx.fillText(value, x + columnW, y);
+    ctx.textAlign = 'left';
+    ctx.font = `500 18px ${FONT}`;
+    ctx.fillText(wrap(ctx, data.countries[iso3]?.name || iso3, columnW - valueW - 84, 1)[0], x + 68, y);
+  });
+  ctx.restore();
+}
+

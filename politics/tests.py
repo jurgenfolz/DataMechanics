@@ -9,12 +9,13 @@ from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
-from geo.models import Country, EtlLoad, GdpPerCapitaCountryYear, UnemploymentCountryYear
+from geo.models import Country, EtlLoad, GdpPerCapitaCountryYear, InflationCountryYear, UnemploymentCountryYear
 from metrics.catalog import BY_SLUG
 from providers.curated import COUNTRIES, DATA, administrations, parties
 
 from . import queries
 from .metrics import GROUPS
+from .offices import ROLES
 from .models import Administration, Party
 
 GDP = BY_SLUG['gdp-per-capita']
@@ -75,15 +76,80 @@ class TenureTests(TestCase):
         summary = queries.tenure_summary(queries.tenures('BRA')[0], values, GDP.series[0])
         self.assertEqual((summary['startYear'], summary['endYear']), (2002, 2010))
         self.assertEqual(summary['change'], '200%')
+        self.assertEqual(summary['amount'], 200.0)
         self.assertTrue(summary['up'])
         self.assertTrue(summary['good'])
 
     def test_a_rate_changes_in_points_and_falling_unemployment_is_good(self):
         values = {2010: 8.0, 2014: 6.5}
         summary = queries.tenure_summary(queries.tenures('BRA')[1], values, UNEMPLOYMENT.series[0])
-        self.assertEqual(summary['change'], '1.5 pp')
+        self.assertEqual(summary['change'], '1.5%')
         self.assertFalse(summary['up'])
+        self.assertEqual(summary['amount'], -1.5)
         self.assertTrue(summary['good'])
+
+    def test_growth_in_gdp_trade_and_health_spending_is_good_in_politics_mode(self):
+        from politics.metrics import better
+        for slug in ('gdp', 'trade', 'health-spending'):
+            metric = BY_SLUG[slug]
+            self.assertEqual(metric.series[0].better, '', slug)
+            self.assertEqual(better(metric, metric.series[0]), 'higher', slug)
+
+    def test_changes_add_up_per_party_and_per_president(self):
+        gdp = BY_SLUG['gdp-per-capita']
+        unemployment = BY_SLUG['unemployment']
+        brazil = Country.objects.get(iso3='BRA')
+        # Souza (red) 2003-2010, Lima (blue, then no party) 2011-2014, Dias (red) 2015-.
+        for year, value in [(2002, 100.0), (2010, 400.0), (2014, 400.0), (2016, 484.0)]:
+            GdpPerCapitaCountryYear.objects.create(country=brazil, year=year, value=value)
+        data = queries.chart_data(gdp, gdp.series[0], brazil)
+        red = next(row for row in data['byParty'] if row['party']['abbreviation'] == 'RED')
+        # Growth compounds: x4 over 8 years, then x1.21 over 2 years, is x4.84 over 10 years.
+        self.assertEqual(red['presidents'], ['Souza', 'Dias'])
+        self.assertEqual((red['years'], red['terms']), (10, 2))
+        self.assertEqual(red['total']['change'], '384%')
+        self.assertEqual(red['perYear']['change'], '17%')
+        # Lima ended without a party, so his presidency counts for "No party".
+        self.assertIn('No party', [row['party']['name'] for row in data['byParty']])
+        for year, value in [(2010, 8.0), (2014, 6.0), (2016, 7.0)]:
+            UnemploymentCountryYear.objects.create(country=brazil, year=year, value=value)
+        data = queries.chart_data(unemployment, unemployment.series[0], brazil)
+        # Rates add up: Lima -2 points over 4 years, -0.5 a year. Lower is better, so he ranks first.
+        self.assertEqual(data['byPresident'][0]['shortName'], 'Lima')
+        self.assertEqual((data['byPresident'][0]['total']['change'], data['byPresident'][0]['perYear']['change']), ('2.0%', '0.5%'))
+        self.assertIs(data['byPresident'][0]['perYear']['good'], True)
+
+    def test_a_window_keeps_only_its_years(self):
+        gdp = BY_SLUG['gdp-per-capita']
+        brazil = Country.objects.get(iso3='BRA')
+        for year, value in [(2002, 100.0), (2006, 150.0), (2010, 400.0), (2014, 300.0)]:
+            GdpPerCapitaCountryYear.objects.create(country=brazil, year=year, value=value)
+        data = queries.chart_data(gdp, gdp.series[0], brazil, window=(2006, 2012))
+        souza, lima, dias = data['presidencies']
+        # Souza's term started before the window, so it is measured from 2006: 150 to 400.
+        self.assertEqual((souza['summary']['startYear'], souza['summary']['change']), (2006, '167%'))
+        self.assertIsNone(lima['summary'])  # no data inside 2011-2012
+        self.assertTrue(lima['inWindow'])
+        self.assertFalse(dias['inWindow'])
+        self.assertEqual([row['presidents'] for row in data['byParty']], [['Souza']])
+
+    def test_rising_inflation_is_bad_in_politics_mode_only(self):
+        inflation = BY_SLUG['inflation']
+        self.assertEqual(inflation.series[0].better, '')
+        brazil = Country.objects.get(iso3='BRA')
+        InflationCountryYear.objects.create(country=brazil, year=2010, value=5.0)
+        InflationCountryYear.objects.create(country=brazil, year=2014, value=6.5)
+        data = queries.chart_data(inflation, inflation.series[0], brazil)
+        self.assertEqual(data['better'], 'lower')
+        self.assertEqual(data['presidencies'][1]['summary']['change'], '1.5%')
+        self.assertIs(data['presidencies'][1]['summary']['good'], False)
+
+    def test_only_cc_by_logos_need_a_credit(self):
+        brazil = Country.objects.get(iso3='BRA')
+        cc_by = Party(country=brazil, abbreviation='PTB', logo='politics/brazil/ptb.svg', logo_licence='CC BY 4.0', logo_author='Ann')
+        self.assertEqual(queries.logo_credit(cc_by), 'PTB logo: Ann, CC BY 4.0, Wikimedia Commons')
+        for licence in ('Public domain', 'CC0'):
+            self.assertEqual(queries.logo_credit(Party(country=brazil, abbreviation='X', logo='x.svg', logo_licence=licence)), '')
 
     def test_no_summary_without_two_years(self):
         self.assertIsNone(queries.tenure_summary(queries.tenures('BRA')[0], {2010: 5.0}, GDP.series[0]))
@@ -117,6 +183,24 @@ class ViewTests(TestCase):
         self.assertContains(response, 'Carla Dias')
         self.assertContains(response, '3 presidents since 2003')
 
+    def test_a_country_led_by_chancellors_says_chancellor(self):
+        germany = Country.objects.create(iso3='DEU', iso2='de', name='Germany')
+        party = Party.objects.create(country=germany, abbreviation='CDU', name='Christian Democratic Union', color='#6e6e6e')
+        for leader, role, start, end in [('Karl Brandt', 'Chancellor', '1999-01-01', '2004-05-01'),
+                                         ('Eva Roth', 'Acting chancellor', '2004-05-01', '2004-05-10'),
+                                         ('Lena Weber', 'Chancellor', '2004-05-10', '')]:
+            Administration.objects.create(country=germany, leader=leader, short_name=leader.split()[-1], role=role, party=party,
+                                          start_date=date.fromisoformat(start), end_date=date.fromisoformat(end) if end else None)
+        self.assertContains(self.client.get(reverse('politics:index')), '3 chancellors since 1999')
+        response = self.client.get(reverse('politics:country', args=['germany']))
+        self.assertContains(response, '<title>Germany by chancellor · Data Mechanics</title>', html=True)
+        self.assertContains(response, 'Every metric we have, chancellor by chancellor, since 1999.')
+        self.assertContains(response, '>By chancellor</button>')
+        # Keys stay English: the view's key is the only 'president' on the page.
+        self.assertNotIn('president', response.content.decode().replace('data-view="president"', '').lower())
+        roles = [p['role'] for p in self.client.get(reverse('politics:data', args=['germany'])).json()['presidencies']]
+        self.assertEqual(roles, ['', 'Acting chancellor', ''])
+
     def test_country_page_shows_every_politics_metric(self):
         response = self.client.get(reverse('politics:country', args=['brazil']), {'metric': 'unemployment'})
         self.assertEqual(response.status_code, 200)
@@ -138,7 +222,7 @@ class ViewTests(TestCase):
         response = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment'})
         data = response.json()
         self.assertEqual(data['points'], [[2010, 8.0], [2014, 6.5]])
-        self.assertEqual(data['presidencies'][1]['summary']['change'], '1.5 pp')
+        self.assertEqual(data['presidencies'][1]['summary']['change'], '1.5%')
         self.assertEqual(data['source']['name'], 'World Bank')
 
 
@@ -162,6 +246,14 @@ class CuratedEtlTests(TestCase):
                 administrations.run()
                 administrations.run()
         self.assertEqual(Party.objects.count(), 1)
+        # A party dropped from the file goes too.
+        Party.objects.create(country_id='BRA', abbreviation='OLD', name='Old', color='#999999')
+        with tempfile.TemporaryDirectory() as folder:
+            (Path(folder) / 'brazil').mkdir()
+            (Path(folder) / 'brazil' / 'parties.csv').write_text(self.PARTIES, encoding='utf-8')
+            with mock.patch.object(parties, 'DATA', Path(folder)), mock.patch.object(parties, 'COUNTRIES', {'brazil': 'BRA'}):
+                parties.run()
+        self.assertEqual(list(Party.objects.values_list('abbreviation', flat=True)), ['PT'])
         self.assertEqual(Administration.objects.count(), 2)
         self.assertEqual(Administration.objects.get(short_name='Dilma').party.abbreviation, 'PT')
         self.assertIsNone(Administration.objects.get(short_name='Junta').party)
@@ -191,7 +283,7 @@ class CuratedDataTests(SimpleTestCase):
             for row in rows:
                 if row['end_date']:
                     self.assertLess(date.fromisoformat(row['start_date']), date.fromisoformat(row['end_date']), folder)
-                self.assertIn(row['role'], queries.ROLES, f'{folder}: add the role to politics.queries.ROLES')
+                self.assertIn(row['role'], ROLES, f'{folder}: add the role to politics.offices.ROLES')
             self.assertFalse(any(row['end_date'] == '' for row in rows[:-1]), f'{folder}: only the last term may be open')
 
     def test_every_party_is_known_has_a_logo_file_and_a_readable_colour(self):
