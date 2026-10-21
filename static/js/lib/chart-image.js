@@ -16,7 +16,7 @@ const INK = '#f2f3f4';
 const INK_2 = '#b6b9bd';
 const INK_3 = '#8b8f94';
 const GOLD = '#ffd700';
-const FONT = 'Archivo, "Helvetica Neue", Arial, sans-serif';
+export const FONT = 'Archivo, "Helvetica Neue", Arial, sans-serif';
 export const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace';
 
 /**
@@ -27,8 +27,8 @@ export const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace'
  * The chart modules build `draw` with their *ImageParts helpers.
  * With `aspect` the chart keeps that width / height and `below` gets the rest; otherwise `below` gets `belowHeight`.
  */
-export async function saveChartImage({ title, subtitle, sources, filename, draw, aspect, belowHeight = 0 }) {
-  const { canvas, ctx, top, bottom } = await imageFrame({ title, subtitle, sources });
+export async function saveChartImage({ title, subtitle, sources, flag, filename, draw, aspect, belowHeight = 0 }) {
+  const { canvas, ctx, top, bottom } = await imageFrame({ title, subtitle, sources, flag });
   const room = bottom - top;
   const height = aspect ? Math.min(room, Math.round((WIDTH - 2 * (PAD - 16) - 2 * WELL_INSET) / aspect) + WELL_INSET + STRIP)
     : room - belowHeight;
@@ -50,22 +50,28 @@ export async function saveChartImage({ title, subtitle, sources, filename, draw,
   await handOver([{ canvas, filename }], title);
 }
 
-/** A new image with its frame painted: ground, header and footer. The room between them runs from `top` to `bottom`. */
-export async function imageFrame({ title, subtitle, sources }) {
+/**
+ * A new image with its frame painted: ground, header and footer. The room between them runs from `top` to `bottom`.
+ * `flag`, a country's 1x1 flag, goes round before the title (Politics images; a metric's images span many countries).
+ */
+export async function imageFrame({ title, subtitle, sources, flag }) {
   await fontsReady();
   const canvas = document.createElement('canvas');
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
   const ctx = canvas.getContext('2d');
   paintGround(ctx);
-  const headerBottom = paintHeader(ctx, title, subtitle);
+  const headerBottom = paintHeader(ctx, title, subtitle, await loadImage(flag));
   const footerTop = paintFooter(ctx, sources);
   return { canvas, ctx, top: headerBottom + 36, bottom: footerTop - 32 };
 }
 
-/** Paints the well at `top`, `height` tall. `inner` is the room inside it, above the watermark's strip. */
-export function imageWell(ctx, top, height) {
-  const well = { x: PAD - 16, y: top, w: WIDTH - 2 * (PAD - 16), h: height };
+/**
+ * Paints the well at `top`, `height` tall. `inner` is the room inside it, above the watermark's strip.
+ * The well spans the image; a frame of another size (a reel) passes its own `width` and `pad`.
+ */
+export function imageWell(ctx, top, height, { width = WIDTH, pad = PAD } = {}) {
+  const well = { x: pad - 16, y: top, w: width - 2 * (pad - 16), h: height };
   paintWell(ctx, well);
   const inner = { x: well.x + WELL_INSET, y: well.y + WELL_INSET, w: well.w - 2 * WELL_INSET, h: well.h - WELL_INSET - STRIP };
   return { well, inner };
@@ -101,25 +107,30 @@ export function imageName(...parts) {
 }
 
 // ---------- Painting ----------
-function paintGround(ctx) {
+/** The site's ground with its faint grid, over a canvas `width` × `height` (an image by default; the reel is taller). */
+export function paintGround(ctx, width = WIDTH, height = HEIGHT) {
   ctx.fillStyle = GROUND;
-  ctx.fillRect(0, 0, WIDTH, HEIGHT);
-  // The site's faint grid, printed on the ground.
+  ctx.fillRect(0, 0, width, height);
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)';
   ctx.lineWidth = 1;
   ctx.beginPath();
-  for (let x = 0.5; x < WIDTH; x += 40) { ctx.moveTo(x, 0); ctx.lineTo(x, HEIGHT); }
-  for (let y = 0.5; y < HEIGHT; y += 40) { ctx.moveTo(0, y); ctx.lineTo(WIDTH, y); }
+  for (let x = 0.5; x < width; x += 40) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+  for (let y = 0.5; y < height; y += 40) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
   ctx.stroke();
 }
 
-function paintHeader(ctx, title, subtitle) {
+const FLAG = 52;  // the flag's diameter, about the title's height
+
+function paintHeader(ctx, title, subtitle, flag) {
   let y = PAD;
+  if (flag) paintRoundFlag(ctx, flag, PAD, y + 29, FLAG);
+  // The title's lines start right of the flag; the subtitle starts at the edge again.
+  const left = flag ? PAD + FLAG + 16 : PAD;
   ctx.textBaseline = 'top';
   ctx.fillStyle = INK;
   ctx.font = `700 condensed 56px ${FONT}`;
-  for (const line of wrap(ctx, title, WIDTH - 2 * PAD, 2)) {
-    ctx.fillText(line, PAD, y);
+  for (const line of wrap(ctx, title, WIDTH - PAD - left, 2)) {
+    ctx.fillText(line, left, y);
     y += 60;
   }
   if (subtitle) {
@@ -155,6 +166,23 @@ function paintWell(ctx, { x, y, w, h }) {
   ctx.beginPath();
   ctx.roundRect(x, y, w, h, 18);
   ctx.fill();
+}
+
+/** A country's flag in a circle `size` across, its left edge at `x` and its middle at `y`, with the page's faint ring. */
+export function paintRoundFlag(ctx, flag, x, y, size) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x + size / 2, y, size / 2, 0, 2 * Math.PI);
+  ctx.clip();
+  const scale = Math.max(size / flag.naturalWidth, size / flag.naturalHeight);
+  const [w, h] = [flag.naturalWidth * scale, flag.naturalHeight * scale];
+  ctx.drawImage(flag, x + (size - w) / 2, y - h / 2, w, h);
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(x + size / 2, y, size / 2 - 0.75, 0, 2 * Math.PI);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
 }
 
 // The gear and the name, half transparent, in the strip at the foot of the well.
@@ -233,8 +261,8 @@ function chartImage(chart) {
   return loadImage(url);
 }
 
-// An off-screen box the chart is drawn in: laid out like a chart well, so the chart's own HTML parts can sit in it.
-function createStage(width, height) {
+/** An off-screen box a chart is drawn in, laid out like a chart well so the chart's own HTML parts can sit in it. */
+export function createStage(width, height) {
   const host = document.createElement('div');
   host.className = 'chart-image-stage';
   host.style.width = `${width}px`;

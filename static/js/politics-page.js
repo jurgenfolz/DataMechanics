@@ -11,6 +11,7 @@ import {
   barScale, groupRows, logoCredits, omittedNote, saveTimelineImages, timelineRows, valueRange,
 } from './lib/timeline.js';
 import { toneOf } from './lib/term-chart.js';
+import { createReel, FPS } from './lib/reel.js';
 
 const config = JSON.parse(document.getElementById('politics-config').textContent);
 const { units, metrics } = config;
@@ -63,7 +64,7 @@ const cache = new Map();
 function load(metric, field, window = null) {
   const key = [metric, field, ...(window || [])].join(':');
   if (!cache.has(key)) {
-    const query = new URLSearchParams({ metric, series: field });
+    const query = new URLSearchParams({ metric, series: field, v: config.dataVersion });
     if (window) {
       query.set('from', window[0]);
       query.set('to', window[1]);
@@ -437,13 +438,15 @@ const clean = (element) => element?.textContent.replace(/\s+/g, ' ').trim();
 // except a logo whose licence asks for credit wherever it is shown (lib/timeline.js, logoCredits).
 function imageText() {
   const metric = metrics[state.metric];
-  const label = state.data.label === metric.title ? '' : ` · ${state.data.label}`;
+  // The measure's label, unless the title already says it ("Human rights index (V-Dem)" holds "Human rights index").
+  const label = String(metric.title).includes(state.data.label) ? '' : ` · ${state.data.label}`;
   const range = currentRange();
   const inView = timelineRows(state.data).filter(({ presidency: p }) => p.spans.some((span) => span.to >= range[0] && span.from <= range[1]));
   return {
     title: metric.title,
     subtitle: `${config.subtitle}${label}`,
     sources: [clean(source), logoCredits(inView)],
+    flag: config.flag,
   };
 }
 
@@ -455,13 +458,14 @@ bindSaveButton(card.querySelector('[data-save-image]'), () => state.data?.points
 
 bindSaveButton(card.querySelector('[data-save-timeline]'), () => {
   if (!state.lists?.points.length) return null;
-  const { title, subtitle } = imageText();
+  const { title, subtitle, flag } = imageText();
   const view = viewButtons.find((button) => button.dataset.view === state.view);
   const years = state.window ? ` · ${state.window[0]}–${state.window[1]}` : '';
   return saveTimelineImages({
     title,
     subtitle: `${subtitle}${state.view === 'timeline' ? '' : ` · ${view.textContent.trim()}`}${years}`,
     source: clean(source),
+    flag,
     data: state.lists,
     view: state.view,
     nameParts: [config.countryName, state.metric, state.field, 'leaders'],
@@ -470,6 +474,61 @@ bindSaveButton(card.querySelector('[data-save-timeline]'), () => {
 
 for (const button of viewButtons) button.addEventListener('click', () => showView(button.dataset.view));
 
+// ---------- The reel (lib/reel.js): a video for Instagram, or with &format=wide for YouTube and LinkedIn ----------
+// ?reel=1 plays it over the page, as large as the window allows; a click pauses it.
+// ?reel=record draws nothing until tools/reel.py asks for each frame through window.reel.
+async function openReel(mode) {
+  const { title, subtitle } = imageText();
+  const range = currentRange();
+  const leaders = viewButtons.find((button) => button.dataset.view === 'president');
+  const format = params.get('format') === 'wide' ? 'wide' : 'reel';
+  const reel = await createReel({
+    format,
+    data: state.lists,
+    range,
+    units,
+    title,
+    flag: config.flag,
+    subtitle: `${subtitle} · ${range[0]}–${range[1]}`,
+    // The metric's summary, and what sets this measure apart when the metric has several (PPP, say).
+    explanation: [metrics[state.metric].summary, state.lists.note].filter(Boolean).join(' '),
+    rankingTitle: leaders.textContent.trim(),
+    source: clean(source),
+  });
+  const stage = document.createElement('div');
+  stage.className = 'reel-stage';
+  stage.append(reel.canvas);
+  document.body.append(stage);
+  reel.draw(0);
+  window.reel = {
+    ready: true,
+    fps: FPS,
+    frames: reel.frames,
+    filename: imageName(config.countryName, state.metric, state.field, `${range[0]}-${range[1]}`, format === 'wide' && 'wide')
+      .replace(/\.png$/, '.mp4'),
+    width: reel.canvas.width,
+    height: reel.canvas.height,
+    frame(n) {
+      reel.draw(n);
+      return reel.canvas.toDataURL('image/png');
+    },
+  };
+  if (mode === 'record') return;
+  let elapsed = 0;
+  let last = null;
+  let paused = false;
+  stage.addEventListener('click', () => { paused = !paused; });
+  const play = (now) => {
+    if (!paused && last !== null) elapsed += now - last;
+    last = now;
+    reel.draw(Math.floor((elapsed / 1000) * FPS) % reel.frames);
+    requestAnimationFrame(play);
+  };
+  requestAnimationFrame(play);
+}
+
 drawHead();
 showView(state.view);
-draw();
+draw().then(() => {
+  if (params.has('reel') && state.lists?.points.length) openReel(params.get('reel'));
+});

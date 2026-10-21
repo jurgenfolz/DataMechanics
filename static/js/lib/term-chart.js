@@ -547,10 +547,10 @@ export function toneOf(summary) {
   return summary.good === null ? 'neutral' : summary.good ? 'good' : 'bad';
 }
 
-// The change in words, e.g. "Up 4.5%, better".
+// The change in words, e.g. "Down 4.5%, worse": the words give the direction, so the minus sign goes.
 export function trendSaid(summary) {
   if (summary.up === null) return summary.change;
-  return interpolate(SAID[summary.up ? 'up' : 'down'][toneOf(summary)], [summary.change]);
+  return interpolate(SAID[summary.up ? 'up' : 'down'][toneOf(summary)], [summary.change.replace(/^-/, '')]);
 }
 
 // The change during a presidency: an arrow and the size of the change, green when it is good for the metric, red when bad.

@@ -1,0 +1,7 @@
+# Rebuilds the visitor dashboard (/stats/) from Caddy's access logs.
+[Unit]
+Description=Data Mechanics visitor dashboard
+
+[Service]
+Type=oneshot
+ExecStart=/srv/datamechanics/deploy/stats.sh

@@ -25,9 +25,22 @@ as_app .venv/bin/python manage.py check --deploy --fail-level WARNING
 
 install -m 644 deploy/systemd/*.service deploy/systemd/*.timer /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable --now datamechanics-etl.timer datamechanics-backup.timer
+systemctl enable --now datamechanics-etl.timer datamechanics-backup.timer datamechanics-stats.timer
 systemctl enable datamechanics
 systemctl restart datamechanics
+
+# The visitor dashboard (/stats/): GoAccess builds it, and Caddy guards it with a login kept only on this server.
+# The login is made once, here. Its password is kept for root in /root/stats-password.
+command -v goaccess >/dev/null || apt-get install -y -qq goaccess >/dev/null
+if [ ! -f /etc/caddy/stats-auth ]; then
+	password=$(openssl rand -base64 18)
+	printf 'basic_auth {\n\tklaus %s\n}\n' "$(caddy hash-password --plaintext "$password")" > /etc/caddy/stats-auth
+	chown root:caddy /etc/caddy/stats-auth
+	chmod 640 /etc/caddy/stats-auth
+	install -m 600 /dev/null /root/stats-password
+	printf '%s\n' "$password" > /root/stats-password
+fi
+systemctl start datamechanics-stats.service
 
 install -m 644 deploy/Caddyfile /etc/caddy/Caddyfile
 systemctl reload caddy

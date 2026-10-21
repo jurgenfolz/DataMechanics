@@ -9,7 +9,7 @@ Slugs, fields and category keys stay English in every language: URLs and code us
 from dataclasses import dataclass, field
 
 from django.utils import translation
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, pgettext_lazy
 
 from geo import models as geo
 
@@ -39,6 +39,7 @@ class Series:
     log_scale: bool = False  # colour the map on a log scale (for very skewed values)
     short: str = ''  # tab label, when the full label is too long for a tab
     note: str = ''  # what sets this measure apart from the metric's others, shown under the measure tabs
+    measured_in: str = ''  # what the values are in, for titles: 'current US$', '% of GDP', '0 to 1'
 
     @property
     def tab_label(self):
@@ -105,7 +106,7 @@ METRICS = (
             'rising prices.')
         ),
         model=geo.GdpCountryYear,
-        series=(Series('value', _('GDP'), 'usd', log_scale=True),),
+        series=(Series('value', _('GDP'), 'usd', measured_in=pgettext_lazy('measured in', 'current US$'), log_scale=True),),
         tags=Tags('Economy', (_('GDP'), _('National accounts'))),
         keywords=(_('gross domestic product'), _('economy size'), _('output')),
     ),
@@ -124,10 +125,10 @@ METRICS = (
         ),
         model=geo.GdpPerCapitaCountryYear,
         series=(
-            Series('value', _('GDP per capita'), 'usd', better='higher', log_scale=True, short=_('Current US$'),
+            Series('value', _('GDP per capita'), 'usd', measured_in=pgettext_lazy('measured in', 'current US$'), better='higher', log_scale=True, short=_('Current US$'),
                    note=_('In current US dollars, converted at each year\'s market exchange rate. Prices differ between '
                           'countries, so a dollar does not buy the same everywhere.')),
-            Series('ppp', _('GDP per capita, PPP (international $)'), 'usd', better='higher', log_scale=True, short=_('PPP'),
+            Series('ppp', _('GDP per capita, PPP (international $)'), 'usd', measured_in=pgettext_lazy('measured in', 'international $'), better='higher', log_scale=True, short=_('PPP'),
                    note=_('At purchasing power parity (PPP), in international dollars: a dollar that buys the same amount '
                           'of goods and services in every country, using the prices of the International Comparison '
                           'Program. This is the fairer way to compare living standards between countries.')),
@@ -150,11 +151,11 @@ METRICS = (
         ),
         model=geo.DemocracyCountryYear,
         series=(
-            Series('electoral', _('Electoral democracy'), 'index', better='higher', short=_('Electoral')),
-            Series('liberal', _('Liberal democracy'), 'index', better='higher', short=_('Liberal')),
-            Series('participatory', _('Participatory democracy'), 'index', better='higher', short=_('Participatory')),
-            Series('deliberative', _('Deliberative democracy'), 'index', better='higher', short=_('Deliberative')),
-            Series('egalitarian', _('Egalitarian democracy'), 'index', better='higher', short=_('Egalitarian')),
+            Series('electoral', _('Electoral democracy'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher', short=_('Electoral')),
+            Series('liberal', _('Liberal democracy'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher', short=_('Liberal')),
+            Series('participatory', _('Participatory democracy'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher', short=_('Participatory')),
+            Series('deliberative', _('Deliberative democracy'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher', short=_('Deliberative')),
+            Series('egalitarian', _('Egalitarian democracy'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher', short=_('Egalitarian')),
         ),
         tags=Tags('Governance', (_('Democracy'), _('V-Dem'), _('Elections'), _('Rights'))),
         world_label=_('World (average of countries)'),
@@ -173,7 +174,7 @@ METRICS = (
             '(UNDP) publishes it every year in its Human Development Report; this data comes from the 2025 report.')
         ),
         model=geo.HdiCountryYear,
-        series=(Series('value', _('Human Development Index'), 'index', better='higher'),),
+        series=(Series('value', _('Human Development Index'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher'),),
         tags=Tags('Development', (_('Human development'), _('HDI'), _('UNDP'))),
         keywords=(_('human development index'), _('well-being'), _('undp')),
     ),
@@ -190,7 +191,7 @@ METRICS = (
             'surveys.')
         ),
         model=geo.LifeExpectancyCountryYear,
-        series=(Series('value', _('Life expectancy at birth'), 'years', better='higher'),),
+        series=(Series('value', _('Life expectancy at birth'), 'years', measured_in=pgettext_lazy('measured in', 'years'), better='higher'),),
         tags=Tags('Health', (_('Life expectancy'), _('Mortality'))),
         keywords=(_('lifespan'), _('longevity'), _('age at death')),
     ),
@@ -208,8 +209,8 @@ METRICS = (
         ),
         model=geo.SchoolingCountryYear,
         series=(
-            Series('mean_years', _('Mean years of schooling'), 'years', better='higher', short=_('Mean years')),
-            Series('expected_years', _('Expected years of schooling'), 'years', better='higher', short=_('Expected years')),
+            Series('mean_years', _('Mean years of schooling'), 'years', measured_in=pgettext_lazy('measured in', 'years'), better='higher', short=_('Mean years')),
+            Series('expected_years', _('Expected years of schooling'), 'years', measured_in=pgettext_lazy('measured in', 'years'), better='higher', short=_('Expected years')),
         ),
         tags=Tags('Education', (_('Schooling'), _('Mean years'), _('Expected years'))),
         keywords=(_('education'), _('school'), _('enrolment'), _('literacy')),
@@ -228,7 +229,7 @@ METRICS = (
             'not whether people can follow complex written texts.')
         ),
         model=geo.LiteracyCountryYear,
-        series=(Series('value', _('Adult literacy rate'), 'percent', better='higher'),),
+        series=(Series('value', _('Adult literacy rate'), 'percent', measured_in=pgettext_lazy('measured in', '% of adults'), better='higher'),),
         tags=Tags('Education', (_('Literacy'), _('Reading'), _('UNESCO'))),
         keywords=(_('literacy'), _('illiteracy'), _('reading'), _('writing')),
         # Rich countries' series end around 1950 and some start in 1475; these run from about 1900 to today.
@@ -247,7 +248,7 @@ METRICS = (
             'to education, not more per student or better results. Our World in Data combines the sources.')
         ),
         model=geo.EducationSpendingCountryYear,
-        series=(Series('value', _('Education spending, % of GDP'), 'percent'),),
+        series=(Series('value', _('Education spending, % of GDP'), 'percent', measured_in=pgettext_lazy('measured in', '% of GDP')),),
         tags=Tags('Education', (_('Education spending'), _('Public finance'), _('UNESCO'))),
         keywords=(_('education budget'), _('school funding'), _('public spending'), _('unesco')),
     ),
@@ -264,7 +265,7 @@ METRICS = (
             'big, so compare countries of a similar size, or follow one country over time.')
         ),
         model=geo.ScientificArticlesCountryYear,
-        series=(Series('value', _('Articles per year'), 'count', log_scale=True),),
+        series=(Series('value', _('Articles per year'), 'count', measured_in=pgettext_lazy('measured in', 'articles a year'), log_scale=True),),
         tags=Tags('Education', (_('Science'), _('Research'), _('Publications'))),
         keywords=(_('research'), _('papers'), _('publications'), _('science')),
     ),
@@ -283,10 +284,10 @@ METRICS = (
         ),
         model=geo.PopulationCountryYear,
         series=(
-            Series('population', _('Population'), 'people', log_scale=True),
-            Series('birth_rate', _('Births per 1,000 people'), 'per_1000'),
-            Series('death_rate', _('Deaths per 1,000 people'), 'per_1000'),
-            Series('net_migration', _('Net migration'), 'people'),
+            Series('population', _('Population'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True),
+            Series('birth_rate', _('Births per 1,000 people'), 'per_1000', measured_in=pgettext_lazy('measured in', 'per 1,000 people')),
+            Series('death_rate', _('Deaths per 1,000 people'), 'per_1000', measured_in=pgettext_lazy('measured in', 'per 1,000 people')),
+            Series('net_migration', _('Net migration'), 'people', measured_in=pgettext_lazy('measured in', 'people a year')),
         ),
         tags=Tags('Demography', (_('Population'), _('Births'), _('Deaths'), _('Birth rate'))),
         keywords=(_('people'), _('inhabitants'), _('mortality'), _('death rate'), _('demographics'), _('migration'), _('immigration'), _('emigration'), _('migrants')),
@@ -303,7 +304,7 @@ METRICS = (
             'national labour force surveys so that countries can be compared. The World Bank republishes them.')
         ),
         model=geo.UnemploymentCountryYear,
-        series=(Series('value', _('Unemployment rate'), 'percent', better='lower'),),
+        series=(Series('value', _('Unemployment rate'), 'percent', measured_in=pgettext_lazy('measured in', '% of the labour force'), better='lower'),),
         tags=Tags('Economy', (_('Labour market'), _('Unemployment'), _('ILO'))),
         keywords=(_('jobs'), _('jobless'), _('employment'), _('labor')),
     ),
@@ -320,9 +321,25 @@ METRICS = (
             'past years only and leave out the IMF\'s forecasts; the latest year can still be an IMF estimate.')
         ),
         model=geo.GovernmentDebtCountryYear,
-        series=(Series('value', _('Gross debt, % of GDP'), 'percent', better='lower'),),
+        series=(Series('value', _('Gross debt, % of GDP'), 'percent', measured_in=pgettext_lazy('measured in', '% of GDP'), better='lower'),),
         tags=Tags('Economy', (_('Public finance'), _('Government debt'), _('IMF'))),
         keywords=(_('public debt'), _('national debt'), _('deficit'), _('borrowing'), _('debt to gdp')),
+    ),
+    Metric(
+        slug='government-spending',
+        title=_('Government spending'),
+        question=_('Which governments spend the most?'),
+        summary=_('Everything the government spends in a year, interest on its debt included, as a share of GDP.'),
+        description=(
+            _('This is everything a government spends in a year, including the interest on its debt, as a share of '
+            "GDP. The IMF's Public Finances in Modern History database gathers 200 years of it from historical "
+            'records. Depending on the country and year, it covers the central government only, or also the states '
+            'and local authorities, so compare with care. Our World in Data republishes it.')
+        ),
+        model=geo.GovernmentSpendingCountryYear,
+        series=(Series('value', _('Government spending, % of GDP'), 'percent', measured_in=pgettext_lazy('measured in', '% of GDP')),),
+        tags=Tags('Economy', (_('Government spending'), _('Public finance'), _('IMF'))),
+        keywords=(_('public spending'), _('government expenditure'), _('budget'), _('size of government')),
     ),
     Metric(
         slug='inflation',
@@ -337,7 +354,7 @@ METRICS = (
             'falling prices (deflation) can be a sign of a weak economy.')
         ),
         model=geo.InflationCountryYear,
-        series=(Series('value', _('Inflation, consumer prices'), 'percent'),),
+        series=(Series('value', _('Inflation, consumer prices'), 'percent', measured_in=pgettext_lazy('measured in', '% a year')),),
         tags=Tags('Economy', (_('Prices'), _('Inflation'), _('Consumer price index'))),
         keywords=(_('cpi'), _('cost of living'), _('price rises'), _('deflation')),
         default_countries=('USA', 'CHN', 'IND', 'DEU', 'JPN'),
@@ -354,9 +371,26 @@ METRICS = (
             'as it did in many countries in 2020.')
         ),
         model=geo.GdpGrowthCountryYear,
-        series=(Series('value', _('Real GDP growth'), 'percent', better='higher'),),
+        series=(Series('value', _('Real GDP growth'), 'percent', measured_in=pgettext_lazy('measured in', '% a year'), better='higher'),),
         tags=Tags('Economy', (_('GDP'), _('Growth'), _('Recession'))),
         keywords=(_('economic growth'), _('real gdp'), _('recession')),
+    ),
+    Metric(
+        slug='labour-productivity',
+        title=_('Productivity: output per hour worked'),
+        question=_('Where does an hour of work produce the most?'),
+        summary=_('GDP per hour worked: what an hour of work produces, adjusted for prices.'),
+        description=(
+            _('Labour productivity is GDP divided by all the hours worked in the economy: what an hour of work '
+            'produces. It is adjusted for inflation and for differences in living costs between countries, and given '
+            'in international dollars at 2021 prices. The Penn World Table (Feenstra and others, University of '
+            'Groningen) compiles it, and Our World in Data republishes it.')
+        ),
+        model=geo.LabourProductivityCountryYear,
+        series=(Series('value', _('Output per hour worked'), 'usd', measured_in=pgettext_lazy('measured in', 'international $ an hour'),
+                       better='higher', log_scale=True),),
+        tags=Tags('Economy', (_('Productivity'), _('Labour'), _('Penn World Table'))),
+        keywords=(_('productivity'), _('output per hour'), _('working hours'), _('efficiency')),
     ),
     Metric(
         slug='tax-revenue',
@@ -370,7 +404,7 @@ METRICS = (
             'government finance statistics, and the World Bank republishes them.')
         ),
         model=geo.TaxRevenueCountryYear,
-        series=(Series('value', _('Tax revenue, % of GDP'), 'percent'),),
+        series=(Series('value', _('Tax revenue, % of GDP'), 'percent', measured_in=pgettext_lazy('measured in', '% of GDP')),),
         tags=Tags('Economy', (_('Public finance'), _('Taxes'))),
         keywords=(_('taxation'), _('tax burden'), _('government revenue')),
     ),
@@ -386,7 +420,7 @@ METRICS = (
             'Bank computes it from national accounts.')
         ),
         model=geo.TradeCountryYear,
-        series=(Series('value', _('Trade, % of GDP'), 'percent'),),
+        series=(Series('value', _('Trade, % of GDP'), 'percent', measured_in=pgettext_lazy('measured in', '% of GDP')),),
         tags=Tags('Economy', (_('Trade'), _('Exports'), _('Imports'))),
         keywords=(_('openness'), _('globalisation'), _('globalization'), _('exports'), _('imports')),
     ),
@@ -402,7 +436,7 @@ METRICS = (
             'countries can be compared. The World Bank republishes them.')
         ),
         model=geo.FemaleLabourCountryYear,
-        series=(Series('value', _('Female labour force participation'), 'percent', better='higher'),),
+        series=(Series('value', _('Female labour force participation'), 'percent', measured_in=pgettext_lazy('measured in', '% of women'), better='higher'),),
         tags=Tags('Economy', (_('Labour market'), _('Gender'), _('ILO'))),
         keywords=(_('female employment'), _('women working'), _('gender gap'), _('labor force participation')),
     ),
@@ -418,7 +452,7 @@ METRICS = (
             'publishes it mainly from the UN Population Division\'s World Population Prospects.')
         ),
         model=geo.FertilityCountryYear,
-        series=(Series('value', _('Births per woman'), 'per_woman'),),
+        series=(Series('value', _('Births per woman'), 'per_woman', measured_in=pgettext_lazy('measured in', 'births per woman')),),
         tags=Tags('Demography', (_('Fertility'), _('Births'))),
         keywords=(_('birth rate'), _('children per woman'), _('total fertility rate'), _('tfr')),
     ),
@@ -434,7 +468,7 @@ METRICS = (
             'estimates. The UN\'s projections for future years are left out.')
         ),
         model=geo.MedianAgeCountryYear,
-        series=(Series('value', _('Median age'), 'years'),),
+        series=(Series('value', _('Median age'), 'years', measured_in=pgettext_lazy('measured in', 'years')),),
         tags=Tags('Demography', (_('Ageing'), _('Age structure'))),
         keywords=(_('aging'), _('ageing'), _('old population'), _('average age')),
     ),
@@ -450,7 +484,7 @@ METRICS = (
             'surveys, censuses and vital registration, and the World Bank republishes them.')
         ),
         model=geo.ChildMortalityCountryYear,
-        series=(Series('value', _('Deaths before age 5 per 1,000 live births'), 'per_1000', better='lower'),),
+        series=(Series('value', _('Deaths before age 5 per 1,000 live births'), 'per_1000', measured_in=pgettext_lazy('measured in', 'per 1,000 births'), better='lower'),),
         tags=Tags('Health', (_('Child mortality'), _('Mortality'), _('UNICEF'))),
         keywords=(_('under-5 mortality'), _('infant deaths'), _('child deaths')),
     ),
@@ -466,7 +500,7 @@ METRICS = (
             'licenses this data under CC BY-NC-SA 4.0: free for non-commercial use, and copies keep the same licence.')
         ),
         model=geo.ObesityCountryYear,
-        series=(Series('value', _('Adults with obesity'), 'percent', better='lower'),),
+        series=(Series('value', _('Adults with obesity'), 'percent', measured_in=pgettext_lazy('measured in', '% of adults'), better='lower'),),
         tags=Tags('Health', (_('Obesity'), _('Nutrition'), _('WHO'))),
         keywords=(_('overweight'), _('bmi'), _('body mass index')),
     ),
@@ -482,7 +516,7 @@ METRICS = (
             'Expenditure Database, and the World Bank republishes it.')
         ),
         model=geo.HealthSpendingCountryYear,
-        series=(Series('value', _('Health spending per person'), 'usd', log_scale=True),),
+        series=(Series('value', _('Health spending per person'), 'usd', measured_in=pgettext_lazy('measured in', 'US$ per person'), log_scale=True),),
         tags=Tags('Health', (_('Health spending'), _('Healthcare'), _('WHO'))),
         keywords=(_('healthcare cost'), _('health expenditure'), _('medical spending')),
     ),
@@ -498,9 +532,28 @@ METRICS = (
             'Surveys are not held every year, so many countries have gaps between years.')
         ),
         model=geo.PovertyCountryYear,
-        series=(Series('value', _('Living on under $3.00 a day'), 'percent', better='lower'),),
+        series=(Series('value', _('Living on under $3.00 a day'), 'percent', measured_in=pgettext_lazy('measured in', '% of people'), better='lower'),),
         tags=Tags('Development', (_('Poverty'), _('Income'))),
         keywords=(_('poor'), _('poverty line'), _('extreme poverty'), _('living on')),
+    ),
+    Metric(
+        slug='mean-income',
+        title=_('Mean income or consumption'),
+        question=_('How much do people live on each day?'),
+        summary=_('The average income or consumption per person per day, adjusted for prices.'),
+        description=(
+            _('This is the average income or consumption per person per day, adjusted for inflation and for '
+            "differences in living costs between countries, in international dollars at 2021 prices. The World Bank's "
+            'Poverty and Inequality Platform builds it from national household surveys. Rich countries measure income '
+            'after taxes and benefits; most low- and middle-income countries measure consumption instead, including '
+            'food people grow for themselves. Surveys change over time, so some years compare less well. Our World in '
+            'Data republishes the figures.')
+        ),
+        model=geo.MeanIncomeCountryYear,
+        series=(Series('value', _('Mean income or consumption per day'), 'usd', measured_in=pgettext_lazy('measured in', 'international $ a day'),
+                       better='higher', log_scale=True),),
+        tags=Tags('Development', (_('Income'), _('Living standards'), _('World Bank'))),
+        keywords=(_('income'), _('consumption'), _('living standards'), _('average income')),
     ),
     Metric(
         slug='income-inequality',
@@ -514,9 +567,26 @@ METRICS = (
             'many countries have gaps between years.')
         ),
         model=geo.InequalityCountryYear,
-        series=(Series('value', _('Gini index'), 'points', better='lower'),),
+        series=(Series('value', _('Gini index'), 'points', measured_in=pgettext_lazy('measured in', '0 to 100'), better='lower'),),
         tags=Tags('Development', (_('Inequality'), _('Income'), _('Gini'))),
         keywords=(_('gini coefficient'), _('income distribution'), _('inequality')),
+    ),
+    Metric(
+        slug='top-income-share',
+        title=_('Income share of the richest 1%'),
+        question=_('Where do the richest 1% take the biggest share?'),
+        summary=_('The share of all income that goes to the richest 1% of people, before taxes and benefits.'),
+        description=(
+            _('This is the share of all income that goes to the richest 1% of people, measured before taxes and '
+            'benefits. If income were shared equally, the richest 1% would get 1% of it. The World Inequality Database '
+            '(WID.world) combines tax records, surveys and national accounts to capture the incomes at the very top, '
+            'which surveys alone tend to miss. Our World in Data republishes the figures.')
+        ),
+        model=geo.TopIncomeShareCountryYear,
+        series=(Series('value', _('Income share of the richest 1%'), 'percent', measured_in=pgettext_lazy('measured in', '% of income'),
+                       better='lower'),),
+        tags=Tags('Development', (_('Inequality'), _('Top incomes'), _('WID.world'))),
+        keywords=(_('top 1%'), _('richest'), _('inequality'), _('wealth gap')),
     ),
     Metric(
         slug='life-satisfaction',
@@ -530,7 +600,7 @@ METRICS = (
             'from the Wellbeing Research Centre at the University of Oxford. Our World in Data republishes them.')
         ),
         model=geo.LifeSatisfactionCountryYear,
-        series=(Series('value', _('Life satisfaction (0 to 10)'), 'score', better='higher'),),
+        series=(Series('value', _('Life satisfaction (0 to 10)'), 'score', measured_in=pgettext_lazy('measured in', '0 to 10'), better='higher'),),
         tags=Tags('Society', (_('Happiness'), _('Well-being'), _('World Happiness Report'))),
         keywords=(_('happiness'), _('happiest countries'), _('wellbeing'), _('cantril ladder')),
     ),
@@ -546,7 +616,7 @@ METRICS = (
             'differences between them are uncertain.')
         ),
         model=geo.HomicideCountryYear,
-        series=(Series('value', _('Homicides per 100,000 people'), 'per_100k', better='lower', log_scale=True),),
+        series=(Series('value', _('Homicides per 100,000 people'), 'per_100k', measured_in=pgettext_lazy('measured in', 'per 100,000 people'), better='lower', log_scale=True),),
         tags=Tags('Society', (_('Crime'), _('Violence'), _('UNODC'))),
         keywords=(_('murder rate'), _('crime'), _('safety'), _('violence')),
     ),
@@ -564,7 +634,7 @@ METRICS = (
             'with care. Our World in Data leaves out the figures the ILO flags as unreliable.')
         ),
         model=geo.GenderWageGapCountryYear,
-        series=(Series('value', _('Gender wage gap'), 'percent', better='lower'),),
+        series=(Series('value', _('Gender wage gap'), 'percent', measured_in=pgettext_lazy('measured in', "% of men's pay"), better='lower'),),
         tags=Tags('Society', (_('Gender'), _('Wages'), _('ILO'))),
         keywords=(_('pay gap'), _('equal pay'), _('women'), _('earnings')),
     ),
@@ -582,7 +652,7 @@ METRICS = (
             'the central estimates.')
         ),
         model=geo.WomenPoliticalEmpowermentCountryYear,
-        series=(Series('value', _("Women's political empowerment index"), 'index', better='higher'),),
+        series=(Series('value', _("Women's political empowerment index"), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher'),),
         tags=Tags('Society', (_('Gender'), _("Women's rights"), _('V-Dem'))),
         world_label=_('World (average of countries)'),
         keywords=(_('women'), _('gender equality'), _('vdem'), _('empowerment')),
@@ -598,7 +668,7 @@ METRICS = (
             'World value is the average of the countries, each counted once.')
         ),
         model=geo.WomenInParliamentCountryYear,
-        series=(Series('value', _('Women in parliament'), 'percent', better='higher'),),
+        series=(Series('value', _('Women in parliament'), 'percent', measured_in=pgettext_lazy('measured in', '% of seats'), better='higher'),),
         tags=Tags('Society', (_('Gender'), _('Parliament'), _('V-Dem'))),
         world_label=_('World (average of countries)'),
         keywords=(_('women'), _('parliament'), _('representation'), _('legislators')),
@@ -616,7 +686,7 @@ METRICS = (
             'follow one country over time.')
         ),
         model=geo.UndernourishmentCountryYear,
-        series=(Series('value', _('Undernourished people'), 'people', log_scale=True),),
+        series=(Series('value', _('Undernourished people'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True),),
         tags=Tags('Food', (_('Hunger'), _('Nutrition'), _('FAO'))),
         keywords=(_('hunger'), _('malnutrition'), _('food security'), _('fao')),
     ),
@@ -633,7 +703,7 @@ METRICS = (
             'republishes it.')
         ),
         model=geo.HealthyDietUnaffordableCountryYear,
-        series=(Series('value', _('Cannot afford a healthy diet'), 'percent', better='lower'),),
+        series=(Series('value', _('Cannot afford a healthy diet'), 'percent', measured_in=pgettext_lazy('measured in', '% of people'), better='lower'),),
         tags=Tags('Food', (_('Food prices'), _('Nutrition'), _('World Bank'))),
         keywords=(_('food prices'), _('cost of a healthy diet'), _('affordability'), _('hunger')),
     ),
@@ -648,7 +718,7 @@ METRICS = (
             'Data republishes it.')
         ),
         model=geo.MeatProductionCountryYear,
-        series=(Series('value', _('Meat production'), 'tonnes_total', log_scale=True),),
+        series=(Series('value', _('Meat production'), 'tonnes_total', measured_in=pgettext_lazy('measured in', 'tonnes'), log_scale=True),),
         tags=Tags('Food', (_('Meat'), _('Agriculture'), _('FAO'))),
         keywords=(_('meat'), _('livestock'), _('beef'), _('chicken'), _('pork')),
     ),
@@ -665,7 +735,7 @@ METRICS = (
             'Data republishes the central estimates.')
         ),
         model=geo.HumanRightsCountryYear,
-        series=(Series('value', _('Human rights index'), 'index', better='higher'),),
+        series=(Series('value', _('Human rights index'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='higher'),),
         tags=Tags('Governance', (_('Human rights'), _('Civil liberties'), _('V-Dem'))),
         world_label=_('World (average of countries)'),
         keywords=(_('civil liberties'), _('freedom'), _('vdem'), _('repression')),
@@ -685,7 +755,7 @@ METRICS = (
             'estimates.')
         ),
         model=geo.PoliticalCorruptionCountryYear,
-        series=(Series('value', _('Political corruption index'), 'index', better='lower'),),
+        series=(Series('value', _('Political corruption index'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='lower'),),
         tags=Tags('Corruption', (_('Bribery'), _('Embezzlement'), _('V-Dem'))),
         keywords=(_('corruption'), _('bribery'), _('embezzlement'), _('vdem')),
     ),
@@ -702,7 +772,7 @@ METRICS = (
             'Our World in Data republishes the central estimates.')
         ),
         model=geo.ExecutiveCorruptionCountryYear,
-        series=(Series('value', _('Executive corruption index'), 'index', better='lower'),),
+        series=(Series('value', _('Executive corruption index'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='lower'),),
         tags=Tags('Corruption', (_('Executive'), _('Bribery'), _('V-Dem'))),
         keywords=(_('corruption'), _('government corruption'), _('ministers'), _('vdem')),
     ),
@@ -718,7 +788,7 @@ METRICS = (
             'experts through a statistical model. Our World in Data republishes the central estimates.')
         ),
         model=geo.PublicSectorCorruptionCountryYear,
-        series=(Series('value', _('Public sector corruption index'), 'index', better='lower'),),
+        series=(Series('value', _('Public sector corruption index'), 'index', measured_in=pgettext_lazy('measured in', '0 to 1'), better='lower'),),
         tags=Tags('Corruption', (_('Public sector'), _('Bribery'), _('V-Dem'))),
         keywords=(_('corruption'), _('civil servants'), _('bureaucracy'), _('vdem')),
     ),
@@ -754,7 +824,7 @@ METRICS = (
             'time. Our World in Data republishes the scores.')
         ),
         model=geo.CorruptionPerceptionsCountryYear,
-        series=(Series('value', _('Corruption Perceptions Index'), 'score_100', better='higher'),),
+        series=(Series('value', _('Corruption Perceptions Index'), 'score_100', measured_in=pgettext_lazy('measured in', '0 to 100'), better='higher'),),
         tags=Tags('Corruption', (_('Perceptions'), _('Public sector'), _('Transparency International'))),
         keywords=(_('corruption'), _('cpi'), _('transparency international'), _('bribery')),
     ),
@@ -769,7 +839,7 @@ METRICS = (
             'Peace Research Institute (SIPRI) compiles it from official sources, and the World Bank republishes it.')
         ),
         model=geo.MilitarySpendingCountryYear,
-        series=(Series('value', _('Military spending, % of GDP'), 'percent'),),
+        series=(Series('value', _('Military spending, % of GDP'), 'percent', measured_in=pgettext_lazy('measured in', '% of GDP')),),
         tags=Tags('Governance', (_('Defence'), _('Military'), _('SIPRI'))),
         keywords=(_('defense'), _('defence budget'), _('army'), _('armed forces'), _('sipri')),
     ),
@@ -786,8 +856,8 @@ METRICS = (
         ),
         model=geo.Co2EmissionsCountryYear,
         series=(
-            Series('per_capita', _('CO2 per person'), 'tonnes', better='lower', log_scale=True, short=_('Per person')),
-            Series('total', _('Total CO2'), 'tonnes_total', log_scale=True, short=_('Total')),
+            Series('per_capita', _('CO2 per person'), 'tonnes', measured_in=pgettext_lazy('measured in', 'tonnes per person'), better='lower', log_scale=True, short=_('Per person')),
+            Series('total', _('Total CO2'), 'tonnes_total', measured_in=pgettext_lazy('measured in', 'tonnes'), log_scale=True, short=_('Total')),
         ),
         tags=Tags('Environment', (_('Climate'), _('CO2'), _('Emissions'))),
         keywords=(_('carbon dioxide'), _('carbon emissions'), _('greenhouse gas'), _('climate change'), _('co2')),
@@ -805,16 +875,16 @@ METRICS = (
         ),
         model=geo.ElectricityMixCountryYear,
         series=(
-            Series('low_carbon', _('Low-carbon share'), 'percent', better='higher', short=_('Low-carbon')),
-            Series('coal', _('Coal share'), 'percent', short=_('Coal')),
-            Series('gas', _('Gas share'), 'percent', short=_('Gas')),
-            Series('oil', _('Oil share'), 'percent', short=_('Oil')),
-            Series('nuclear', _('Nuclear share'), 'percent', short=_('Nuclear')),
-            Series('hydro', _('Hydro share'), 'percent', short=_('Hydro')),
-            Series('wind', _('Wind share'), 'percent', short=_('Wind')),
-            Series('solar', _('Solar share'), 'percent', short=_('Solar')),
-            Series('bioenergy', _('Bioenergy share'), 'percent', short=_('Bioenergy')),
-            Series('other_renewables', _('Other renewables share'), 'percent', short=_('Other renewables')),
+            Series('low_carbon', _('Low-carbon share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), better='higher', short=_('Low-carbon')),
+            Series('coal', _('Coal share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Coal')),
+            Series('gas', _('Gas share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Gas')),
+            Series('oil', _('Oil share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Oil')),
+            Series('nuclear', _('Nuclear share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Nuclear')),
+            Series('hydro', _('Hydro share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Hydro')),
+            Series('wind', _('Wind share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Wind')),
+            Series('solar', _('Solar share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Solar')),
+            Series('bioenergy', _('Bioenergy share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Bioenergy')),
+            Series('other_renewables', _('Other renewables share'), 'percent', measured_in=pgettext_lazy('measured in', '% of electricity'), short=_('Other renewables')),
         ),
         tags=Tags('Environment', (_('Energy'), _('Electricity'), _('Renewables'), _('Ember'))),
         keywords=(_('energy mix'), _('renewable energy'), _('solar power'), _('wind power'), _('nuclear power'), _('coal power')),
@@ -833,8 +903,8 @@ METRICS = (
         ),
         model=geo.AirPollutionCountryYear,
         series=(
-            Series('pm25', _('PM2.5 exposure'), 'ugm3', better='lower'),
-            Series('above_guideline', _('People above the WHO guideline'), 'percent', better='lower',
+            Series('pm25', _('PM2.5 exposure'), 'ugm3', measured_in=pgettext_lazy('measured in', 'µg/m³'), better='lower'),
+            Series('above_guideline', _('People above the WHO guideline'), 'percent', measured_in=pgettext_lazy('measured in', '% of people'), better='lower',
                    short=_('Above WHO guideline'),
                    note=_('The share of people living where PM2.5 is above 10 µg/m³, the WHO guideline these estimates use. The data ends in 2017.')),
         ),

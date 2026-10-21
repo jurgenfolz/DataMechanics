@@ -24,11 +24,26 @@ data-mechanics.com {
 		file_server
 	}
 
+	# The visitor dashboard, built by deploy/stats.sh. Its login lives only on the server, in /etc/caddy/stats-auth.
+	redir /stats /stats/
+	handle_path /stats/* {
+		import /etc/caddy/stats-auth
+		header X-Robots-Tag "noindex, nofollow"
+		header Cache-Control "no-store"
+		root * /srv/stats
+		file_server
+	}
+
 	handle {
 		reverse_proxy unix//run/datamechanics/gunicorn.sock
 	}
 
+	# The access log feeds the visitor dashboard. Caddy rolls it at 100 MiB and keeps 90 days, so the dashboard covers them.
 	log {
-		output file /var/log/caddy/data-mechanics.log
+		output file /var/log/caddy/data-mechanics.log {
+			roll_size 100MiB
+			roll_keep 30
+			roll_keep_for 2160h
+		}
 	}
 }

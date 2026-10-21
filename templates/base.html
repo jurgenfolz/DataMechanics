@@ -67,9 +67,11 @@
       <div>
         <h2 id="about-title">{% translate "About the author" %}</h2>
         <p>{% blocktranslate trimmed %}
-          Hello there, I’m Klaus Jürgen Folz, a Mechanical Engineer working with Power BI, Python, machine learning and data analysis in Austria.
-          I’m also the lead developer of Measure Killer, a Power BI external tool with more than 100k downloads.
-          I built Data Mechanics to make public data free to explore and download, and to share the knowledge and small wins that help people who work with data.
+          Hello there, I’m Klaus Jürgen Folz.
+          I studied Mechanical Engineering at the Federal University of Rio Grande do Sul (UFRGS) in Brazil, and I work in Austria as a lead Python and Power BI developer.
+          I built Data Mechanics because good decisions start with facts.
+          Public data is often scattered, hard to find or locked behind paywalls, and too much of what we read about the world is biased.
+          Here, every number is shown as it was published, next to its source, so anyone can check it, compare countries and leaders, and draw their own conclusions.
         {% endblocktranslate %}</p>
       </div>
       <div class="about__links">
@@ -106,7 +108,7 @@
   </footer>
 
   {{ SEARCH_INDEX|json_script:"search-index" }}
-  <script src="{% url 'javascript-catalog' %}"></script>
+  <script src="{{ CATALOG_URL }}"></script>
   <script type="module" src="{% static 'js/search.js' %}"></script>
   <script type="module" src="{% static 'js/language.js' %}"></script>
   {% block scripts %}{% endblock %}

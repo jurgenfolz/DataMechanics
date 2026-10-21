@@ -384,3 +384,31 @@ class AirPollutionCountryYear(CountryYear):
 
     class Meta(CountryYear.Meta):
         db_table = 'geo_air_pollution_country_year'
+
+
+class TopIncomeShareCountryYear(CountryYear):
+    value = models.FloatField(help_text='Share of income going to the richest 1%, before taxes and benefits, %.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_top_income_share_country_year'
+
+
+class MeanIncomeCountryYear(CountryYear):
+    value = models.FloatField(help_text='Mean income or consumption per person per day, international-$ at 2021 prices.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_mean_income_country_year'
+
+
+class LabourProductivityCountryYear(CountryYear):
+    value = models.FloatField(help_text='GDP per hour worked, international-$ at 2021 prices.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_labour_productivity_country_year'
+
+
+class GovernmentSpendingCountryYear(CountryYear):
+    value = models.FloatField(help_text='Government expenditure, including interest, % of GDP.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_government_spending_country_year'

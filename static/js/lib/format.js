@@ -26,6 +26,22 @@ export function formatValue(value, rule) {
   return `${rule.prefix || ''}${number}${rule.suffix || ''}`;
 }
 
+/**
+ * The size of a change, without its sign (an arrow gives the direction), as metrics/formatting.py's format_amount writes it.
+ * A `relative` change is in percent of the start value; any other is in the unit, with a long unit's words left out.
+ */
+export function formatAmount(amount, rule, unit, relative) {
+  const size = Math.abs(amount);
+  if (relative) return `${marks(size < 10 ? size.toFixed(1) : Math.round(size).toLocaleString('en'), rule)}%`;
+  if (unit === 'percent') return `${marks(size.toLocaleString('en', { minimumFractionDigits: 1, maximumFractionDigits: 1 }), rule)}%`;
+  return formatValue(size, shortRule(rule));
+}
+
+/** The rule without a long unit's words, as format_value(compact=True) writes values where room is tight. */
+export function shortRule(rule) {
+  return rule.long ? { ...rule, suffix: '' } : rule;
+}
+
 // Axis ticks: the same rule, but without trailing decimals on round numbers.
 export function formatTick(value, rule) {
   if (rule.compact) return `${rule.prefix || ''}${compact(value, rule, 3)}`;

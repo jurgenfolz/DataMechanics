@@ -735,6 +735,10 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 
 /* Where the saved image's chart is drawn, out of sight. */
 .chart-image-stage { position: fixed; left: -10000px; top: 0; pointer-events: none; }
+/* The reel's preview (?reel=1 on a Politics page): the video frame over the page. */
+.reel-stage { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #000; cursor: pointer; }
+/* As large as the window allows, in its own shape: tall for a reel, wide for &format=wide. */
+.reel-stage canvas { max-width: 100vw; max-height: 100dvh; }
 .chart-image-stage__well { position: relative; width: 100%; height: 100%; }
 
 /* The map box keeps the projection's proportions, so the map fills it without stretching. */

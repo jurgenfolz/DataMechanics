@@ -5,12 +5,12 @@ Each group becomes a labelled row of tabs.
 """
 
 GROUPS = [
-    ('Economy', ['gdp-per-capita', 'gdp', 'gdp-growth', 'inflation', 'unemployment', 'government-debt',
-                 'tax-revenue', 'trade', 'women-in-the-labour-force']),
+    ('Economy', ['gdp-per-capita', 'gdp', 'gdp-growth', 'labour-productivity', 'inflation', 'unemployment',
+                 'government-debt', 'government-spending', 'tax-revenue', 'trade', 'women-in-the-labour-force']),
     ('Demography', ['population', 'fertility-rate', 'median-age']),
     ('Health', ['life-expectancy', 'child-mortality', 'obesity', 'health-spending']),
     ('Education', ['schooling', 'literacy-rate', 'education-spending', 'scientific-articles']),
-    ('Development', ['hdi', 'extreme-poverty', 'income-inequality']),
+    ('Development', ['hdi', 'mean-income', 'extreme-poverty', 'income-inequality', 'top-income-share']),
     ('Governance', ['democracy', 'human-rights', 'military-spending']),
     ('Corruption', ['political-corruption', 'executive-corruption', 'public-sector-corruption', 'judicial-corruption',
                     'corruption-perceptions']),

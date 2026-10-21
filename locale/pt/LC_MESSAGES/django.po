@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 21:19+0000\n"
+"POT-Creation-Date: 2026-10-21 10:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr "Alimentação"
 msgid "Governance"
 msgstr "Governança"
 
-#: metrics/catalog.py:26 metrics/catalog.py:841
+#: metrics/catalog.py:26 metrics/catalog.py:911
 msgid "Health"
 msgstr "Saúde"
 
@@ -106,35 +106,35 @@ msgstr "Saúde"
 msgid "Society"
 msgstr "Sociedade"
 
-#: metrics/catalog.py:54
+#: metrics/catalog.py:55
 msgid "Country"
 msgstr "País"
 
-#: metrics/catalog.py:54 templates/metrics/metric_detail.html:36
+#: metrics/catalog.py:55 templates/metrics/metric_detail.html:36
 msgid "Year"
 msgstr "Ano"
 
-#: metrics/catalog.py:74 templates/metrics/_market_card.html:22
-#: templates/pages/home.html:50
+#: metrics/catalog.py:75 templates/metrics/_market_card.html:22
+#: templates/pages/home.html:51
 msgid "World"
 msgstr "Mundo"
 
-#: metrics/catalog.py:97 metrics/catalog.py:108 metrics/catalog.py:109
-#: metrics/catalog.py:135 metrics/catalog.py:358
+#: metrics/catalog.py:98 metrics/catalog.py:109 metrics/catalog.py:110
+#: metrics/catalog.py:136 metrics/catalog.py:375
 msgid "GDP"
 msgstr "PIB"
 
-#: metrics/catalog.py:98
+#: metrics/catalog.py:99
 msgid "Which economies are the largest?"
 msgstr "Quais são as maiores economias?"
 
-#: metrics/catalog.py:99
+#: metrics/catalog.py:100
 msgid ""
 "The total value of everything a country produces in a year, in US dollars."
 msgstr ""
 "O valor total de tudo o que um país produz em um ano, em dólares americanos."
 
-#: metrics/catalog.py:101
+#: metrics/catalog.py:102
 msgid ""
 "Gross domestic product (GDP) is the total value of the goods and services "
 "produced in a country in a year. Each country's statistics office or central"
@@ -147,38 +147,43 @@ msgstr ""
 " em um país em um ano. O instituto de estatística ou o banco central de cada"
 " país o mede a partir das contas nacionais, e o Banco Mundial reúne os "
 "números e os converte em dólares americanos pela taxa de câmbio de cada ano."
-" Os valores estão em dólares correntes, sem ajuste pela inflação, então "
-"parte do crescimento ao longo do tempo é alta de preços."
+" Os valores estão em dólares, sem ajuste pela inflação, então parte do "
+"crescimento ao longo do tempo é alta de preços."
 
-#: metrics/catalog.py:109
+#: metrics/catalog.py:109 metrics/catalog.py:128
+msgctxt "measured in"
+msgid "current US$"
+msgstr "US$"
+
+#: metrics/catalog.py:110
 msgid "National accounts"
 msgstr "Contas nacionais"
 
-#: metrics/catalog.py:110
+#: metrics/catalog.py:111
 msgid "gross domestic product"
 msgstr "produto interno bruto"
 
-#: metrics/catalog.py:110
+#: metrics/catalog.py:111
 msgid "economy size"
 msgstr "tamanho da economia"
 
-#: metrics/catalog.py:110
+#: metrics/catalog.py:111
 msgid "output"
 msgstr "produção"
 
-#: metrics/catalog.py:114 metrics/catalog.py:127
+#: metrics/catalog.py:115 metrics/catalog.py:128
 msgid "GDP per capita"
 msgstr "PIB per capita"
 
-#: metrics/catalog.py:115
+#: metrics/catalog.py:116
 msgid "Where is output per person highest?"
 msgstr "Onde a produção por pessoa é maior?"
 
-#: metrics/catalog.py:116
+#: metrics/catalog.py:117
 msgid "GDP divided by population: what a country produces per person."
 msgstr "O PIB dividido pela população: o que um país produz por pessoa."
 
-#: metrics/catalog.py:118
+#: metrics/catalog.py:119
 msgid ""
 "GDP per capita is a country's GDP divided by its mid-year population: the "
 "value of goods and services produced per person. It is a common gauge of "
@@ -200,11 +205,11 @@ msgstr ""
 "Program. A PPC é a forma mais justa de comparar padrões de vida. Nenhuma das"
 " duas medidas é ajustada pela inflação ao longo do tempo."
 
-#: metrics/catalog.py:127
-msgid "Current US$"
-msgstr "US$ correntes"
-
 #: metrics/catalog.py:128
+msgid "Current US$"
+msgstr "US$"
+
+#: metrics/catalog.py:129
 msgid ""
 "In current US dollars, converted at each year's market exchange rate. Prices"
 " differ between countries, so a dollar does not buy the same everywhere."
@@ -213,15 +218,20 @@ msgstr ""
 "de cada ano. Os preços variam entre países, então um dólar não compra o "
 "mesmo em todo lugar."
 
-#: metrics/catalog.py:130
+#: metrics/catalog.py:131
 msgid "GDP per capita, PPP (international $)"
 msgstr "PIB per capita, PPC ($ internacionais)"
 
-#: metrics/catalog.py:130
+#: metrics/catalog.py:131
+msgctxt "measured in"
+msgid "international $"
+msgstr "$ internacionais"
+
+#: metrics/catalog.py:131
 msgid "PPP"
 msgstr "PPC"
 
-#: metrics/catalog.py:131
+#: metrics/catalog.py:132
 msgid ""
 "At purchasing power parity (PPP), in international dollars: a dollar that "
 "buys the same amount of goods and services in every country, using the "
@@ -233,48 +243,48 @@ msgstr ""
 "preços do International Comparison Program. É a forma mais justa de comparar"
 " padrões de vida entre países."
 
-#: metrics/catalog.py:135
+#: metrics/catalog.py:136
 msgid "Per capita"
 msgstr "Per capita"
 
-#: metrics/catalog.py:135
+#: metrics/catalog.py:136 metrics/catalog.py:555
 msgid "Living standards"
 msgstr "Padrão de vida"
 
-#: metrics/catalog.py:136
+#: metrics/catalog.py:137
 msgid "income per person"
 msgstr "renda por pessoa"
 
-#: metrics/catalog.py:136
+#: metrics/catalog.py:137
 msgid "gdp per person"
 msgstr "pib por pessoa"
 
-#: metrics/catalog.py:136
+#: metrics/catalog.py:137
 msgid "wealth"
 msgstr "riqueza"
 
-#: metrics/catalog.py:136
+#: metrics/catalog.py:137
 msgid "ppp"
 msgstr "ppc"
 
-#: metrics/catalog.py:136
+#: metrics/catalog.py:137
 msgid "purchasing power parity"
 msgstr "paridade do poder de compra"
 
-#: metrics/catalog.py:140
+#: metrics/catalog.py:141
 msgid "Democracy indices (V-Dem)"
 msgstr "Índices de democracia (V-Dem)"
 
-#: metrics/catalog.py:141
+#: metrics/catalog.py:142
 msgid "How democratic is each country?"
 msgstr "Quão democrático é cada país?"
 
-#: metrics/catalog.py:142
+#: metrics/catalog.py:143
 msgid "Five V-Dem indices that rate how democratic a country is, from 0 to 1."
 msgstr ""
 "Cinco índices do V-Dem que avaliam quão democrático é um país, de 0 a 1."
 
-#: metrics/catalog.py:144
+#: metrics/catalog.py:145
 msgid ""
 "The Varieties of Democracy (V-Dem) project at the University of Gothenburg "
 "rates political regimes with five indices from 0 (least democratic) to 1 "
@@ -295,104 +305,112 @@ msgstr ""
 "especialistas em cada país por meio de um modelo estatístico. O Our World in"
 " Data republica as estimativas centrais."
 
-#: metrics/catalog.py:153
+#: metrics/catalog.py:154
 msgid "Electoral democracy"
 msgstr "Democracia eleitoral"
 
-#: metrics/catalog.py:153
+#: metrics/catalog.py:154 metrics/catalog.py:155 metrics/catalog.py:156
+#: metrics/catalog.py:157 metrics/catalog.py:158 metrics/catalog.py:177
+#: metrics/catalog.py:655 metrics/catalog.py:738 metrics/catalog.py:758
+#: metrics/catalog.py:775 metrics/catalog.py:791
+msgctxt "measured in"
+msgid "0 to 1"
+msgstr "0 a 1"
+
+#: metrics/catalog.py:154
 msgid "Electoral"
 msgstr "Eleitoral"
 
-#: metrics/catalog.py:154
+#: metrics/catalog.py:155
 msgid "Liberal democracy"
 msgstr "Democracia liberal"
 
-#: metrics/catalog.py:154
+#: metrics/catalog.py:155
 msgid "Liberal"
 msgstr "Liberal"
 
-#: metrics/catalog.py:155
+#: metrics/catalog.py:156
 msgid "Participatory democracy"
 msgstr "Democracia participativa"
 
-#: metrics/catalog.py:155
+#: metrics/catalog.py:156
 msgid "Participatory"
 msgstr "Participativa"
 
-#: metrics/catalog.py:156
+#: metrics/catalog.py:157
 msgid "Deliberative democracy"
 msgstr "Democracia deliberativa"
 
-#: metrics/catalog.py:156
+#: metrics/catalog.py:157
 msgid "Deliberative"
 msgstr "Deliberativa"
 
-#: metrics/catalog.py:157
+#: metrics/catalog.py:158
 msgid "Egalitarian democracy"
 msgstr "Democracia igualitária"
 
-#: metrics/catalog.py:157
+#: metrics/catalog.py:158
 msgid "Egalitarian"
 msgstr "Igualitária"
 
-#: metrics/catalog.py:159
+#: metrics/catalog.py:160
 msgid "Democracy"
 msgstr "Democracia"
 
-#: metrics/catalog.py:159 metrics/catalog.py:586 metrics/catalog.py:602
-#: metrics/catalog.py:669 metrics/catalog.py:689 metrics/catalog.py:706
-#: metrics/catalog.py:722 metrics/catalog.py:740
+#: metrics/catalog.py:160 metrics/catalog.py:656 metrics/catalog.py:672
+#: metrics/catalog.py:739 metrics/catalog.py:759 metrics/catalog.py:776
+#: metrics/catalog.py:792 metrics/catalog.py:810
 msgid "V-Dem"
 msgstr "V-Dem"
 
-#: metrics/catalog.py:159
+#: metrics/catalog.py:160
 msgid "Elections"
 msgstr "Eleições"
 
-#: metrics/catalog.py:159
+#: metrics/catalog.py:160
 msgid "Rights"
 msgstr "Direitos"
 
-#: metrics/catalog.py:160 metrics/catalog.py:587 metrics/catalog.py:603
-#: metrics/catalog.py:670
+#: metrics/catalog.py:161 metrics/catalog.py:657 metrics/catalog.py:673
+#: metrics/catalog.py:740
 msgid "World (average of countries)"
 msgstr "Mundo (média dos países)"
 
-#: metrics/catalog.py:161 metrics/catalog.py:588 metrics/catalog.py:671
-#: metrics/catalog.py:690 metrics/catalog.py:707 metrics/catalog.py:723
-#: metrics/catalog.py:741
+#: metrics/catalog.py:162 metrics/catalog.py:658 metrics/catalog.py:741
+#: metrics/catalog.py:760 metrics/catalog.py:777 metrics/catalog.py:793
+#: metrics/catalog.py:811
 msgid "vdem"
 msgstr "vdem"
 
-#: metrics/catalog.py:161
+#: metrics/catalog.py:162
 msgid "varieties of democracy"
 msgstr "variedades da democracia"
 
-#: metrics/catalog.py:161
+#: metrics/catalog.py:162
 msgid "polyarchy"
 msgstr "poliarquia"
 
-#: metrics/catalog.py:161 metrics/catalog.py:671
+#: metrics/catalog.py:162 metrics/catalog.py:741
 msgid "freedom"
 msgstr "liberdade"
 
-#: metrics/catalog.py:161
+#: metrics/catalog.py:162
 msgid "regime"
 msgstr "regime"
 
-#: metrics/catalog.py:165 metrics/catalog.py:176
+#: metrics/catalog.py:166 metrics/catalog.py:177
 msgid "Human Development Index"
 msgstr "Índice de Desenvolvimento Humano"
 
-#: metrics/catalog.py:166
+#: metrics/catalog.py:167
 msgid "Where is human development highest?"
 msgstr "Onde o desenvolvimento humano é maior?"
 
-#: metrics/catalog.py:167
+#: metrics/catalog.py:168
 msgid "A 0 to 1 score combining health, education and income."
 msgstr "Uma nota de 0 a 1 que combina saúde, educação e renda."
 
-#: metrics/catalog.py:169
+#: metrics/catalog.py:170
 msgid ""
 "The Human Development Index (HDI) sums up three basic dimensions of human "
 "development: a long and healthy life (life expectancy at birth), knowledge "
@@ -411,46 +429,46 @@ msgstr ""
 "anos no Relatório de Desenvolvimento Humano; estes dados vêm do relatório de"
 " 2025."
 
-#: metrics/catalog.py:177
+#: metrics/catalog.py:178
 msgid "Human development"
 msgstr "Desenvolvimento humano"
 
-#: metrics/catalog.py:177
+#: metrics/catalog.py:178
 msgid "HDI"
 msgstr "IDH"
 
-#: metrics/catalog.py:177
+#: metrics/catalog.py:178
 msgid "UNDP"
 msgstr "PNUD"
 
-#: metrics/catalog.py:178
+#: metrics/catalog.py:179
 msgid "human development index"
 msgstr "índice de desenvolvimento humano"
 
-#: metrics/catalog.py:178
+#: metrics/catalog.py:179
 msgid "well-being"
 msgstr "bem-estar"
 
-#: metrics/catalog.py:178
+#: metrics/catalog.py:179
 msgid "undp"
 msgstr "pnud"
 
-#: metrics/catalog.py:182 metrics/catalog.py:194
+#: metrics/catalog.py:183 metrics/catalog.py:195
 msgid "Life expectancy"
 msgstr "Expectativa de vida"
 
-#: metrics/catalog.py:183
+#: metrics/catalog.py:184
 msgid "Where do people live longest?"
 msgstr "Onde as pessoas vivem mais?"
 
-#: metrics/catalog.py:184
+#: metrics/catalog.py:185
 msgid ""
 "How many years a newborn would live if today's death rates held for life."
 msgstr ""
 "Quantos anos um recém-nascido viveria se as taxas de mortalidade de hoje "
 "valessem para toda a vida."
 
-#: metrics/catalog.py:186
+#: metrics/catalog.py:187
 msgid ""
 "Life expectancy at birth is the number of years a newborn would live if the "
 "death rates of the year it was born stayed the same for its whole life. It "
@@ -467,35 +485,41 @@ msgstr ""
 "de População da ONU, que se baseia em institutos nacionais de estatística, "
 "censos e pesquisas."
 
-#: metrics/catalog.py:193
+#: metrics/catalog.py:194
 msgid "Life expectancy at birth"
 msgstr "Expectativa de vida ao nascer"
 
-#: metrics/catalog.py:194 metrics/catalog.py:454
+#: metrics/catalog.py:194 metrics/catalog.py:212 metrics/catalog.py:213
+#: metrics/catalog.py:471
+msgctxt "measured in"
+msgid "years"
+msgstr "anos"
+
+#: metrics/catalog.py:195 metrics/catalog.py:488
 msgid "Mortality"
 msgstr "Mortalidade"
 
-#: metrics/catalog.py:195
+#: metrics/catalog.py:196
 msgid "lifespan"
 msgstr "tempo de vida"
 
-#: metrics/catalog.py:195
+#: metrics/catalog.py:196
 msgid "longevity"
 msgstr "longevidade"
 
-#: metrics/catalog.py:195
+#: metrics/catalog.py:196
 msgid "age at death"
 msgstr "idade ao morrer"
 
-#: metrics/catalog.py:199
+#: metrics/catalog.py:200
 msgid "Years of schooling"
 msgstr "Anos de estudo"
 
-#: metrics/catalog.py:200
+#: metrics/catalog.py:201
 msgid "How long do people stay in school?"
 msgstr "Quanto tempo as pessoas ficam na escola?"
 
-#: metrics/catalog.py:201
+#: metrics/catalog.py:202
 msgid ""
 "Average years adults spent in school, and the years a child can expect "
 "today."
@@ -503,7 +527,7 @@ msgstr ""
 "Média de anos que os adultos passaram na escola, e os anos que uma criança "
 "pode esperar hoje."
 
-#: metrics/catalog.py:203
+#: metrics/catalog.py:204
 msgid ""
 "Mean years of schooling is the average number of years of education "
 "completed by people aged 25 and over. Expected years of schooling is how "
@@ -519,51 +543,51 @@ msgstr ""
 "Índice de Desenvolvimento Humano e os calcula com dados do Instituto de "
 "Estatística da UNESCO, estimativas de Barro e Lee e pesquisas domiciliares."
 
-#: metrics/catalog.py:211
+#: metrics/catalog.py:212
 msgid "Mean years of schooling"
 msgstr "Média de anos de estudo"
 
-#: metrics/catalog.py:211 metrics/catalog.py:214
+#: metrics/catalog.py:212 metrics/catalog.py:215
 msgid "Mean years"
 msgstr "Média de anos"
 
-#: metrics/catalog.py:212
+#: metrics/catalog.py:213
 msgid "Expected years of schooling"
 msgstr "Anos esperados de estudo"
 
-#: metrics/catalog.py:212 metrics/catalog.py:214
+#: metrics/catalog.py:213 metrics/catalog.py:215
 msgid "Expected years"
 msgstr "Anos esperados"
 
-#: metrics/catalog.py:214
+#: metrics/catalog.py:215
 msgid "Schooling"
 msgstr "Escolaridade"
 
-#: metrics/catalog.py:215
+#: metrics/catalog.py:216
 msgid "education"
 msgstr "educação"
 
-#: metrics/catalog.py:215
+#: metrics/catalog.py:216
 msgid "school"
 msgstr "escola"
 
-#: metrics/catalog.py:215
+#: metrics/catalog.py:216
 msgid "enrolment"
 msgstr "matrícula"
 
-#: metrics/catalog.py:215 metrics/catalog.py:233
+#: metrics/catalog.py:216 metrics/catalog.py:234
 msgid "literacy"
 msgstr "alfabetização"
 
-#: metrics/catalog.py:219
+#: metrics/catalog.py:220
 msgid "Literacy rate"
 msgstr "Taxa de alfabetização"
 
-#: metrics/catalog.py:220
+#: metrics/catalog.py:221
 msgid "Where can most adults read and write?"
 msgstr "Onde a maioria dos adultos sabe ler e escrever?"
 
-#: metrics/catalog.py:221
+#: metrics/catalog.py:222
 msgid ""
 "The share of people aged 15 and older who can read and write a simple "
 "sentence about their daily life."
@@ -571,7 +595,7 @@ msgstr ""
 "A parcela de pessoas com 15 anos ou mais que sabem ler e escrever uma frase "
 "simples sobre o seu dia a dia."
 
-#: metrics/catalog.py:223
+#: metrics/catalog.py:224
 msgid ""
 "The literacy rate is the share of people aged 15 and older who can read and "
 "write a simple sentence about their everyday life. Our World in Data "
@@ -592,49 +616,54 @@ msgstr ""
 "terminam cedo. Ela mede a alfabetização básica, não se as pessoas entendem "
 "textos complexos."
 
-#: metrics/catalog.py:231
+#: metrics/catalog.py:232
 msgid "Adult literacy rate"
 msgstr "Taxa de alfabetização de adultos"
 
-#: metrics/catalog.py:232
+#: metrics/catalog.py:232 metrics/catalog.py:503
+msgctxt "measured in"
+msgid "% of adults"
+msgstr "% dos adultos"
+
+#: metrics/catalog.py:233
 msgid "Literacy"
 msgstr "Alfabetização"
 
-#: metrics/catalog.py:232
+#: metrics/catalog.py:233
 msgid "Reading"
 msgstr "Leitura"
 
-#: metrics/catalog.py:232 metrics/catalog.py:251
+#: metrics/catalog.py:233 metrics/catalog.py:252
 msgid "UNESCO"
 msgstr "UNESCO"
 
-#: metrics/catalog.py:233
+#: metrics/catalog.py:234
 msgid "illiteracy"
 msgstr "analfabetismo"
 
-#: metrics/catalog.py:233
+#: metrics/catalog.py:234
 msgid "reading"
 msgstr "leitura"
 
-#: metrics/catalog.py:233
+#: metrics/catalog.py:234
 msgid "writing"
 msgstr "escrita"
 
-#: metrics/catalog.py:239
+#: metrics/catalog.py:240
 msgid "Government spending on education"
 msgstr "Gasto público com educação"
 
-#: metrics/catalog.py:240
+#: metrics/catalog.py:241
 msgid "Which governments spend the most on education?"
 msgstr "Quais governos mais gastam com educação?"
 
-#: metrics/catalog.py:241
+#: metrics/catalog.py:242
 msgid "What governments spend on education at every level, as a share of GDP."
 msgstr ""
 "O que os governos gastam com educação em todos os níveis, como parcela do "
 "PIB."
 
-#: metrics/catalog.py:243
+#: metrics/catalog.py:244
 msgid ""
 "This is what a country's central, regional and local governments spend on "
 "education at every level in a year, as a share of GDP. It includes salaries,"
@@ -653,50 +682,57 @@ msgstr ""
 "da economia vai para a educação, não mais gasto por aluno nem melhores "
 "resultados. O Our World in Data reúne as fontes."
 
-#: metrics/catalog.py:250
+#: metrics/catalog.py:251
 msgid "Education spending, % of GDP"
 msgstr "Gasto com educação, % do PIB"
 
-#: metrics/catalog.py:251
+#: metrics/catalog.py:251 metrics/catalog.py:324 metrics/catalog.py:340
+#: metrics/catalog.py:407 metrics/catalog.py:423 metrics/catalog.py:842
+msgctxt "measured in"
+msgid "% of GDP"
+msgstr "% do PIB"
+
+#: metrics/catalog.py:252
 msgid "Education spending"
 msgstr "Gasto com educação"
 
-#: metrics/catalog.py:251 metrics/catalog.py:324 metrics/catalog.py:374
+#: metrics/catalog.py:252 metrics/catalog.py:325 metrics/catalog.py:341
+#: metrics/catalog.py:408
 msgid "Public finance"
 msgstr "Finanças públicas"
 
-#: metrics/catalog.py:252
+#: metrics/catalog.py:253
 msgid "education budget"
 msgstr "orçamento da educação"
 
-#: metrics/catalog.py:252
+#: metrics/catalog.py:253
 msgid "school funding"
 msgstr "financiamento escolar"
 
-#: metrics/catalog.py:252
+#: metrics/catalog.py:253 metrics/catalog.py:342
 msgid "public spending"
 msgstr "gasto público"
 
-#: metrics/catalog.py:252
+#: metrics/catalog.py:253
 msgid "unesco"
 msgstr "unesco"
 
-#: metrics/catalog.py:256
+#: metrics/catalog.py:257
 msgid "Scientific and technical articles"
 msgstr "Artigos científicos e técnicos"
 
-#: metrics/catalog.py:257
+#: metrics/catalog.py:258
 msgid "Which countries publish the most science?"
 msgstr "Quais países publicam mais ciência?"
 
-#: metrics/catalog.py:258
+#: metrics/catalog.py:259
 msgid ""
 "Articles in science and engineering journals and conference proceedings, per"
 " year."
 msgstr ""
 "Artigos em revistas e anais de congressos de ciência e engenharia, por ano."
 
-#: metrics/catalog.py:260
+#: metrics/catalog.py:261
 msgid ""
 "This counts the articles from each country published each year in peer-"
 "reviewed journals and conference proceedings in science and engineering, "
@@ -714,47 +750,52 @@ msgstr ""
 "grandes, então compare países de tamanho parecido ou acompanhe um país ao "
 "longo do tempo."
 
-#: metrics/catalog.py:267
+#: metrics/catalog.py:268
 msgid "Articles per year"
 msgstr "Artigos por ano"
 
 #: metrics/catalog.py:268
+msgctxt "measured in"
+msgid "articles a year"
+msgstr "artigos por ano"
+
+#: metrics/catalog.py:269
 msgid "Science"
 msgstr "Ciência"
 
-#: metrics/catalog.py:268
+#: metrics/catalog.py:269
 msgid "Research"
 msgstr "Pesquisa"
 
-#: metrics/catalog.py:268
+#: metrics/catalog.py:269
 msgid "Publications"
 msgstr "Publicações"
 
-#: metrics/catalog.py:269
+#: metrics/catalog.py:270
 msgid "research"
 msgstr "pesquisa"
 
-#: metrics/catalog.py:269
+#: metrics/catalog.py:270
 msgid "papers"
 msgstr "artigos"
 
-#: metrics/catalog.py:269
+#: metrics/catalog.py:270
 msgid "publications"
 msgstr "publicações"
 
-#: metrics/catalog.py:269
+#: metrics/catalog.py:270
 msgid "science"
 msgstr "ciência"
 
-#: metrics/catalog.py:273
+#: metrics/catalog.py:274
 msgid "Population, births and deaths"
 msgstr "População, nascimentos e mortes"
 
-#: metrics/catalog.py:274
+#: metrics/catalog.py:275
 msgid "Where are populations growing?"
 msgstr "Onde a população está crescendo?"
 
-#: metrics/catalog.py:275
+#: metrics/catalog.py:276
 msgid ""
 "How many people live in each country, how many are born and die, and how "
 "many move in or out."
@@ -762,7 +803,7 @@ msgstr ""
 "Quantas pessoas vivem em cada país, quantas nascem e morrem e quantas entram"
 " ou saem."
 
-#: metrics/catalog.py:277
+#: metrics/catalog.py:278
 msgid ""
 "Population counts everyone who lives in a country at mid-year, whatever "
 "their legal status or citizenship. The birth rate and the death rate are the"
@@ -784,83 +825,98 @@ msgstr ""
 "World Population Prospects da Divisão de População da ONU, que combina "
 "censos, registro civil e pesquisas."
 
-#: metrics/catalog.py:286 metrics/catalog.py:291
+#: metrics/catalog.py:287 metrics/catalog.py:292
 msgid "Population"
 msgstr "População"
 
-#: metrics/catalog.py:287
-msgid "Births per 1,000 people"
-msgstr "Nascimentos por 1.000 pessoas"
-
-#: metrics/catalog.py:288
-msgid "Deaths per 1,000 people"
-msgstr "Mortes por 1.000 pessoas"
-
-#: metrics/catalog.py:289
-msgid "Net migration"
-msgstr "Migração líquida"
-
-#: metrics/catalog.py:291 metrics/catalog.py:422
-msgid "Births"
-msgstr "Nascimentos"
-
-#: metrics/catalog.py:291
-msgid "Deaths"
-msgstr "Mortes"
-
-#: metrics/catalog.py:291
-msgid "Birth rate"
-msgstr "Taxa de natalidade"
-
-#: metrics/catalog.py:292
+#: metrics/catalog.py:287 metrics/catalog.py:689
+msgctxt "measured in"
 msgid "people"
 msgstr "pessoas"
 
+#: metrics/catalog.py:288
+msgid "Births per 1,000 people"
+msgstr "Nascimentos por 1.000 pessoas"
+
+#: metrics/catalog.py:288 metrics/catalog.py:289
+msgctxt "measured in"
+msgid "per 1,000 people"
+msgstr "por 1.000 pessoas"
+
+#: metrics/catalog.py:289
+msgid "Deaths per 1,000 people"
+msgstr "Mortes por 1.000 pessoas"
+
+#: metrics/catalog.py:290
+msgid "Net migration"
+msgstr "Migração líquida"
+
+#: metrics/catalog.py:290
+msgctxt "measured in"
+msgid "people a year"
+msgstr "pessoas por ano"
+
+#: metrics/catalog.py:292 metrics/catalog.py:456
+msgid "Births"
+msgstr "Nascimentos"
+
 #: metrics/catalog.py:292
+msgid "Deaths"
+msgstr "Mortes"
+
+#: metrics/catalog.py:292
+msgid "Birth rate"
+msgstr "Taxa de natalidade"
+
+#: metrics/catalog.py:293
+msgid "people"
+msgstr "pessoas"
+
+#: metrics/catalog.py:293
 msgid "inhabitants"
 msgstr "habitantes"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "mortality"
 msgstr "mortalidade"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "death rate"
 msgstr "taxa de mortalidade"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "demographics"
 msgstr "demografia"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "migration"
 msgstr "migração"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "immigration"
 msgstr "imigração"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "emigration"
 msgstr "emigração"
 
-#: metrics/catalog.py:292
+#: metrics/catalog.py:293
 msgid "migrants"
 msgstr "migrantes"
 
-#: metrics/catalog.py:296 metrics/catalog.py:306
+#: metrics/catalog.py:297 metrics/catalog.py:307
 msgid "Unemployment rate"
 msgstr "Taxa de desemprego"
 
-#: metrics/catalog.py:297
+#: metrics/catalog.py:298
 msgid "Where is unemployment highest?"
 msgstr "Onde o desemprego é maior?"
 
-#: metrics/catalog.py:298
+#: metrics/catalog.py:299
 msgid "The share of the labour force without a job but looking for one."
 msgstr "A parcela da força de trabalho sem emprego, mas procurando um."
 
-#: metrics/catalog.py:300
+#: metrics/catalog.py:301
 msgid ""
 "The unemployment rate is the share of the labour force that has no job but "
 "is available for and looking for work. The labour force is everyone of "
@@ -876,47 +932,52 @@ msgstr ""
 "pesquisas nacionais de força de trabalho para que os países possam ser "
 "comparados. O Banco Mundial as republica."
 
-#: metrics/catalog.py:307 metrics/catalog.py:406
+#: metrics/catalog.py:307
+msgctxt "measured in"
+msgid "% of the labour force"
+msgstr "% da força de trabalho"
+
+#: metrics/catalog.py:308 metrics/catalog.py:440
 msgid "Labour market"
 msgstr "Mercado de trabalho"
 
-#: metrics/catalog.py:307
+#: metrics/catalog.py:308
 msgid "Unemployment"
 msgstr "Desemprego"
 
-#: metrics/catalog.py:307 metrics/catalog.py:406 metrics/catalog.py:568
+#: metrics/catalog.py:308 metrics/catalog.py:440 metrics/catalog.py:638
 msgid "ILO"
 msgstr "OIT"
 
-#: metrics/catalog.py:308
+#: metrics/catalog.py:309
 msgid "jobs"
 msgstr "empregos"
 
-#: metrics/catalog.py:308
+#: metrics/catalog.py:309
 msgid "jobless"
 msgstr "desempregados"
 
-#: metrics/catalog.py:308
+#: metrics/catalog.py:309
 msgid "employment"
 msgstr "emprego"
 
-#: metrics/catalog.py:308
+#: metrics/catalog.py:309
 msgid "labor"
 msgstr "trabalho"
 
-#: metrics/catalog.py:312 metrics/catalog.py:324
+#: metrics/catalog.py:313 metrics/catalog.py:325
 msgid "Government debt"
 msgstr "Dívida pública"
 
-#: metrics/catalog.py:313
+#: metrics/catalog.py:314
 msgid "Which governments owe the most?"
 msgstr "Quais governos devem mais?"
 
-#: metrics/catalog.py:314
+#: metrics/catalog.py:315
 msgid "Everything a country's governments owe, as a share of its GDP."
 msgstr "Tudo o que os governos de um país devem, como parcela do PIB."
 
-#: metrics/catalog.py:316
+#: metrics/catalog.py:317
 msgid ""
 "General government gross debt is everything a country's governments owe: "
 "central, state and local government and social security funds together. It "
@@ -935,47 +996,94 @@ msgstr ""
 "anos passados e deixamos de fora as previsões do FMI; o ano mais recente "
 "ainda pode ser uma estimativa do FMI."
 
-#: metrics/catalog.py:323
+#: metrics/catalog.py:324
 msgid "Gross debt, % of GDP"
 msgstr "Dívida bruta, % do PIB"
 
-#: metrics/catalog.py:324
+#: metrics/catalog.py:325 metrics/catalog.py:341
 msgid "IMF"
 msgstr "FMI"
 
-#: metrics/catalog.py:325
+#: metrics/catalog.py:326
 msgid "public debt"
 msgstr "dívida pública"
 
-#: metrics/catalog.py:325
+#: metrics/catalog.py:326
 msgid "national debt"
 msgstr "dívida nacional"
 
-#: metrics/catalog.py:325
+#: metrics/catalog.py:326
 msgid "deficit"
 msgstr "déficit"
 
-#: metrics/catalog.py:325
+#: metrics/catalog.py:326
 msgid "borrowing"
 msgstr "empréstimos"
 
-#: metrics/catalog.py:325
+#: metrics/catalog.py:326
 msgid "debt to gdp"
 msgstr "dívida sobre o pib"
 
-#: metrics/catalog.py:329 metrics/catalog.py:341
+#: metrics/catalog.py:330 metrics/catalog.py:341
+msgid "Government spending"
+msgstr "Gasto público"
+
+#: metrics/catalog.py:331
+msgid "Which governments spend the most?"
+msgstr "Quais governos mais gastam?"
+
+#: metrics/catalog.py:332
+msgid ""
+"Everything the government spends in a year, interest on its debt included, "
+"as a share of GDP."
+msgstr ""
+"Tudo o que o governo gasta em um ano, juros da dívida incluídos, como "
+"parcela do PIB."
+
+#: metrics/catalog.py:334
+msgid ""
+"This is everything a government spends in a year, including the interest on "
+"its debt, as a share of GDP. The IMF's Public Finances in Modern History "
+"database gathers 200 years of it from historical records. Depending on the "
+"country and year, it covers the central government only, or also the states "
+"and local authorities, so compare with care. Our World in Data republishes "
+"it."
+msgstr ""
+"É tudo o que um governo gasta em um ano, incluindo os juros da sua dívida, "
+"como parcela do PIB. A base Public Finances in Modern History do FMI reúne "
+"200 anos desses gastos a partir de registros históricos. Conforme o país e o"
+" ano, ela cobre só o governo central ou também os estados e municípios, "
+"então compare com cuidado. O Our World in Data a republica."
+
+#: metrics/catalog.py:340
+msgid "Government spending, % of GDP"
+msgstr "Gasto público, % do PIB"
+
+#: metrics/catalog.py:342
+msgid "government expenditure"
+msgstr "despesa pública"
+
+#: metrics/catalog.py:342
+msgid "budget"
+msgstr "orçamento"
+
+#: metrics/catalog.py:342
+msgid "size of government"
+msgstr "tamanho do estado"
+
+#: metrics/catalog.py:346 metrics/catalog.py:358
 msgid "Inflation"
 msgstr "Inflação"
 
-#: metrics/catalog.py:330
+#: metrics/catalog.py:347
 msgid "Where are prices rising fastest?"
 msgstr "Onde os preços sobem mais rápido?"
 
-#: metrics/catalog.py:331
+#: metrics/catalog.py:348
 msgid "How fast consumer prices rise each year."
 msgstr "Quão rápido os preços ao consumidor sobem a cada ano."
 
-#: metrics/catalog.py:333
+#: metrics/catalog.py:350
 msgid ""
 "Inflation is how fast consumer prices rise: the yearly percentage change in "
 "what an average household pays for a basket of goods and services, measured "
@@ -993,50 +1101,55 @@ msgstr ""
 " normal. Taxas muito altas corroem salários e poupanças, enquanto preços em "
 "queda (deflação) podem ser sinal de uma economia fraca."
 
-#: metrics/catalog.py:340
+#: metrics/catalog.py:357
 msgid "Inflation, consumer prices"
 msgstr "Inflação, preços ao consumidor"
 
-#: metrics/catalog.py:341
+#: metrics/catalog.py:357 metrics/catalog.py:374
+msgctxt "measured in"
+msgid "% a year"
+msgstr "% ao ano"
+
+#: metrics/catalog.py:358
 msgid "Prices"
 msgstr "Preços"
 
-#: metrics/catalog.py:341
+#: metrics/catalog.py:358
 msgid "Consumer price index"
 msgstr "Índice de preços ao consumidor"
 
-#: metrics/catalog.py:342 metrics/catalog.py:759
+#: metrics/catalog.py:359 metrics/catalog.py:829
 msgid "cpi"
 msgstr "ipc"
 
-#: metrics/catalog.py:342
+#: metrics/catalog.py:359
 msgid "cost of living"
 msgstr "custo de vida"
 
-#: metrics/catalog.py:342
+#: metrics/catalog.py:359
 msgid "price rises"
 msgstr "alta de preços"
 
-#: metrics/catalog.py:342
+#: metrics/catalog.py:359
 msgid "deflation"
 msgstr "deflação"
 
-#: metrics/catalog.py:347
+#: metrics/catalog.py:364
 msgid "GDP growth"
 msgstr "Crescimento do PIB"
 
-#: metrics/catalog.py:348
+#: metrics/catalog.py:365
 msgid "Which economies are growing fastest?"
 msgstr "Quais economias crescem mais rápido?"
 
-#: metrics/catalog.py:349
+#: metrics/catalog.py:366
 msgid ""
 "How much more an economy produced than the year before, after inflation."
 msgstr ""
 "Quanto uma economia produziu a mais que no ano anterior, descontada a "
 "inflação."
 
-#: metrics/catalog.py:351
+#: metrics/catalog.py:368
 msgid ""
 "GDP growth is the yearly percentage change in a country's GDP after removing"
 " the effect of price changes, so it shows how much more the economy really "
@@ -1051,43 +1164,109 @@ msgstr ""
 "negativo significa que a economia encolheu, como aconteceu em muitos países "
 "em 2020."
 
-#: metrics/catalog.py:357
+#: metrics/catalog.py:374
 msgid "Real GDP growth"
 msgstr "Crescimento real do PIB"
 
-#: metrics/catalog.py:358
+#: metrics/catalog.py:375
 msgid "Growth"
 msgstr "Crescimento"
 
-#: metrics/catalog.py:358
+#: metrics/catalog.py:375
 msgid "Recession"
 msgstr "Recessão"
 
-#: metrics/catalog.py:359
+#: metrics/catalog.py:376
 msgid "economic growth"
 msgstr "crescimento econômico"
 
-#: metrics/catalog.py:359
+#: metrics/catalog.py:376
 msgid "real gdp"
 msgstr "pib real"
 
-#: metrics/catalog.py:359
+#: metrics/catalog.py:376
 msgid "recession"
 msgstr "recessão"
 
-#: metrics/catalog.py:363
+#: metrics/catalog.py:380
+msgid "Productivity: output per hour worked"
+msgstr "Produtividade: produção por hora trabalhada"
+
+#: metrics/catalog.py:381
+msgid "Where does an hour of work produce the most?"
+msgstr "Onde uma hora de trabalho produz mais?"
+
+#: metrics/catalog.py:382
+msgid ""
+"GDP per hour worked: what an hour of work produces, adjusted for prices."
+msgstr ""
+"PIB por hora trabalhada: o que uma hora de trabalho produz, ajustado pelos "
+"preços."
+
+#: metrics/catalog.py:384
+msgid ""
+"Labour productivity is GDP divided by all the hours worked in the economy: "
+"what an hour of work produces. It is adjusted for inflation and for "
+"differences in living costs between countries, and given in international "
+"dollars at 2021 prices. The Penn World Table (Feenstra and others, "
+"University of Groningen) compiles it, and Our World in Data republishes it."
+msgstr ""
+"A produtividade do trabalho é o PIB dividido por todas as horas trabalhadas "
+"na economia: o que uma hora de trabalho produz. Ela é ajustada pela inflação"
+" e pelas diferenças no custo de vida entre países, em dólares internacionais"
+" a preços de 2021. A Penn World Table (Feenstra e outros, Universidade de "
+"Groningen) a compila, e o Our World in Data a republica."
+
+#: metrics/catalog.py:390
+msgid "Output per hour worked"
+msgstr "Produção por hora trabalhada"
+
+#: metrics/catalog.py:390
+msgctxt "measured in"
+msgid "international $ an hour"
+msgstr "$ internacionais por hora"
+
+#: metrics/catalog.py:392
+msgid "Productivity"
+msgstr "Produtividade"
+
+#: metrics/catalog.py:392
+msgid "Labour"
+msgstr "Trabalho"
+
+#: metrics/catalog.py:392
+msgid "Penn World Table"
+msgstr "Penn World Table"
+
+#: metrics/catalog.py:393
+msgid "productivity"
+msgstr "produtividade"
+
+#: metrics/catalog.py:393
+msgid "output per hour"
+msgstr "produção por hora"
+
+#: metrics/catalog.py:393
+msgid "working hours"
+msgstr "horas trabalhadas"
+
+#: metrics/catalog.py:393
+msgid "efficiency"
+msgstr "eficiência"
+
+#: metrics/catalog.py:397
 msgid "Tax revenue"
 msgstr "Receita tributária"
 
-#: metrics/catalog.py:364
+#: metrics/catalog.py:398
 msgid "Which governments collect the most in taxes?"
 msgstr "Quais governos arrecadam mais impostos?"
 
-#: metrics/catalog.py:365
+#: metrics/catalog.py:399
 msgid "Taxes collected by the central government, as a share of GDP."
 msgstr "Impostos arrecadados pelo governo central, como parcela do PIB."
 
-#: metrics/catalog.py:367
+#: metrics/catalog.py:401
 msgid ""
 "Tax revenue is what a country's central government collects in compulsory "
 "payments such as taxes on income, profits, goods and services and trade, "
@@ -1103,39 +1282,39 @@ msgstr ""
 "Monetário Internacional compila os números a partir das estatísticas de "
 "finanças públicas, e o Banco Mundial os republica."
 
-#: metrics/catalog.py:373
+#: metrics/catalog.py:407
 msgid "Tax revenue, % of GDP"
 msgstr "Receita tributária, % do PIB"
 
-#: metrics/catalog.py:374
+#: metrics/catalog.py:408
 msgid "Taxes"
 msgstr "Impostos"
 
-#: metrics/catalog.py:375
+#: metrics/catalog.py:409
 msgid "taxation"
 msgstr "tributação"
 
-#: metrics/catalog.py:375
+#: metrics/catalog.py:409
 msgid "tax burden"
 msgstr "carga tributária"
 
-#: metrics/catalog.py:375
+#: metrics/catalog.py:409
 msgid "government revenue"
 msgstr "receita do governo"
 
-#: metrics/catalog.py:379 metrics/catalog.py:390
+#: metrics/catalog.py:413 metrics/catalog.py:424
 msgid "Trade"
 msgstr "Comércio"
 
-#: metrics/catalog.py:380
+#: metrics/catalog.py:414
 msgid "Which economies trade the most?"
 msgstr "Quais economias mais comerciam?"
 
-#: metrics/catalog.py:381
+#: metrics/catalog.py:415
 msgid "Exports plus imports, as a share of GDP."
 msgstr "Exportações mais importações, como parcela do PIB."
 
-#: metrics/catalog.py:383
+#: metrics/catalog.py:417
 msgid ""
 "Trade is the sum of a country's exports and imports of goods and services, "
 "shown as a share of its GDP. Small, open economies often trade more than "
@@ -1150,53 +1329,53 @@ msgstr ""
 "grandes comerciam menos em relação ao seu tamanho. O Banco Mundial o calcula"
 " a partir das contas nacionais."
 
-#: metrics/catalog.py:389
+#: metrics/catalog.py:423
 msgid "Trade, % of GDP"
 msgstr "Comércio, % do PIB"
 
-#: metrics/catalog.py:390
+#: metrics/catalog.py:424
 msgid "Exports"
 msgstr "Exportações"
 
-#: metrics/catalog.py:390
+#: metrics/catalog.py:424
 msgid "Imports"
 msgstr "Importações"
 
-#: metrics/catalog.py:391
+#: metrics/catalog.py:425
 msgid "openness"
 msgstr "abertura"
 
-#: metrics/catalog.py:391
+#: metrics/catalog.py:425
 msgid "globalisation"
 msgstr "globalização"
 
-#: metrics/catalog.py:391
+#: metrics/catalog.py:425
 msgid "globalization"
 msgstr "globalização"
 
-#: metrics/catalog.py:391
+#: metrics/catalog.py:425
 msgid "exports"
 msgstr "exportações"
 
-#: metrics/catalog.py:391
+#: metrics/catalog.py:425
 msgid "imports"
 msgstr "importações"
 
-#: metrics/catalog.py:395
+#: metrics/catalog.py:429
 msgid "Women in the labour force"
 msgstr "Mulheres na força de trabalho"
 
-#: metrics/catalog.py:396
+#: metrics/catalog.py:430
 msgid "Where do most women work or look for work?"
 msgstr "Onde a maioria das mulheres trabalha ou procura trabalho?"
 
-#: metrics/catalog.py:397
+#: metrics/catalog.py:431
 msgid ""
 "The share of women aged 15 and over who have a job or are looking for one."
 msgstr ""
 "A parcela de mulheres com 15 anos ou mais que têm emprego ou procuram um."
 
-#: metrics/catalog.py:399
+#: metrics/catalog.py:433
 msgid ""
 "The female labour force participation rate is the share of women aged 15 and"
 " over who are in the labour force: those who have a job and those who are "
@@ -1211,46 +1390,51 @@ msgstr ""
 "trabalho para que os países possam ser comparados. O Banco Mundial as "
 "republica."
 
-#: metrics/catalog.py:405
+#: metrics/catalog.py:439
 msgid "Female labour force participation"
 msgstr "Participação feminina na força de trabalho"
 
-#: metrics/catalog.py:406 metrics/catalog.py:568 metrics/catalog.py:586
-#: metrics/catalog.py:602
+#: metrics/catalog.py:439
+msgctxt "measured in"
+msgid "% of women"
+msgstr "% das mulheres"
+
+#: metrics/catalog.py:440 metrics/catalog.py:638 metrics/catalog.py:656
+#: metrics/catalog.py:672
 msgid "Gender"
 msgstr "Gênero"
 
-#: metrics/catalog.py:407
+#: metrics/catalog.py:441
 msgid "female employment"
 msgstr "emprego feminino"
 
-#: metrics/catalog.py:407
+#: metrics/catalog.py:441
 msgid "women working"
 msgstr "mulheres que trabalham"
 
-#: metrics/catalog.py:407
+#: metrics/catalog.py:441
 msgid "gender gap"
 msgstr "desigualdade de gênero"
 
-#: metrics/catalog.py:407
+#: metrics/catalog.py:441
 msgid "labor force participation"
 msgstr "participação na força de trabalho"
 
-#: metrics/catalog.py:411
+#: metrics/catalog.py:445
 msgid "Fertility rate"
 msgstr "Taxa de fecundidade"
 
-#: metrics/catalog.py:412
+#: metrics/catalog.py:446
 msgid "How many children do women have?"
 msgstr "Quantos filhos as mulheres têm?"
 
-#: metrics/catalog.py:413
+#: metrics/catalog.py:447
 msgid "The number of children a woman would have at this year's birth rates."
 msgstr ""
 "O número de filhos que uma mulher teria com as taxas de natalidade deste "
 "ano."
 
-#: metrics/catalog.py:415
+#: metrics/catalog.py:449
 msgid ""
 "The total fertility rate is the number of children a woman would have over "
 "her life if, at each age, she had children at the rates of that year. In "
@@ -1266,45 +1450,50 @@ msgstr ""
 "publica principalmente a partir do World Population Prospects da Divisão de "
 "População da ONU."
 
-#: metrics/catalog.py:421
+#: metrics/catalog.py:455
 msgid "Births per woman"
 msgstr "Nascimentos por mulher"
 
-#: metrics/catalog.py:422
+#: metrics/catalog.py:455
+msgctxt "measured in"
+msgid "births per woman"
+msgstr "filhos por mulher"
+
+#: metrics/catalog.py:456
 msgid "Fertility"
 msgstr "Fecundidade"
 
-#: metrics/catalog.py:423
+#: metrics/catalog.py:457
 msgid "birth rate"
 msgstr "taxa de natalidade"
 
-#: metrics/catalog.py:423
+#: metrics/catalog.py:457
 msgid "children per woman"
 msgstr "filhos por mulher"
 
-#: metrics/catalog.py:423
+#: metrics/catalog.py:457
 msgid "total fertility rate"
 msgstr "taxa de fecundidade total"
 
-#: metrics/catalog.py:423
+#: metrics/catalog.py:457
 msgid "tfr"
 msgstr "tft"
 
-#: metrics/catalog.py:427 metrics/catalog.py:437
+#: metrics/catalog.py:461 metrics/catalog.py:471
 msgid "Median age"
 msgstr "Idade mediana"
 
-#: metrics/catalog.py:428
+#: metrics/catalog.py:462
 msgid "Where are populations oldest?"
 msgstr "Onde a população é mais velha?"
 
-#: metrics/catalog.py:429
+#: metrics/catalog.py:463
 msgid "The age that splits a population in two: half younger, half older."
 msgstr ""
 "A idade que divide a população em duas: metade mais jovem, metade mais "
 "velha."
 
-#: metrics/catalog.py:431
+#: metrics/catalog.py:465
 msgid ""
 "The median age splits a population in two: half the people are younger and "
 "half are older. It is a simple measure of how old a population is. The UN "
@@ -1318,43 +1507,43 @@ msgstr ""
 " de censos, pesquisas e registros, e o Our World in Data republica as "
 "estimativas. As projeções da ONU para os próximos anos ficam de fora."
 
-#: metrics/catalog.py:438
+#: metrics/catalog.py:472
 msgid "Ageing"
 msgstr "Envelhecimento"
 
-#: metrics/catalog.py:438
+#: metrics/catalog.py:472
 msgid "Age structure"
 msgstr "Estrutura etária"
 
-#: metrics/catalog.py:439
+#: metrics/catalog.py:473
 msgid "aging"
 msgstr "envelhecimento"
 
-#: metrics/catalog.py:439
+#: metrics/catalog.py:473
 msgid "ageing"
 msgstr "envelhecimento populacional"
 
-#: metrics/catalog.py:439
+#: metrics/catalog.py:473
 msgid "old population"
 msgstr "população idosa"
 
-#: metrics/catalog.py:439
+#: metrics/catalog.py:473
 msgid "average age"
 msgstr "idade média"
 
-#: metrics/catalog.py:443 metrics/catalog.py:454
+#: metrics/catalog.py:477 metrics/catalog.py:488
 msgid "Child mortality"
 msgstr "Mortalidade infantil"
 
-#: metrics/catalog.py:444
+#: metrics/catalog.py:478
 msgid "Where do most children die before age five?"
 msgstr "Onde mais crianças morrem antes dos cinco anos?"
 
-#: metrics/catalog.py:445
+#: metrics/catalog.py:479
 msgid "Deaths before age five, per 1,000 live births."
 msgstr "Mortes antes dos cinco anos, por 1.000 nascidos vivos."
 
-#: metrics/catalog.py:447
+#: metrics/catalog.py:481
 msgid ""
 "The under-five mortality rate is the probability that a newborn baby dies "
 "before turning five, per 1,000 live births, if the death rates of that year "
@@ -1370,39 +1559,44 @@ msgstr ""
 "Banco Mundial e Divisão de População da ONU) produz as estimativas a partir "
 "de pesquisas, censos e registro civil, e o Banco Mundial as republica."
 
-#: metrics/catalog.py:453
+#: metrics/catalog.py:487
 msgid "Deaths before age 5 per 1,000 live births"
 msgstr "Mortes antes dos 5 anos por 1.000 nascidos vivos"
 
-#: metrics/catalog.py:454
+#: metrics/catalog.py:487
+msgctxt "measured in"
+msgid "per 1,000 births"
+msgstr "por 1.000 nascimentos"
+
+#: metrics/catalog.py:488
 msgid "UNICEF"
 msgstr "UNICEF"
 
-#: metrics/catalog.py:455
+#: metrics/catalog.py:489
 msgid "under-5 mortality"
 msgstr "mortalidade de menores de 5 anos"
 
-#: metrics/catalog.py:455
+#: metrics/catalog.py:489
 msgid "infant deaths"
 msgstr "mortes de bebês"
 
-#: metrics/catalog.py:455
+#: metrics/catalog.py:489
 msgid "child deaths"
 msgstr "mortes de crianças"
 
-#: metrics/catalog.py:459 metrics/catalog.py:470
+#: metrics/catalog.py:493 metrics/catalog.py:504
 msgid "Obesity"
 msgstr "Obesidade"
 
-#: metrics/catalog.py:460
+#: metrics/catalog.py:494
 msgid "Where is obesity most common?"
 msgstr "Onde a obesidade é mais comum?"
 
-#: metrics/catalog.py:461
+#: metrics/catalog.py:495
 msgid "The share of adults with a body mass index of 30 or more."
 msgstr "A parcela de adultos com índice de massa corporal de 30 ou mais."
 
-#: metrics/catalog.py:463
+#: metrics/catalog.py:497
 msgid ""
 "This is the share of adults aged 18 and over with obesity, meaning a body "
 "mass index (BMI) of 30 or more. The World Health Organization estimates it "
@@ -1418,45 +1612,45 @@ msgstr ""
 "Our World in Data a republica. A OMS licencia estes dados sob CC BY-NC-SA "
 "4.0: livres para uso não comercial, e as cópias mantêm a mesma licença."
 
-#: metrics/catalog.py:469
+#: metrics/catalog.py:503
 msgid "Adults with obesity"
 msgstr "Adultos com obesidade"
 
-#: metrics/catalog.py:470 metrics/catalog.py:620 metrics/catalog.py:637
+#: metrics/catalog.py:504 metrics/catalog.py:690 metrics/catalog.py:707
 msgid "Nutrition"
 msgstr "Nutrição"
 
-#: metrics/catalog.py:470 metrics/catalog.py:486
+#: metrics/catalog.py:504 metrics/catalog.py:520
 msgid "WHO"
 msgstr "OMS"
 
-#: metrics/catalog.py:471
+#: metrics/catalog.py:505
 msgid "overweight"
 msgstr "sobrepeso"
 
-#: metrics/catalog.py:471
+#: metrics/catalog.py:505
 msgid "bmi"
 msgstr "imc"
 
-#: metrics/catalog.py:471
+#: metrics/catalog.py:505
 msgid "body mass index"
 msgstr "índice de massa corporal"
 
-#: metrics/catalog.py:475 metrics/catalog.py:486
+#: metrics/catalog.py:509 metrics/catalog.py:520
 msgid "Health spending"
 msgstr "Gastos com saúde"
 
-#: metrics/catalog.py:476
+#: metrics/catalog.py:510
 msgid "Where is most spent on health per person?"
 msgstr "Onde se gasta mais com saúde por pessoa?"
 
-#: metrics/catalog.py:477
+#: metrics/catalog.py:511
 msgid ""
 "What a country spends on healthcare per person in a year, in US dollars."
 msgstr ""
 "O que um país gasta com saúde por pessoa em um ano, em dólares americanos."
 
-#: metrics/catalog.py:479
+#: metrics/catalog.py:513
 msgid ""
 "Current health expenditure per person covers the healthcare goods and "
 "services a country consumes in a year, whether governments, insurers or "
@@ -1470,39 +1664,44 @@ msgstr ""
 "equipamentos não estão incluídos. A Organização Mundial da Saúde o compila "
 "na Global Health Expenditure Database, e o Banco Mundial o republica."
 
-#: metrics/catalog.py:485
+#: metrics/catalog.py:519
 msgid "Health spending per person"
 msgstr "Gastos com saúde por pessoa"
 
-#: metrics/catalog.py:486
+#: metrics/catalog.py:519
+msgctxt "measured in"
+msgid "US$ per person"
+msgstr "US$ por pessoa"
+
+#: metrics/catalog.py:520
 msgid "Healthcare"
 msgstr "Assistência à saúde"
 
-#: metrics/catalog.py:487
+#: metrics/catalog.py:521
 msgid "healthcare cost"
 msgstr "custo da saúde"
 
-#: metrics/catalog.py:487
+#: metrics/catalog.py:521
 msgid "health expenditure"
 msgstr "gasto com saúde"
 
-#: metrics/catalog.py:487
+#: metrics/catalog.py:521
 msgid "medical spending"
 msgstr "despesas médicas"
 
-#: metrics/catalog.py:491
+#: metrics/catalog.py:525
 msgid "Extreme poverty"
 msgstr "Pobreza extrema"
 
-#: metrics/catalog.py:492
+#: metrics/catalog.py:526
 msgid "Where do most people live on under $3 a day?"
 msgstr "Onde mais pessoas vivem com menos de US$ 3 por dia?"
 
-#: metrics/catalog.py:493
+#: metrics/catalog.py:527
 msgid "The share of people living on less than $3.00 a day."
 msgstr "A parcela de pessoas que vivem com menos de US$ 3,00 por dia."
 
-#: metrics/catalog.py:495
+#: metrics/catalog.py:529
 msgid ""
 "This is the share of people living on less than $3.00 a day, the World "
 "Bank's international poverty line, at 2021 prices adjusted for differences "
@@ -1518,50 +1717,117 @@ msgstr ""
 "feitas pelos institutos nacionais de estatística. As pesquisas não são "
 "feitas todo ano, por isso muitos países têm lacunas entre os anos."
 
-#: metrics/catalog.py:501
+#: metrics/catalog.py:535
 msgid "Living on under $3.00 a day"
 msgstr "Vivendo com menos de US$ 3,00 por dia"
 
-#: metrics/catalog.py:502
+#: metrics/catalog.py:535 metrics/catalog.py:706 metrics/catalog.py:907
+msgctxt "measured in"
+msgid "% of people"
+msgstr "% das pessoas"
+
+#: metrics/catalog.py:536
 msgid "Poverty"
 msgstr "Pobreza"
 
-#: metrics/catalog.py:502 metrics/catalog.py:518
+#: metrics/catalog.py:536 metrics/catalog.py:555 metrics/catalog.py:571
 msgid "Income"
 msgstr "Renda"
 
-#: metrics/catalog.py:503
+#: metrics/catalog.py:537
 msgid "poor"
 msgstr "pobres"
 
-#: metrics/catalog.py:503
+#: metrics/catalog.py:537
 msgid "poverty line"
 msgstr "linha de pobreza"
 
-#: metrics/catalog.py:503
+#: metrics/catalog.py:537
 msgid "extreme poverty"
 msgstr "pobreza extrema"
 
-#: metrics/catalog.py:503
+#: metrics/catalog.py:537
 msgid "living on"
 msgstr "viver com"
 
-#: metrics/catalog.py:507
+#: metrics/catalog.py:541
+msgid "Mean income or consumption"
+msgstr "Renda ou consumo médio"
+
+#: metrics/catalog.py:542
+msgid "How much do people live on each day?"
+msgstr "Com quanto as pessoas vivem por dia?"
+
+#: metrics/catalog.py:543
+msgid ""
+"The average income or consumption per person per day, adjusted for prices."
+msgstr "A renda ou o consumo médio por pessoa por dia, ajustado pelos preços."
+
+#: metrics/catalog.py:545
+msgid ""
+"This is the average income or consumption per person per day, adjusted for "
+"inflation and for differences in living costs between countries, in "
+"international dollars at 2021 prices. The World Bank's Poverty and "
+"Inequality Platform builds it from national household surveys. Rich "
+"countries measure income after taxes and benefits; most low- and middle-"
+"income countries measure consumption instead, including food people grow for"
+" themselves. Surveys change over time, so some years compare less well. Our "
+"World in Data republishes the figures."
+msgstr ""
+"É a renda ou o consumo médio por pessoa por dia, ajustado pela inflação e "
+"pelas diferenças no custo de vida entre países, em dólares internacionais a "
+"preços de 2021. A Plataforma de Pobreza e Desigualdade do Banco Mundial o "
+"calcula a partir de pesquisas domiciliares nacionais. Países ricos medem a "
+"renda depois de impostos e benefícios; a maioria dos países de renda baixa e"
+" média mede o consumo, incluindo os alimentos que as pessoas produzem para "
+"si. As pesquisas mudam ao longo do tempo, então alguns anos se comparam "
+"pior. O Our World in Data republica os números."
+
+#: metrics/catalog.py:553
+msgid "Mean income or consumption per day"
+msgstr "Renda ou consumo médio por dia"
+
+#: metrics/catalog.py:553
+msgctxt "measured in"
+msgid "international $ a day"
+msgstr "$ internacionais por dia"
+
+#: metrics/catalog.py:555 metrics/catalog.py:707
+msgid "World Bank"
+msgstr "Banco Mundial"
+
+#: metrics/catalog.py:556
+msgid "income"
+msgstr "renda"
+
+#: metrics/catalog.py:556
+msgid "consumption"
+msgstr "consumo"
+
+#: metrics/catalog.py:556
+msgid "living standards"
+msgstr "padrão de vida"
+
+#: metrics/catalog.py:556
+msgid "average income"
+msgstr "renda média"
+
+#: metrics/catalog.py:560
 msgid "Income inequality (Gini)"
 msgstr "Desigualdade de renda (Gini)"
 
-#: metrics/catalog.py:508
+#: metrics/catalog.py:561
 msgid "Where is income most unequal?"
 msgstr "Onde a renda é mais desigual?"
 
-#: metrics/catalog.py:509
+#: metrics/catalog.py:562
 msgid ""
 "The Gini index, from 0 (everyone has the same) to 100 (one person has "
 "everything)."
 msgstr ""
 "O índice de Gini, de 0 (todos têm o mesmo) a 100 (uma pessoa tem tudo)."
 
-#: metrics/catalog.py:511
+#: metrics/catalog.py:564
 msgid ""
 "The Gini index measures how unequally income, or in some countries "
 "consumption, is shared among a country's people, from 0 (everyone has the "
@@ -1575,39 +1841,101 @@ msgstr ""
 "Mundial o calcula a partir de pesquisas domiciliares. As pesquisas não são "
 "feitas todo ano, por isso muitos países têm lacunas entre os anos."
 
-#: metrics/catalog.py:517
+#: metrics/catalog.py:570
 msgid "Gini index"
 msgstr "Índice de Gini"
 
-#: metrics/catalog.py:518
+#: metrics/catalog.py:570 metrics/catalog.py:827
+msgctxt "measured in"
+msgid "0 to 100"
+msgstr "0 a 100"
+
+#: metrics/catalog.py:571 metrics/catalog.py:588
 msgid "Inequality"
 msgstr "Desigualdade"
 
-#: metrics/catalog.py:518
+#: metrics/catalog.py:571
 msgid "Gini"
 msgstr "Gini"
 
-#: metrics/catalog.py:519
+#: metrics/catalog.py:572
 msgid "gini coefficient"
 msgstr "coeficiente de gini"
 
-#: metrics/catalog.py:519
+#: metrics/catalog.py:572
 msgid "income distribution"
 msgstr "distribuição de renda"
 
-#: metrics/catalog.py:519
+#: metrics/catalog.py:572 metrics/catalog.py:589
 msgid "inequality"
 msgstr "desigualdade"
 
-#: metrics/catalog.py:523
+#: metrics/catalog.py:576 metrics/catalog.py:586
+msgid "Income share of the richest 1%"
+msgstr "Parcela da renda do 1% mais rico"
+
+#: metrics/catalog.py:577
+msgid "Where do the richest 1% take the biggest share?"
+msgstr "Onde o 1% mais rico fica com a maior parcela?"
+
+#: metrics/catalog.py:578
+msgid ""
+"The share of all income that goes to the richest 1% of people, before taxes "
+"and benefits."
+msgstr ""
+"A parcela de toda a renda que vai para o 1% mais rico das pessoas, antes de "
+"impostos e benefícios."
+
+#: metrics/catalog.py:580
+msgid ""
+"This is the share of all income that goes to the richest 1% of people, "
+"measured before taxes and benefits. If income were shared equally, the "
+"richest 1% would get 1% of it. The World Inequality Database (WID.world) "
+"combines tax records, surveys and national accounts to capture the incomes "
+"at the very top, which surveys alone tend to miss. Our World in Data "
+"republishes the figures."
+msgstr ""
+"É a parcela de toda a renda que vai para o 1% mais rico das pessoas, medida "
+"antes de impostos e benefícios. Se a renda fosse dividida igualmente, o 1% "
+"mais rico ficaria com 1% dela. A World Inequality Database (WID.world) "
+"combina dados de impostos, pesquisas e contas nacionais para captar as "
+"rendas do topo, que as pesquisas sozinhas costumam subestimar. O Our World "
+"in Data republica os números."
+
+#: metrics/catalog.py:586
+msgctxt "measured in"
+msgid "% of income"
+msgstr "% da renda"
+
+#: metrics/catalog.py:588
+msgid "Top incomes"
+msgstr "Rendas do topo"
+
+#: metrics/catalog.py:588
+msgid "WID.world"
+msgstr "WID.world"
+
+#: metrics/catalog.py:589
+msgid "top 1%"
+msgstr "1% mais rico"
+
+#: metrics/catalog.py:589
+msgid "richest"
+msgstr "mais ricos"
+
+#: metrics/catalog.py:589
+msgid "wealth gap"
+msgstr "desigualdade de riqueza"
+
+#: metrics/catalog.py:593
 msgid "Life satisfaction"
 msgstr "Satisfação com a vida"
 
-#: metrics/catalog.py:524
+#: metrics/catalog.py:594
 msgid "Where are people happiest with their lives?"
 msgstr "Onde as pessoas estão mais satisfeitas com a vida?"
 
-#: metrics/catalog.py:525
+#: metrics/catalog.py:595
 msgid ""
 "How people rate their own lives, from 0 (worst possible) to 10 (best "
 "possible)."
@@ -1615,7 +1943,7 @@ msgstr ""
 "Como as pessoas avaliam a própria vida, de 0 (pior possível) a 10 (melhor "
 "possível)."
 
-#: metrics/catalog.py:527
+#: metrics/catalog.py:597
 msgid ""
 "Life satisfaction is the average answer to one survey question: imagine a "
 "ladder where 10 is the best possible life for you and 0 the worst; on which "
@@ -1631,51 +1959,56 @@ msgstr ""
 "Happiness Report publica os resultados do Wellbeing Research Centre da "
 "Universidade de Oxford. O Our World in Data os republica."
 
-#: metrics/catalog.py:533
+#: metrics/catalog.py:603
 msgid "Life satisfaction (0 to 10)"
 msgstr "Satisfação com a vida (0 a 10)"
 
-#: metrics/catalog.py:534
+#: metrics/catalog.py:603
+msgctxt "measured in"
+msgid "0 to 10"
+msgstr "0 a 10"
+
+#: metrics/catalog.py:604
 msgid "Happiness"
 msgstr "Felicidade"
 
-#: metrics/catalog.py:534
+#: metrics/catalog.py:604
 msgid "Well-being"
 msgstr "Bem-estar"
 
-#: metrics/catalog.py:534
+#: metrics/catalog.py:604
 msgid "World Happiness Report"
 msgstr "World Happiness Report"
 
-#: metrics/catalog.py:535
+#: metrics/catalog.py:605
 msgid "happiness"
 msgstr "felicidade"
 
-#: metrics/catalog.py:535
+#: metrics/catalog.py:605
 msgid "happiest countries"
 msgstr "países mais felizes"
 
-#: metrics/catalog.py:535
+#: metrics/catalog.py:605
 msgid "wellbeing"
 msgstr "bem-estar"
 
-#: metrics/catalog.py:535
+#: metrics/catalog.py:605
 msgid "cantril ladder"
 msgstr "escada de cantril"
 
-#: metrics/catalog.py:539
+#: metrics/catalog.py:609
 msgid "Homicide rate"
 msgstr "Taxa de homicídios"
 
-#: metrics/catalog.py:540
+#: metrics/catalog.py:610
 msgid "Where are homicide rates highest?"
 msgstr "Onde as taxas de homicídio são mais altas?"
 
-#: metrics/catalog.py:541
+#: metrics/catalog.py:611
 msgid "Intentional killings per 100,000 people."
 msgstr "Homicídios intencionais por 100.000 pessoas."
 
-#: metrics/catalog.py:543
+#: metrics/catalog.py:613
 msgid ""
 "The homicide rate counts intentional homicides per 100,000 people: unlawful "
 "killings meant to cause death or serious injury. The UN Office on Drugs and "
@@ -1690,54 +2023,59 @@ msgstr ""
 "republica. Os países registram as mortes de formas diferentes, por isso "
 "pequenas diferenças entre eles são incertas."
 
-#: metrics/catalog.py:549
+#: metrics/catalog.py:619
 msgid "Homicides per 100,000 people"
 msgstr "Homicídios por 100.000 pessoas"
 
-#: metrics/catalog.py:550
+#: metrics/catalog.py:619
+msgctxt "measured in"
+msgid "per 100,000 people"
+msgstr "por 100 mil pessoas"
+
+#: metrics/catalog.py:620
 msgid "Crime"
 msgstr "Crime"
 
-#: metrics/catalog.py:550
+#: metrics/catalog.py:620
 msgid "Violence"
 msgstr "Violência"
 
-#: metrics/catalog.py:550
+#: metrics/catalog.py:620
 msgid "UNODC"
 msgstr "UNODC"
 
-#: metrics/catalog.py:551
+#: metrics/catalog.py:621
 msgid "murder rate"
 msgstr "taxa de assassinatos"
 
-#: metrics/catalog.py:551
+#: metrics/catalog.py:621
 msgid "crime"
 msgstr "criminalidade"
 
-#: metrics/catalog.py:551
+#: metrics/catalog.py:621
 msgid "safety"
 msgstr "segurança"
 
-#: metrics/catalog.py:551
+#: metrics/catalog.py:621
 msgid "violence"
 msgstr "violência"
 
-#: metrics/catalog.py:555 metrics/catalog.py:567
+#: metrics/catalog.py:625 metrics/catalog.py:637
 msgid "Gender wage gap"
 msgstr "Diferença salarial entre homens e mulheres"
 
-#: metrics/catalog.py:556
+#: metrics/catalog.py:626
 msgid "Where is the gap between men's and women's pay widest?"
 msgstr "Onde a diferença entre o salário de homens e mulheres é maior?"
 
-#: metrics/catalog.py:557
+#: metrics/catalog.py:627
 msgid ""
 "How much less women earn than men on average, as a share of men's earnings."
 msgstr ""
 "Quanto as mulheres ganham a menos que os homens, em média, como parcela do "
 "ganho dos homens."
 
-#: metrics/catalog.py:559
+#: metrics/catalog.py:629
 msgid ""
 "The gender wage gap is the difference between men's and women's average "
 "hourly earnings, as a share of men's earnings. A positive gap means men earn"
@@ -1759,35 +2097,40 @@ msgstr ""
 "si, então compare países com cuidado. O Our World in Data deixa de fora os "
 "números que a OIT marca como pouco confiáveis."
 
-#: metrics/catalog.py:568
+#: metrics/catalog.py:637
+msgctxt "measured in"
+msgid "% of men's pay"
+msgstr "% do salário dos homens"
+
+#: metrics/catalog.py:638
 msgid "Wages"
 msgstr "Salários"
 
-#: metrics/catalog.py:569
+#: metrics/catalog.py:639
 msgid "pay gap"
 msgstr "desigualdade salarial"
 
-#: metrics/catalog.py:569
+#: metrics/catalog.py:639
 msgid "equal pay"
 msgstr "igualdade salarial"
 
-#: metrics/catalog.py:569 metrics/catalog.py:588 metrics/catalog.py:604
+#: metrics/catalog.py:639 metrics/catalog.py:658 metrics/catalog.py:674
 msgid "women"
 msgstr "mulheres"
 
-#: metrics/catalog.py:569
+#: metrics/catalog.py:639
 msgid "earnings"
 msgstr "rendimentos"
 
-#: metrics/catalog.py:573
+#: metrics/catalog.py:643
 msgid "Women's political empowerment index (V-Dem)"
 msgstr "Empoderamento político das mulheres (V-Dem)"
 
-#: metrics/catalog.py:574
+#: metrics/catalog.py:644
 msgid "Where do women have the most political power?"
 msgstr "Onde as mulheres têm mais poder político?"
 
-#: metrics/catalog.py:575
+#: metrics/catalog.py:645
 msgid ""
 "How far women enjoy civil liberties, take part in civil society and are "
 "represented in politics, from 0 to 1."
@@ -1795,7 +2138,7 @@ msgstr ""
 "Quanto as mulheres desfrutam de liberdades civis, participam da sociedade "
 "civil e estão representadas na política, de 0 a 1."
 
-#: metrics/catalog.py:577
+#: metrics/catalog.py:647
 msgid ""
 "The V-Dem women's political empowerment index measures how far women enjoy "
 "civil liberties, can take part in civil society and are represented in "
@@ -1816,38 +2159,38 @@ msgstr ""
 "estatístico, e também usa a parcela de mulheres no parlamento. O Our World "
 "in Data republica as estimativas centrais."
 
-#: metrics/catalog.py:585
+#: metrics/catalog.py:655
 msgid "Women's political empowerment index"
 msgstr "Índice de empoderamento político das mulheres"
 
-#: metrics/catalog.py:586
+#: metrics/catalog.py:656
 msgid "Women's rights"
 msgstr "Direitos das mulheres"
 
-#: metrics/catalog.py:588
+#: metrics/catalog.py:658
 msgid "gender equality"
 msgstr "igualdade de gênero"
 
-#: metrics/catalog.py:588
+#: metrics/catalog.py:658
 msgid "empowerment"
 msgstr "empoderamento"
 
-#: metrics/catalog.py:592
+#: metrics/catalog.py:662
 msgid "Share of women in parliament"
 msgstr "Parcela de mulheres no parlamento"
 
-#: metrics/catalog.py:593
+#: metrics/catalog.py:663
 msgid "Where do women hold the most seats in parliament?"
 msgstr "Onde as mulheres ocupam mais cadeiras no parlamento?"
 
-#: metrics/catalog.py:594
+#: metrics/catalog.py:664
 msgid ""
 "The share of seats in the lower or only chamber of parliament held by women."
 msgstr ""
 "A parcela das cadeiras da câmara baixa ou única do parlamento ocupadas por "
 "mulheres."
 
-#: metrics/catalog.py:596
+#: metrics/catalog.py:666
 msgid ""
 "This is the share of seats in the lower or only chamber of a country's "
 "parliament held by women. V-Dem compiles it from sources such as the Inter-"
@@ -1859,40 +2202,45 @@ msgstr ""
 "Interparlamentar, e o Our World in Data a republica. O valor do Mundo é a "
 "média dos países, cada um contado uma vez."
 
-#: metrics/catalog.py:601
+#: metrics/catalog.py:671
 msgid "Women in parliament"
 msgstr "Mulheres no parlamento"
 
-#: metrics/catalog.py:602
+#: metrics/catalog.py:671
+msgctxt "measured in"
+msgid "% of seats"
+msgstr "% das cadeiras"
+
+#: metrics/catalog.py:672
 msgid "Parliament"
 msgstr "Parlamento"
 
-#: metrics/catalog.py:604
+#: metrics/catalog.py:674
 msgid "parliament"
 msgstr "parlamento"
 
-#: metrics/catalog.py:604
+#: metrics/catalog.py:674
 msgid "representation"
 msgstr "representação"
 
-#: metrics/catalog.py:604
+#: metrics/catalog.py:674
 msgid "legislators"
 msgstr "parlamentares"
 
-#: metrics/catalog.py:608 metrics/catalog.py:619
+#: metrics/catalog.py:678 metrics/catalog.py:689
 msgid "Undernourished people"
 msgstr "Pessoas subnutridas"
 
-#: metrics/catalog.py:609
+#: metrics/catalog.py:679
 msgid "Where do the most people go hungry?"
 msgstr "Onde mais pessoas passam fome?"
 
-#: metrics/catalog.py:610
+#: metrics/catalog.py:680
 msgid "People whose food does not give them the minimum energy they need."
 msgstr ""
 "Pessoas cuja alimentação não lhes dá a energia mínima de que precisam."
 
-#: metrics/catalog.py:612
+#: metrics/catalog.py:682
 msgid ""
 "This counts the people whose usual diet does not give them enough calories "
 "to meet their minimum energy needs. The Food and Agriculture Organization of"
@@ -1909,39 +2257,39 @@ msgstr ""
 "mais habitantes, então compare países de tamanho parecido ou acompanhe um "
 "país ao longo do tempo."
 
-#: metrics/catalog.py:620
+#: metrics/catalog.py:690
 msgid "Hunger"
 msgstr "Fome"
 
-#: metrics/catalog.py:620 metrics/catalog.py:652
+#: metrics/catalog.py:690 metrics/catalog.py:722
 msgid "FAO"
 msgstr "FAO"
 
-#: metrics/catalog.py:621 metrics/catalog.py:638
+#: metrics/catalog.py:691 metrics/catalog.py:708
 msgid "hunger"
 msgstr "fome"
 
-#: metrics/catalog.py:621
+#: metrics/catalog.py:691
 msgid "malnutrition"
 msgstr "desnutrição"
 
-#: metrics/catalog.py:621
+#: metrics/catalog.py:691
 msgid "food security"
 msgstr "segurança alimentar"
 
-#: metrics/catalog.py:621
+#: metrics/catalog.py:691
 msgid "fao"
 msgstr "fao"
 
-#: metrics/catalog.py:625
+#: metrics/catalog.py:695
 msgid "People who cannot afford a healthy diet"
 msgstr "Sem acesso a uma dieta saudável"
 
-#: metrics/catalog.py:626
+#: metrics/catalog.py:696
 msgid "Where is a healthy diet out of reach?"
 msgstr "Onde uma dieta saudável está fora do alcance?"
 
-#: metrics/catalog.py:627
+#: metrics/catalog.py:697
 msgid ""
 "The share of people whose income cannot pay for the cheapest healthy diet "
 "and basic needs."
@@ -1949,7 +2297,7 @@ msgstr ""
 "A parcela de pessoas cuja renda não paga a dieta saudável mais barata e as "
 "necessidades básicas."
 
-#: metrics/catalog.py:629
+#: metrics/catalog.py:699
 msgid ""
 "This is the share of people who cannot afford the cheapest healthy diet in "
 "their country: the lowest-cost set of foods that meets the dietary "
@@ -1966,39 +2314,35 @@ msgstr ""
 "o Banco Mundial a calculam com métodos de Bai et al. (2024), e o Our World "
 "in Data a republica."
 
-#: metrics/catalog.py:636
+#: metrics/catalog.py:706
 msgid "Cannot afford a healthy diet"
 msgstr "Não podem pagar uma dieta saudável"
 
-#: metrics/catalog.py:637
+#: metrics/catalog.py:707
 msgid "Food prices"
 msgstr "Preços dos alimentos"
 
-#: metrics/catalog.py:637
-msgid "World Bank"
-msgstr "Banco Mundial"
-
-#: metrics/catalog.py:638
+#: metrics/catalog.py:708
 msgid "food prices"
 msgstr "preços dos alimentos"
 
-#: metrics/catalog.py:638
+#: metrics/catalog.py:708
 msgid "cost of a healthy diet"
 msgstr "custo de uma dieta saudável"
 
-#: metrics/catalog.py:638
+#: metrics/catalog.py:708
 msgid "affordability"
 msgstr "acessibilidade"
 
-#: metrics/catalog.py:642 metrics/catalog.py:651
+#: metrics/catalog.py:712 metrics/catalog.py:721
 msgid "Meat production"
 msgstr "Produção de carne"
 
-#: metrics/catalog.py:643
+#: metrics/catalog.py:713
 msgid "Which countries produce the most meat?"
 msgstr "Quais países produzem mais carne?"
 
-#: metrics/catalog.py:644
+#: metrics/catalog.py:714
 msgid ""
 "Meat produced in a year, in tonnes: cattle, poultry, pigs, sheep, goats and "
 "game."
@@ -2006,7 +2350,7 @@ msgstr ""
 "Carne produzida em um ano, em toneladas: bovinos, aves, suínos, ovinos, "
 "caprinos e caça."
 
-#: metrics/catalog.py:646
+#: metrics/catalog.py:716
 msgid ""
 "This is the meat a country produces in a year, in tonnes, from cattle, "
 "poultry, pigs, sheep, goats and wild game. The Food and Agriculture "
@@ -2018,43 +2362,48 @@ msgstr ""
 "para a Alimentação e a Agricultura (FAO) a compila, e o Our World in Data a "
 "republica."
 
-#: metrics/catalog.py:652
+#: metrics/catalog.py:721 metrics/catalog.py:860
+msgctxt "measured in"
+msgid "tonnes"
+msgstr "toneladas"
+
+#: metrics/catalog.py:722
 msgid "Meat"
 msgstr "Carne"
 
-#: metrics/catalog.py:652
+#: metrics/catalog.py:722
 msgid "Agriculture"
 msgstr "Agricultura"
 
-#: metrics/catalog.py:653
+#: metrics/catalog.py:723
 msgid "meat"
 msgstr "carne"
 
-#: metrics/catalog.py:653
+#: metrics/catalog.py:723
 msgid "livestock"
 msgstr "pecuária"
 
-#: metrics/catalog.py:653
+#: metrics/catalog.py:723
 msgid "beef"
 msgstr "carne bovina"
 
-#: metrics/catalog.py:653
+#: metrics/catalog.py:723
 msgid "chicken"
 msgstr "frango"
 
-#: metrics/catalog.py:653
+#: metrics/catalog.py:723
 msgid "pork"
 msgstr "carne suína"
 
-#: metrics/catalog.py:657
+#: metrics/catalog.py:727
 msgid "Human rights index (V-Dem)"
 msgstr "Índice de direitos humanos (V-Dem)"
 
-#: metrics/catalog.py:658
+#: metrics/catalog.py:728
 msgid "Where are civil liberties best protected?"
 msgstr "Onde as liberdades civis são mais bem protegidas?"
 
-#: metrics/catalog.py:659
+#: metrics/catalog.py:729
 msgid ""
 "How free people are from state violence, and how far they enjoy basic "
 "freedoms, from 0 to 1."
@@ -2062,7 +2411,7 @@ msgstr ""
 "Quão livres as pessoas estão da violência do Estado e quanto desfrutam das "
 "liberdades básicas, de 0 a 1."
 
-#: metrics/catalog.py:661
+#: metrics/catalog.py:731
 msgid ""
 "The V-Dem human rights index measures how free people are from government "
 "torture, political killings and forced labour, and how far they enjoy "
@@ -2080,35 +2429,35 @@ msgstr ""
 "especialistas em cada país por meio de um modelo estatístico. O Our World in"
 " Data republica as estimativas centrais."
 
-#: metrics/catalog.py:668
+#: metrics/catalog.py:738
 msgid "Human rights index"
 msgstr "Índice de direitos humanos"
 
-#: metrics/catalog.py:669
+#: metrics/catalog.py:739
 msgid "Human rights"
 msgstr "Direitos humanos"
 
-#: metrics/catalog.py:669
+#: metrics/catalog.py:739
 msgid "Civil liberties"
 msgstr "Liberdades civis"
 
-#: metrics/catalog.py:671
+#: metrics/catalog.py:741
 msgid "civil liberties"
 msgstr "liberdades civis"
 
-#: metrics/catalog.py:671
+#: metrics/catalog.py:741
 msgid "repression"
 msgstr "repressão"
 
-#: metrics/catalog.py:675
+#: metrics/catalog.py:745
 msgid "Political corruption index (V-Dem)"
 msgstr "Índice de corrupção política (V-Dem)"
 
-#: metrics/catalog.py:676
+#: metrics/catalog.py:746
 msgid "Where is political corruption most widespread?"
 msgstr "Onde a corrupção política é mais disseminada?"
 
-#: metrics/catalog.py:677
+#: metrics/catalog.py:747
 msgid ""
 "How far leaders and officials take bribes and steal public money, from 0 "
 "(least corrupt) to 1 (most corrupt)."
@@ -2116,7 +2465,7 @@ msgstr ""
 "Quanto governantes e servidores aceitam propina e desviam dinheiro público, "
 "de 0 (menos corrupto) a 1 (mais corrupto)."
 
-#: metrics/catalog.py:679
+#: metrics/catalog.py:749
 msgid ""
 "The V-Dem political corruption index measures how far a country's "
 "government, parliament, courts and public officials take bribes or steal "
@@ -2139,41 +2488,41 @@ msgstr ""
 "pessoas encontram no dia a dia. O Our World in Data republica as estimativas"
 " centrais."
 
-#: metrics/catalog.py:688
+#: metrics/catalog.py:758
 msgid "Political corruption index"
 msgstr "Índice de corrupção política"
 
-#: metrics/catalog.py:689 metrics/catalog.py:706 metrics/catalog.py:722
-#: metrics/catalog.py:740
+#: metrics/catalog.py:759 metrics/catalog.py:776 metrics/catalog.py:792
+#: metrics/catalog.py:810
 msgid "Bribery"
 msgstr "Suborno"
 
-#: metrics/catalog.py:689
+#: metrics/catalog.py:759
 msgid "Embezzlement"
 msgstr "Desvio de dinheiro"
 
-#: metrics/catalog.py:690 metrics/catalog.py:707 metrics/catalog.py:723
-#: metrics/catalog.py:741 metrics/catalog.py:759
+#: metrics/catalog.py:760 metrics/catalog.py:777 metrics/catalog.py:793
+#: metrics/catalog.py:811 metrics/catalog.py:829
 msgid "corruption"
 msgstr "corrupção"
 
-#: metrics/catalog.py:690 metrics/catalog.py:759
+#: metrics/catalog.py:760 metrics/catalog.py:829
 msgid "bribery"
 msgstr "propina"
 
-#: metrics/catalog.py:690
+#: metrics/catalog.py:760
 msgid "embezzlement"
 msgstr "peculato"
 
-#: metrics/catalog.py:694
+#: metrics/catalog.py:764
 msgid "Executive corruption index (V-Dem)"
 msgstr "Índice de corrupção no Executivo (V-Dem)"
 
-#: metrics/catalog.py:695
+#: metrics/catalog.py:765
 msgid "Where do leaders and ministers take the most bribes?"
 msgstr "Onde governantes e ministros recebem mais propina?"
 
-#: metrics/catalog.py:696
+#: metrics/catalog.py:766
 msgid ""
 "How far heads of government and ministers take bribes or steal public money,"
 " from 0 (least corrupt) to 1 (most corrupt)."
@@ -2181,7 +2530,7 @@ msgstr ""
 "Quanto chefes de governo e ministros aceitam propina ou desviam dinheiro "
 "público, de 0 (menos corrupto) a 1 (mais corrupto)."
 
-#: metrics/catalog.py:698
+#: metrics/catalog.py:768
 msgid ""
 "The V-Dem executive corruption index measures how far high-ranking members "
 "of the executive, such as the head of government and cabinet ministers, take"
@@ -2199,31 +2548,31 @@ msgstr ""
 "especialistas em cada país por meio de um modelo estatístico. O Our World in"
 " Data republica as estimativas centrais."
 
-#: metrics/catalog.py:705
+#: metrics/catalog.py:775
 msgid "Executive corruption index"
 msgstr "Índice de corrupção no Executivo"
 
-#: metrics/catalog.py:706
+#: metrics/catalog.py:776
 msgid "Executive"
 msgstr "Executivo"
 
-#: metrics/catalog.py:707
+#: metrics/catalog.py:777
 msgid "government corruption"
 msgstr "corrupção no governo"
 
-#: metrics/catalog.py:707
+#: metrics/catalog.py:777
 msgid "ministers"
 msgstr "ministros"
 
-#: metrics/catalog.py:711
+#: metrics/catalog.py:781
 msgid "Public sector corruption index (V-Dem)"
 msgstr "Índice de corrupção no setor público (V-Dem)"
 
-#: metrics/catalog.py:712
+#: metrics/catalog.py:782
 msgid "Where do public officials take the most bribes?"
 msgstr "Onde os servidores públicos recebem mais propina?"
 
-#: metrics/catalog.py:713
+#: metrics/catalog.py:783
 msgid ""
 "How far public sector employees take bribes or steal public money, from 0 "
 "(least corrupt) to 1 (most corrupt)."
@@ -2231,7 +2580,7 @@ msgstr ""
 "Quanto os servidores públicos aceitam propina ou desviam dinheiro público, "
 "de 0 (menos corrupto) a 1 (mais corrupto)."
 
-#: metrics/catalog.py:715
+#: metrics/catalog.py:785
 msgid ""
 "The V-Dem public sector corruption index measures how far public sector "
 "employees take bribes or steal public money. It runs from 0 (least corrupt) "
@@ -2247,31 +2596,31 @@ msgstr ""
 "de milhares de especialistas em cada país por meio de um modelo estatístico."
 " O Our World in Data republica as estimativas centrais."
 
-#: metrics/catalog.py:721
+#: metrics/catalog.py:791
 msgid "Public sector corruption index"
 msgstr "Índice de corrupção no setor público"
 
-#: metrics/catalog.py:722 metrics/catalog.py:758
+#: metrics/catalog.py:792 metrics/catalog.py:828
 msgid "Public sector"
 msgstr "Setor público"
 
-#: metrics/catalog.py:723
+#: metrics/catalog.py:793
 msgid "civil servants"
 msgstr "servidores públicos"
 
-#: metrics/catalog.py:723
+#: metrics/catalog.py:793
 msgid "bureaucracy"
 msgstr "burocracia"
 
-#: metrics/catalog.py:727
+#: metrics/catalog.py:797
 msgid "Judicial corruption score (V-Dem)"
 msgstr "Nota de corrupção no Judiciário (V-Dem)"
 
-#: metrics/catalog.py:728
+#: metrics/catalog.py:798
 msgid "Where can court decisions be bought?"
 msgstr "Onde se pode comprar uma decisão judicial?"
 
-#: metrics/catalog.py:729
+#: metrics/catalog.py:799
 msgid ""
 "How often people and businesses bribe the courts. Higher means less "
 "corruption; 0 is about the average."
@@ -2279,7 +2628,7 @@ msgstr ""
 "Com que frequência pessoas e empresas subornam a Justiça. Mais alto "
 "significa menos corrupção; 0 é mais ou menos a média."
 
-#: metrics/catalog.py:731
+#: metrics/catalog.py:801
 msgid ""
 "The V-Dem judicial corruption score measures how often people or businesses "
 "make undocumented extra payments or bribes to speed up or delay a court "
@@ -2300,35 +2649,35 @@ msgstr ""
 "avaliações de milhares de especialistas em cada país por meio de um modelo "
 "estatístico. O Our World in Data republica as estimativas centrais."
 
-#: metrics/catalog.py:739
+#: metrics/catalog.py:809
 msgid "Judicial corruption score"
 msgstr "Nota de corrupção no Judiciário"
 
-#: metrics/catalog.py:740
+#: metrics/catalog.py:810
 msgid "Courts"
 msgstr "Tribunais"
 
-#: metrics/catalog.py:741
+#: metrics/catalog.py:811
 msgid "courts"
 msgstr "tribunais"
 
-#: metrics/catalog.py:741
+#: metrics/catalog.py:811
 msgid "judges"
 msgstr "juízes"
 
-#: metrics/catalog.py:741
+#: metrics/catalog.py:811
 msgid "justice"
 msgstr "justiça"
 
-#: metrics/catalog.py:745
+#: metrics/catalog.py:815
 msgid "Corruption Perceptions Index (CPI)"
 msgstr "Índice de Percepção da Corrupção (IPC)"
 
-#: metrics/catalog.py:746
+#: metrics/catalog.py:816
 msgid "Which countries are seen as the most corrupt?"
 msgstr "Quais países são vistos como os mais corruptos?"
 
-#: metrics/catalog.py:747
+#: metrics/catalog.py:817
 msgid ""
 "How corrupt experts and business people see a country's public sector, from "
 "0 (very corrupt) to 100 (very clean)."
@@ -2336,7 +2685,7 @@ msgstr ""
 "Quão corrupto especialistas e empresários veem o setor público de um país, "
 "de 0 (muito corrupto) a 100 (muito íntegro)."
 
-#: metrics/catalog.py:749
+#: metrics/catalog.py:819
 msgid ""
 "Transparency International's Corruption Perceptions Index scores how corrupt"
 " a country's public sector is seen to be by experts and business people. "
@@ -2357,35 +2706,35 @@ msgstr ""
 " podem ser comparadas ao longo do tempo. O Our World in Data republica as "
 "notas."
 
-#: metrics/catalog.py:757
+#: metrics/catalog.py:827
 msgid "Corruption Perceptions Index"
 msgstr "Índice de Percepção da Corrupção"
 
-#: metrics/catalog.py:758
+#: metrics/catalog.py:828
 msgid "Perceptions"
 msgstr "Percepção"
 
-#: metrics/catalog.py:758
+#: metrics/catalog.py:828
 msgid "Transparency International"
 msgstr "Transparência Internacional"
 
-#: metrics/catalog.py:759
+#: metrics/catalog.py:829
 msgid "transparency international"
 msgstr "transparência internacional"
 
-#: metrics/catalog.py:763
+#: metrics/catalog.py:833
 msgid "Military spending"
 msgstr "Gastos militares"
 
-#: metrics/catalog.py:764
+#: metrics/catalog.py:834
 msgid "Which countries spend most on their armed forces?"
 msgstr "Quais países gastam mais com suas forças armadas?"
 
-#: metrics/catalog.py:765
+#: metrics/catalog.py:835
 msgid "Military expenditure as a share of GDP."
 msgstr "Gastos militares como parcela do PIB."
 
-#: metrics/catalog.py:767
+#: metrics/catalog.py:837
 msgid ""
 "Military expenditure covers spending on the armed forces, including "
 "peacekeeping, defence ministries, paramilitary forces and military space "
@@ -2399,58 +2748,58 @@ msgstr ""
 "Internacional de Pesquisa para a Paz de Estocolmo (SIPRI) os compila a "
 "partir de fontes oficiais, e o Banco Mundial os republica."
 
-#: metrics/catalog.py:772
+#: metrics/catalog.py:842
 msgid "Military spending, % of GDP"
 msgstr "Gastos militares, % do PIB"
 
-#: metrics/catalog.py:773
+#: metrics/catalog.py:843
 msgid "Defence"
 msgstr "Defesa"
 
-#: metrics/catalog.py:773
+#: metrics/catalog.py:843
 msgid "Military"
 msgstr "Forças armadas"
 
-#: metrics/catalog.py:773
+#: metrics/catalog.py:843
 msgid "SIPRI"
 msgstr "SIPRI"
 
-#: metrics/catalog.py:774
+#: metrics/catalog.py:844
 msgid "defense"
 msgstr "defesa"
 
-#: metrics/catalog.py:774
+#: metrics/catalog.py:844
 msgid "defence budget"
 msgstr "orçamento de defesa"
 
-#: metrics/catalog.py:774
+#: metrics/catalog.py:844
 msgid "army"
 msgstr "exército"
 
-#: metrics/catalog.py:774
+#: metrics/catalog.py:844
 msgid "armed forces"
 msgstr "forças armadas"
 
-#: metrics/catalog.py:774
+#: metrics/catalog.py:844
 msgid "sipri"
 msgstr "sipri"
 
-#: metrics/catalog.py:778
+#: metrics/catalog.py:848
 msgid "CO2 emissions"
 msgstr "Emissões de CO2"
 
-#: metrics/catalog.py:779
+#: metrics/catalog.py:849
 msgid "Who emits the most carbon dioxide per person?"
 msgstr "Quem emite mais dióxido de carbono por pessoa?"
 
-#: metrics/catalog.py:780
+#: metrics/catalog.py:850
 msgid ""
 "Carbon dioxide from fossil fuels and industry, per person and in total."
 msgstr ""
 "Dióxido de carbono de combustíveis fósseis e da indústria, por pessoa e no "
 "total."
 
-#: metrics/catalog.py:782
+#: metrics/catalog.py:852
 msgid ""
 "These are emissions of carbon dioxide (CO2) from burning fossil fuels and "
 "from industry, such as cement, counted in the country where they are "
@@ -2466,67 +2815,72 @@ msgstr ""
 "Budget anual, e o Our World in Data acrescenta os números por pessoa e as "
 "republica."
 
-#: metrics/catalog.py:789
+#: metrics/catalog.py:859
 msgid "CO2 per person"
 msgstr "CO2 por pessoa"
 
-#: metrics/catalog.py:789
+#: metrics/catalog.py:859
+msgctxt "measured in"
+msgid "tonnes per person"
+msgstr "toneladas por pessoa"
+
+#: metrics/catalog.py:859
 msgid "Per person"
 msgstr "Por pessoa"
 
-#: metrics/catalog.py:790
+#: metrics/catalog.py:860
 msgid "Total CO2"
 msgstr "CO2 total"
 
-#: metrics/catalog.py:790 templates/politics/country.html:85
+#: metrics/catalog.py:860 templates/politics/country.html:85
 msgid "Total"
 msgstr "Total"
 
-#: metrics/catalog.py:792
+#: metrics/catalog.py:862
 msgid "Climate"
 msgstr "Clima"
 
-#: metrics/catalog.py:792
+#: metrics/catalog.py:862
 msgid "CO2"
 msgstr "CO2"
 
-#: metrics/catalog.py:792
+#: metrics/catalog.py:862
 msgid "Emissions"
 msgstr "Emissões"
 
-#: metrics/catalog.py:793
+#: metrics/catalog.py:863
 msgid "carbon dioxide"
 msgstr "dióxido de carbono"
 
-#: metrics/catalog.py:793
+#: metrics/catalog.py:863
 msgid "carbon emissions"
 msgstr "emissões de carbono"
 
-#: metrics/catalog.py:793
+#: metrics/catalog.py:863
 msgid "greenhouse gas"
 msgstr "gás de efeito estufa"
 
-#: metrics/catalog.py:793
+#: metrics/catalog.py:863
 msgid "climate change"
 msgstr "mudança climática"
 
-#: metrics/catalog.py:793
+#: metrics/catalog.py:863
 msgid "co2"
 msgstr "co2"
 
-#: metrics/catalog.py:797
+#: metrics/catalog.py:867
 msgid "Electricity mix"
 msgstr "Matriz elétrica"
 
-#: metrics/catalog.py:798
+#: metrics/catalog.py:868
 msgid "Where does each country's electricity come from?"
 msgstr "De onde vem a eletricidade de cada país?"
 
-#: metrics/catalog.py:799
+#: metrics/catalog.py:869
 msgid "The share of electricity generated by each source, from coal to solar."
 msgstr "A parcela da eletricidade gerada por cada fonte, do carvão à solar."
 
-#: metrics/catalog.py:801
+#: metrics/catalog.py:871
 msgid ""
 "This is the share of a country's electricity generated by each source, in "
 "percent of the total. Low-carbon sources are nuclear power and renewables: "
@@ -2541,135 +2895,143 @@ msgstr ""
 " nacionais e internacionais, e o Our World in Data os combina com outras "
 "fontes para os anos anteriores."
 
-#: metrics/catalog.py:808
+#: metrics/catalog.py:878
 msgid "Low-carbon share"
 msgstr "Participação de baixo carbono"
 
-#: metrics/catalog.py:808
+#: metrics/catalog.py:878 metrics/catalog.py:879 metrics/catalog.py:880
+#: metrics/catalog.py:881 metrics/catalog.py:882 metrics/catalog.py:883
+#: metrics/catalog.py:884 metrics/catalog.py:885 metrics/catalog.py:886
+#: metrics/catalog.py:887
+msgctxt "measured in"
+msgid "% of electricity"
+msgstr "% da eletricidade"
+
+#: metrics/catalog.py:878
 msgid "Low-carbon"
 msgstr "Baixo carbono"
 
-#: metrics/catalog.py:809
+#: metrics/catalog.py:879
 msgid "Coal share"
 msgstr "Participação do carvão"
 
-#: metrics/catalog.py:809
+#: metrics/catalog.py:879
 msgid "Coal"
 msgstr "Carvão"
 
-#: metrics/catalog.py:810
+#: metrics/catalog.py:880
 msgid "Gas share"
 msgstr "Participação do gás"
 
-#: metrics/catalog.py:810
+#: metrics/catalog.py:880
 msgid "Gas"
 msgstr "Gás"
 
-#: metrics/catalog.py:811
+#: metrics/catalog.py:881
 msgid "Oil share"
 msgstr "Participação do petróleo"
 
-#: metrics/catalog.py:811
+#: metrics/catalog.py:881
 msgid "Oil"
 msgstr "Petróleo"
 
-#: metrics/catalog.py:812
+#: metrics/catalog.py:882
 msgid "Nuclear share"
 msgstr "Participação nuclear"
 
-#: metrics/catalog.py:812
+#: metrics/catalog.py:882
 msgid "Nuclear"
 msgstr "Nuclear"
 
-#: metrics/catalog.py:813
+#: metrics/catalog.py:883
 msgid "Hydro share"
 msgstr "Participação hidrelétrica"
 
-#: metrics/catalog.py:813
+#: metrics/catalog.py:883
 msgid "Hydro"
 msgstr "Hidrelétrica"
 
-#: metrics/catalog.py:814
+#: metrics/catalog.py:884
 msgid "Wind share"
 msgstr "Participação eólica"
 
-#: metrics/catalog.py:814
+#: metrics/catalog.py:884
 msgid "Wind"
 msgstr "Eólica"
 
-#: metrics/catalog.py:815
+#: metrics/catalog.py:885
 msgid "Solar share"
 msgstr "Participação solar"
 
-#: metrics/catalog.py:815
+#: metrics/catalog.py:885
 msgid "Solar"
 msgstr "Solar"
 
-#: metrics/catalog.py:816
+#: metrics/catalog.py:886
 msgid "Bioenergy share"
 msgstr "Participação da bioenergia"
 
-#: metrics/catalog.py:816
+#: metrics/catalog.py:886
 msgid "Bioenergy"
 msgstr "Bioenergia"
 
-#: metrics/catalog.py:817
+#: metrics/catalog.py:887
 msgid "Other renewables share"
 msgstr "Participação de outras renováveis"
 
-#: metrics/catalog.py:817
+#: metrics/catalog.py:887
 msgid "Other renewables"
 msgstr "Outras renováveis"
 
-#: metrics/catalog.py:819
+#: metrics/catalog.py:889
 msgid "Energy"
 msgstr "Energia"
 
-#: metrics/catalog.py:819
+#: metrics/catalog.py:889
 msgid "Electricity"
 msgstr "Eletricidade"
 
-#: metrics/catalog.py:819
+#: metrics/catalog.py:889
 msgid "Renewables"
 msgstr "Renováveis"
 
-#: metrics/catalog.py:819
+#: metrics/catalog.py:889
 msgid "Ember"
 msgstr "Ember"
 
-#: metrics/catalog.py:820
+#: metrics/catalog.py:890
 msgid "energy mix"
 msgstr "matriz energética"
 
-#: metrics/catalog.py:820
+#: metrics/catalog.py:890
 msgid "renewable energy"
 msgstr "energia renovável"
 
-#: metrics/catalog.py:820
+#: metrics/catalog.py:890
 msgid "solar power"
 msgstr "energia solar"
 
-#: metrics/catalog.py:820
+#: metrics/catalog.py:890
 msgid "wind power"
 msgstr "energia eólica"
 
-#: metrics/catalog.py:820
+#: metrics/catalog.py:890
 msgid "nuclear power"
 msgstr "energia nuclear"
 
-#: metrics/catalog.py:820
+#: metrics/catalog.py:890
 msgid "coal power"
 msgstr "energia a carvão"
 
-#: metrics/catalog.py:824 metrics/catalog.py:841
+#: metrics/catalog.py:894 metrics/catalog.py:911
 msgid "Air pollution"
 msgstr "Poluição do ar"
 
-#: metrics/catalog.py:825
+#: metrics/catalog.py:895
 msgid "Where is the air most polluted?"
 msgstr "Onde o ar é mais poluído?"
 
-#: metrics/catalog.py:826
+#: metrics/catalog.py:896
 msgid ""
 "How much fine-particle pollution people breathe, and how many live above the"
 " WHO guideline."
@@ -2677,7 +3039,7 @@ msgstr ""
 "Quanta poluição por partículas finas as pessoas respiram e quantas vivem "
 "acima da referência da OMS."
 
-#: metrics/catalog.py:828
+#: metrics/catalog.py:898
 msgid ""
 "Fine particles smaller than 2.5 microns (PM2.5) reach deep into the lungs "
 "and cause severe harm. The first measure is the average yearly concentration"
@@ -2695,19 +3057,24 @@ msgstr ""
 "cúbico, o valor de referência da Organização Mundial da Saúde (OMS) que "
 "essas estimativas usam. O Banco Mundial republica as duas."
 
-#: metrics/catalog.py:836
+#: metrics/catalog.py:906
 msgid "PM2.5 exposure"
 msgstr "Exposição a PM2,5"
 
-#: metrics/catalog.py:837
+#: metrics/catalog.py:906
+msgctxt "measured in"
+msgid "µg/m³"
+msgstr "µg/m³"
+
+#: metrics/catalog.py:907
 msgid "People above the WHO guideline"
 msgstr "Pessoas acima da referência da OMS"
 
-#: metrics/catalog.py:838
+#: metrics/catalog.py:908
 msgid "Above WHO guideline"
 msgstr "Acima da referência da OMS"
 
-#: metrics/catalog.py:839
+#: metrics/catalog.py:909
 msgid ""
 "The share of people living where PM2.5 is above 10 µg/m³, the WHO guideline "
 "these estimates use. The data ends in 2017."
@@ -2715,23 +3082,23 @@ msgstr ""
 "A parcela de pessoas que vivem onde o PM2,5 passa de 10 µg/m³, a referência "
 "da OMS que essas estimativas usam. Os dados terminam em 2017."
 
-#: metrics/catalog.py:841
+#: metrics/catalog.py:911
 msgid "PM2.5"
 msgstr "PM2,5"
 
-#: metrics/catalog.py:842
+#: metrics/catalog.py:912
 msgid "smog"
 msgstr "smog"
 
-#: metrics/catalog.py:842
+#: metrics/catalog.py:912
 msgid "air quality"
 msgstr "qualidade do ar"
 
-#: metrics/catalog.py:842
+#: metrics/catalog.py:912
 msgid "particulate matter"
 msgstr "material particulado"
 
-#: metrics/catalog.py:842
+#: metrics/catalog.py:912
 msgid "pollution"
 msgstr "poluição"
 
@@ -2866,15 +3233,15 @@ msgstr "Junta militar"
 msgid "Acting chancellor"
 msgstr "Chanceler interino"
 
-#: politics/queries.py:119
+#: politics/queries.py:123
 msgid "no change"
 msgstr "sem mudança"
 
-#: politics/queries.py:230 templates/politics/_party_logo.html:2
+#: politics/queries.py:239 templates/politics/_party_logo.html:2
 msgid "No party"
 msgstr "Sem partido"
 
-#: politics/queries.py:244
+#: politics/queries.py:253
 #, python-format
 msgid "%(party)s logo: %(author)s, %(licence)s, Wikimedia Commons"
 msgstr "Logotipo do %(party)s: %(author)s, %(licence)s, Wikimedia Commons"
@@ -2935,18 +3302,18 @@ msgstr "Pular para o conteúdo"
 msgid "Main"
 msgstr "Principal"
 
-#: templates/base.html:26 templates/base.html:93
+#: templates/base.html:26 templates/base.html:95
 #: templates/metrics/metric_detail.html:11 templates/politics/country.html:28
 msgid "Metrics"
 msgstr "Indicadores"
 
-#: templates/base.html:27 templates/base.html:94
+#: templates/base.html:27 templates/base.html:96
 #: templates/politics/country.html:12 templates/politics/index.html:4
 #: templates/politics/index.html:10
 msgid "Politics"
 msgstr "Política"
 
-#: templates/base.html:28 templates/base.html:55 templates/base.html:95
+#: templates/base.html:28 templates/base.html:55 templates/base.html:97
 #: templates/blog/post_detail.html:10 templates/blog/post_list.html:4
 #: templates/blog/post_list.html:10
 msgid "Posts"
@@ -2977,7 +3344,7 @@ msgid "Categories"
 msgstr "Categorias"
 
 #: templates/base.html:50 templates/metrics/metric_list.html:4
-#: templates/metrics/metric_list.html:9 templates/pages/home.html:137
+#: templates/metrics/metric_list.html:9 templates/pages/home.html:138
 msgid "All metrics"
 msgstr "Todos os indicadores"
 
@@ -2991,41 +3358,45 @@ msgstr "Sobre o autor"
 
 #: templates/base.html:69
 msgid ""
-"Hello there, I’m Klaus Jürgen Folz, a Mechanical Engineer working with Power"
-" BI, Python, machine learning and data analysis in Austria. I’m also the "
-"lead developer of Measure Killer, a Power BI external tool with more than "
-"100k downloads. I built Data Mechanics to make public data free to explore "
-"and download, and to share the knowledge and small wins that help people who"
-" work with data."
+"Hello there, I’m Klaus Jürgen Folz. I studied Mechanical Engineering at the "
+"Federal University of Rio Grande do Sul (UFRGS) in Brazil, and I work in "
+"Austria as a lead Python and Power BI developer. I built Data Mechanics "
+"because good decisions start with facts. Public data is often scattered, "
+"hard to find or locked behind paywalls, and too much of what we read about "
+"the world is biased. Here, every number is shown as it was published, next "
+"to its source, so anyone can check it, compare countries and leaders, and "
+"draw their own conclusions."
 msgstr ""
-"Olá, eu sou Klaus Jürgen Folz, engenheiro mecânico, e trabalho com Power BI,"
-" Python, machine learning e análise de dados na Áustria. Também sou o "
-"desenvolvedor principal do Measure Killer, uma ferramenta externa para o "
-"Power BI com mais de 100 mil downloads. Criei o Data Mechanics para que "
-"dados públicos sejam livres para explorar e baixar, e para compartilhar o "
-"conhecimento e as pequenas conquistas que ajudam quem trabalha com dados."
+"Olá, eu sou Klaus Jürgen Folz. Me formei em Engenharia Mecânica na "
+"Universidade Federal do Rio Grande do Sul (UFRGS) e trabalho na Áustria como"
+" desenvolvedor líder em Python e Power BI. Criei o Data Mechanics porque "
+"boas decisões começam com fatos. Os dados públicos costumam estar "
+"espalhados, ser difíceis de encontrar ou ficar atrás de paywalls, e muito do"
+" que lemos sobre o mundo é tendencioso. Aqui, cada número aparece como foi "
+"publicado, ao lado da sua fonte, para que qualquer pessoa possa conferi-lo, "
+"comparar países e governantes e tirar as próprias conclusões."
 
-#: templates/base.html:77
+#: templates/base.html:79
 msgid "Follow on LinkedIn"
 msgstr "Seguir no LinkedIn"
 
-#: templates/base.html:80
+#: templates/base.html:82
 msgid "Follow on GitHub"
 msgstr "Seguir no GitHub"
 
-#: templates/base.html:92
+#: templates/base.html:94
 msgid "Footer"
 msgstr "Rodapé"
 
-#: templates/base.html:96
+#: templates/base.html:98
 msgid "Source code"
 msgstr "Código-fonte"
 
-#: templates/base.html:96
+#: templates/base.html:98
 msgid "Source code: coming soon"
 msgstr "Código-fonte: em breve"
 
-#: templates/base.html:98
+#: templates/base.html:100
 msgid ""
 "Data from the <a href=\"https://data.worldbank.org/\">World Bank</a>, the <a"
 " href=\"https://www.imf.org/external/datamapper/\">IMF</a>, the <a "
@@ -3051,7 +3422,7 @@ msgid "Breadcrumb"
 msgstr "Trilha de navegação"
 
 #: templates/blog/post_detail.html:14 templates/blog/post_list.html:25
-#: templates/pages/home.html:94
+#: templates/pages/home.html:95
 #, python-format
 msgid "%(minutes)s min read"
 msgstr "%(minutes)s min de leitura"
@@ -3085,14 +3456,14 @@ msgstr "Ainda não há artigos. O primeiro está a caminho."
 msgid "%(name)s: %(value)s. Open %(title)s"
 msgstr "%(name)s: %(value)s. Abrir %(title)s"
 
-#: templates/metrics/_market_card.html:23 templates/pages/home.html:50
+#: templates/metrics/_market_card.html:23 templates/pages/home.html:51
 #, python-format
 msgid "%(count)s country"
 msgid_plural "%(count)s countries"
 msgstr[0] "%(count)s país"
 msgstr[1] "%(count)s países"
 
-#: templates/metrics/_source.html:1 templates/pages/home.html:61
+#: templates/metrics/_source.html:1 templates/pages/home.html:62
 msgid "Source:"
 msgstr "Fonte:"
 
@@ -3267,121 +3638,125 @@ msgstr "O mundo em números."
 
 #: templates/pages/home.html:7
 msgid ""
-"Data Mechanics gathers statistics from public sources like the World Bank, "
-"the IMF and the United Nations. Explore them on maps and charts, and "
-"download every number with its source. No paywall, no sign-up."
+"Data Mechanics is an independent project that gathers data from public "
+"sources like the World Bank, the IMF and the United Nations. Every number "
+"shows its source, so you can check it, compare it and form your own informed"
+" opinion. Explore it on maps and charts and download it for free. No "
+"paywall, no sign-up."
 msgstr ""
-"O Data Mechanics reúne estatísticas de fontes públicas como o Banco Mundial,"
-" o FMI e as Nações Unidas. Explore-as em mapas e gráficos e baixe cada "
-"número com a sua fonte. Sem paywall, sem cadastro."
+"O Data Mechanics é um projeto independente que reúne dados de fontes "
+"públicas como o Banco Mundial, o FMI e as Nações Unidas. Cada número mostra "
+"a sua fonte, para que você possa conferi-lo, compará-lo e formar a sua "
+"própria opinião com base em fatos. Explore os dados em mapas e gráficos e "
+"baixe-os de graça. Sem paywall, sem cadastro."
 
-#: templates/pages/home.html:13
+#: templates/pages/home.html:14
 msgid "Explore the metrics"
 msgstr "Explorar os indicadores"
 
-#: templates/pages/home.html:14
+#: templates/pages/home.html:15
 msgid "Explore politics"
 msgstr "Explorar a política"
 
-#: templates/pages/home.html:15
+#: templates/pages/home.html:16
 msgid "Read the posts"
 msgstr "Ler os artigos"
 
-#: templates/pages/home.html:22
+#: templates/pages/home.html:23
 msgid "carousel"
 msgstr "carrossel"
 
-#: templates/pages/home.html:22
+#: templates/pages/home.html:23
 msgid "Featured metrics"
 msgstr "Indicadores em destaque"
 
-#: templates/pages/home.html:26
+#: templates/pages/home.html:27
 msgid "Previous metric"
 msgstr "Indicador anterior"
 
-#: templates/pages/home.html:27
+#: templates/pages/home.html:28
 #, python-format
 msgid "<span data-index>1</span> of %(total)s"
 msgstr "<span data-index>1</span> de %(total)s"
 
-#: templates/pages/home.html:28
+#: templates/pages/home.html:29
 msgid "Next metric"
 msgstr "Próximo indicador"
 
-#: templates/pages/home.html:33
+#: templates/pages/home.html:34
 msgid "slide"
 msgstr "slide"
 
-#: templates/pages/home.html:33
+#: templates/pages/home.html:34
 #, python-format
 msgid "%(number)s of %(total)s"
 msgstr "%(number)s de %(total)s"
 
-#: templates/pages/home.html:39
+#: templates/pages/home.html:40
 msgid "Value"
 msgstr "Valor"
 
-#: templates/pages/home.html:51
+#: templates/pages/home.html:52
 msgid "Explore"
 msgstr "Explorar"
 
-#: templates/pages/home.html:53
+#: templates/pages/home.html:54
 msgid "Data"
 msgstr "Dados"
 
-#: templates/pages/home.html:62
+#: templates/pages/home.html:63
 msgid "World map of the featured metric"
 msgstr "Mapa-múndi do indicador em destaque"
 
-#: templates/pages/home.html:71
+#: templates/pages/home.html:72
 msgid "Every number sourced"
 msgstr "Cada número com fonte"
 
-#: templates/pages/home.html:71
+#: templates/pages/home.html:72
 msgid "Each chart names its source and fetch date"
 msgstr "Cada gráfico cita a fonte e a data de coleta"
 
-#: templates/pages/home.html:75
+#: templates/pages/home.html:76
 msgid "Free downloads"
 msgstr "Downloads gratuitos"
 
-#: templates/pages/home.html:75
+#: templates/pages/home.html:76
 msgid "CSV for every metric, no sign-up"
 msgstr "CSV para cada indicador, sem cadastro"
 
-#: templates/pages/home.html:79
+#: templates/pages/home.html:80
 msgid "No paywall"
 msgstr "Sem paywall"
 
-#: templates/pages/home.html:79
+#: templates/pages/home.html:80
 msgid "Free to view and download, no sign-up"
 msgstr "Ver e baixar de graça, sem cadastro"
 
-#: templates/pages/home.html:85
+#: templates/pages/home.html:86
 msgid "Highlights"
 msgstr "Destaques"
 
-#: templates/pages/home.html:89
+#: templates/pages/home.html:90
 msgid "Latest posts"
 msgstr "Últimos artigos"
 
-#: templates/pages/home.html:106
+#: templates/pages/home.html:107
 msgid "Latest data"
 msgstr "Dados mais recentes"
 
-#: templates/pages/home.html:108 templates/politics/country.html:30
+#: templates/pages/home.html:109 templates/politics/country.html:30
 msgid "Scroll left"
 msgstr "Rolar para a esquerda"
 
-#: templates/pages/home.html:109 templates/politics/country.html:36
+#: templates/pages/home.html:110 templates/politics/country.html:36
 msgid "Scroll right"
 msgstr "Rolar para a direita"
 
-#: templates/pages/home.html:135
+#: templates/pages/home.html:136
 msgid "Explore every metric"
 msgstr "Explorar todos os indicadores"
 
-#: templates/pages/home.html:136
+#: templates/pages/home.html:137
 #, python-format
 msgid ""
 "%(total)s metrics on every country, each with a world map, a chart over time"

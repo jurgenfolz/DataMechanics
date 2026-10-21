@@ -32,6 +32,17 @@ Everything lives in `/srv/datamechanics`. The production `.env` there is created
 - Timers: `systemctl list-timers 'datamechanics-*'`.
 - Database shell: `docker exec -it datamechanics-db psql -U datamechanics -d datamechanics`.
 
+## Visitors
+
+https://data-mechanics.com/stats/ shows who visits: visitors and page views per day, pages, referrers, countries, browsers.
+GoAccess builds it every 10 minutes from Caddy's access log (`deploy/stats.sh`, `datamechanics-stats.timer`).
+
+- **Login**: user `klaus`. The first deploy made the password; read it with `cat /root/stats-password`.
+- **New password**: `caddy hash-password`, put the hash in `/etc/caddy/stats-auth`, then `systemctl reload caddy`.
+- **What counts**: page views only. Static files, data requests, the admin, known bots and scripts are left out, and IP addresses are shortened.
+- **How far back**: Caddy keeps 90 days of logs (`Caddyfile`, `log`), so the dashboard covers 90 days.
+- **Rebuild now**: `systemctl start datamechanics-stats`.
+
 ## Once HTTPS has run without trouble for a while
 
 Raise `DJANGO_HSTS_SECONDS` in `/srv/datamechanics/.env` to `31536000` (one year) and run `systemctl restart datamechanics`.

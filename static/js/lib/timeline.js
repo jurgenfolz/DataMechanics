@@ -7,8 +7,7 @@ import {
 } from './chart-image.js';
 import { paintLogoTile, paintTrend, toneOf } from './term-chart.js';
 
-const ROW = 56;  // a row's height on the page in CSS pixels, as in .term-row
-const NOTE_ROOM = 36;  // the band under the rows that holds the note about presidents left out
+export const ROW = 56;  // a row's height on the page in CSS pixels, as in .term-row
 const HEAD = 30;  // the column labels over a ranking's rows
 const SANS = 'Archivo, "Helvetica Neue", Arial, sans-serif';
 const WELL = '#1d1f21';
@@ -83,20 +82,19 @@ export function omittedNote(data) {
  * fit, and as many images as it takes. The footer names the data's source; a logo whose licence asks for credit adds it
  * on the image that shows it.
  */
-export async function saveTimelineImages({ data, view = 'timeline', title, subtitle, source, nameParts }) {
+export async function saveTimelineImages({ data, view = 'timeline', title, subtitle, source, flag, nameParts }) {
   const timeline = view === 'timeline';
   const rows = timeline ? timelineRows(data) : groupRows(data, view);
-  const note = omittedNote(data);
   const logoFiles = [...new Set(rows.flatMap((row) => row.logos.map((party) => party.logo)).filter(Boolean))];
   const logos = new Map(await Promise.all(logoFiles.map(async (src) => [src, await loadImage(src)])));
-  const text = (shown) => ({ title, subtitle, sources: [source, logoCredits(shown)] });
+  const text = (shown) => ({ title, subtitle, flag, sources: [source, logoCredits(shown)] });
 
   // Room is measured with every credit in the footer, so no image runs short when its own credits are fewer.
   const probe = await imageFrame(text(rows));
   const room = probe.bottom - probe.top;
   const head = timeline ? 0 : HEAD;
-  // Every image keeps a band for the note, so the note always fits under the last row and never needs an image of its own.
-  const perImage = Math.max(1, Math.floor((imageWellInnerHeight(room) / SCALE - head - (note ? NOTE_ROOM : 0)) / ROW));
+  // The page's note about terms without data stays on the page: the images show the rows alone.
+  const perImage = Math.max(1, Math.floor((imageWellInnerHeight(room) / SCALE - head) / ROW));
   const pages = Math.ceil(rows.length / perImage);
   probe.ctx.font = `700 12px ${MONO}`;
   const changeWidth = (summary) => 20 + probe.ctx.measureText(summary.change).width;
@@ -122,15 +120,6 @@ export async function saveTimelineImages({ data, view = 'timeline', title, subti
     } else {
       paintGroupHead(ctx, { ...layout, width });
       shown.forEach((row, i) => paintGroupRow(ctx, row, head + i * ROW, { ...layout, width }, logos, { first: i === 0, last: i === shown.length - 1 }));
-    }
-    if (note && page === pages - 1) {
-      ctx.font = `400 12px ${SANS}`;
-      ctx.fillStyle = '#8b8f94';
-      ctx.textBaseline = 'middle';
-      // Up to two lines, in the band under the last row.
-      const x = timeline ? 106 : 32;
-      const lines = wrap(ctx, note, width - x, 2);
-      lines.forEach((line, i) => ctx.fillText(line, x, head + shown.length * ROW + NOTE_ROOM / 2 + (i - (lines.length - 1) / 2) * 16));
     }
     ctx.restore();
     paintPageNumber(ctx, well, page + 1, pages);
@@ -168,7 +157,8 @@ const BAR_WIDTH = 48;  // the data bars' column, between the text and the change
 
 // One row: years, the rail with its dot, the logo tiles, the name with its parties over the start and end values,
 // the change's bar on the shared axis, and the change. Coordinates are CSS pixels; the caller scales them.
-function paintRow(ctx, row, top, { width, trendWidth, scale }, logos, { first, last }) {
+// The reel (lib/reel.js) paints the term the line is in with it, too, without the bar: it passes no `scale`.
+export function paintRow(ctx, row, top, { width, trendWidth, scale }, logos, { first, last }) {
   const p = row.presidency;
   const s = p.summary;
   const middle = top + ROW / 2;
@@ -216,21 +206,23 @@ function paintRow(ctx, row, top, { width, trendWidth, scale }, logos, { first, l
   const changeWidth = 20 + ctx.measureText(s.change).width;
   paintTrend(ctx, s, width - changeWidth, middle);
   const barRight = width - trendWidth - 12;
-  const barLeft = barRight - BAR_WIDTH;
-  ctx.strokeStyle = '#3a3d41';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  const axisX = Math.round(barLeft + scale.axis * BAR_WIDTH) + 0.5;
-  ctx.moveTo(axisX, first ? middle - 14 : top);
-  ctx.lineTo(axisX, last ? middle + 14 : top + ROW);
-  ctx.stroke();
-  const bar = scale.bar(s.amount);
-  ctx.globalAlpha = 0.8;
-  ctx.fillStyle = TONES[toneOf(s)];
-  ctx.beginPath();
-  ctx.roundRect(barLeft + bar.from * BAR_WIDTH, middle - 5, Math.max(2, bar.width * BAR_WIDTH), 10, 3);
-  ctx.fill();
-  ctx.globalAlpha = 1;
+  const barLeft = scale ? barRight - BAR_WIDTH : barRight;
+  if (scale) {
+    ctx.strokeStyle = '#3a3d41';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    const axisX = Math.round(barLeft + scale.axis * BAR_WIDTH) + 0.5;
+    ctx.moveTo(axisX, first ? middle - 14 : top);
+    ctx.lineTo(axisX, last ? middle + 14 : top + ROW);
+    ctx.stroke();
+    const bar = scale.bar(s.amount);
+    ctx.globalAlpha = 0.8;
+    ctx.fillStyle = TONES[toneOf(s)];
+    ctx.beginPath();
+    ctx.roundRect(barLeft + bar.from * BAR_WIDTH, middle - 5, Math.max(2, bar.width * BAR_WIDTH), 10, 3);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
 
   // The name with its parties on the first line, the values on the second.
   const textX = 106 + 32 + 24 * (row.logos.length - 1) + 12;

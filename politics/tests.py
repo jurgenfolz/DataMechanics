@@ -83,7 +83,7 @@ class TenureTests(TestCase):
     def test_a_rate_changes_in_points_and_falling_unemployment_is_good(self):
         values = {2010: 8.0, 2014: 6.5}
         summary = queries.tenure_summary(queries.tenures('BRA')[1], values, UNEMPLOYMENT.series[0])
-        self.assertEqual(summary['change'], '1.5%')
+        self.assertEqual(summary['change'], '-1.5%')  # a fall carries a minus sign
         self.assertFalse(summary['up'])
         self.assertEqual(summary['amount'], -1.5)
         self.assertTrue(summary['good'])
@@ -116,7 +116,7 @@ class TenureTests(TestCase):
         data = queries.chart_data(unemployment, unemployment.series[0], brazil)
         # Rates add up: Lima -2 points over 4 years, -0.5 a year. Lower is better, so he ranks first.
         self.assertEqual(data['byPresident'][0]['shortName'], 'Lima')
-        self.assertEqual((data['byPresident'][0]['total']['change'], data['byPresident'][0]['perYear']['change']), ('2.0%', '0.5%'))
+        self.assertEqual((data['byPresident'][0]['total']['change'], data['byPresident'][0]['perYear']['change']), ('-2.0%', '-0.5%'))
         self.assertIs(data['byPresident'][0]['perYear']['good'], True)
 
     def test_a_window_keeps_only_its_years(self):
@@ -222,7 +222,7 @@ class ViewTests(TestCase):
         response = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment'})
         data = response.json()
         self.assertEqual(data['points'], [[2010, 8.0], [2014, 6.5]])
-        self.assertEqual(data['presidencies'][1]['summary']['change'], '1.5%')
+        self.assertEqual(data['presidencies'][1]['summary']['change'], '-1.5%')
         self.assertEqual(data['source']['name'], 'World Bank')
 
 

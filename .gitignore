@@ -52,3 +52,5 @@ staticfiles/
 # Impeccable local state
 .impeccable/review/
 .impeccable/decision/
+
+*.mp4

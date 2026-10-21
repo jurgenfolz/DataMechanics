@@ -1,3 +1,6 @@
+from functools import cache
+from pathlib import Path
+
 from django.conf import settings
 from django.urls import reverse, translate_url
 from django.utils import translation
@@ -16,6 +19,7 @@ def site(request):
         'METRIC_CATEGORIES': sorted(((key, CATEGORY_LABELS[key]) for key in CATEGORIES), key=lambda item: str(item[1])),
         'SEARCH_INDEX': search.index(),
         'SHAPES_URL': _shapes_url(),
+        'CATALOG_URL': f"{reverse('javascript-catalog')}?v={_catalog_version()}",
         'LANGUAGES_HERE': _languages_here(request),
     }
 
@@ -33,6 +37,16 @@ def _languages_here(request):
         }
         for code, name in settings.LANGUAGES
     ]
+
+
+@cache
+def _catalog_version():
+    """The JavaScript catalog's version: the time its translations were last compiled.
+    Browsers keep the catalog for an hour, so a deploy that changes a text must change its address.
+    Every deploy compiles the translations and restarts the site, so the version is read once per process.
+    """
+    files = [path for folder in settings.LOCALE_PATHS for path in Path(folder).glob('*/LC_MESSAGES/djangojs.mo')]
+    return int(max((path.stat().st_mtime for path in files), default=0))
 
 
 def _shapes_url():

@@ -125,6 +125,19 @@ Missing years: a gap of up to 25 years is drawn as the straight line between its
 
 Every chart has a quiet "Save as image" button in its well (`templates/partials/save_image.html`). It saves a 1080 × 1350 PNG for Instagram, with the source and a semi-transparent watermark (`static/js/lib/chart-image.js`). Each chart module gives it a `*ImageParts` helper that draws the chart again off screen. The Politics timeline saves as several images when its rows do not fit one (`static/js/lib/timeline.js`); rows keep their size.
 
+Politics images carry the country's round flag before the title; the page's note about terms without data stays off them.
+
+Politics charts also make videos: MP4, 30 frames a second, as 1080 × 1920 Instagram reels or 1920 × 1080 for YouTube and LinkedIn.
+The site draws every frame (`static/js/lib/reel.js`), so a video looks like the site's chart.
+Both shapes tell the same story; `FORMATS` in `reel.js` holds what differs (sizes, zooms, safe areas, fonts).
+`?reel=1` on a Politics page previews a reel, `?reel=1&format=wide` the wide video.
+`.venv/bin/python tools/reel.py "<page address>"` records it with Playwright and ffmpeg; `--wide` records the wide one.
+The page's metric, measure and years (`from`, `to`) choose what the reel shows.
+The title carries the unit the values are in (`measured_in` on each series in `metrics/catalog.py`, translated in the context "measured in").
+Only the first term opens with a start card, to show where the line begins; each term ends with a card that leads with its change, large, over the value it ended at.
+Under the chart, the timeline row of the term the line is in counts along with it, and a ranking by president, in the chart's place, closes the reel.
+Its pace is `TIME` in `reel.js`, and a reel's layout keeps clear of the bands Instagram covers (`safe` in its format).
+
 ## Languages
 
 The site speaks English, German and Portuguese (Brazilian). English lives at the root, German under `/de/`, Portuguese under `/pt/`.
@@ -152,4 +165,4 @@ Politics mode shows one country at a time, leader by leader (`/politics/<country
 - **One window of years** (the page's year slider, or a president pressed in the timeline) limits the chart's zoom, the timeline, the rankings and the table. The data view takes it as `?from=&to=`; a presidency that starts before the window is measured from the window's first year.
 - **Rankings by party and by president** (`politics/queries.py`, `grouped_changes`): a presidency counts for the party it ended in, and a president's non-consecutive terms count together. Only years with data count. Growth that multiplies (series on a log scale, like GDP) compounds: the total multiplies the changes, and the average per year is the rate that gives the total. Other changes add up, and the average divides by the years. Best first; the highest first where no direction is better.
 - **One colour per presidency: the party it ended in.** A leader who changed party in office (Bolsonaro: PSL, then none, then PL) is drawn and named in the tooltip in the final party's colour. The timeline lists every party they held, and "Show the numbers" gives the party of each year.
-- **Colours**: each party's colour comes from Wikipedia's timeline of the country's presidents or chancellors, lightened where needed to reach 3:1 against the chart (the CDU's black becomes #6e6e6e). Green and red mean good and bad change for the metric. They appear only in Politics mode, always beside an arrow.
+- **Colours**: each party's colour comes from Wikipedia's timeline of the country's presidents or chancellors, lightened where needed to reach 3:1 against the chart (the CDU's black becomes #6e6e6e). Green and red mean good and bad change for the metric. They appear only in Politics mode, always beside an arrow. A fall's change also starts with a minus sign (`change_summary` in `politics/queries.py`), so the direction never rests on the arrow and the colour alone.

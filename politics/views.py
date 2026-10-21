@@ -1,3 +1,7 @@
+from functools import cache
+from pathlib import Path
+
+from django.conf import settings
 from django.http import Http404, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -43,12 +47,13 @@ def country_page(request, slug):
     tenures = queries.tenures(country.iso3)
     office = office_of(tenures)
     title = office.title % {'name': country.local_name}
+    flag = flag_url(country.iso3, country.iso2, '1x1')
     return render(request, 'politics/country.html', {
         'country': country,
         'page_title': title,
         'lead': office.lead % {'year': tenures[0].start.year},
         'by_leader': office.by_leader,
-        'flag': flag_url(country.iso3, country.iso2, '1x1'),
+        'flag': flag,
         'groups': groups,
         'group': group,
         'metric': metric,
@@ -61,7 +66,9 @@ def country_page(request, slug):
         'logo_credits': _logo_credits(country),
         'config': {
             'dataUrl': reverse('politics:data', args=[slug]),
+            'dataVersion': _deploy_version(),
             'countryName': country.local_name,
+            'flag': flag,
             'pageTitle': title,
             'subtitle': office.subtitle % {'name': country.local_name},
             'units': units(),
@@ -83,6 +90,16 @@ def country_data(request, slug):
     data['source'] = {'name': load.source_name, 'url': load.source_url, 'updated': load.source_updated,
                       'fetched': date_format(load.loaded_at, 'SHORT_DATE_FORMAT')} if load else None
     return JsonResponse(data)
+
+
+@cache
+def _deploy_version():
+    """When the site was last deployed: every deploy collects the static files again, which rewrites their manifest.
+    Browsers keep the data view's JSON for an hour, so its address carries this.
+    A deploy that changes what the JSON holds is then never read from a copy made before it.
+    """
+    manifest = Path(settings.STATIC_ROOT) / 'staticfiles.json'
+    return int(manifest.stat().st_mtime) if manifest.exists() else 0
 
 
 def _window(request):

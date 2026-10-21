@@ -103,6 +103,8 @@ def tenure_summary(tenure, values, series, better=None, window=None):
         'endYear': end_year,
         'endValue': end,
         'endLabel': format_value(end, series.unit, compact=True),
+        # True when the change is in percent of the start (growth that multiplies), as the reel's live count needs to know.
+        'relative': relative,
         **change_summary(change_amount(start, end, relative), series.unit, relative, better),
     }
 
@@ -111,12 +113,18 @@ def change_summary(amount, unit, relative, better):
     """How a change reads: its size as text, its direction, and whether that is good for the metric.
 
     `amount` is signed, in percent when `relative`, else in the unit. It is what the timeline's bars are drawn from.
+    A fall's text starts with a minus sign, on top of its down arrow and its colour, which are easy to miss.
     A change too small to show at the unit's precision reads as no change.
+    The reel counts changes the same way in the browser (static/js/lib/reel.js, nowLayout): change both together.
     """
     text = format_amount(amount, unit, relative)
     moved = any(digit in text for digit in '123456789')
+    if not moved:
+        text = gettext('no change')
+    elif amount < 0:
+        text = f'-{text}'
     return {
-        'change': text if moved else gettext('no change'),
+        'change': text,
         'amount': float(f'{amount:.6g}') if moved else 0,
         'up': amount > 0 if moved else None,
         'good': None if not better or not moved else (amount > 0) == (better == 'higher'),
@@ -215,6 +223,7 @@ def chart_data(metric, series, country, window=None):
     with_data = [(tenure, p['summary']) for tenure, p in zip(items, presidencies) if p['summary']]
     return {
         'field': series.field, 'label': series.label, 'unit': series.unit, 'better': direction, 'note': str(series.note),
+        'measuredIn': str(series.measured_in),
         'byParty': grouped_changes(with_data, series, direction, by_party),
         'byPresident': grouped_changes(with_data, series, direction, by_president),
         'country': country.local_name,

@@ -1,0 +1,2 @@
+# For tools/reel.py only; the site itself does not need these. Afterwards run: playwright install chromium
+playwright>=1.40

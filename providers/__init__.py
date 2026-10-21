@@ -49,6 +49,10 @@ MODULES = [
     'owid.healthy_diet',
     'owid.fao_meat_production',
     'worldbank.air_pollution',
+    'owid.wid_top_income_share',
+    'owid.pip_mean_income',
+    'owid.pwt_productivity',
+    'owid.imf_government_spending',
     # Politics mode: parties first, administrations point at them.
     'curated.parties',
     'curated.administrations',

@@ -92,7 +92,10 @@ def format_change(start, end, unit, relative=False):
 
 
 def format_amount(amount, unit, relative=False):
-    """The size of a change, without its sign: in percent when relative, otherwise as format_change says."""
+    """The size of a change, without its sign: in percent when relative, otherwise as format_change says.
+
+    formatAmount in static/js/lib/format.js writes changes the same way, for the reel's live count: change both together.
+    """
     rule = units()[unit]
     size = abs(amount)
     if relative:
