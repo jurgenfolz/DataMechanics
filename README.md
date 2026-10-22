@@ -10,7 +10,7 @@ Live at https://data-mechanics.com.
 - **Politics mode**: one page per country with every metric coloured by the leader in office, and the change during each term, as a timeline and ranked by party and by leader. Brazil, France and the United States follow their presidents, Austria and Germany their chancellors.
 - **Sources**: the World Bank, the IMF, the UNDP, Our World in Data (V-Dem, the FAO, the World Inequality Database, the Penn World Table, Transparency International and others), and Natural Earth for country borders. Leaders and parties are compiled by hand from Wikipedia into `data/politics/`, with party logos from Wikimedia Commons.
 - **Exports**: every chart saves as an image for Instagram, and Politics charts also as videos for Instagram Reels, YouTube and LinkedIn (`tools/reel.py`).
-- **Blog**: posts written by Klaus Jürgen Folz.
+- **Blog**: posts written by me (Klaus Jürgen Folz).
 - **Languages**: English, German and Portuguese. German lives under `/de/`, Portuguese under `/pt/`; the translations are in `locale/`.
 
 ## How it works
@@ -47,3 +47,6 @@ Run the tests with `.venv/bin/python manage.py test`.
 ## Licence
 
 The code is licensed under the [GNU Affero General Public License v3.0](LICENSE). The data belongs to its sources and keeps their terms: every page and download names its source.
+
+## Note to self
+.venv/bin/python tools/reel.py "https://data-mechanics.com/pt/politics/brazil/?metric=government-debt"
