@@ -40,16 +40,17 @@ OFFICES = {
 class Role:
     office: str | None  # None: the role holds no one's office, like a military junta
     label: str = ''  # how the page names the role; empty for the office itself, which the page already names
+    acting: bool = False  # an acting leader stands in: the count of a country's leaders leaves them out
 
 
 # Roles as written in data/politics/<country>/administrations.csv.
 ROLES = {
     'President': Role('president'),
-    'Acting president': Role('president', _('Acting president')),
+    'Acting president': Role('president', _('Acting president'), acting=True),
     'President (military rule)': Role('president', _('President (military rule)')),
     'Military junta': Role(None, _('Military junta')),
     'Chancellor': Role('chancellor'),
-    'Acting chancellor': Role('chancellor', _('Acting chancellor')),
+    'Acting chancellor': Role('chancellor', _('Acting chancellor'), acting=True),
 }
 
 

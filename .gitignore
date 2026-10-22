@@ -49,6 +49,11 @@ htmlcov/
 db.sqlite3
 staticfiles/
 
+# Deployment: the server's scripts and notes stay on the maintainer's machine, out of the public repository.
+deploy/
+docs/deploy.md
+docs/postgres-migration.md
+
 # Impeccable local state
 .impeccable/review/
 .impeccable/decision/

@@ -35,5 +35,5 @@ urlpatterns += i18n_patterns(
 # Old WordPress posts lived at /<slug>/. This comes last so it never shadows a page.
 urlpatterns += [path('<slug:slug>/', legacy_post, name='legacy-post')]
 
-# Uploaded files are served by Django only in development; Caddy serves them on the VPS.
+# Uploaded files are served by Django only in development; the web server serves them in production.
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

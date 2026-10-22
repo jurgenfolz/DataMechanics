@@ -15,4 +15,5 @@ COUNTRIES = {
     'united-states': 'USA',
     'germany': 'DEU',
     'france': 'FRA',
+    'austria': 'AUT',
 }

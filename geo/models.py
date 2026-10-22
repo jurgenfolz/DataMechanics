@@ -112,6 +112,27 @@ class GovernmentDebtCountryYear(CountryYear):
         db_table = 'geo_government_debt_country_year'
 
 
+class InterestPaymentsCountryYear(CountryYear):
+    value = models.FloatField(help_text='Interest paid on government debt, % of government revenue.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_interest_payments_country_year'
+
+
+class BudgetBalanceCountryYear(CountryYear):
+    value = models.FloatField(help_text='General government net lending (+) or borrowing (-), % of GDP.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_budget_balance_country_year'
+
+
+class PrimaryBalanceCountryYear(CountryYear):
+    value = models.FloatField(help_text='General government balance before interest, % of GDP.')
+
+    class Meta(CountryYear.Meta):
+        db_table = 'geo_primary_balance_country_year'
+
+
 class HdiCountryYear(CountryYear):
     value = models.FloatField(help_text='Human Development Index, 0 to 1.')
 

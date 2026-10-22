@@ -1,8 +1,0 @@
-# Dumps the database to /srv/datamechanics/backups and keeps the last 14 dumps.
-[Unit]
-Description=Data Mechanics database backup
-After=docker.service
-
-[Service]
-Type=oneshot
-ExecStart=/srv/datamechanics/deploy/backup.sh

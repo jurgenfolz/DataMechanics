@@ -326,6 +326,60 @@ METRICS = (
         keywords=(_('public debt'), _('national debt'), _('deficit'), _('borrowing'), _('debt to gdp')),
     ),
     Metric(
+        slug='interest-payments',
+        title=_('Interest on government debt'),
+        question=_('Where does debt cost governments the most?'),
+        summary=_('The share of government revenue that goes to paying interest on its debt.'),
+        description=(
+            _('This is the interest a central government pays on its debt in a year, as a share of the revenue it '
+            'collects: how much of every tax dollar goes to its lenders before it pays for anything else. It covers '
+            'interest on bonds, loans and other debt, to lenders at home and abroad. It shows how heavy a debt is to '
+            'carry, which the size of the debt alone does not: it also depends on interest rates and on how much '
+            'the government collects. The IMF compiles the figures, and the World Bank publishes them.')
+        ),
+        model=geo.InterestPaymentsCountryYear,
+        series=(Series('value', _('Interest payments, % of revenue'), 'percent',
+                       measured_in=pgettext_lazy('measured in', '% of revenue'), better='lower'),),
+        tags=Tags('Economy', (_('Public finance'), _('Government debt'), _('World Bank'))),
+        keywords=(_('debt interest'), _('debt service'), _('interest burden'), _('public debt')),
+    ),
+    Metric(
+        slug='budget-balance',
+        title=_('Government budget balance'),
+        question=_('Which governments spend more than they collect?'),
+        summary=_('What governments collect minus what they spend, as a share of GDP: below zero is a deficit.'),
+        description=(
+            _("The budget balance is a country's government revenue minus its spending, interest included, as a share "
+            'of GDP. Above zero is a surplus; below zero is a deficit, which the government covers by borrowing, so '
+            'its debt grows. It covers central, state and local government and social security funds together. The '
+            'International Monetary Fund (IMF) publishes it in its World Economic Outlook. We show past years only and '
+            "leave out the IMF's forecasts; the latest year can still be an IMF estimate.")
+        ),
+        model=geo.BudgetBalanceCountryYear,
+        series=(Series('value', _('Budget balance, % of GDP'), 'percent',
+                       measured_in=pgettext_lazy('measured in', '% of GDP'), better='higher'),),
+        tags=Tags('Economy', (_('Public finance'), _('Budget deficit'), _('IMF'))),
+        keywords=(_('deficit'), _('surplus'), _('fiscal balance'), _('net borrowing')),
+    ),
+    Metric(
+        slug='primary-balance',
+        title=_('Primary balance'),
+        question=_('Which governments live within their means, before interest?'),
+        summary=_('The budget balance before interest on the debt, as a share of GDP.'),
+        description=(
+            _('The primary balance is the budget balance without the interest on the debt: what a government collects '
+            'minus what it spends on everything else, as a share of GDP. It shows whether a government lives within its '
+            'means today, apart from the cost of its old debt. A country with a primary surplus and a deficit overall '
+            'borrows only to pay interest. The International Monetary Fund (IMF) publishes it in its Fiscal Monitor. '
+            "We show past years only and leave out the IMF's forecasts.")
+        ),
+        model=geo.PrimaryBalanceCountryYear,
+        series=(Series('value', _('Primary balance, % of GDP'), 'percent',
+                       measured_in=pgettext_lazy('measured in', '% of GDP'), better='higher'),),
+        tags=Tags('Economy', (_('Public finance'), _('Budget deficit'), _('IMF'))),
+        keywords=(_('primary deficit'), _('primary surplus'), _('fiscal balance'), _('deficit')),
+    ),
+    Metric(
         slug='government-spending',
         title=_('Government spending'),
         question=_('Which governments spend the most?'),

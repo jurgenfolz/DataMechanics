@@ -191,7 +191,8 @@ class ViewTests(TestCase):
                                          ('Lena Weber', 'Chancellor', '2004-05-10', '')]:
             Administration.objects.create(country=germany, leader=leader, short_name=leader.split()[-1], role=role, party=party,
                                           start_date=date.fromisoformat(start), end_date=date.fromisoformat(end) if end else None)
-        self.assertContains(self.client.get(reverse('politics:index')), '3 chancellors since 1999')
+        # The acting chancellor stood in; the count leaves her out.
+        self.assertContains(self.client.get(reverse('politics:index')), '2 chancellors since 1999')
         response = self.client.get(reverse('politics:country', args=['germany']))
         self.assertContains(response, '<title>Germany by chancellor · Data Mechanics</title>', html=True)
         self.assertContains(response, 'Every metric we have, chancellor by chancellor, since 1999.')

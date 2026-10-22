@@ -1,9 +1,0 @@
-# Rebuild the visitor dashboard every 10 minutes.
-[Unit]
-Description=Data Mechanics visitor dashboard, every 10 minutes
-
-[Timer]
-OnCalendar=*:0/10
-
-[Install]
-WantedBy=timers.target

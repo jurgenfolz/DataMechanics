@@ -23,7 +23,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').sp
 CSRF_TRUSTED_ORIGINS = [origin for origin in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if origin]
 
 # Public repository of the site's code. The link is hidden until this is set.
-GITHUB_URL = os.environ.get('GITHUB_URL', '')
+GITHUB_URL = os.environ.get('GITHUB_URL') or 'https://github.com/jurgenfolz/DataMechanics'
 
 # The author, shown in the About section on every page.
 AUTHOR_LINKEDIN_URL = 'https://www.linkedin.com/in/klausjfolz/'
@@ -76,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# PostgreSQL. Locally it runs in Docker (docker-compose.yml); later on the VPS.
+# PostgreSQL, in Docker (docker-compose.yml).
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -142,7 +142,7 @@ MAILERS = {
     },
 }
 
-# Errors and warnings go to stderr, which systemd keeps in the journal on the VPS.
+# Errors and warnings go to stderr, which systemd keeps in the journal on the server.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -158,6 +158,6 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     # Start low; raise to 31536000 (a year) once HTTPS has run without trouble for a while.
     SECURE_HSTS_SECONDS = int(os.environ.get('DJANGO_HSTS_SECONDS', '3600'))
-    # HSTS stays off for subdomains, because other Hostinger services on the domain may not use HTTPS.
+    # HSTS stays off for subdomains, because other services on the domain may not use HTTPS.
     # It also stays out of the browsers' preload list, which is hard to undo. Revisit both once the domain is settled.
     SILENCED_SYSTEM_CHECKS = ['security.W005', 'security.W021']

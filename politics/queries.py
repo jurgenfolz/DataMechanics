@@ -259,7 +259,8 @@ def summary_card(country):
     items = tenures(country.iso3)
     current = items[-1]
     office = office_key(items)
-    count = len({t.leader for t in items if ROLES[t.role].office == office})
+    # Leaders who held the office, not those who only stood in for a few days (Germany: 10 chancellors, not Scheel too).
+    count = len({t.leader for t in items if ROLES[t.role].office == office and not ROLES[t.role].acting})
     return {
         'country': country,
         'slug': slugify(country.name),

@@ -1,6 +1,5 @@
 # Local PostgreSQL for development. Start it with `docker compose up -d`.
 # The values come from .env, the same file Django reads.
-# Moving to the VPS later: see docs/postgres-migration.md.
 services:
   db:
     image: postgres:18

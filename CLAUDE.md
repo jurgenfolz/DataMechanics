@@ -4,7 +4,7 @@ Im migrating an old wordpress website, its export is here: old_word_press_export
 We are going to completly recriate the site, the only thigs we are keeping from the old one are the blog posts and the logo.
 
 Use the the skills in this repo for makign a better design: Emil Kowalski and Impecable.
-This will be hosted in a VPS in Hostinger with Ubuntu 26.04 LTS.
+It runs on a Linux server. The deployment scripts and notes (`deploy/`, `docs/deploy.md`, `docs/postgres-migration.md`) stay on the maintainer's machine: git ignores them, and the public repository says nothing about the server.
 
 What will the website be:
 A open source version of Statista: I will fetch data from multiple sources and provide it for free to people with beatiful charts and the possibility of exporting the data. We also will have blogposts, focus on data, insights, charts, data science, AI and python.
@@ -85,7 +85,7 @@ Fabric file formats, Microsoft APIs, Power BI Desktop, the service, and the code
 - **Table names**: country data starts with `geo_` and names its grain, e.g. GDP by country and year is `geo_gdp_country_year`. The models live in `geo/models.py`. Political data starts with `pol_` (`pol_party`, `pol_administration`); its models live in `politics/models.py`.
 - **Country dimension**: `geo_country` (codes, names, shapes from Natural Earth, plus a World row with `is_aggregate`). Every fact table points at it. Map other sources' codes to it in `providers/load.py` (`_ALIASES`, e.g. IMF `UVK` → `XKX`).
 - **One page per metric**: each metric (GDP, life expectancy, ...) has its own page with charts. Metrics are defined once, in `metrics/catalog.py`.
-- **Database**: PostgreSQL 18 in Docker for now (`docker-compose.yml`). Moving it to the VPS: `docs/postgres-migration.md`.
+- **Database**: PostgreSQL 18 in Docker (`docker-compose.yml`).
 
 ### Search tags
 
@@ -159,7 +159,7 @@ Politics mode shows one country at a time, leader by leader (`/politics/<country
 - **Data**: leaders, parties and dates are compiled by hand from Wikipedia into `data/politics/<country>/administrations.csv` and `parties.csv`. Party logos go in `media/politics/<country>/`, with their licence and author in `parties.csv`. Credit every logo that is not in the public domain.
 - **One row per stretch in office under one party.** A leader who changes party mid-term gets a row per party. A party that is only renamed stays one party, under its name at the end of the term (LREM, renamed Renaissance in 2022, is RE). A merger into a new party is a change: Chirac has a row for the RPR and one for the UMP. Consecutive rows of one leader make one presidency.
 - **Add a country**: add its folder to `data/politics/` and to `COUNTRIES` in `providers/curated/__init__.py`, then run `python manage.py etl curated.parties curated.administrations`. Every deploy runs this too.
-- **Follow the office that governs**: the president in Brazil, France and the United States, the chancellor in Germany (its president has little power). Germany starts with the Federal Republic in 1949, so the Nazi dictatorship is not in Politics mode. France starts with the Fifth Republic in 1959: the Fourth Republic's presidents had little power, and Vichy is left out. Each role in the CSV is in `ROLES` in `politics/offices.py`, which names its office. The current leader's office picks the page's words in `OFFICES` ("chancellor by chancellor", "By chancellor"). Text shared by every office says "term" or "leader", never "president".
+- **Follow the office that governs**: the president in Brazil, France and the United States, the chancellor in Austria and Germany (their presidents have little power). Germany starts with the Federal Republic in 1949, so the Nazi dictatorship is not in Politics mode. Austria starts with the Second Republic in April 1945, which leaves out Austrofascism and the Nazi annexation. France starts with the Fifth Republic in 1959: the Fourth Republic's presidents had little power, and Vichy is left out. Each role in the CSV is in `ROLES` in `politics/offices.py`, which names its office. The current leader's office picks the page's words in `OFFICES` ("chancellor by chancellor", "By chancellor"). Text shared by every office says "term" or "leader", never "president".
 - **Metrics**: `politics/metrics.py` lists the metrics Politics mode shows, grouped into tabs. Add a metric there once it has country data.
 - **A year belongs to the leader in office on 1 July.** On the chart, the stretch of line that ends at a year belongs to that leader. A presidency's change runs from the year before its first year to its last year with data.
 - **One window of years** (the page's year slider, or a president pressed in the timeline) limits the chart's zoom, the timeline, the rankings and the table. The data view takes it as `?from=&to=`; a presidency that starts before the window is measured from the window's first year.

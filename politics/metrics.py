@@ -6,7 +6,8 @@ Each group becomes a labelled row of tabs.
 
 GROUPS = [
     ('Economy', ['gdp-per-capita', 'gdp', 'gdp-growth', 'labour-productivity', 'inflation', 'unemployment',
-                 'government-debt', 'government-spending', 'tax-revenue', 'trade', 'women-in-the-labour-force']),
+                 'government-debt', 'interest-payments', 'budget-balance', 'primary-balance', 'government-spending',
+                 'tax-revenue', 'trade', 'women-in-the-labour-force']),
     ('Demography', ['population', 'fertility-rate', 'median-age']),
     ('Health', ['life-expectancy', 'child-mortality', 'obesity', 'health-spending']),
     ('Education', ['schooling', 'literacy-rate', 'education-spending', 'scientific-articles']),
