@@ -918,6 +918,9 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .tip__row i { width: 12px; height: 2px; border-radius: 2px; }
 .tip__row img { width: 18px; height: 13px; border-radius: 2px; }
 .tip__row strong { font-variant-numeric: tabular-nums; }
+/* The Politics chart's comparison group: its dashed line, its name and its value, with no flag column. */
+.tip__row--group { grid-template-columns: 14px minmax(0, 1fr) auto; }
+.tip__row .tip__dash { height: 0; background: none; border-top: 2px dashed currentColor; border-radius: 0; }
 
 /* Metric list (search results) */
 .results-head h1 { font-weight: 700; font-stretch: var(--condensed); font-size: clamp(2.25rem, 4vw, 3rem); line-height: 1; letter-spacing: -0.02em; }
@@ -1181,7 +1184,14 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .pol-chart__summary { margin-top: 6px; max-width: 72ch; color: var(--ink-2); }
 .pol-chart .series-tabs { margin-top: 18px; }
 .pol-chart__note { margin-top: 12px; max-width: 90ch; font-size: 0.8125rem; color: var(--ink-3); }
+.pol-chart__tools { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
+/* The dropdown's swatch: the group's dashed line, as a legend for it. */
+.compare-select__line { width: 22px; height: 0; border-top: 2px dashed #c9ccd0; }
+.compare-select { white-space: nowrap; }
+.compare-select[data-none] .compare-select__line { opacity: 0.3; }
 /* The year slider: one window of years for the chart and every list under it. Quiet: a thin track, small handles. */
+/* A chart spanning under two years has no window to pick (metric-page.js). */
+.year-slicer[hidden] { display: none; }
 .year-slicer {
   display: grid;
   grid-template-columns: auto auto minmax(0, 1fr) auto;
@@ -1350,7 +1360,12 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .term-row__who > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--mono); font-size: 0.6875rem; color: var(--ink-3); }
 .term-row__when { display: none; }
 .term-row__values { font-family: var(--mono); font-size: 0.8125rem; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.term-row .trend { justify-self: end; font-size: 0.8125rem; }
+.term-row .trend { font-size: 0.8125rem; }
+.term-row__change { justify-self: end; display: grid; justify-items: end; gap: 3px; }
+/* The comparison group's change: small and grey, so the term's own change leads. */
+.term-row__compare { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.6875rem; color: var(--ink-3); }
+.term-row .term-row__compare .trend { font-size: 0.6875rem; font-weight: 600; }
+.term-row__compare .trend svg { width: 13px; height: 13px; }
 /* The change as a data bar on one axis shared by every row: the axis runs down the list like the rail. */
 .term-row__bar { position: relative; align-self: stretch; }
 .term-row__bar::before {

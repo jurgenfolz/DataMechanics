@@ -45,7 +45,13 @@
   <section class="card chart-card pol-chart" aria-labelledby="chart-title" data-chart-card>
     <div class="chart-card__head">
       <h2 class="chart-card__title" id="chart-title"><span class="chart-card__name" data-metric-title>{{ metric.title }}</span> <span data-series-label{% if metric.series|length < 2 or series.label == metric.title %} hidden{% endif %}>· {{ series.label }}</span></h2>
-      <a class="text-link" href="{% url 'metrics:detail' metric.slug %}" data-metric-link>{% translate "Compare every country" %}</a>
+      <div class="pol-chart__tools">
+        <label class="select compare-select"{% if compare == "none" %} data-none{% endif %}{% if series.total %} hidden{% endif %} data-compare-select><i class="compare-select__line" aria-hidden="true"></i>{% translate "Compared with" %}
+          <select data-compare>{% for key, label in comparisons %}<option value="{{ key }}"{% if key == compare %} selected{% endif %}>{{ label }}</option>{% endfor %}
+            <option value="none"{% if compare == "none" %} selected{% endif %}>{% translate "No comparison" %}</option></select>
+        </label>
+        <a class="text-link" href="{% url 'metrics:detail' metric.slug %}" data-metric-link>{% translate "Compare every country" %}</a>
+      </div>
     </div>
     <p class="pol-chart__summary" data-metric-summary>{{ metric.summary }}</p>
     <div class="series-tabs" role="group" aria-label="{% translate "Measure" %}" data-series-tabs{% if metric.series|length < 2 %} hidden{% endif %}>
@@ -58,20 +64,16 @@
       <p class="term-empty" data-empty hidden></p>
       <div class="map-canvas" data-term-chart role="img" aria-label="{% blocktranslate with title=metric.title name=country.local_name %}{{ title }} in {{ name }} over time, coloured by the leader in office. The list below gives the change during each term.{% endblocktranslate %}"></div>
     </div>
-    <div class="year-slicer" data-year-slicer>
-      <span class="year-slicer__label">{% translate "Years" %}</span>
-      <output class="year-slicer__year" data-year-from></output>
-      <div class="year-slicer__track" data-slicer-track>
-        <input type="range" step="1" data-from aria-label="{% translate "First year" %}">
-        <input type="range" step="1" data-to aria-label="{% translate "Last year" %}">
-      </div>
-      <output class="year-slicer__year" data-year-to></output>
-    </div>
+    {% include "partials/year_slicer.html" %}
     <p class="pol-chart__note">{% blocktranslate trimmed %}
         A year counts for whoever was in office on 1 July.
         A term's change runs from the year before it began to its last year with data.
         The years above, or a name in the timeline, set the years of the chart and of every list below.
-      {% endblocktranslate %}</p>
+      {% endblocktranslate %}
+      <span data-compare-note{% if compare == "none" or series.total %} hidden{% endif %}>{% blocktranslate trimmed %}
+        The dashed line and the small change under each term are the comparison group, over the same years.
+        BRICS, the G7 and the G20 are the average of their member countries, and count only in years when every member has data.
+      {% endblocktranslate %}</span></p>
     <div class="timeline-bar">
       <div class="series-tabs timeline-views" role="group" aria-label="{% translate "View" %}" data-views>
         <button type="button" data-view="timeline" aria-pressed="true">{% translate "Timeline" %}</button>

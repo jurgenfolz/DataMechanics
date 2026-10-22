@@ -1,11 +1,13 @@
-// A metric page: series tabs, the world map with its year filter, and the line chart with its country filter.
-// The page state (series, year, countries) lives in the URL so any view can be shared.
+// A metric page: series tabs, the world map with its year filter, and the line chart with its country filter and year slider.
+// The slider limits the line chart, its table and its image; the map keeps its own year.
+// The page state (series, year, countries, years) lives in the URL so any view can be shared.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 import { createCountryPicker } from './lib/country-picker.js';
 import { escapeHtml, formatValue } from './lib/format.js';
 import { bindSaveButton, imageName, saveChartImage } from './lib/chart-image.js';
 import { createLineChart, lineImageParts, PALETTE, shownSpan, WORLD_COLOR } from './lib/line-chart.js';
 import { createWorldMap, mapImageParts, renderLegend } from './lib/world-map.js';
+import { createYearSlicer, fitWindow } from './lib/year-slicer.js';
 
 const { slug, dataUrl, units, defaultCountries } = JSON.parse(document.getElementById('metric-config').textContent);
 const WORLD = 'WLD';
@@ -31,10 +33,12 @@ const rank = {
 const RANK_LENGTH = 10;
 
 const params = new URLSearchParams(window.location.search);
+const urlWindow = [Number(params.get('from')), Number(params.get('to'))];
 const state = {
   field: params.get('series') || seriesButtons[0]?.dataset.series || '',
   year: Number(params.get('year')) || null,
   selected: null,  // [{iso3, color}], filled on the first load
+  window: urlWindow[0] && urlWindow[1] ? urlWindow : null,  // the line chart's [first year, last year], or null for every year
 };
 
 const cache = new Map();
@@ -158,8 +162,26 @@ function drawRanking() {
   if (!rank.world.hidden) rank.world.querySelector('strong').textContent = formatValue(world, rule);
 }
 
+// ---------- The line chart's years ----------
+const slicerRoot = lineCard.querySelector('[data-year-slicer]');
+const slicer = createYearSlicer(slicerRoot, {
+  onChange(window) {
+    state.window = fitWindow(window, lineYears());
+    drawLine();
+  },
+});
+
+// Every year the chosen countries have; the slider spans these.
+function lineYears() {
+  return shownSpan(data, state.selected).map((i) => data.years[i]);
+}
+
 function drawLine() {
-  const shown = line.render(data, state.selected);
+  const years = lineYears();
+  state.window = fitWindow(state.window, years);
+  slicerRoot.hidden = years[1] - years[0] < 2;
+  slicer.set(years, state.window || years);
+  const shown = line.render(data, state.selected, state.window);
   picker.setSelected(state.selected.map((s) => s.iso3));
   drawKeys(shown);
   drawTable(shown);
@@ -194,8 +216,9 @@ function drawKeys(shown) {
 function drawTable(shown) {
   const rule = units[data.unit];
   const head = `<thead><tr><th scope="col">${escapeHtml(gettext('Year'))}</th>${shown.map((iso3) => `<th scope="col">${escapeHtml(data.countries[iso3].name)}</th>`).join('')}</tr></thead>`;
+  const [from, to] = state.window || [-Infinity, Infinity];
   const rows = data.years.map((year, i) => ({ year, values: shown.map((iso3) => data.values[iso3][i]) }))
-    .filter((row) => row.values.some((v) => v !== null))
+    .filter((row) => row.year >= from && row.year <= to && row.values.some((v) => v !== null))
     .reverse()
     .map((row) => `<tr><td>${row.year}</td>${row.values.map((v) => `<td>${escapeHtml(formatValue(v, rule))}</td>`).join('')}</tr>`);
   table.innerHTML = `${head}<tbody>${rows.join('')}</tbody>`;
@@ -206,6 +229,10 @@ function syncUrl() {
   if (seriesButtons.length && state.field !== seriesButtons[0].dataset.series) next.set('series', state.field);
   if (state.year && state.year !== data?.mapYear) next.set('year', state.year);
   if (state.selected) next.set('countries', state.selected.map((s) => s.iso3).join(','));
+  if (state.window) {
+    next.set('from', state.window[0]);
+    next.set('to', state.window[1]);
+  }
   const query = next.toString();
   history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
 }
@@ -252,10 +279,10 @@ bindSaveButton(mapCard.querySelector('[data-save-image]'), () => data && saveCha
 
 bindSaveButton(lineCard.querySelector('[data-save-image]'), () => data && saveChartImage({
   title: metricTitle,
-  subtitle: `${data.label} · ${shownSpan(data, state.selected).map((i) => data.years[i]).join('–')}`,
+  subtitle: `${data.label} · ${shownSpan(data, state.selected, state.window).map((i) => data.years[i]).join('–')}`,
   sources: [sourceOf(lineCard)],
   filename: imageName(slug, state.field, 'over-time'),
-  ...lineImageParts(data, state.selected, units),
+  ...lineImageParts(data, state.selected, units, state.window),
 }));
 
 drawAll();

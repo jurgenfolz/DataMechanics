@@ -16,6 +16,7 @@ from geo.models import Country
 from metrics.formatting import change_amount, format_amount, format_value
 from metrics.queries import flag_url
 
+from . import comparison
 from .metrics import better as politics_better
 from .models import Administration
 from .offices import OFFICES, ROLES, office_key
@@ -152,13 +153,15 @@ def grouped_changes(items, series, better, key):
     Only years with data count. Growth that multiplies (series on a log scale, like GDP) compounds: the total multiplies
     the presidencies' changes and the average is the yearly rate that gives the total. Other changes add up, and the
     average divides the total by the years.
+    Each row also says where the leader left the country and the comparison group at the end of their last term
+    (at_the_end).
     """
     relative = series.log_scale and all(summary['startValue'] > 0 for _, summary in items)
     groups = {}
     for tenure, summary in items:
         name, shows = key(tenure)
         group = groups.setdefault(name, {**shows, 'presidents': [], 'parties': [], 'terms': 0, 'years': 0,
-                                         'ratio': 1.0, 'sum': 0.0})
+                                         'summaries': []})
         if tenure.short_name not in group['presidents']:
             group['presidents'].append(tenure.short_name)
         party = final_party(tenure)
@@ -166,19 +169,46 @@ def grouped_changes(items, series, better, key):
             group['parties'].append(party)
         group['terms'] += 1
         group['years'] += summary['endYear'] - summary['startYear']
-        group['ratio'] *= summary['endValue'] / summary['startValue'] if relative else 1
-        group['sum'] += summary['endValue'] - summary['startValue']
+        group['summaries'].append(summary)
     rows = []
     for group in groups.values():
-        ratio, total_years = group.pop('ratio'), group['years']
-        total = (ratio - 1) * 100 if relative else group['sum']
-        per_year = (ratio ** (1 / total_years) - 1) * 100 if relative else group['sum'] / total_years
-        del group['sum']
+        terms = group.pop('summaries')
+        total = total_change(terms, relative)
+        per_year = ((1 + total / 100) ** (1 / group['years']) - 1) * 100 if relative else total / group['years']
         rows.append({**group, 'total': change_summary(total, series.unit, relative, better),
-                     'perYear': change_summary(per_year, series.unit, relative, better)})
+                     'perYear': change_summary(per_year, series.unit, relative, better),
+                     **at_the_end(terms[-1], series, better)})
     # Best first: the highest average per year, or the lowest where lower is better.
     rows.sort(key=lambda row: row['perYear']['amount'], reverse=better != 'lower')
     return rows
+
+
+def at_the_end(summary, series, better):
+    """The country's value at the end of a term, and the comparison group's in the same year.
+
+    `lead` is how far the country ended ahead of the group, signed so that more is better: in percent of the group's
+    value for growth that multiplies, else in the unit. It ranks the reel's closing table. It is None without the group.
+    """
+    group = summary.get('compare')
+    lead = None
+    if group:
+        relative = series.log_scale and group['endValue'] > 0
+        lead = change_amount(group['endValue'], summary['endValue'], relative) * (-1 if better == 'lower' else 1)
+    return {
+        'end': {'year': summary['endYear'], 'value': summary['endValue'], 'label': summary['endLabel']},
+        'compareEnd': {'value': group['endValue'], 'label': group['endLabel']} if group else None,
+        'lead': lead,
+    }
+
+
+def total_change(summaries, relative):
+    """The change over several stretches, each with a start and an end value: multiplied when `relative`, else added."""
+    if relative:
+        ratio = 1.0
+        for summary in summaries:
+            ratio *= summary['endValue'] / summary['startValue']
+        return (ratio - 1) * 100
+    return sum(summary['endValue'] - summary['startValue'] for summary in summaries)
 
 
 def party_spans(tenure):
@@ -201,13 +231,24 @@ def in_window(years, window):
     return [year for year in years if not window or window[0] <= year <= window[1]]
 
 
-def chart_data(metric, series, country, window=None):
+def chart_data(metric, series, country, window=None, compare=comparison.DEFAULT):
     """Everything the country page draws for one series. `window` limits the presidents' changes and rankings to
-    those years; the chart's line always has every year."""
+    those years; the chart's line always has every year.
+    `compare` names the group in politics.comparison.GROUPS that the country is measured against; None compares with
+    nothing, and so does a group without values for this series.
+    """
     direction = politics_better(metric, series)
     items = tenures(country.iso3)
     first_year = next((t.years()[0] for t in items if t.years()), None)
     values = country_values(metric, series, country.iso3)
+    # Years before the first presidency would have no colour, so the line starts the year before it.
+    points = sorted([year, value] for year, value in values.items() if first_year and year >= first_year - 1)
+    # A group can be compared when it has values in the years of the country's line, which it then runs beside.
+    groups = {key: {year: value for year, value in found.items() if points and points[0][0] <= year <= points[-1][0]}
+              for key, found in comparison.values(metric, series).items()}
+    comparable = [key for key, found in groups.items() if found]
+    group = groups[compare] if compare in comparable else {}
+    compare = compare if group else None
     presidencies = [{
         'leader': tenure.leader,
         'shortName': tenure.short_name,
@@ -217,7 +258,8 @@ def chart_data(metric, series, country, window=None):
         'current': tenure.end is None,
         'party': party_info(tenure.periods[0].party),
         'spans': party_spans(tenure),
-        'summary': tenure_summary(tenure, values, series, direction, window),
+        'summary': with_comparison(tenure_summary(tenure, values, series, direction, window), group, series, direction)
+        if compare else tenure_summary(tenure, values, series, direction, window),
         'inWindow': bool(in_window(tenure.years(), window)),
     } for tenure in items]
     with_data = [(tenure, p['summary']) for tenure, p in zip(items, presidencies) if p['summary']]
@@ -227,10 +269,35 @@ def chart_data(metric, series, country, window=None):
         'byParty': grouped_changes(with_data, series, direction, by_party),
         'byPresident': grouped_changes(with_data, series, direction, by_president),
         'country': country.local_name,
-        # Years before the first presidency would have no colour, so the line starts the year before it.
-        'points': sorted([year, value] for year, value in values.items() if first_year and year >= first_year - 1),
+        'points': points,
         'presidencies': presidencies,
+        # The groups with values for this series; the page marks the others as having no data.
+        'comparable': comparable,
+        'comparison': {
+            'key': compare,
+            'label': str(comparison.label(metric, compare)),
+            'short': str(comparison.GROUPS[compare].label),  # where room is tight: the timeline rows and the reel's cards
+            'compared': str(comparison.GROUPS[compare].compared),  # for the images' and the reel's subtitle
+            'points': [[year, value] for year, value in group.items()],
+        } if compare else None,
     }
+
+
+def with_comparison(summary, group, series, better):
+    """The summary with the group's change over the same years as `compare`, or None where the group lacks one of them."""
+    if summary is None:
+        return None
+    start, end = group.get(summary['startYear']), group.get(summary['endYear'])
+    if start is None or end is None:
+        return {**summary, 'compare': None}
+    relative = series.log_scale and start > 0
+    return {**summary, 'compare': {
+        'startValue': start,
+        'startLabel': format_value(start, series.unit, compact=True),
+        'endValue': end,
+        'endLabel': format_value(end, series.unit, compact=True),
+        **change_summary(change_amount(start, end, relative), series.unit, relative, better),
+    }}
 
 
 def party_info(party):

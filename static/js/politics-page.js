@@ -12,6 +12,7 @@ import {
 } from './lib/timeline.js';
 import { toneOf } from './lib/term-chart.js';
 import { createReel, FPS } from './lib/reel.js';
+import { createYearSlicer, fitWindow as fitInside } from './lib/year-slicer.js';
 
 const config = JSON.parse(document.getElementById('politics-config').textContent);
 const { units, metrics } = config;
@@ -34,13 +35,9 @@ const rankingList = document.querySelector('[data-ranking-list]');
 const viewButtons = [...document.querySelectorAll('[data-view]')];
 const VIEWS = ['timeline', 'party', 'president'];
 const table = document.querySelector('[data-table]');
-const slicer = {
-  from: document.querySelector('[data-from]'),
-  to: document.querySelector('[data-to]'),
-  fromLabel: document.querySelector('[data-year-from]'),
-  toLabel: document.querySelector('[data-year-to]'),
-  track: document.querySelector('[data-slicer-track]'),
-};
+const compareSelect = document.querySelector('[data-compare]');
+const compareBox = document.querySelector('[data-compare-select]');
+const compareNote = document.querySelector('[data-compare-note]');
 const categories = [...document.querySelectorAll('[data-group]')];
 const panels = [...document.querySelectorAll('[data-group-panel]')];
 const metricTabs = [...document.querySelectorAll('[data-metric]')];
@@ -54,6 +51,7 @@ const state = {
   data: null,  // the series, every year
   lists: null,  // the presidents' changes and rankings inside the window
   window: urlWindow[0] && urlWindow[1] ? urlWindow : null,  // [first year, last year], or null for every year
+  compare: config.compare,  // the comparison group (politics/comparison.py): world, brics, g7 or g20, or none
   active: null,  // the pressed president's index, whose years the window shows
   beforeActive: null,  // the window to go back to when the president is pressed again
 };
@@ -62,9 +60,9 @@ const chart = createTermChart(canvas, { units, slider: false });
 
 const cache = new Map();
 function load(metric, field, window = null) {
-  const key = [metric, field, ...(window || [])].join(':');
+  const key = [metric, field, state.compare, ...(window || [])].join(':');
   if (!cache.has(key)) {
-    const query = new URLSearchParams({ metric, series: field, v: config.dataVersion });
+    const query = new URLSearchParams({ metric, series: field, compare: state.compare, v: config.dataVersion });
     if (window) {
       query.set('from', window[0]);
       query.set('to', window[1]);
@@ -107,7 +105,22 @@ async function draw() {
   chart.render(data, currentRange());
   drawSlicer();
   drawTable(data);
+  drawCompareChoices(data);
   await drawLists();
+}
+
+// The groups without values for this series say so, and can't be picked; a total (GDP) compares with none, so the
+// dropdown hides. A chosen group without values stays chosen for the next series, and this one shows no comparison.
+function drawCompareChoices(data) {
+  compareBox.hidden = !data.comparable.length;
+  for (const option of compareSelect.options) {
+    if (option.value === 'none') continue;
+    option.dataset.label ??= option.textContent;
+    const comparable = data.comparable.includes(option.value);
+    option.disabled = !comparable;
+    option.textContent = comparable ? option.dataset.label : interpolate(gettext('%s (no data)'), [option.dataset.label]);
+  }
+  compareNote.hidden = !data.comparison;
 }
 
 // No data: the message alone. The slider, the lists and the table belong to a measure with data, so they hide too.
@@ -136,12 +149,7 @@ function currentRange() {
 
 // A window inside this series' years, or null when it covers them all (or no longer makes sense).
 function fitWindow(window) {
-  if (!window) return null;
-  const [first, last] = fullRange();
-  const from = Math.max(first, Math.min(window[0], window[1]));
-  const to = Math.min(last, Math.max(window[0], window[1]));
-  if (from >= to || (from === first && to === last)) return null;
-  return [from, to];
+  return fitInside(window, fullRange());
 }
 
 // A presidency's years: from the year before its first year to its last, inside the data.
@@ -166,20 +174,18 @@ function setWindow(window, { lists = 'later' } = {}) {
   else listTimer = setTimeout(settle, LIST_DELAY);
 }
 
+// Moving a handle sets the window and lets go of a pressed president.
+const slicer = createYearSlicer(document.querySelector('[data-year-slicer]'), {
+  onChange(window) {
+    if (!state.data) return;
+    state.active = null;
+    markActive();
+    setWindow(window);
+  },
+});
+
 function drawSlicer() {
-  const [first, last] = fullRange();
-  const [from, to] = currentRange();
-  for (const input of [slicer.from, slicer.to]) {
-    input.min = first;
-    input.max = last;
-  }
-  slicer.from.value = from;
-  slicer.to.value = to;
-  slicer.fromLabel.textContent = from;
-  slicer.toLabel.textContent = to;
-  const share = (year) => `${((year - first) / Math.max(last - first, 1)) * 100}%`;
-  slicer.track.style.setProperty('--from', share(from));
-  slicer.track.style.setProperty('--to', share(to));
+  slicer.set(fullRange(), currentRange());
 }
 
 // The lists ask for the window's changes; a newer request wins over one still on its way.
@@ -246,6 +252,12 @@ function drawSource(load) {
 }
 
 // ---------- The presidents with data, as a timeline from today back. Pressing one sets the window to its years ----------
+// The comparison group's change over the same years, small and grey under the term's own.
+function compareHtml(summary, group) {
+  if (!summary.compare) return '';
+  return `<span class="term-row__compare"><span>${escapeHtml(group.short)}</span>${trendHtml({ ...summary.compare, good: null })}</span>`;
+}
+
 function drawPresidencies(data) {
   const rows = timelineRows(data);
   const scale = barScale(rows.map((row) => row.presidency.summary.amount));
@@ -269,7 +281,7 @@ function drawPresidencies(data) {
       + `<span class="term-row__values">${escapeHtml(valueRange(s))}</span>`
       + `<span class="term-row__bar" style="--axis: ${(scale.axis * 100).toFixed(2)}%" aria-hidden="true">`
       + `<i class="term-row__fill term-row__fill--${toneOf(s)}" style="left: ${(bar.from * 100).toFixed(2)}%; width: ${(bar.width * 100).toFixed(2)}%"></i></span>`
-      + `${trendHtml(s)}`;
+      + `<span class="term-row__change">${trendHtml(s)}${compareHtml(s, data.comparison)}</span>`;
     const item = document.createElement('li');
     item.append(button);
     return item;
@@ -336,6 +348,7 @@ function syncUrl() {
   const next = new URLSearchParams({ metric: state.metric });
   if (state.field !== metrics[state.metric].series[0].field) next.set('series', state.field);
   if (state.view !== 'timeline') next.set('view', state.view);
+  if (state.compare !== 'world') next.set('compare', state.compare);
   if (state.window) {
     next.set('from', state.window[0]);
     next.set('to', state.window[1]);
@@ -388,18 +401,6 @@ list.addEventListener('click', (event) => {
   markActive();
 });
 
-// The slider's two handles never cross: moving one past the other stops at the other.
-for (const [input, other, side] of [[slicer.from, slicer.to, 0], [slicer.to, slicer.from, 1]]) {
-  input.addEventListener('input', () => {
-    if (!state.data) return;
-    const value = Number(input.value);
-    const bound = Number(other.value);
-    const year = side === 0 ? Math.min(value, bound - 1) : Math.max(value, bound + 1);
-    state.active = null;
-    markActive();
-    setWindow(side === 0 ? [year, bound] : [bound, year]);
-  });
-}
 
 // A tab strip that does not fit fades at each edge where more tabs hide.
 // The category tabs also get arrows: they hide their scrollbar, so a mouse has no other way to reach the last ones.
@@ -442,9 +443,11 @@ function imageText() {
   const label = String(metric.title).includes(state.data.label) ? '' : ` · ${state.data.label}`;
   const range = currentRange();
   const inView = timelineRows(state.data).filter(({ presidency: p }) => p.spans.some((span) => span.to >= range[0] && span.from <= range[1]));
+  // "Brazil, president by president, compared with G7 countries".
+  const compared = state.data.comparison ? `, ${state.data.comparison.compared}` : '';
   return {
     title: metric.title,
-    subtitle: `${config.subtitle}${label}`,
+    subtitle: `${config.subtitle}${compared}${label}`,
     sources: [clean(source), logoCredits(inView)],
     flag: config.flag,
   };
@@ -473,6 +476,14 @@ bindSaveButton(card.querySelector('[data-save-timeline]'), () => {
 });
 
 for (const button of viewButtons) button.addEventListener('click', () => showView(button.dataset.view));
+
+// One comparison group at a time, or none: a new choice loads the series and the lists again.
+compareSelect.addEventListener('change', () => {
+  state.compare = compareSelect.value;
+  compareBox.toggleAttribute('data-none', state.compare === 'none');
+  syncUrl();
+  draw();
+});
 
 // ---------- The reel (lib/reel.js): a video for Instagram, or with &format=wide for YouTube and LinkedIn ----------
 // ?reel=1 plays it over the page, as large as the window allows; a click pauses it.

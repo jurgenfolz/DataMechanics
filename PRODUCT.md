@@ -39,7 +39,7 @@ Free where Statista is paywalled, and open where it is closed: the site's code i
 - Licence notes: WHO obesity data is CC BY-NC-SA 4.0 (non-commercial, share-alike); World Happiness Report data is free to download with a citation but has no formal open licence.
 - Every metric page has a world map (year filter, good/mid/bad colours) and a line chart (country filter with flags and a World option).
 - Languages (2026-10-18): English, German and Portuguese (Brazilian) on every page, with an EN · DE · PT switcher in the header. English at the root, the others under /de/ and /pt/. Blog posts stay in English.
-- Politics mode (2026-10-18): one page per country with every metric coloured by the president in office, the party logo where each presidency starts, and the change during it (green good, red bad) where it ends. Brazil (presidents since 1956) and the United States (since 1953, added 2026-10-18); each starts with the president in office in 1960, the first year of most World Bank series. The metrics it shows are listed in politics/metrics.py.
+- Politics mode (2026-10-18): one page per country with every metric coloured by the president in office, the party logo where each presidency starts, and the change during it (green good, red bad) where it ends. Brazil (presidents since 1956) and the United States (since 1953, added 2026-10-18); each starts with the president in office in 1960, the first year of most World Bank series. The metrics it shows are listed in politics/metrics.py. Since 2026-10-22 every chart also compares the country with the World, BRICS, the G7 or the G20 over each term (politics/comparison.py).
 - Undecided: the public GitHub URL for the site's code, data licence wording beyond the World Bank's CC BY 4.0.
 
 ## Brand Commitments

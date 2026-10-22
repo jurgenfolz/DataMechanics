@@ -13,6 +13,12 @@ const INK_3 = '#8b8f94';
 const GRID = '#2c2e30';
 const AXIS = '#3a3d41';
 const NOBODY = '#5a5e63';
+// The comparison group's line (politics/comparison.py): dashed and grey like the World line on the metric pages.
+export const GROUP_COLOR = '#c9ccd0';
+// How far the group's line may widen the value axis: this many times the country's own range, on each side.
+// Beyond that the dashed line runs off the chart, so a group far away (the BRICS during Brazil's and Russia's
+// hyperinflation) cannot flatten the country's line.
+const GROUP_REACH = 3;
 const STEMS = [12, 40, 70];  // how far above or below its point a label may sit
 const GAP = 4;           // the space kept clear around a label
 // A card's forms, from full to smallest: logo, name and "End of term", value and change; logo, name and change; logo and change.
@@ -28,6 +34,7 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
 
   let data = null;
   let stretches = [];
+  let groupValues = new Map();  // the comparison group's value by year, for the tooltip
   let labels = [];
   let dots = [];
   let frame = 0;
@@ -44,6 +51,7 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
   observer.observe(element);
   chart.on('finished', schedule);
   chart.on('datazoom', () => {
+    if (data) chart.setOption({ yAxis: valueBounds(data, visibleRange()) });
     schedule();
     if (!quiet) onZoom?.(visibleRange());
   });
@@ -52,6 +60,7 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
     data = next;
     const rule = units[data.unit];
     stretches = presidencyStretches(data);
+    groupValues = new Map(data.comparison?.points || []);
     const starts = data.presidencies.filter((p) => p.spans.length).map((p) => p.spans[0].from);
     layer.classList.remove('is-shown');
 
@@ -81,6 +90,7 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
         minInterval: tickStep(rule),
         splitLine: { lineStyle: { color: GRID, width: 1 } },
         axisLabel: { color: INK_3, fontSize: 11, fontFamily: 'Archivo, sans-serif', formatter: (v) => formatTick(v, rule) },
+        ...valueBounds(data, range),
       },
       // The stretch of line that ends at a year takes the colour of the party in office that year.
       visualMap: {
@@ -120,15 +130,20 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
         padding: [10, 12],
         extraCssText: 'border-radius:10px;box-shadow:0 12px 30px rgb(0 0 0 / .5);',
         formatter(params) {
-          const [year, value] = params[0]?.value || [];
+          const [year, value] = params.find((p) => p.seriesIndex === 0)?.value || [];
           if (year === undefined || value === null) return '';
           const span = spanOf(year);
           const who = span
             ? `<div class="tip__who">${logoHtml(span.party)}<span>${escapeHtml(span.presidency.shortName)}`
               + `<em>${escapeHtml(span.party.abbreviation || span.party.name)}</em></span></div>`
             : '';
+          const group = groupValues.get(year);
+          const compare = group === undefined ? ''
+            : `<div class="tip__row tip__row--group"><i class="tip__dash" style="color:${GROUP_COLOR}"></i>`
+              + `<span>${escapeHtml(data.comparison.label)}</span>`
+              + `<strong>${escapeHtml(formatValue(group, rule))}</strong></div>`;
           return `<div class="tip"><div class="tip__head">${year}</div>`
-            + `<div class="tip__value">${escapeHtml(formatValue(value, rule))}</div>${who}</div>`;
+            + `<div class="tip__value">${escapeHtml(formatValue(value, rule))}</div>${who}${compare}</div>`;
         },
       },
       series: [{
@@ -155,6 +170,17 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
         symbolSize: 6,
         silent: true,
         z: 3,
+      }, {
+        // The comparison group, dashed and behind the country's line. A total (GDP) gets none: its scale would
+        // flatten the country's line. Always the third series, so the reel can show and hide it (lib/reel.js).
+        type: 'line',
+        data: data.comparison ? withBreaks(data.comparison.points) : [],
+        showSymbol: false,
+        silent: true,
+        color: GROUP_COLOR,
+        lineStyle: { width: 1.5, type: [6, 4], opacity: 0.85 },
+        emphasis: { disabled: true },
+        z: 1,
       }],
     }, { replaceMerge: ['series', 'visualMap', 'dataZoom'] });
 
@@ -357,6 +383,33 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
  * Each presidency's stretch of the line, from the year before its first year to its last, in the colour of the party
  * it ended in. The rule keeps one colour per presidency; the table and the timeline still show every party it held.
  */
+// The value axis's ends and step for the years in `range`: null leaves them to ECharts.
+// They are fixed only where the comparison group reaches further than GROUP_REACH allows.
+// Both ends then sit on the same round step as the ticks.
+export function valueBounds(data, range) {
+  const inRange = (points) => points
+    .filter(([year, value]) => value !== null && (!range || (year >= range[0] && year <= range[1])))
+    .map(([, value]) => value);
+  const own = inRange(data.points);
+  const group = data.comparison ? inRange(data.comparison.points) : [];
+  const free = { min: null, max: null, interval: null };
+  if (!own.length || !group.length) return free;
+  const [low, high] = [Math.min(...own), Math.max(...own)];
+  const reach = GROUP_REACH * (high - low || Math.abs(high) || 1);
+  const top = Math.max(...group) > high + reach ? high + reach : null;
+  const bottom = Math.min(...group) < low - reach ? low - reach : null;
+  if (top === null && bottom === null) return free;
+  const [lo, hi] = [bottom ?? Math.min(low, ...group), top ?? Math.max(high, ...group)];
+  const step = roundStep((hi - lo) / 5);
+  return { min: Math.floor(lo / step) * step, max: Math.ceil(hi / step) * step, interval: step };
+}
+
+// A round step at or above `rough`: 1, 2 or 5 times a power of ten.
+function roundStep(rough) {
+  const power = 10 ** Math.floor(Math.log10(rough));
+  return [1, 2, 5, 10].map((m) => m * power).find((step) => step >= rough);
+}
+
 function presidencyStretches(data) {
   return data.presidencies.filter((p) => p.spans.length).map((p) => ({
     from: p.spans[0].from,

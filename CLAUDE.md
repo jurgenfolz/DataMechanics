@@ -118,12 +118,13 @@ Country data gets two families of charts:
   - a country dropdown to choose the countries;
   - an "All world" option where the source has a world value, listed in the dropdown like a country;
   - each country's flag in the dropdown and as the line's data label (flags are SVGs in `media/flags/4x3` and `media/flags/1x1`, named by ISO 3166-1 alpha-2 code).
+  - a year slider under it (`templates/partials/year_slicer.html`, `static/js/lib/year-slicer.js`, shared with Politics mode). It limits the line chart, its table and its image, kept in the URL as `from` and `to`; the map keeps its own year.
 
 Charts follow the dataviz skill: one axis, colours assigned to a country when it is added and kept while it stays, a legend for two or more series, a table view ("Show the numbers"), tooltips on hover.
 
 Missing years: a gap of up to 25 years is drawn as the straight line between its ends, with a dot on each real value at the ends; a longer gap stays open, and a value alone between open gaps gets a dot (`BRIDGE` in `static/js/lib/gaps.js`, used by the line chart and the Politics chart). Tooltips show real values only.
 
-Every chart has a quiet "Save as image" button in its well (`templates/partials/save_image.html`). It saves a 1080 × 1350 PNG for Instagram, with the source and a semi-transparent watermark (`static/js/lib/chart-image.js`). Each chart module gives it a `*ImageParts` helper that draws the chart again off screen. The Politics timeline saves as several images when its rows do not fit one (`static/js/lib/timeline.js`); rows keep their size.
+Every chart has a quiet "Save as image" button in its well (`templates/partials/save_image.html`). It saves a 1080 × 1350 PNG for Instagram, with the source and a semi-transparent watermark: "Data Mechanics (Follow @datamechanics)" (`paintBrandName` in `static/js/lib/chart-image.js`, used by the reels too). Each chart module gives it a `*ImageParts` helper that draws the chart again off screen. The Politics timeline saves as several images when its rows do not fit one (`static/js/lib/timeline.js`); rows keep their size.
 
 Politics images carry the country's round flag before the title; the page's note about terms without data stays off them.
 
@@ -135,7 +136,12 @@ Both shapes tell the same story; `FORMATS` in `reel.js` holds what differs (size
 The page's metric, measure and years (`from`, `to`) choose what the reel shows.
 The title carries the unit the values are in (`measured_in` on each series in `metrics/catalog.py`, translated in the context "measured in").
 Only the first term opens with a start card, to show where the line begins; each term ends with a card that leads with its change, large, over the value it ended at.
-Under the chart, the timeline row of the term the line is in counts along with it, and a ranking by president, in the chart's place, closes the reel.
+Under the chart, the timeline row of the term the line is in counts along with it.
+When the country's line ends, the comparison group's dashed line draws itself the same way, but quieter.
+This pass compares values, not changes: a fast rise can still end below the group.
+At each term's end on it, a card gives the country's value and the group's in that year, and the timeline row under the chart gives them too ("At end of term").
+Once the card is up, a green outline draws itself around the better value for the metric, the value turns green, and a check pops onto the outline's corner (`paintWinner` in `reel.js`). Neither wins when the metric has no better direction or the two read the same.
+A ranking by president, in the chart's place, closes the reel: by change per year, as on the page. With a group it ranks instead by how far ahead of the group each leader left the country at the end of their last term (`lead` from `at_the_end` in `politics/queries.py`), with the year and both values; the better value is green, with the cards' check.
 Its pace is `TIME` in `reel.js`, and a reel's layout keeps clear of the bands Instagram covers (`safe` in its format).
 
 ## Languages
@@ -161,6 +167,15 @@ Politics mode shows one country at a time, leader by leader (`/politics/<country
 - **Add a country**: add its folder to `data/politics/` and to `COUNTRIES` in `providers/curated/__init__.py`, then run `python manage.py etl curated.parties curated.administrations`. Every deploy runs this too.
 - **Follow the office that governs**: the president in Brazil, France and the United States, the chancellor in Austria and Germany (their presidents have little power). Germany starts with the Federal Republic in 1949, so the Nazi dictatorship is not in Politics mode. Austria starts with the Second Republic in April 1945, which leaves out Austrofascism and the Nazi annexation. France starts with the Fifth Republic in 1959: the Fourth Republic's presidents had little power, and Vichy is left out. Each role in the CSV is in `ROLES` in `politics/offices.py`, which names its office. The current leader's office picks the page's words in `OFFICES` ("chancellor by chancellor", "By chancellor"). Text shared by every office says "term" or "leader", never "president".
 - **Metrics**: `politics/metrics.py` lists the metrics Politics mode shows, grouped into tabs. Add a metric there once it has country data.
+- **Comparison groups** (`politics/comparison.py`): a dashed line, and a small change under each term, measure the country against one group over the same years.
+  The groups are World, BRICS (its five founding members), the G7 and the G20. The page shows one at a time, World by default, kept in the URL as `?compare=`.
+  `?compare=none` compares with nothing: the page and the reel then look as they did before groups existed.
+  The saved images and the reel name the group in their subtitle: "Brazil, president by president, compared with G7 countries" (`compared` in `GROUPS`, one text per group so each language can word it).
+  World is the source's own World value; a source without one has no World comparison.
+  A group's value is the average of its members. A year counts only when every member has data.
+  The data view lists the groups with values for the series (`comparable`); the dropdown marks the others "(no data)". A chosen group without values stays chosen, and the series shows no comparison.
+  A total (`total=True` on the series in `metrics/catalog.py`, like GDP) has no comparison, and the dropdown hides: a group's total would dwarf the country's line, and the two would not compare.
+  The group's line may widen the value axis to 3 times the country's own range on each side (`GROUP_REACH` in `static/js/lib/term-chart.js`). Beyond that it runs off the chart.
 - **A year belongs to the leader in office on 1 July.** On the chart, the stretch of line that ends at a year belongs to that leader. A presidency's change runs from the year before its first year to its last year with data.
 - **One window of years** (the page's year slider, or a president pressed in the timeline) limits the chart's zoom, the timeline, the rankings and the table. The data view takes it as `?from=&to=`; a presidency that starts before the window is measured from the window's first year.
 - **Rankings by party and by president** (`politics/queries.py`, `grouped_changes`): a presidency counts for the party it ended in, and a president's non-consecutive terms count together. Only years with data count. Growth that multiplies (series on a log scale, like GDP) compounds: the total multiplies the changes, and the average per year is the rate that gives the total. Other changes add up, and the average divides by the years. Best first; the highest first where no direction is better.

@@ -40,6 +40,7 @@ class Series:
     short: str = ''  # tab label, when the full label is too long for a tab
     note: str = ''  # what sets this measure apart from the metric's others, shown under the measure tabs
     measured_in: str = ''  # what the values are in, for titles: 'current US$', '% of GDP', '0 to 1'
+    total: bool = False  # the values add up across countries (GDP, population): a group's value is its members' sum
 
     @property
     def tab_label(self):
@@ -106,7 +107,7 @@ METRICS = (
             'rising prices.')
         ),
         model=geo.GdpCountryYear,
-        series=(Series('value', _('GDP'), 'usd', measured_in=pgettext_lazy('measured in', 'current US$'), log_scale=True),),
+        series=(Series('value', _('GDP'), 'usd', measured_in=pgettext_lazy('measured in', 'current US$'), log_scale=True, total=True),),
         tags=Tags('Economy', (_('GDP'), _('National accounts'))),
         keywords=(_('gross domestic product'), _('economy size'), _('output')),
     ),
@@ -265,7 +266,7 @@ METRICS = (
             'big, so compare countries of a similar size, or follow one country over time.')
         ),
         model=geo.ScientificArticlesCountryYear,
-        series=(Series('value', _('Articles per year'), 'count', measured_in=pgettext_lazy('measured in', 'articles a year'), log_scale=True),),
+        series=(Series('value', _('Articles per year'), 'count', measured_in=pgettext_lazy('measured in', 'articles a year'), log_scale=True, total=True),),
         tags=Tags('Education', (_('Science'), _('Research'), _('Publications'))),
         keywords=(_('research'), _('papers'), _('publications'), _('science')),
     ),
@@ -284,10 +285,10 @@ METRICS = (
         ),
         model=geo.PopulationCountryYear,
         series=(
-            Series('population', _('Population'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True),
+            Series('population', _('Population'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True, total=True),
             Series('birth_rate', _('Births per 1,000 people'), 'per_1000', measured_in=pgettext_lazy('measured in', 'per 1,000 people')),
             Series('death_rate', _('Deaths per 1,000 people'), 'per_1000', measured_in=pgettext_lazy('measured in', 'per 1,000 people')),
-            Series('net_migration', _('Net migration'), 'people', measured_in=pgettext_lazy('measured in', 'people a year')),
+            Series('net_migration', _('Net migration'), 'people', measured_in=pgettext_lazy('measured in', 'people a year'), total=True),
         ),
         tags=Tags('Demography', (_('Population'), _('Births'), _('Deaths'), _('Birth rate'))),
         keywords=(_('people'), _('inhabitants'), _('mortality'), _('death rate'), _('demographics'), _('migration'), _('immigration'), _('emigration'), _('migrants')),
@@ -740,7 +741,7 @@ METRICS = (
             'follow one country over time.')
         ),
         model=geo.UndernourishmentCountryYear,
-        series=(Series('value', _('Undernourished people'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True),),
+        series=(Series('value', _('Undernourished people'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True, total=True),),
         tags=Tags('Food', (_('Hunger'), _('Nutrition'), _('FAO'))),
         keywords=(_('hunger'), _('malnutrition'), _('food security'), _('fao')),
     ),
@@ -772,7 +773,7 @@ METRICS = (
             'Data republishes it.')
         ),
         model=geo.MeatProductionCountryYear,
-        series=(Series('value', _('Meat production'), 'tonnes_total', measured_in=pgettext_lazy('measured in', 'tonnes'), log_scale=True),),
+        series=(Series('value', _('Meat production'), 'tonnes_total', measured_in=pgettext_lazy('measured in', 'tonnes'), log_scale=True, total=True),),
         tags=Tags('Food', (_('Meat'), _('Agriculture'), _('FAO'))),
         keywords=(_('meat'), _('livestock'), _('beef'), _('chicken'), _('pork')),
     ),
@@ -911,7 +912,7 @@ METRICS = (
         model=geo.Co2EmissionsCountryYear,
         series=(
             Series('per_capita', _('CO2 per person'), 'tonnes', measured_in=pgettext_lazy('measured in', 'tonnes per person'), better='lower', log_scale=True, short=_('Per person')),
-            Series('total', _('Total CO2'), 'tonnes_total', measured_in=pgettext_lazy('measured in', 'tonnes'), log_scale=True, short=_('Total')),
+            Series('total', _('Total CO2'), 'tonnes_total', measured_in=pgettext_lazy('measured in', 'tonnes'), log_scale=True, short=_('Total'), total=True),
         ),
         tags=Tags('Environment', (_('Climate'), _('CO2'), _('Emissions'))),
         keywords=(_('carbon dioxide'), _('carbon emissions'), _('greenhouse gas'), _('climate change'), _('co2')),

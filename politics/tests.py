@@ -9,11 +9,12 @@ from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
-from geo.models import Country, EtlLoad, GdpPerCapitaCountryYear, InflationCountryYear, UnemploymentCountryYear
+from geo.models import (Country, EtlLoad, GdpCountryYear, GdpPerCapitaCountryYear, InflationCountryYear,
+                        UnemploymentCountryYear)
 from metrics.catalog import BY_SLUG
 from providers.curated import COUNTRIES, DATA, administrations, parties
 
-from . import queries
+from . import comparison, queries
 from .metrics import GROUPS
 from .offices import ROLES
 from .models import Administration, Party
@@ -225,6 +226,78 @@ class ViewTests(TestCase):
         self.assertEqual(data['points'], [[2010, 8.0], [2014, 6.5]])
         self.assertEqual(data['presidencies'][1]['summary']['change'], '-1.5%')
         self.assertEqual(data['source']['name'], 'World Bank')
+
+
+class ComparisonTests(TestCase):
+    def setUp(self):
+        self.brazil = make_brazil()
+        others = [('RUS', 'ru'), ('IND', 'in'), ('CHN', 'cn'), ('ZAF', 'za')]
+        self.brics = [self.brazil] + [Country.objects.create(iso3=iso3, iso2=iso2, name=iso3) for iso3, iso2 in others]
+
+    def unemployment(self, year, values):
+        for country, value in zip(self.brics, values):
+            UnemploymentCountryYear.objects.create(country=country, year=year, value=value)
+
+    def test_a_group_is_the_average_of_its_members_in_years_when_all_have_data(self):
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        self.unemployment(2014, [6.5, 5.0, 3.0, 1.0])  # South Africa is missing
+        self.assertEqual(comparison.values(UNEMPLOYMENT, UNEMPLOYMENT.series[0])['brics'], {2010: 4.0})
+
+    def test_a_total_has_no_comparison(self):
+        for country, value in zip(self.brics, [1.0, 2.0, 3.0, 4.0, 5.0]):
+            GdpCountryYear.objects.create(country=country, year=2010, value=value)
+            GdpCountryYear.objects.create(country=country, year=2014, value=value * 2)
+        gdp = BY_SLUG['gdp']
+        self.assertEqual(comparison.values(gdp, gdp.series[0]), {})
+        data = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'gdp', 'compare': 'brics'}).json()
+        self.assertEqual((data['comparable'], data['comparison']), ([], None))
+
+    def test_the_world_is_the_sources_world_value(self):
+        world = Country.objects.create(iso3='WLD', name='World', is_aggregate=True)
+        UnemploymentCountryYear.objects.create(country=world, year=2010, value=5.0)
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        self.assertEqual(comparison.values(UNEMPLOYMENT, UNEMPLOYMENT.series[0])['world'], {2010: 5.0})
+
+    def test_each_term_gets_the_groups_change_over_the_same_years(self):
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        self.unemployment(2014, [6.5, 5.0, 3.0, 1.0, 0.0])
+        data = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment', 'compare': 'brics'}).json()
+        self.assertEqual(data['comparison']['short'], 'BRICS')
+        self.assertEqual(data['comparison']['compared'], 'compared with BRICS countries')
+        # Lima's term runs from 2010 to 2014: Brazil fell 1.5 points, the BRICS average 0.9.
+        lima = data['presidencies'][1]['summary']
+        self.assertEqual((lima['change'], lima['compare']['change']), ('-1.5%', '-0.9%'))
+
+    def test_the_ranking_gives_each_leaders_end_values_and_lead_over_the_group(self):
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        self.unemployment(2014, [6.5, 5.0, 3.0, 1.0, 0.0])
+        data = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment', 'compare': 'brics'}).json()
+        lima = next(row for row in data['byPresident'] if row['shortName'] == 'Lima')
+        self.assertEqual((lima['end']['year'], lima['end']['label'], lima['compareEnd']['label']), (2014, '6.5%', '3.1%'))
+        # Lower unemployment is better, so ending 3.4 points above the group is a lead of -3.4.
+        self.assertAlmostEqual(lima['lead'], -3.4)
+
+    def test_a_group_without_values_is_not_comparable(self):
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        data = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment', 'compare': 'g7'}).json()
+        self.assertEqual((data['comparable'], data['comparison']), (['brics'], None))
+
+    def test_no_comparison_leaves_the_group_out(self):
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        self.unemployment(2014, [6.5, 5.0, 3.0, 1.0, 0.0])
+        data = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment', 'compare': 'none'}).json()
+        self.assertIsNone(data['comparison'])
+        self.assertNotIn('compare', data['presidencies'][1]['summary'])
+        page = self.client.get(reverse('politics:country', args=['brazil']), {'compare': 'none'})
+        self.assertContains(page, '<option value="none" selected>No comparison</option>', html=True)
+
+    def test_an_unknown_group_falls_back_to_the_world(self):
+        world = Country.objects.create(iso3='WLD', name='World', is_aggregate=True)
+        UnemploymentCountryYear.objects.create(country=world, year=2010, value=5.0)
+        self.unemployment(2010, [8.0, 6.0, 4.0, 2.0, 0.0])
+        data = self.client.get(reverse('politics:data', args=['brazil']), {'metric': 'unemployment', 'compare': 'nato'}).json()
+        self.assertEqual(data['comparison']['key'], 'world')
+        self.assertEqual(data['comparison']['points'], [[2010, 5.0]])
 
 
 class CuratedEtlTests(TestCase):

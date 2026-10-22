@@ -47,7 +47,8 @@ export function barScale(amounts) {
 /**
  * The rows of a ranking, best first as the server ranked them (politics/queries.py, grouped_changes).
  * `view` is 'party' or 'president'; each row has the logos, a name with a short aside, a second line, and the
- * change per year and in total.
+ * change per year and in total, and where the leader left the country and the comparison group at the end of their
+ * last term (politics/queries.py, at_the_end).
  */
 export function groupRows(data, view) {
   const party = view === 'party';
@@ -62,6 +63,9 @@ export function groupRows(data, view) {
     title: party ? group.party.name : group.leader,
     perYear: group.perYear,
     total: group.total,
+    end: group.end,
+    compareEnd: group.compareEnd,
+    lead: group.lead,
   }));
 }
 
@@ -100,7 +104,7 @@ export async function saveTimelineImages({ data, view = 'timeline', title, subti
   const changeWidth = (summary) => 20 + probe.ctx.measureText(summary.change).width;
   const layout = timeline
     ? { trendWidth: Math.max(...rows.map((row) => changeWidth(row.presidency.summary))),
-      scale: barScale(rows.map((row) => row.presidency.summary.amount)) }
+      scale: barScale(rows.map((row) => row.presidency.summary.amount)), group: data.comparison }
     : { perYearWidth: Math.max(...rows.map((row) => changeWidth(row.perYear)), labelWidth(probe.ctx, PER_YEAR())),
       totalWidth: Math.max(...rows.map((row) => changeWidth(row.total)), labelWidth(probe.ctx, gettext('Total'))),
       scale: barScale(rows.map((row) => row.perYear.amount)) };
@@ -158,7 +162,8 @@ const BAR_WIDTH = 48;  // the data bars' column, between the text and the change
 // One row: years, the rail with its dot, the logo tiles, the name with its parties over the start and end values,
 // the change's bar on the shared axis, and the change. Coordinates are CSS pixels; the caller scales them.
 // The reel (lib/reel.js) paints the term the line is in with it, too, without the bar: it passes no `scale`.
-export function paintRow(ctx, row, top, { width, trendWidth, scale }, logos, { first, last }) {
+// `group` is the data's comparison group, whose change goes under the term's; null leaves it out.
+export function paintRow(ctx, row, top, { width, trendWidth, scale, group }, logos, { first, last }) {
   const p = row.presidency;
   const s = p.summary;
   const middle = top + ROW / 2;
@@ -202,9 +207,12 @@ export function paintRow(ctx, row, top, { width, trendWidth, scale }, logos, { f
   });
 
   // The change, right-aligned in a column as wide as the widest change, and its bar just before it.
+  // Under it, small and grey, the comparison group's change over the same years (politics/comparison.py).
   ctx.font = `700 12px ${MONO}`;
   const changeWidth = 20 + ctx.measureText(s.change).width;
-  paintTrend(ctx, s, width - changeWidth, middle);
+  const compared = Boolean(s.compare && group);
+  paintTrend(ctx, s, width - changeWidth, compared ? middle - 7 : middle);
+  if (compared) paintCompare(ctx, s.compare, group.short, width, middle + 11);
   const barRight = width - trendWidth - 12;
   const barLeft = scale ? barRight - BAR_WIDTH : barRight;
   if (scale) {
@@ -241,6 +249,24 @@ export function paintRow(ctx, row, top, { width, trendWidth, scale }, logos, { f
 }
 
 const TONES = { good: '#2bc892', bad: '#f2545b', neutral: '#8b8f94' };
+
+// The comparison group's change, right-aligned at `right`: its name, then the change at 0.8 times the size, in grey.
+function paintCompare(ctx, summary, label, right, y) {
+  const k = 0.8;
+  ctx.font = `700 12px ${MONO}`;
+  const trendWidth = (20 + ctx.measureText(summary.change).width) * k;
+  ctx.save();
+  ctx.translate(right - trendWidth, y);
+  ctx.scale(k, k);
+  paintTrend(ctx, { ...summary, good: null }, 0, 0);
+  ctx.restore();
+  ctx.font = `500 9px ${MONO}`;
+  ctx.fillStyle = '#8b8f94';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, right - trendWidth - 5, y);
+  ctx.textAlign = 'left';
+}
 
 // ---------- The rankings ----------
 const RANK_X = 18;  // right edge of the rank

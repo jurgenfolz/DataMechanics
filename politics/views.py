@@ -13,7 +13,7 @@ from metrics.catalog import BY_SLUG, CATEGORY_LABELS
 from metrics.formatting import units
 from metrics.queries import flag_url, latest_load
 
-from . import queries
+from . import comparison, queries
 from .metrics import GROUPS
 from .models import Administration, Party
 from .offices import office_of
@@ -39,6 +39,12 @@ def politics_index(request):
     })
 
 
+def _compare(request):
+    """The comparison group the page asks for (?compare=), 'none' for no comparison, or the default: the world."""
+    key = request.GET.get('compare')
+    return key if key in comparison.GROUPS or key == comparison.NONE else comparison.DEFAULT
+
+
 def country_page(request, slug):
     country = _country(slug)
     metric, series = _metric_and_series(request)
@@ -56,6 +62,8 @@ def country_page(request, slug):
         'flag': flag,
         'groups': groups,
         'group': group,
+        'comparisons': [(key, group.label) for key, group in comparison.GROUPS.items()],
+        'compare': _compare(request),
         'metric': metric,
         'series': series,
         'current': tenures[-1],
@@ -77,15 +85,20 @@ def country_page(request, slug):
                         for _, _, items in groups for m in items},
             'metric': metric.slug,
             'series': series.field,
+            'compare': _compare(request),
         },
     })
 
 
 @cache_control(public=True, max_age=3600)
 def country_data(request, slug):
-    """One series as JSON. ?from=&to= (years) limit the presidents' changes and rankings to those years."""
+    """One series as JSON. ?from=&to= (years) limit the presidents' changes and rankings to those years.
+    ?compare= names the group the country is measured against (politics.comparison.GROUPS), or 'none'.
+    """
     metric, series = _metric_and_series(request)
-    data = queries.chart_data(metric, series, _country(slug), _window(request))
+    compare = _compare(request)
+    data = queries.chart_data(metric, series, _country(slug), _window(request),
+                              None if compare == comparison.NONE else compare)
     load = latest_load(metric)
     data['source'] = {'name': load.source_name, 'url': load.source_url, 'updated': load.source_updated,
                       'fetched': date_format(load.loaded_at, 'SHORT_DATE_FORMAT')} if load else None

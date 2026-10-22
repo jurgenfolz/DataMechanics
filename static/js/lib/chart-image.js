@@ -186,20 +186,40 @@ export function paintRoundFlag(ctx, flag, x, y, size) {
 }
 
 // The gear and the name, half transparent, in the strip at the foot of the well.
+// The name is followed by the invitation to follow the site's account, in a lighter weight.
 export async function paintWatermark(ctx, well) {
   const logo = await loadImage(document.querySelector('link[rel="icon"]')?.href);
   ctx.save();
   ctx.globalAlpha = 0.45;
-  ctx.font = `700 20px ${FONT}`;
   ctx.textBaseline = 'middle';
-  const name = 'Data Mechanics';
-  const width = ctx.measureText(name).width;
   const y = well.y + well.h - STRIP / 2 - 2;
-  const x = well.x + well.w - 28 - width;
+  const right = well.x + well.w - 28;
+  const x = right - paintBrandName(ctx, 0, y + 1, 20, { measure: true });
   if (logo) ctx.drawImage(logo, x - 40, y - 15, 30, 30);
-  ctx.fillStyle = INK;
-  ctx.fillText(name, x, y + 1);
+  paintBrandName(ctx, x, y + 1, 20);
   ctx.restore();
+}
+
+// The site's account, named after "Data Mechanics" wherever the name marks an image or a video.
+const HANDLE = '@datamechanics';
+
+/**
+ * Paints "Data Mechanics (Follow @datamechanics)" from `x`, the name bold and the rest lighter, `size` px tall.
+ * Returns its width; with `measure` it paints nothing.
+ */
+export function paintBrandName(ctx, x, y, size, { measure = false } = {}) {
+  const name = 'Data Mechanics';
+  const follow = ` ${interpolate(gettext('(Follow %s)'), [HANDLE])}`;
+  ctx.font = `700 ${size}px ${FONT}`;
+  const nameWidth = ctx.measureText(name).width;
+  if (!measure) {
+    ctx.fillStyle = INK;
+    ctx.fillText(name, x, y);
+  }
+  ctx.font = `500 ${size}px ${FONT}`;
+  const followWidth = ctx.measureText(follow).width;
+  if (!measure) ctx.fillText(follow, x + nameWidth, y);
+  return nameWidth + followWidth;
 }
 
 /** Lines of text that fit `width`, at most `max`; the last one ends in … when the text runs on. */

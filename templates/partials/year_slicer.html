@@ -1,0 +1,10 @@
+{% load i18n %}{% comment %}The year slider: two handles that pick a window of years. static/js/lib/year-slicer.js wires it.{% endcomment %}
+<div class="year-slicer" data-year-slicer>
+  <span class="year-slicer__label">{% translate "Years" %}</span>
+  <output class="year-slicer__year" data-year-from></output>
+  <div class="year-slicer__track" data-slicer-track>
+    <input type="range" step="1" data-from aria-label="{% translate "First year" %}">
+    <input type="range" step="1" data-to aria-label="{% translate "Last year" %}">
+  </div>
+  <output class="year-slicer__year" data-year-to></output>
+</div>

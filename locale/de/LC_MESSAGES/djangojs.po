@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 09:53+0000\n"
+"POT-Creation-Date: 2026-10-22 15:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,11 @@ msgstr ""
 #: static/js/home.js:38
 msgid "%(label)s, %(year)s. Brighter blue is higher."
 msgstr "%(label)s, %(year)s. Helleres Blau ist höher."
+
+#: static/js/lib/chart-image.js:212
+#, javascript-format
+msgid "(Follow %s)"
+msgstr "(Folge %s)"
 
 #: static/js/lib/country-picker.js:35
 msgid "No country matches."
@@ -58,75 +63,84 @@ msgstr "Welt"
 msgid "Choose countries"
 msgstr "Länder wählen"
 
-#: static/js/lib/line-chart.js:134 static/js/lib/world-map.js:207
+#: static/js/lib/line-chart.js:139 static/js/lib/world-map.js:207
 #: static/js/lib/world-map.js:268 static/js/lib/world-map.js:272
 msgid "No data"
 msgstr "Keine Daten"
 
-#: static/js/lib/reel.js:456
+#: static/js/lib/reel.js:534
 msgid "Start of term"
 msgstr "Beginn der Amtszeit"
 
-#: static/js/lib/reel.js:456 static/js/lib/term-chart.js:206
-#: static/js/lib/term-chart.js:429 static/js/lib/timeline.js:246
-#: static/js/politics-page.js:264
+#: static/js/lib/reel.js:534 static/js/lib/reel.js:598
+#: static/js/lib/term-chart.js:232 static/js/lib/term-chart.js:482
+#: static/js/lib/timeline.js:243 static/js/politics-page.js:276
 msgid "In office"
 msgstr "Im Amt"
 
-#: static/js/lib/reel.js:456 static/js/lib/term-chart.js:206
-#: static/js/lib/term-chart.js:429
+#: static/js/lib/reel.js:534 static/js/lib/reel.js:598
+#: static/js/lib/term-chart.js:232 static/js/lib/term-chart.js:482
 msgid "End of term"
 msgstr "Ende der Amtszeit"
 
-#: static/js/lib/reel.js:609 static/js/lib/timeline.js:145
-#: static/js/politics-page.js:299
-msgid "Per year"
-msgstr "Pro Jahr"
+#: static/js/lib/reel.js:810
+msgid "At end of term"
+msgstr "Am Ende der Amtszeit"
 
-#: static/js/lib/reel.js:609 static/js/lib/timeline.js:107
-#: static/js/lib/timeline.js:269 static/js/politics-page.js:300
+#: static/js/lib/reel.js:847 static/js/lib/timeline.js:109
+#: static/js/lib/timeline.js:284 static/js/politics-page.js:312
 msgid "Total"
 msgstr "Gesamt"
 
-#: static/js/lib/reel.js:723
+#: static/js/lib/reel.js:847 static/js/lib/timeline.js:138
+#: static/js/politics-page.js:311
+msgid "Per year"
+msgstr "Pro Jahr"
+
+#: static/js/lib/reel.js:868 static/js/metric-page.js:218
+#: static/js/politics-page.js:342
+msgid "Year"
+msgstr "Jahr"
+
+#: static/js/lib/reel.js:999
 msgid "Change since start"
 msgstr "Seit Amtsbeginn"
 
-#: static/js/lib/term-chart.js:541
+#: static/js/lib/term-chart.js:594
 #, javascript-format
 msgid "Up %s, better"
 msgstr "Um %s gestiegen, besser"
 
-#: static/js/lib/term-chart.js:541
+#: static/js/lib/term-chart.js:594
 #, javascript-format
 msgid "Up %s, worse"
 msgstr "Um %s gestiegen, schlechter"
 
-#: static/js/lib/term-chart.js:541
+#: static/js/lib/term-chart.js:594
 #, javascript-format
 msgid "Up %s"
 msgstr "Um %s gestiegen"
 
-#: static/js/lib/term-chart.js:542
+#: static/js/lib/term-chart.js:595
 #, javascript-format
 msgid "Down %s, better"
 msgstr "Um %s gesunken, besser"
 
-#: static/js/lib/term-chart.js:542
+#: static/js/lib/term-chart.js:595
 #, javascript-format
 msgid "Down %s, worse"
 msgstr "Um %s gesunken, schlechter"
 
-#: static/js/lib/term-chart.js:542
+#: static/js/lib/term-chart.js:595
 #, javascript-format
 msgid "Down %s"
 msgstr "Um %s gesunken"
 
-#: static/js/lib/timeline.js:27
+#: static/js/lib/timeline.js:26
 msgid "now"
 msgstr "heute"
 
-#: static/js/lib/timeline.js:77
+#: static/js/lib/timeline.js:80
 #, javascript-format
 msgid "%s term without enough data for this measure is not listed."
 msgid_plural "%s terms without enough data for this measure are not listed."
@@ -164,69 +178,65 @@ msgstr "Höher"
 msgid "Median country"
 msgstr "Medianland"
 
-#: static/js/lib/world-map.js:293 static/js/metric-page.js:147
+#: static/js/lib/world-map.js:293 static/js/metric-page.js:151
 #, javascript-format
 msgid "Highest values, %s"
 msgstr "Höchste Werte, %s"
 
-#: static/js/metric-page.js:183
+#: static/js/metric-page.js:205 static/js/politics-page.js:121
 #, javascript-format
 msgid "%s (no data)"
 msgstr "%s (keine Daten)"
 
-#: static/js/metric-page.js:186
+#: static/js/metric-page.js:208
 #, javascript-format
 msgid "Remove %s"
 msgstr "%s entfernen"
 
-#: static/js/metric-page.js:196 static/js/politics-page.js:330
-msgid "Year"
-msgstr "Jahr"
-
-#: static/js/politics-page.js:89
+#: static/js/politics-page.js:87
 msgid "The data did not load. Reload the page to try again."
 msgstr ""
 "Die Daten wurden nicht geladen. Laden Sie die Seite neu, um es erneut zu "
 "versuchen."
 
-#: static/js/politics-page.js:101
+#: static/js/politics-page.js:99
 #, javascript-format
 msgid "No data for %s on this measure yet."
 msgstr "Noch keine Daten für %s zu dieser Messgröße."
 
-#: static/js/politics-page.js:208
+#: static/js/politics-page.js:214
 msgid ""
 "%(title)s in %(name)s over time, coloured by the leader in office. The list "
 "below gives the change during each term."
 msgstr ""
-"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die"
-" Liste darunter zeigt die Veränderung während jeder Amtszeit."
+"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die "
+"Liste darunter zeigt die Veränderung während jeder Amtszeit."
 
-#: static/js/politics-page.js:239
+#: static/js/politics-page.js:245
 msgid "Source: not loaded yet."
 msgstr "Quelle: noch nicht geladen."
 
-#: static/js/politics-page.js:243
+#: static/js/politics-page.js:249
 msgid "updated %(date)s"
 msgstr "Stand %(date)s"
 
-#: static/js/politics-page.js:244
+#: static/js/politics-page.js:250
 msgid "fetched %(date)s"
 msgstr "abgerufen am %(date)s"
 
-#: static/js/politics-page.js:245
+#: static/js/politics-page.js:251
 msgid "Source:"
 msgstr "Quelle:"
 
-#: static/js/politics-page.js:262
+#: static/js/politics-page.js:274
 msgid "%(years)s, %(name)s, %(parties)s: from %(start)s to %(end)s."
 msgstr "%(years)s, %(name)s, %(parties)s: von %(start)s auf %(end)s."
 
-#: static/js/politics-page.js:330
+#: static/js/politics-page.js:342
 msgid "In office on 1 July"
 msgstr "Im Amt am 1. Juli"
 
-#: static/js/politics-page.js:330
+#: static/js/politics-page.js:342
 msgid "Party"
 msgstr "Partei"
 

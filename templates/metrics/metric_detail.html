@@ -66,6 +66,7 @@
         {% include "partials/save_image.html" %}
         <div class="map-canvas" data-line role="img" aria-label="{% blocktranslate with title=metric.title %}Line chart of {{ title }} over time for the chosen countries. The table below lists the numbers.{% endblocktranslate %}"></div>
       </div>
+      {% include "partials/year_slicer.html" %}
       <div class="series-keys" data-keys role="list" aria-label="{% translate "Countries on the chart" %}"></div>
       <details class="numbers">
         <summary>{% translate "Show the numbers" %}</summary>

@@ -36,14 +36,18 @@ function lineData(values) {
 /**
  * The first and last index of `data.years` that any chosen country has a value for.
  * The axis runs over these years only, so a country elsewhere whose data starts in 1475 does not squeeze the lines.
+ * A `window` of years, [from, to], from the page's year slider, narrows them further.
  */
-export function shownSpan(data, selected) {
+export function shownSpan(data, selected, window = null) {
   const ends = selected.flatMap(({ iso3 }) => {
     const values = data.values[iso3];
     const first = values ? values.findIndex((value) => value !== null) : -1;
     return first < 0 ? [] : [first, values.findLastIndex((value) => value !== null)];
   });
-  return ends.length ? [Math.min(...ends), Math.max(...ends)] : [0, data.years.length - 1];
+  const [first, last] = ends.length ? [Math.min(...ends), Math.max(...ends)] : [0, data.years.length - 1];
+  if (!window) return [first, last];
+  const at = (year) => year - data.years[0];
+  return [Math.max(first, at(window[0])), Math.min(last, at(window[1]))];
 }
 
 export function createLineChart(element, { units, animate = true, flagsOnly = false }) {
@@ -51,10 +55,11 @@ export function createLineChart(element, { units, animate = true, flagsOnly = fa
   const observer = new ResizeObserver(() => chart.resize());
   observer.observe(element);
 
-  function render(data, selected) {
+  // `window`, [from, to], limits the years drawn; without it the chart spans every year the countries have.
+  function render(data, selected, window = null) {
     const rule = units[data.unit];
     const narrow = flagsOnly || element.clientWidth < 560;
-    const [first, last] = shownSpan(data, selected);
+    const [first, last] = shownSpan(data, selected, window);
     const dots = [];  // a scatter series per country, for the real values at bridged gaps and lone values
     const lines = selected
       .filter(({ iso3 }) => data.values[iso3])
@@ -154,8 +159,8 @@ function shortName(name) {
 // ---------- The saved image (lib/chart-image.js) ----------
 const LEGEND_ROW = 36;
 
-/** What saveChartImage needs for the line chart: how to draw it, and its legend's room and painting. */
-export function lineImageParts(data, selected, units) {
+/** What saveChartImage needs for the line chart: how to draw it, in the years on screen, and its legend's room and painting. */
+export function lineImageParts(data, selected, units, window = null) {
   const shown = selected.filter(({ iso3 }) => data.values[iso3]);
   return {
     belowHeight: Math.ceil(shown.length / 3) * LEGEND_ROW + 8,
@@ -163,7 +168,7 @@ export function lineImageParts(data, selected, units) {
       // The image names the countries in its legend, so the lines end in their flags alone.
       const line = createLineChart(element, { units, animate: false, flagsOnly: true });
       const finished = whenFinished(line.chart);
-      line.render(data, selected);
+      line.render(data, selected, window);
       await finished;
       return { chart: line.chart, dispose: line.dispose, below: (ctx, box) => paintLineLegend(ctx, box, data, shown) };
     },

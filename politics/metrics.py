@@ -24,6 +24,8 @@ GROUPS = [
 # Better directions that hold in Politics mode only, by (metric slug, series field): how a change during a presidency
 # reads. The metric page's maps keep these neutral, because between countries a value is no better for being higher
 # (a bigger economy, more trade, more spending on health or schools, more papers from a bigger country, fewer hungry people in a smaller one) or lower (falling prices, deflation, are no good sign either).
+# Government spending growing as a share of GDP reads as bad during a term; between countries, the size of a state is a
+# choice, not a score.
 BETTER = {
     ('inflation', 'value'): 'lower',
     ('gdp', 'value'): 'higher',
@@ -32,6 +34,7 @@ BETTER = {
     ('education-spending', 'value'): 'higher',
     ('scientific-articles', 'value'): 'higher',
     ('undernourishment', 'value'): 'lower',
+    ('government-spending', 'value'): 'lower',
 }
 
 
