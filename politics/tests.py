@@ -372,4 +372,7 @@ class CuratedDataTests(SimpleTestCase):
                 self.assertGreaterEqual(contrast, 3.2, f'{folder}: {abbreviation} is too dark on the chart')
                 if party['logo']:
                     self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo']).is_file(), party['logo'])
+                    # Windows cannot check out a file named like a device (PRN, CON, AUX, NUL), whatever its extension.
+                    self.assertNotRegex(Path(party['logo']).stem, re.compile(r'^(con|prn|aux|nul|com\d|lpt\d)$', re.I),
+                                        f'{party["logo"]}: Windows cannot check out this name')
                     self.assertTrue(party['logo_source'] and party['logo_licence'], f'{folder}: {abbreviation} logo needs its source and licence')

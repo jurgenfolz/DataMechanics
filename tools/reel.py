@@ -66,7 +66,10 @@ def main():
         browser = playwright.chromium.launch()
         width, height = (1920, 1080) if args.wide else (1080, 1920)
         page = browser.new_page(viewport={'width': width, 'height': height}, device_scale_factor=1)
-        page.goto(record_url(args.url, args.wide), wait_until='networkidle')
+        response = page.goto(record_url(args.url, args.wide), wait_until='networkidle')
+        if not response or not response.ok:
+            # English pages have no /en/ prefix: only German (/de/) and Portuguese (/pt/) have one.
+            sys.exit(f'The page answered {response.status if response else "nothing"}: check the address. {args.url}')
         page.wait_for_function('window.reel?.ready === true', timeout=60_000)
         reel = page.evaluate('({ frames: reel.frames, fps: reel.fps, filename: reel.filename })')
         output = args.output or reel['filename']
