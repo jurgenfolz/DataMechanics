@@ -159,18 +159,68 @@ p { margin: 0; text-wrap: pretty; }
 .spin { animation: gearspin 7s linear infinite; transform-origin: 50% 50%; }
 @keyframes gearspin { to { transform: rotate(360deg); } }
 
-.nav { display: flex; gap: 22px; }
-.nav a {
+.nav { display: flex; align-items: center; gap: 22px; }
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
   text-decoration: none;
+  font: inherit;
   font-weight: 800;
   font-size: 0.8125rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink);
+  cursor: pointer;
   transition: color 150ms ease;
 }
-.nav a:hover { color: var(--gold); }
-.nav a[aria-current="page"] { color: var(--gold); }
+.nav__link:hover, .nav__link[aria-current="page"], .nav__link.is-current, .menu.is-open .menu__button { color: var(--gold); }
+/* The languages in the menu and the menu button belong to phones; .langs and .round-btn come later, so these name the bar. */
+.bar .nav__langs, .bar .nav-toggle { display: none; }
+
+/* "Metrics" opens the categories as a vertical list under it, scaling in from the button. */
+.menu { position: relative; }
+.menu__button svg { width: 14px; height: 14px; transition: transform 200ms var(--ease-out); }
+.menu.is-open .menu__button svg { transform: rotate(180deg); }
+.menu__panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 24px);
+  left: -12px;
+  z-index: 60;
+  width: 280px;
+  padding: 6px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.55);
+  transform-origin: top left;
+}
+.menu.is-open .menu__panel { display: block; animation: pop 180ms var(--ease-out); }
+.menu__heading { display: none; }
+.menu__list { margin: 0; padding: 0; list-style: none; }
+.menu__item {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--ink-2);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.menu__item:hover { background: var(--raised); color: var(--ink); }
+.menu__item[aria-current="page"] { color: var(--gold); }
+.menu__icon { display: grid; place-items: center; color: var(--ink-3); transition: color 150ms ease; }
+.menu__item:hover .menu__icon, .menu__item[aria-current="page"] .menu__icon { color: var(--gold); }
+.menu__count { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
 .search { position: relative; flex: 0 1 400px; margin-left: auto; }
 
@@ -281,27 +331,26 @@ p { margin: 0; text-wrap: pretty; }
 .button--outline:hover { background: var(--gold-wash); color: var(--gold); border-color: var(--gold); }
 .button svg { width: 16px; height: 16px; }
 
-.tabs {
-  display: flex;
-  gap: 22px;
-  height: 46px;
+/* The home page's way into the metrics: one link per category, with its icon and how many metrics it holds. */
+#categories { scroll-margin-top: 84px; }
+.category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.category-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
   align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar { display: none; }
-.tabs a {
-  flex-shrink: 0;
+  column-gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9375rem;
-  color: var(--ink-3);
-  transition: color 150ms ease;
+  transition: border-color 150ms ease, background-color 150ms ease;
 }
-.tabs a:hover { color: var(--ink); }
-.tabs a[aria-current="page"] { color: var(--ink); font-weight: 800; }
-.tabs__divider { width: 1px; height: 16px; background: var(--line-strong); flex-shrink: 0; }
+.category-link:hover { border-color: var(--gold); background: var(--raised); }
+.category-link .icon-tile { grid-row: 1 / 3; }
+.category-link__name { font-weight: 700; color: var(--ink); }
+.category-link__count { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-3); }
 
 /* ---------- Page grid ---------- */
 
@@ -316,7 +365,7 @@ p { margin: 0; text-wrap: pretty; }
 .layout__rail { display: flex; flex-direction: column; gap: 24px; }
 /* The rail follows the scroll only where it fits on screen. */
 @media (min-width: 1101px) and (min-height: 1040px) {
-  .layout__rail { position: sticky; top: 140px; }
+  .layout__rail { position: sticky; top: 92px; }
 }
 
 .card {
@@ -810,6 +859,9 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   animation: pop 160ms var(--ease-out);
 }
 @keyframes pop { from { opacity: 0; transform: scale(0.97) translateY(-4px); } }
+@keyframes sheet { from { opacity: 0; transform: translateY(-8px); } }
+/* On a phone the button wraps to the left, so the panel hangs from its left edge (js/lib/country-picker.js). */
+.picker__panel.is-left { left: 0; right: auto; transform-origin: top left; }
 .picker__search {
   width: 100%;
   height: 38px;
@@ -1202,7 +1254,9 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 }
 .year-slicer__label { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
 .year-slicer__year { min-width: 2.6em; font-family: var(--mono); font-size: 0.8125rem; font-weight: 600; color: var(--ink-2); text-align: center; font-variant-numeric: tabular-nums; }
-.year-slicer__track { --from: 0%; --to: 100%; position: relative; height: 28px; }
+/* A handle's centre travels from half a handle in to half a handle short of the end, so the drawn track spans that.
+   --from and --to are the window's ends, from 0 to 1 of the years (js/lib/year-slicer.js). */
+.year-slicer__track { --from: 0; --to: 1; --thumb: 16px; position: relative; height: 28px; }
 .year-slicer__track::before, .year-slicer__track::after {
   content: "";
   position: absolute;
@@ -1212,8 +1266,12 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   border-radius: 2px;
   pointer-events: none;
 }
-.year-slicer__track::before { left: 0; right: 0; background: var(--line-strong); }
-.year-slicer__track::after { left: var(--from); right: calc(100% - var(--to)); background: rgb(255 215 0 / 0.7); }
+.year-slicer__track::before { left: calc(var(--thumb) / 2); right: calc(var(--thumb) / 2); background: var(--line-strong); }
+.year-slicer__track::after {
+  left: calc(var(--thumb) / 2 + (100% - var(--thumb)) * var(--from));
+  right: calc(var(--thumb) / 2 + (100% - var(--thumb)) * (1 - var(--to)));
+  background: rgb(255 215 0 / 0.7);
+}
 /* Two range inputs share the track; only their handles take the pointer, so both stay draggable. */
 .year-slicer__track input {
   position: absolute;
@@ -1253,6 +1311,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   pointer-events: auto;
 }
 @media (pointer: coarse) {
+  .year-slicer__track { --thumb: 28px; }
   .year-slicer__track input::-webkit-slider-thumb { width: 28px; height: 28px; margin-top: 0; border: 7px solid transparent; }
   .year-slicer__track input::-moz-range-thumb { width: 28px; height: 28px; border: 7px solid transparent; }
 }
@@ -1429,9 +1488,52 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 }
 
 @media (max-width: 860px) {
-  .tabs { mask-image: linear-gradient(90deg, #000 85%, transparent); }
   .bar { gap: 16px; height: 60px; }
+  /* Phones and small tablets: the menu button opens the navigation as a panel under the bar, the categories first. */
   .nav { display: none; }
+  .bar .nav-toggle { display: grid; flex-shrink: 0; width: 44px; height: 44px; margin-left: -6px; }
+  .nav-toggle__close, .site-header.is-nav-open .nav-toggle__open { display: none; }
+  .site-header.is-nav-open .nav-toggle__close { display: contents; }
+  .site-header.is-nav-open .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: calc(100dvh - 60px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px var(--gutter) 22px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 24px 40px rgb(0 0 0 / 0.5);
+    animation: sheet 220ms var(--ease-out);
+  }
+  .site-header.is-nav-open .menu__button { display: none; }
+  .site-header.is-nav-open .menu__panel {
+    display: block;
+    position: static;
+    width: auto;
+    padding: 0 0 8px;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    animation: none;
+  }
+  .site-header.is-nav-open .menu__heading {
+    display: block;
+    margin: 0 0 6px;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .site-header.is-nav-open .menu__item { min-height: 44px; padding: 0 6px; }
+  .site-header.is-nav-open .nav > .nav__link { min-height: 48px; border-top: 1px solid var(--line); font-size: 0.875rem; }
     .search { flex: 1; }
   .slide__body { grid-template-columns: minmax(0, 1fr); }
   .trust { grid-template-columns: minmax(0, 1fr); }
@@ -1443,12 +1545,14 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 }
 
 @media (max-width: 640px) {
-  /* The wordmark stays; search folds into a round button that opens across the bar. */
-  .bar { position: relative; }
+  .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  /* The wordmark stays; search folds into a round button that opens across the bar. The languages move into the menu. */
+  .bar { position: relative; gap: 10px; }
   .wordmark span { font-size: 1rem; }
   .search { flex: 0 0 44px; margin-left: auto; }
-  .langs { margin-left: -20px; }
-  .langs a { min-width: 30px; padding: 0 4px; }
+  .bar__langs { display: none; }
+  .site-header.is-nav-open .bar .nav__langs { display: flex; gap: 6px; margin: 14px 0 0; padding-top: 14px; border-top: 1px solid var(--line); }
+  .nav__langs a { min-width: 44px; height: 40px; border: 1px solid var(--line-strong); }
   .search__field { position: relative; width: 44px; height: 44px; padding: 0; justify-content: center; }
   .search__field input { position: absolute; inset: 0; opacity: 0; }
   .search:focus-within { position: absolute; left: var(--gutter); right: var(--gutter); top: 8px; z-index: 5; }
@@ -1480,6 +1584,6 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 @media (prefers-reduced-motion: reduce) {
   .chart-save.is-busy svg { animation: none; }
   .spin { animation: none; }
-  .slide.is-entering, .picker__panel { animation: none; }
+  .slide.is-entering, .picker__panel, .menu.is-open .menu__panel, .site-header.is-nav-open .nav { animation: none; }
   .button:active, .round-btn:active { transform: none; }
 }

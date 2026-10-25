@@ -7,7 +7,7 @@ from django.utils import translation
 
 from geo.models import Country, EtlLoad
 from metrics import search
-from metrics.catalog import CATEGORIES, CATEGORY_LABELS
+from metrics.catalog import CATEGORIES, CATEGORY_LABELS, METRICS
 
 
 def site(request):
@@ -15,8 +15,9 @@ def site(request):
         'GITHUB_URL': settings.GITHUB_URL,
         'AUTHOR_LINKEDIN_URL': settings.AUTHOR_LINKEDIN_URL,
         'AUTHOR_GITHUB_URL': settings.AUTHOR_GITHUB_URL,
-        # (key, label) pairs, in the order of the labels in the active language.
-        'METRIC_CATEGORIES': sorted(((key, CATEGORY_LABELS[key]) for key in CATEGORIES), key=lambda item: str(item[1])),
+        # (key, label, number of metrics), in the order of the labels in the active language.
+        'METRIC_CATEGORIES': sorted(((key, CATEGORY_LABELS[key], sum(m.tags.category == key for m in METRICS))
+                                     for key in CATEGORIES), key=lambda item: str(item[1])),
         'SEARCH_INDEX': search.index(),
         'SHAPES_URL': _shapes_url(),
         'CATALOG_URL': f"{reverse('javascript-catalog')}?v={_catalog_version()}",

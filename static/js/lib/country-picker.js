@@ -53,6 +53,9 @@ export function createCountryPicker(root, { max, onToggle }) {
 
   function open() {
     panel.hidden = false;
+    // The panel hangs from the button's right edge, unless that would push it off the screen's left edge.
+    panel.classList.remove('is-left');
+    if (panel.getBoundingClientRect().left < 8) panel.classList.add('is-left');
     button.setAttribute('aria-expanded', 'true');
     search.value = '';
     active = 0;

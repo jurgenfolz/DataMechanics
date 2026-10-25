@@ -11,7 +11,7 @@
     No paywall, no sign-up.
   {% endblocktranslate %}</p>
   <div class="intro__actions">
-    <a class="button" href="{% url 'metrics:list' %}">{% translate "Explore the metrics" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
+    <a class="button" href="#categories">{% translate "Explore the metrics" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
     <a class="button" href="{% url 'politics:index' %}">{% translate "Explore politics" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
     <a class="button button--outline" href="{% url 'blog:list' %}">{% translate "Read the posts" %}</a>
   </div>
@@ -67,14 +67,14 @@
     {% endif %}
 
     <div class="trust">
-      <a class="card trust__item" href="{% url 'metrics:list' %}">
+      <div class="card trust__item">
         <span class="icon-tile">{% include "partials/icon.html" with name="source" size="18" %}</span>
         <span class="trust__text"><strong>{% translate "Every number sourced" %}</strong><span>{% translate "Each chart names its source and fetch date" %}</span></span>
-      </a>
-      <a class="card trust__item" href="{% url 'metrics:list' %}">
+      </div>
+      <div class="card trust__item">
         <span class="icon-tile">{% include "partials/icon.html" with name="download" size="18" %}</span>
         <span class="trust__text"><strong>{% translate "Free downloads" %}</strong><span>{% translate "CSV for every metric, no sign-up" %}</span></span>
-      </a>
+      </div>
       <div class="card trust__item">
         <span class="icon-tile">{% include "partials/icon.html" with name="open" size="18" %}</span>
         <span class="trust__text"><strong>{% translate "No paywall" %}</strong><span>{% translate "Free to view and download, no sign-up" %}</span></span>
@@ -102,7 +102,21 @@
 </div>
 
 <div class="wrap">
-    <section class="section" aria-labelledby="latest-title">
+  {% comment %}There is no page of every metric: the categories are the way in, with the search.{% endcomment %}
+  <section class="section" id="categories" aria-labelledby="categories-title">
+    <div class="section__head"><h2 class="section__title" id="categories-title">{% translate "Browse by category" %}</h2></div>
+    <ul class="category-grid">
+      {% for key, label, count in METRIC_CATEGORIES %}
+      <li><a class="category-link" href="{% url 'metrics:list' %}?category={{ key|urlencode }}">
+        <span class="icon-tile">{% include "partials/icon.html" with name=key size="18" %}</span>
+        <span class="category-link__name">{{ label }}</span>
+        <span class="category-link__count">{% blocktranslate count count=count %}{{ count }} metric{% plural %}{{ count }} metrics{% endblocktranslate %}</span>
+      </a></li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="latest-title">
     <div class="section__head">
       <h2 class="section__title" id="latest-title">{% translate "Latest data" %}</h2>
       <div class="strip-controls">
@@ -125,17 +139,17 @@
   {% for section in sections %}
   <section class="section" aria-labelledby="section-{{ forloop.counter }}">
     <div class="section__head">
-      <a class="section__title" id="section-{{ forloop.counter }}" href="{% url 'metrics:list' %}{% if section.category %}?category={{ section.category|urlencode }}{% endif %}">
+      {% if section.category %}<a class="section__title" id="section-{{ forloop.counter }}" href="{% url 'metrics:list' %}?category={{ section.category|urlencode }}">
         {{ section.title }} {% include "partials/icon.html" with name="chevron-right" size="20" %}
-      </a>
+      </a>{% else %}<h2 class="section__title" id="section-{{ forloop.counter }}">{{ section.title }}</h2>{% endif %}
     </div>
     <div class="market-grid">
       {% for item in section.items %}{% include "metrics/_market_card.html" with metric=item.metric top=item.top %}{% endfor %}
       {% if section.items|length < 4 %}
-      <a class="card market market--more" href="{% url 'metrics:list' %}">
+      <a class="card market market--more" href="#categories">
         <span class="market__title">{% translate "Explore every metric" %}</span>
         <span class="market__note">{% blocktranslate trimmed with total=metric_count %}{{ total }} metrics on every country, each with a world map, a chart over time and a free download.{% endblocktranslate %}</span>
-        <span class="market__foot"><span>{% translate "All metrics" %}</span>{% include "partials/icon.html" with name="arrow-right" size="18" %}</span>
+        <span class="market__foot"><span>{% translate "Browse by category" %}</span>{% include "partials/icon.html" with name="arrow-right" size="18" %}</span>
       </a>
       {% endif %}
     </div>

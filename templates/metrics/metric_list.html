@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% if query %}{% blocktranslate %}“{{ query }}”: metrics{% endblocktranslate %}{% elif category %}{% blocktranslate with category=category_label %}{{ category }} metrics{% endblocktranslate %}{% else %}{% translate "All metrics" %}{% endif %} · Data Mechanics{% endblock %}
+{% block title %}{% if query %}{% blocktranslate %}“{{ query }}”: metrics{% endblocktranslate %}{% else %}{% blocktranslate with category=category_label %}{{ category }} metrics{% endblocktranslate %}{% endif %} · Data Mechanics{% endblock %}
 
 {% block content %}
 <div class="wrap">
   <header class="results-head">
-    <h1>{% if query %}{% blocktranslate %}Metrics matching “{{ query }}”{% endblocktranslate %}{% elif category %}{{ category_label }}{% else %}{% translate "All metrics" %}{% endif %}</h1>
+    <h1>{% if query %}{% blocktranslate %}Metrics matching “{{ query }}”{% endblocktranslate %}{% else %}{{ category_label }}{% endif %}</h1>
     <p>{% if category %}{% blocktranslate trimmed count count=results|length with category=category_label %}
         {{ count }} metric in {{ category }}.
       {% plural %}
@@ -34,9 +34,9 @@
   </div>
   {% else %}
   <div class="card empty section">
-    <p>{% url 'metrics:list' as all_url %}{% blocktranslate trimmed %}
+    <p>{% url 'home' as home_url %}{% blocktranslate trimmed %}
       No metric matches “{{ query }}”.
-      Try a broader word, like “economy” or “population”, or <a class="text-link" href="{{ all_url }}">see all metrics</a>.
+      Try a broader word, like “economy” or “population”, or <a class="text-link" href="{{ home_url }}#categories">browse the categories</a>.
     {% endblocktranslate %}</p>
   </div>
   {% endif %}

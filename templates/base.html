@@ -16,17 +16,35 @@
 <body data-shapes-url="{{ SHAPES_URL }}">
   <a class="skip-link" href="#main">{% translate "Skip to content" %}</a>
 
-  <header class="site-header">
+  <header class="site-header" data-site-header>
     <div class="wrap bar">
       <a class="wordmark" href="{% url 'home' %}">
         <img class="spin" src="{% static 'brand/logo.svg' %}" alt="" width="34" height="34">
         <span>Data Mechanics</span>
       </a>
-      <nav class="nav" aria-label="{% translate "Main" %}">
-        <a href="{% url 'metrics:list' %}"{% if request.resolver_match.app_name == 'metrics' %} aria-current="page"{% endif %}>{% translate "Metrics" %}</a>
-        <a href="{% url 'politics:index' %}"{% if request.resolver_match.app_name == 'politics' %} aria-current="page"{% endif %}>{% translate "Politics" %}</a>
-        <a href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>{% translate "Posts" %}</a>
-        <a href="#about">{% translate "About" %}</a>
+      {% comment %}On wide screens "Metrics" opens the categories under it; on phones the menu button opens all of this as a panel (js/menu.js).{% endcomment %}
+      <nav class="nav" id="site-nav" aria-label="{% translate "Main" %}">
+        <div class="menu" data-menu>
+          <button class="nav__link menu__button{% if request.resolver_match.app_name == 'metrics' %} is-current{% endif %}" type="button" aria-expanded="false" aria-controls="metrics-menu" data-menu-button>
+            {% translate "Metrics" %}{% include "partials/icon.html" with name="chevron-down" size="14" %}
+          </button>
+          <div class="menu__panel" id="metrics-menu">
+            <p class="menu__heading">{% translate "Metrics" %}</p>
+            <ul class="menu__list">
+              {% for key, label, count in METRIC_CATEGORIES %}
+              <li><a class="menu__item" href="{% url 'metrics:list' %}?category={{ key|urlencode }}"{% if request.GET.category == key %} aria-current="page"{% endif %}>
+                <span class="menu__icon">{% include "partials/icon.html" with name=key size="18" %}</span>
+                <span>{{ label }}</span>
+                <span class="menu__count">{{ count }}</span>
+              </a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <a class="nav__link" href="{% url 'politics:index' %}"{% if request.resolver_match.app_name == 'politics' %} aria-current="page"{% endif %}>{% translate "Politics" %}</a>
+        <a class="nav__link" href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>{% translate "Posts" %}</a>
+        <a class="nav__link" href="#about">{% translate "About" %}</a>
+        <div class="langs nav__langs">{% include "partials/langs.html" %}</div>
       </nav>
 
       <form class="search" action="{% url 'metrics:list' %}" method="get" role="search" data-search>
@@ -40,21 +58,12 @@
         <ul class="search__results" id="site-search-results" role="listbox" aria-label="{% translate "Matching metrics" %}" hidden></ul>
       </form>
 
-      <nav class="langs" aria-label="{% translate "Language" %}">
-        {% for language in LANGUAGES_HERE %}<a href="{{ language.url }}" hreflang="{{ language.code }}" lang="{{ language.code }}" aria-label="{{ language.name }}" title="{{ language.name }}" data-language{% if language.current %} aria-current="true"{% endif %}>{{ language.code|upper }}</a>{% endfor %}
-      </nav>
+      <nav class="langs bar__langs" aria-label="{% translate "Language" %}">{% include "partials/langs.html" %}</nav>
+      <button class="round-btn nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="{% translate "Menu" %}" data-nav-toggle>
+        <span class="nav-toggle__open">{% include "partials/icon.html" with name="menu" size="18" %}</span>
+        <span class="nav-toggle__close">{% include "partials/icon.html" with name="close" size="18" %}</span>
+      </button>
     </div>
-
-    <nav class="wrap tabs" aria-label="{% translate "Categories" %}">
-      {% with current=request.GET.category %}
-      <a href="{% url 'metrics:list' %}"{% if request.resolver_match.url_name == 'list' and request.resolver_match.app_name == 'metrics' and not current %} aria-current="page"{% endif %}>{% translate "All metrics" %}</a>
-      {% for key, label in METRIC_CATEGORIES %}
-      <a href="{% url 'metrics:list' %}?category={{ key|urlencode }}"{% if current == key %} aria-current="page"{% endif %}>{{ label }}</a>
-      {% endfor %}
-      <span class="tabs__divider" aria-hidden="true"></span>
-      <a href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>{% translate "Posts" %}</a>
-      {% endwith %}
-    </nav>
   </header>
 
   <main id="main" class="page">
@@ -92,7 +101,7 @@
         Data Mechanics
       </div>
       <nav aria-label="{% translate "Footer" %}">
-        <a href="{% url 'metrics:list' %}">{% translate "Metrics" %}</a>
+        <a href="{% url 'home' %}#categories">{% translate "Metrics" %}</a>
         <a href="{% url 'politics:index' %}">{% translate "Politics" %}</a>
         <a href="{% url 'blog:list' %}">{% translate "Posts" %}</a>
         {% if GITHUB_URL %}<a href="{{ GITHUB_URL }}">{% translate "Source code" %}</a>{% else %}<span class="site-footer__soon">{% translate "Source code: coming soon" %}</span>{% endif %}
@@ -111,6 +120,7 @@
   <script src="{{ CATALOG_URL }}"></script>
   <script type="module" src="{% static 'js/search.js' %}"></script>
   <script type="module" src="{% static 'js/language.js' %}"></script>
+  <script type="module" src="{% static 'js/menu.js' %}"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

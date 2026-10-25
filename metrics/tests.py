@@ -124,6 +124,14 @@ class ViewTests(TestCase):
         self.assertContains(response, 'Where is unemployment highest?')
         self.assertContains(self.client.get('/metrics/?q=zzz'), 'No metric matches')
 
+    def test_there_is_no_page_of_every_metric(self):
+        # The categories on the home page take its place; a category keeps its own page.
+        self.assertRedirects(self.client.get('/metrics/'), '/#categories', fetch_redirect_response=False)
+        self.assertContains(self.client.get('/metrics/?category=Economy'), 'Unemployment rate')
+        home = self.client.get('/')
+        self.assertContains(home, 'id="categories"')
+        self.assertContains(home, '/metrics/?category=Economy')
+
     def test_shapes_endpoint(self):
         Country.objects.filter(iso3='LUX').update(geometry={'type': 'MultiPolygon', 'coordinates': []})
         features = self.client.get(reverse('metrics:shapes')).json()['features']

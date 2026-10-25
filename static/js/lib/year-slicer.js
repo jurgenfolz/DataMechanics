@@ -30,7 +30,7 @@ export function createYearSlicer(root, { onChange }) {
     to.value = end;
     fromLabel.textContent = start;
     toLabel.textContent = end;
-    const share = (year) => `${((year - first) / Math.max(last - first, 1)) * 100}%`;
+    const share = (year) => String((year - first) / Math.max(last - first, 1));
     track.style.setProperty('--from', share(start));
     track.style.setProperty('--to', share(end));
   }

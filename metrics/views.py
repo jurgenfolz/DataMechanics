@@ -1,7 +1,7 @@
 import csv
 
 from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.cache import cache_control
 
@@ -18,10 +18,17 @@ def _metric(slug):
 
 
 def metric_list(request):
+    """A search's results (?q=) or a category's metrics (?category=).
+
+    There is no page of every metric: there are too many to show at once.
+    Without a search or a category, the home page's list of categories takes its place.
+    """
     query = request.GET.get('q', '').strip()
     category = request.GET.get('category', '')
     if category not in CATEGORIES:
         category = ''
+    if not query and not category:
+        return redirect(f"{reverse('home')}#categories")
     results = search.find(query, category)
     return render(request, 'metrics/metric_list.html', {
         'query': query,

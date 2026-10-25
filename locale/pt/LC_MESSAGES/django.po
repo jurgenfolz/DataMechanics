@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 15:32+0000\n"
+"POT-Creation-Date: 2026-10-25 11:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3409,11 +3409,11 @@ msgstr "Chanceler interino"
 msgid "no change"
 msgstr "sem mudança"
 
-#: politics/queries.py:307 templates/politics/_party_logo.html:2
+#: politics/queries.py:306 templates/politics/_party_logo.html:2
 msgid "No party"
 msgstr "Sem partido"
 
-#: politics/queries.py:321
+#: politics/queries.py:320
 #, python-format
 msgid "%(party)s logo: %(author)s, %(licence)s, Wikimedia Commons"
 msgstr "Logotipo do %(party)s: %(author)s, %(licence)s, Wikimedia Commons"
@@ -3470,65 +3470,60 @@ msgstr ""
 msgid "Skip to content"
 msgstr "Pular para o conteúdo"
 
-#: templates/base.html:25
+#: templates/base.html:27
 msgid "Main"
 msgstr "Principal"
 
-#: templates/base.html:26 templates/base.html:95
+#: templates/base.html:30 templates/base.html:33 templates/base.html:105
 #: templates/metrics/metric_detail.html:11 templates/politics/country.html:28
 msgid "Metrics"
 msgstr "Indicadores"
 
-#: templates/base.html:27 templates/base.html:96
+#: templates/base.html:45 templates/base.html:106
 #: templates/politics/country.html:12 templates/politics/index.html:4
 #: templates/politics/index.html:10
 msgid "Politics"
 msgstr "Política"
 
-#: templates/base.html:28 templates/base.html:55 templates/base.html:97
+#: templates/base.html:46 templates/base.html:107
 #: templates/blog/post_detail.html:10 templates/blog/post_list.html:4
 #: templates/blog/post_list.html:10
 msgid "Posts"
 msgstr "Artigos"
 
-#: templates/base.html:29
+#: templates/base.html:47
 msgid "About"
 msgstr "Sobre"
 
-#: templates/base.html:33 templates/metrics/metric_list.html:21
+#: templates/base.html:52 templates/metrics/metric_list.html:21
 msgid "Search metrics"
 msgstr "Buscar indicadores"
 
-#: templates/base.html:36
+#: templates/base.html:55
 msgid "Search any metric"
 msgstr "Busque qualquer indicador"
 
-#: templates/base.html:40
+#: templates/base.html:59
 msgid "Matching metrics"
 msgstr "Indicadores encontrados"
 
-#: templates/base.html:43
+#: templates/base.html:62
 msgid "Language"
 msgstr "Idioma"
 
-#: templates/base.html:48
-msgid "Categories"
-msgstr "Categorias"
+#: templates/base.html:63
+msgid "Menu"
+msgstr "Menu"
 
-#: templates/base.html:50 templates/metrics/metric_list.html:4
-#: templates/metrics/metric_list.html:9 templates/pages/home.html:138
-msgid "All metrics"
-msgstr "Todos os indicadores"
-
-#: templates/base.html:66
+#: templates/base.html:76
 msgid "Portrait of Klaus Jürgen Folz"
 msgstr "Retrato de Klaus Jürgen Folz"
 
-#: templates/base.html:68
+#: templates/base.html:78
 msgid "About the author"
 msgstr "Sobre o autor"
 
-#: templates/base.html:69
+#: templates/base.html:79
 msgid ""
 "Hello there, I’m Klaus Jürgen Folz. I studied Mechanical Engineering at the "
 "Federal University of Rio Grande do Sul (UFRGS) in Brazil, and I work in "
@@ -3539,36 +3534,36 @@ msgid ""
 " source, so anyone can check it, compare countries and leaders, and draw "
 "their own conclusions."
 msgstr ""
-"Olá, eu sou o Klaus. Me formei em Engenharia Mecânica na "
-"Universidade Federal do Rio Grande do Sul (UFRGS) e trabalho na Áustria como "
-"lead developer em Python e Power BI. Criei o Data Mechanics porque boas "
-"decisões começam com fatos. Os dados públicos costumam estar espalhados, ser "
-"difíceis de encontrar ou ficar atrás de paywalls, e muito do que lemos sobre "
-"o mundo é tendencioso. Aqui, cada número aparece como foi publicado, ao lado "
-"da sua fonte, para que qualquer pessoa possa conferir, comparar países e "
-"governantes e tirar as próprias conclusões."
+"Olá, eu sou o Klaus. Me formei em Engenharia Mecânica na Universidade Federal"
+" do Rio Grande do Sul (UFRGS) e trabalho na Áustria como lead developer em "
+"Python e Power BI. Criei o Data Mechanics porque boas decisões começam com "
+"fatos. Os dados públicos costumam estar espalhados, ser difíceis de encontrar"
+" ou ficar atrás de paywalls, e muito do que lemos sobre o mundo é "
+"tendencioso. Aqui, cada número aparece como foi publicado, ao lado da sua "
+"fonte, para que qualquer pessoa possa conferir, comparar países e governantes"
+" e tirar as próprias conclusões."
 
-#: templates/base.html:79
+#: templates/base.html:89
 msgid "Follow on LinkedIn"
 msgstr "Seguir no LinkedIn"
 
-#: templates/base.html:82
+#: templates/base.html:92
 msgid "Follow on GitHub"
 msgstr "Seguir no GitHub"
 
-#: templates/base.html:94
+#: templates/base.html:104
 msgid "Footer"
 msgstr "Rodapé"
 
-#: templates/base.html:98
+#: templates/base.html:108
 msgid "Source code"
 msgstr "Código-fonte"
 
-#: templates/base.html:98
+#: templates/base.html:108
 msgid "Source code: coming soon"
 msgstr "Código-fonte: em breve"
 
-#: templates/base.html:100
+#: templates/base.html:110
 msgid ""
 "Data from the <a href=\"https://data.worldbank.org/\">World Bank</a>, the <a "
 "href=\"https://www.imf.org/external/datamapper/\">IMF</a>, the <a "
@@ -3797,12 +3792,12 @@ msgstr "Buscar"
 #, python-format
 msgid ""
 "No metric matches “%(query)s”. Try a broader word, like “economy” or "
-"“population”, or <a class=\"text-link\" href=\"%(all_url)s\">see all "
-"metrics</a>."
+"“population”, or <a class=\"text-link\" "
+"href=\"%(home_url)s#categories\">browse the categories</a>."
 msgstr ""
 "Nenhum indicador corresponde a “%(query)s”. Tente uma palavra mais ampla, "
 "como “economia” ou “população”, ou <a class=\"text-link\" "
-"href=\"%(all_url)s\">veja todos os indicadores</a>."
+"href=\"%(home_url)s#categories\">navegue pelas categorias</a>."
 
 #: templates/pages/home.html:6
 msgid "The world in numbers."
@@ -3818,9 +3813,9 @@ msgid ""
 msgstr ""
 "O Data Mechanics é um projeto open source que reúne dados de fontes públicas "
 "como o Banco Mundial, o FMI e as Nações Unidas. Cada número mostra a sua "
-"fonte, para que você possa conferir, comparar e formar a sua própria "
-"opinião com base em fatos. Explore os dados em mapas e gráficos e baixe-os de"
-" graça. Sem paywall, sem cadastro."
+"fonte, para que você possa conferir, comparar e formar a sua própria opinião "
+"com base em fatos. Explore os dados em mapas e gráficos e baixe-os de graça. "
+"Sem paywall, sem cadastro."
 
 #: templates/pages/home.html:14
 msgid "Explore the metrics"
@@ -3912,23 +3907,34 @@ msgstr "Destaques"
 msgid "Latest posts"
 msgstr "Últimos artigos"
 
-#: templates/pages/home.html:107
+#: templates/pages/home.html:108 templates/pages/home.html:153
+msgid "Browse by category"
+msgstr "Navegue por categoria"
+
+#: templates/pages/home.html:114
+#, python-format
+msgid "%(count)s metric"
+msgid_plural "%(count)s metrics"
+msgstr[0] "%(count)s indicador"
+msgstr[1] "%(count)s indicadores"
+
+#: templates/pages/home.html:122
 msgid "Latest data"
 msgstr "Dados mais recentes"
 
-#: templates/pages/home.html:109 templates/politics/country.html:30
+#: templates/pages/home.html:124 templates/politics/country.html:30
 msgid "Scroll left"
 msgstr "Rolar para a esquerda"
 
-#: templates/pages/home.html:110 templates/politics/country.html:36
+#: templates/pages/home.html:125 templates/politics/country.html:36
 msgid "Scroll right"
 msgstr "Rolar para a direita"
 
-#: templates/pages/home.html:136
+#: templates/pages/home.html:151
 msgid "Explore every metric"
 msgstr "Explorar todos os indicadores"
 
-#: templates/pages/home.html:137
+#: templates/pages/home.html:152
 #, python-format
 msgid ""
 "%(total)s metrics on every country, each with a world map, a chart over time "

@@ -8,7 +8,7 @@
 <div class="wrap layout">
   <div>
     <nav class="crumbs" aria-label="{% translate "Breadcrumb" %}">
-      <a href="{% url 'metrics:list' %}">{% translate "Metrics" %}</a><span aria-hidden="true">/</span>
+      <a href="{% url 'home' %}#categories">{% translate "Metrics" %}</a><span aria-hidden="true">/</span>
       <a href="{% url 'metrics:list' %}?category={{ metric.tags.category|urlencode }}">{{ metric.tags.category_label }}</a>
     </nav>
 
@@ -101,7 +101,7 @@
     {% endif %}
 
     <section class="card rail-card" aria-labelledby="related-title">
-      <a class="rail-card__title" id="related-title" href="{% url 'metrics:list' %}">{% translate "More metrics" %} {% include "partials/icon.html" with name="chevron-right" size="14" %}</a>
+      <a class="rail-card__title" id="related-title" href="{% url 'metrics:list' %}?category={{ metric.tags.category|urlencode }}">{% translate "More metrics" %} {% include "partials/icon.html" with name="chevron-right" size="14" %}</a>
       <ul class="rail-list">
         {% for item in related %}
         <li><a class="rail-item" href="{% url 'metrics:detail' item.slug %}">

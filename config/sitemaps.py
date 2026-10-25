@@ -19,7 +19,7 @@ class LanguagesSitemap(Sitemap):
 
 class PageSitemap(LanguagesSitemap):
     def items(self):
-        return ['home', 'metrics:list', 'politics:index', 'blog:list']
+        return ['home', 'politics:index', 'blog:list']
 
     def location(self, item):
         return reverse(item)
