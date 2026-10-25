@@ -3,19 +3,22 @@ from importlib import import_module
 
 from django.core.management.base import BaseCommand, CommandError
 
-from providers import MODULES
+from providers import CONFLICT_MODULES, MODULES
 
 
 class Command(BaseCommand):
-    help = 'Run ETL modules from providers/: download each source and replace its table.'
+    help = ('Run ETL modules from providers/: download each source and replace its table. '
+            'Without names it runs every metric module; the conflicts (World War II) load only when named.')
 
     def add_arguments(self, parser):
-        parser.add_argument('modules', nargs='*', help='Modules to run, e.g. worldbank.gdp. Default: all, in order.')
+        parser.add_argument('modules', nargs='*', help='Modules to run, e.g. worldbank.gdp or curated.ww2_states. '
+                            'Default: every metric module, in order; never the conflicts.')
 
     def handle(self, *args, modules, **options):
-        unknown = set(modules) - set(MODULES)
+        known = MODULES + CONFLICT_MODULES
+        unknown = set(modules) - set(known)
         if unknown:
-            raise CommandError(f'Unknown modules: {", ".join(sorted(unknown))}. Known: {", ".join(MODULES)}')
+            raise CommandError(f'Unknown modules: {", ".join(sorted(unknown))}. Known: {", ".join(known)}')
 
         for name in modules or MODULES:
             started = time.monotonic()

@@ -34,6 +34,11 @@ class Country(models.Model):
         return getattr(self, f'name_{translation.get_language()}', '') or self.name
 
 
+def table_name(model):
+    """The name etl_load gives a model's table: "ww2.battle" for a table in a schema, else the table's own name."""
+    return model._meta.db_table.replace('"."', '.')
+
+
 class EtlLoad(models.Model):
     """One row per ETL run: which table was loaded, from where, and when."""
 

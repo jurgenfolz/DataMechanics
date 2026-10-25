@@ -1,0 +1,85 @@
+gwcode,name,ruler
+3,Alaska,us
+4,Hawaii,us
+6,Puerto Rico,us
+31,Bahamas,gb
+51,Jamaica,gb
+52,Trinidad and Tobago,gb
+53,Barbados,gb
+65,Guadeloupe,fr
+66,Martinique,fr
+80,British Honduras,gb
+110,British Guiana,gb
+115,Surinam,nl
+120,French Guiana,fr
+1201,Inini,fr
+291,Free City of Danzig,
+305,Austria,de
+352,Cyprus,gb
+402,Cape Verde,pt
+404,Portuguese Guinea,pt
+411,Spanish Guinea,es
+420,Gambia,gb
+432,French Sudan,fr
+433,Senegal,fr
+434,Dahomey,fr
+435,Mauritania,fr
+436,Niger,fr
+437,Ivory Coast,fr
+438,French Guinea,fr
+451,Sierra Leone,gb
+452,Gold Coast,gb
+461,French Togoland,fr
+462,British Togoland,gb
+471,French Cameroons,fr
+472,British Cameroons,gb
+475,Nigeria,gb
+481,Gabon,fr
+482,Ubangi-Shari,fr
+483,Chad,fr
+484,Middle Congo,fr
+490,Belgian Congo,be
+500,Uganda,gb
+501,Kenya,gb
+510,Tanganyika,gb
+511,Zanzibar,gb
+521,British Somaliland,gb
+522,French Somaliland,fr
+531,Eritrea,it
+540,Angola,pt
+541,Mozambique,pt
+551,Northern Rhodesia,gb
+553,Nyasaland,gb
+565,South West Africa,za
+570,Basutoland,gb
+571,Bechuanaland,gb
+572,Swaziland,gb
+580,Madagascar,fr
+585,Réunion,fr
+590,Mauritius,gb
+600,French Morocco,fr
+602,Spanish Morocco,es
+610,Spanish West Africa,es
+615,Algeria,fr
+616,Tunisia,fr
+620,Libya,it
+625,Anglo-Egyptian Sudan,gb
+663,Transjordan,gb
+665,Palestine,gb
+681,Aden,gb
+694,Qatar,gb
+696,Trucial States,gb
+6812,East Aden Protectorate,gb
+713,Taiwan,jp
+7351,Karafuto,jp
+760,Bhutan,in
+780,Ceylon,gb
+781,Maldives,gb
+823,North Borneo,gb
+824,Sarawak,gb
+835,Brunei,gb
+930,New Caledonia,fr
+940,Solomon Islands,gb
+950,Fiji,gb
+960,French Polynesia,fr
+5200,Italian Somaliland,it

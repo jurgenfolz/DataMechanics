@@ -1,7 +1,10 @@
 """ETL: one folder per data provider, one module per table.
 
 Each module has a run() function that downloads its source and replaces its table.
-Run them with `python manage.py etl` (all, in this order) or `python manage.py etl worldbank.gdp`.
+Run them with `python manage.py etl` (every module in MODULES, in this order) or `python manage.py etl worldbank.gdp`.
+
+The conflicts' modules (CONFLICT_MODULES) are not part of a plain `etl` run, so the weekly refresh never touches them:
+World War II is history, and its sources are pinned. They load only when named, as every deploy does.
 """
 
 # The country dimension loads first: every fact table points at it.
@@ -59,4 +62,14 @@ MODULES = [
     # Politics mode: parties first, administrations point at them.
     'curated.parties',
     'curated.administrations',
+]
+
+# World War II, in the conflicts database: the states first, every other table points at them.
+CONFLICT_MODULES = [
+    'curated.ww2_states',
+    'curated.ww2_sides',
+    'wikipedia.ww2_deaths',
+    'curated.ww2_battles',
+    'curated.ww2_events',
+    'cshapes.ww2_borders',
 ]

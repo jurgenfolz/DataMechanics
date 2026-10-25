@@ -1,4 +1,4 @@
-"""sitemap.xml: the home page, every metric page, every Politics country and every published post, in every language.
+"""sitemap.xml: the home page, the metrics, the Politics countries, the conflicts and the posts, in every language.
 
 Each URL lists its other languages, so search engines show people the page in theirs.
 """
@@ -19,7 +19,7 @@ class LanguagesSitemap(Sitemap):
 
 class PageSitemap(LanguagesSitemap):
     def items(self):
-        return ['home', 'politics:index', 'blog:list']
+        return ['home', 'politics:index', 'conflicts:index', 'conflicts:ww2', 'blog:list']
 
     def location(self, item):
         return reverse(item)

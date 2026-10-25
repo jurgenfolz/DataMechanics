@@ -1,0 +1,108 @@
+code,name,name_de,name_pt,kind,ruler,successors,qid,gwcodes,start,end
+us,United States,Vereinigte Staaten,Estados Unidos,sovereign,,us,Q30,2,,
+gb,United Kingdom,Vereinigtes Königreich,Reino Unido,sovereign,,gb,Q145,200,,
+su,Soviet Union,Sowjetunion,União Soviética,sovereign,,ru ua by ee lv lt md ge am az kz uz tm kg tj,Q15180,365,,
+de,Germany,Deutschland,Alemanha,sovereign,,de at,Q7318,255 260 265,,1945-06-05
+it,Italy,Italien,Itália,sovereign,,it,Q172579,325,,
+it-rsi,Italian Social Republic,Italienische Sozialrepublik,República Social Italiana,puppet,de,it,Q153660,,1943-09-23,1945-04-25
+jp,Japan,Japan,Japão,sovereign,,jp,Q188712,740,,
+cn,China,China,China,sovereign,,cn tw,Q13426199,710,,
+fr,France,Frankreich,França,sovereign,,fr,Q70802,220,,1940-07-10
+fr-vichy,Vichy France,Vichy-Frankreich,França de Vichy,sovereign,,fr,Q69808,,1940-07-10,1944-08-09
+fr-free,Free France,Freies Frankreich,França Livre,exile,,fr,Q152582,,1940-06-18,
+pl,Poland,Polen,Polônia,sovereign,,pl,Q207272,290,,
+cs,Czechoslovakia,Tschechoslowakei,Tchecoslováquia,exile,,cz sk,Q33946,315,,
+cz-bm,Protectorate of Bohemia and Moravia,Protektorat Böhmen und Mähren,Protetorado da Boêmia e Morávia,occupied,de,cz,Q152750,,1939-03-16,1945-05-08
+sk,Slovakia,Slowakei,Eslováquia,puppet,de,sk,Q154401,,1939-03-14,1945-04-04
+hu,Hungary,Ungarn,Hungria,sovereign,,hu,Q600018,310,,
+ro,Romania,Rumänien,Romênia,sovereign,,ro md,Q203493,360,,
+bg,Bulgaria,Bulgarien,Bulgária,sovereign,,bg,Q147909,355,,
+yu,Yugoslavia,Jugoslawien,Iugoslávia,sovereign,,rs hr si ba me mk xk,Q191077,345,,
+hr-ndh,Independent State of Croatia,Unabhängiger Staat Kroatien,Estado Independente da Croácia,puppet,de,hr ba,Q153128,,1941-04-10,1945-05-08
+rs-ned,Serbia under German occupation,Serbien unter deutscher Besatzung,Sérvia sob ocupação alemã,occupied,de,rs,Q701914,,1941-04-22,1944-10-20
+gr,Greece,Griechenland,Grécia,sovereign,,gr,Q209065,350,,
+gr-hs,Hellenic State,Hellenischer Staat,Estado Helênico,puppet,de,gr,Q3013827,,1941-04-30,1944-10-12
+al,Albania,Albanien,Albânia,occupied,it,al,Q1448131,339,,
+fi,Finland,Finnland,Finlândia,sovereign,,fi,Q33,375,,
+ee,Estonia,Estland,Estônia,sovereign,,ee,Q191,366,,1940-08-06
+lv,Latvia,Lettland,Letônia,sovereign,,lv,Q211,367,,1940-08-05
+lt,Lithuania,Litauen,Lituânia,sovereign,,lt,Q37,368,,1940-08-03
+be,Belgium,Belgien,Bélgica,sovereign,,be,Q31,211,,
+nl,Netherlands,Niederlande,Países Baixos,sovereign,,nl,Q55,210,,
+lu,Luxembourg,Luxemburg,Luxemburgo,sovereign,,lu,Q32,212,,
+no,Norway,Norwegen,Noruega,sovereign,,no,Q20,385,,
+dk,Denmark,Dänemark,Dinamarca,occupied,,dk,Q35,390,,
+is,Iceland,Island,Islândia,sovereign,,is,Q62567,395,,
+ch,Switzerland,Schweiz,Suíça,sovereign,,ch,Q39,225,,
+se,Sweden,Schweden,Suécia,sovereign,,se,Q34,380,,
+pt,Portugal,Portugal,Portugal,sovereign,,pt,Q824489,235,,
+ie,Ireland,Irland,Irlanda,sovereign,,ie,Q27,205,,
+es,Spain,Spanien,Espanha,sovereign,,es,Q13474305,230,,
+tr,Turkey,Türkei,Turquia,sovereign,,tr,Q43,640,,
+va,Vatican City,Vatikanstadt,Vaticano,sovereign,,va,Q237,,,
+sm,San Marino,San Marino,San Marino,sovereign,,sm,Q238,,,
+li,Liechtenstein,Liechtenstein,Liechtenstein,sovereign,,li,Q347,,,
+mc,Monaco,Monaco,Mônaco,sovereign,,mc,Q235,,,
+ad,Andorra,Andorra,Andorra,sovereign,,ad,Q228,,,
+ca,Canada,Kanada,Canadá,dominion,gb,ca,Q16,20,,
+nf,Newfoundland,Neufundland,Terra Nova,dominion,gb,ca,Q38610,21,,
+au,Australia,Australien,Austrália,dominion,gb,au,Q408,900,,
+nz,New Zealand,Neuseeland,Nova Zelândia,dominion,gb,nz,Q664,920,,
+za,South Africa,Südafrika,África do Sul,dominion,gb,za,Q193619,560,,
+zw,Southern Rhodesia,Südrhodesien,Rodésia do Sul,colony,gb,zw,Q750583,552,,
+in,India,Indien,Índia,colony,gb,in pk bd,Q129286,750,,
+mm,Burma,Birma,Birmânia,colony,gb,mm,Q2376315,775,,
+mm-sob,State of Burma,Staat Burma,Estado da Birmânia,puppet,jp,mm,Q704358,,1943-08-01,1945-03-27
+my,Malaya and Singapore,Malaya und Singapur,Malásia e Singapura,colony,gb,my sg,Q871091,821 822 827,,
+mt,Malta,Malta,Malta,colony,gb,mt,Q6744657,338,,
+id,Dutch East Indies,Niederländisch-Indien,Índias Orientais Holandesas,colony,nl,id,Q188161,850,,
+vn,French Indochina,Französisch-Indochina,Indochina Francesa,colony,fr,vn la kh,Q185682,811 812 815,,
+vn-emp,Empire of Vietnam,Kaiserreich Vietnam,Império do Vietnã,puppet,jp,vn,Q701337,,1945-03-11,1945-08-25
+ph,Philippines,Philippinen,Filipinas,colony,us,ph,Q146328,840,,
+ph-2r,Second Philippine Republic,Zweite Philippinische Republik,Segunda República Filipina,puppet,jp,ph,Q2027229,,1943-10-14,1945-08-17
+kr,Korea,Korea,Coreia,colony,jp,kr kp,Q503585,730 731 732,,
+gu,Guam,Guam,Guam,colony,us,gu,Q16635,,,
+mp,South Seas Mandate,Südseemandat,Mandato do Pacífico Sul,mandate,jp,mp pw fm mh,Q718763,,,
+pg,Papua and New Guinea,Papua und Neuguinea,Papua e Nova Guiné,mandate,au,pg,,911 912,,
+nr,Nauru,Nauru,Nauru,mandate,au,nr,Q104177909,,,
+tl,Portuguese Timor,Portugiesisch-Timor,Timor Português,colony,pt,tl,Q142965,860,,
+rw,Ruanda-Urundi,Ruanda-Urundi,Ruanda-Urundi,mandate,be,rw bi,Q590743,515,,
+cn-man,Manchukuo,Mandschukuo,Manchukuo,puppet,jp,cn,Q30623,,1932-03-01,1945-08-19
+cn-mj,Mengjiang,Mengjiang,Mengjiang,puppet,jp,cn,Q697837,,1939-09-01,1945-08-19
+cn-wang,Wang Jingwei regime,Wang-Jingwei-Regime,Regime de Wang Jingwei,puppet,jp,cn,Q696242,,1940-03-30,1945-08-16
+mn,Mongolia,Mongolei,Mongólia,sovereign,,mn,Q212056,712,,
+tuva,Tuva,Tuwa,Tuva,sovereign,,ru,Q816709,,,1944-10-11
+xt,Tibet,Tibet,Tibete,sovereign,,cn,Q2444884,711,,
+th,Thailand,Thailand,Tailândia,sovereign,,th,Q869,800,,
+eg,Egypt,Ägypten,Egito,sovereign,,eg,Q124943,651,,
+iq,Iraq,Irak,Iraque,sovereign,,iq,Q149805,645,,
+ir,Iran,Iran,Irã,sovereign,,ir,Q107258515,630,,
+et,Ethiopia,Äthiopien,Etiópia,sovereign,,et,Q207521,530,,
+sa,Saudi Arabia,Saudi-Arabien,Arábia Saudita,sovereign,,sa,Q851,670,,
+ye,Yemen,Jemen,Iêmen,sovereign,,ye,Q580188,678,,
+af,Afghanistan,Afghanistan,Afeganistão,sovereign,,af,Q1138904,700,,
+sy,Syria,Syrien,Síria,mandate,fr,sy,Q26234937,652,,
+lb,Lebanon,Libanon,Líbano,mandate,fr,lb,Q130842,660,,
+lr,Liberia,Liberia,Libéria,sovereign,,lr,Q1014,450,,
+om,Muscat and Oman,Maskat und Oman,Mascate e Omã,sovereign,,om,Q157734,698,,
+np,Nepal,Nepal,Nepal,sovereign,,np,Q1078602,790,,
+mx,Mexico,Mexiko,México,sovereign,,mx,Q96,70,,
+br,Brazil,Brasilien,Brasil,sovereign,,br,Q155,140,,
+ar,Argentina,Argentinien,Argentina,sovereign,,ar,Q414,160,,
+cl,Chile,Chile,Chile,sovereign,,cl,Q298,155,,
+cu,Cuba,Kuba,Cuba,sovereign,,cu,Q241,40,,
+ht,Haiti,Haiti,Haiti,sovereign,,ht,Q790,41,,
+do,Dominican Republic,Dominikanische Republik,República Dominicana,sovereign,,do,Q786,42,,
+gt,Guatemala,Guatemala,Guatemala,sovereign,,gt,Q774,90,,
+hn,Honduras,Honduras,Honduras,sovereign,,hn,Q783,91,,
+sv,El Salvador,El Salvador,El Salvador,sovereign,,sv,Q792,92,,
+ni,Nicaragua,Nicaragua,Nicarágua,sovereign,,ni,Q811,93,,
+cr,Costa Rica,Costa Rica,Costa Rica,sovereign,,cr,Q800,94,,
+pa,Panama,Panama,Panamá,sovereign,,pa,Q804,95,,
+co,Colombia,Kolumbien,Colômbia,sovereign,,co,Q739,100,,
+ve,Venezuela,Venezuela,Venezuela,sovereign,,ve,Q717,101,,
+ec,Ecuador,Ecuador,Equador,sovereign,,ec,Q736,130,,
+pe,Peru,Peru,Peru,sovereign,,pe,Q419,135,,
+bo,Bolivia,Bolivien,Bolívia,sovereign,,bo,Q750,145,,
+py,Paraguay,Paraguay,Paraguai,sovereign,,py,Q733,150,,
+uy,Uruguay,Uruguay,Uruguai,sovereign,,uy,Q77,165,,

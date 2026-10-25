@@ -12,7 +12,8 @@
   {% endblocktranslate %}</p>
   <div class="intro__actions">
     <a class="button" href="#categories">{% translate "Explore the metrics" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
-    <a class="button" href="{% url 'politics:index' %}">{% translate "Explore politics" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
+    <a class="button" href="{% url 'politics:index' %}">{% translate "View politics section" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
+    <a class="button" href="{% url 'conflicts:index' %}">{% translate "View conflicts section" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</a>
     <a class="button button--outline" href="{% url 'blog:list' %}">{% translate "Read the posts" %}</a>
   </div>
 </section>

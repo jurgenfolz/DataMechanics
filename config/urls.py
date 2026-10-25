@@ -27,6 +27,7 @@ urlpatterns += i18n_patterns(
     path('posts/', include('blog.urls')),
     path('metrics/', include('metrics.urls')),
     path('politics/', include('politics.urls')),
+    path('conflicts/', include('conflicts.urls')),
     # The browser's translations of the strings in static/js.
     path('jsi18n/', cache_control(public=True, max_age=3600)(JavaScriptCatalog.as_view()), name='javascript-catalog'),
     prefix_default_language=False,

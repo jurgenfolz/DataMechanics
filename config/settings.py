@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
     'blog',
     'geo',
     'metrics',
     'politics',
+    'conflicts',
     'pages',
 ]
 
@@ -77,16 +79,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # PostgreSQL, in Docker (docker-compose.yml).
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['POSTGRES_DB'],
-        'USER': os.environ['POSTGRES_USER'],
-        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-        'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-    }
+# The conflicts (World War II for now) have a database of their own on the same server, with one schema per conflict.
+# conflicts/routers.py sends the conflicts app there.
+_POSTGRES = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'USER': os.environ['POSTGRES_USER'],
+    'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+    'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
+    'PORT': os.environ.get('POSTGRES_PORT', '5432'),
 }
+DATABASES = {
+    'default': {**_POSTGRES, 'NAME': os.environ['POSTGRES_DB']},
+    'conflicts': {**_POSTGRES, 'NAME': os.environ.get('POSTGRES_CONFLICTS_DB', 'conflicts')},
+}
+DATABASE_ROUTERS = ['conflicts.routers.ConflictsRouter']
 
 AUTH_PASSWORD_VALIDATORS = [
     {

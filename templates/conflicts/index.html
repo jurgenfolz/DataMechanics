@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Conflicts" %} · Data Mechanics{% endblock %}
+{% block description %}{% translate "The wars of the world in numbers: deaths by country, battles on a map and timelines, from open sources." %}{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <header class="results-head">
+    <h1>{% translate "Conflicts" %}</h1>
+    <p class="results-head__quip">{% translate "What war costs, counted one person at a time." %}</p>
+    <p>{% translate "Deaths by country, the great battles on a map, and each war day by day. Every figure names its source." %}</p>
+  </header>
+
+  <div class="conflict-grid">
+    <a class="card conflict-card" href="{% url 'conflicts:ww2' %}">
+      <span class="conflict-card__name">{% translate "World War II" %}</span>
+      <span class="conflict-card__years">1937–1945</span>
+      <span class="conflict-card__meta">{% blocktranslate trimmed with states=states battles=battles %}
+        Deaths in {{ states }} countries and territories, {{ battles }} battles, and the war from China to Berlin.
+      {% endblocktranslate %}</span>
+      <span class="country-card__cta">{% translate "Open World War II" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</span>
+    </a>
+    <div class="card conflict-card conflict-card--soon">
+      <span class="conflict-card__name">{% translate "More conflicts soon" %}</span>
+      <span class="conflict-card__meta">{% translate "Each war needs its states, battles and sources checked by hand before it is added." %}</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 15:32+0000\n"
+"POT-Creation-Date: 2026-10-25 15:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,33 @@ msgstr ""
 #: static/js/home.js:38
 msgid "%(label)s, %(year)s. Brighter blue is higher."
 msgstr "%(label)s, %(year)s. Azul mais claro é mais alto."
+
+#: static/js/lib/battle-list.js:22 static/js/lib/war-map.js:175
+msgid "Read on Wikipedia"
+msgstr "Ler na Wikipédia"
+
+#: static/js/lib/casualties-chart.js:103 static/js/lib/casualties-chart.js:110
+#: static/js/lib/casualties-chart.js:142
+msgid "Soldiers"
+msgstr "Soldados"
+
+#: static/js/lib/casualties-chart.js:104 static/js/lib/casualties-chart.js:111
+#: static/js/lib/casualties-chart.js:143
+msgid "Civilians"
+msgstr "Civis"
+
+#: static/js/lib/casualties-chart.js:104
+msgid "Famine and disease"
+msgstr "Fome e doenças"
+
+#: static/js/lib/casualties-chart.js:105
+#, javascript-format
+msgid "%s of its people in 1939"
+msgstr "%s da sua população em 1939"
+
+#: static/js/lib/casualties-chart.js:112 static/js/lib/casualties-chart.js:144
+msgid "Up to the highest estimate"
+msgstr "Até a estimativa mais alta"
 
 #: static/js/lib/chart-image.js:212
 #, javascript-format
@@ -145,6 +172,30 @@ msgstr[0] "%s mandato sem dados suficientes nesta medida não aparece na lista."
 msgstr[1] ""
 "%s mandatos sem dados suficientes nesta medida não aparecem na lista."
 
+#: static/js/lib/war-map.js:174
+msgid "Killed, wounded, missing and captured"
+msgstr "Mortos, feridos, desaparecidos e prisioneiros"
+
+#: static/js/lib/war-map.js:264 static/js/ww2-page.js:207
+msgid "Allies"
+msgstr "Aliados"
+
+#: static/js/lib/war-map.js:264 static/js/ww2-page.js:208
+msgid "Axis"
+msgstr "Eixo"
+
+#: static/js/lib/war-map.js:264 static/js/ww2-page.js:209
+msgid "Not at war"
+msgstr "Fora da guerra"
+
+#: static/js/lib/war-timeline.js:127
+msgid "Pause"
+msgstr "Pausar"
+
+#: static/js/lib/war-timeline.js:127
+msgid "Play the war"
+msgstr "Reproduzir a guerra"
+
 #: static/js/lib/world-map.js:133
 #, javascript-format
 msgid "No data for %s"
@@ -180,11 +231,12 @@ msgid "Highest values, %s"
 msgstr "Maiores valores, %s"
 
 #: static/js/metric-page.js:205 static/js/politics-page.js:121
+#: static/js/ww2-page.js:68
 #, javascript-format
 msgid "%s (no data)"
 msgstr "%s (sem dados)"
 
-#: static/js/metric-page.js:208
+#: static/js/metric-page.js:208 static/js/ww2-page.js:71
 #, javascript-format
 msgid "Remove %s"
 msgstr "Remover %s"
@@ -203,8 +255,8 @@ msgid ""
 "%(title)s in %(name)s over time, coloured by the leader in office. The list "
 "below gives the change during each term."
 msgstr ""
-"%(title)s em %(name)s ao longo do tempo, colorido por quem estava no cargo. A"
-" lista abaixo mostra a variação durante cada mandato."
+"%(title)s em %(name)s ao longo do tempo, colorido por quem estava no cargo. "
+"A lista abaixo mostra a variação durante cada mandato."
 
 #: static/js/politics-page.js:245
 msgid "Source: not loaded yet."
@@ -218,7 +270,7 @@ msgstr "atualizado em %(date)s"
 msgid "fetched %(date)s"
 msgstr "coletado em %(date)s"
 
-#: static/js/politics-page.js:251
+#: static/js/politics-page.js:251 static/js/ww2-page.js:20
 msgid "Source:"
 msgstr "Fonte:"
 
@@ -239,3 +291,39 @@ msgstr "Partido"
 msgid "No metric matches “%s”. Press Enter to search all."
 msgstr ""
 "Nenhum indicador corresponde a “%s”. Pressione Enter para buscar em todos."
+
+#: static/js/ww2-page.js:20
+#, javascript-format
+msgid "fetched %s"
+msgstr "coletado em %s"
+
+#: static/js/ww2-page.js:108
+msgid "World War II: casualties by country"
+msgstr "Segunda Guerra Mundial: baixas por país"
+
+#: static/js/ww2-page.js:109
+msgid "Deaths in the war, soldiers and civilians, lowest to highest estimate."
+msgstr ""
+"Mortes na guerra, soldados e civis, da estimativa mais baixa à mais alta."
+
+#: static/js/ww2-page.js:110
+msgid "Military deaths, lowest to highest estimate."
+msgstr "Mortes militares, da estimativa mais baixa à mais alta."
+
+#: static/js/ww2-page.js:110
+msgid "Civilian deaths, lowest to highest estimate."
+msgstr "Mortes civis, da estimativa mais baixa à mais alta."
+
+#: static/js/ww2-page.js:191
+msgid "World War II: the battles"
+msgstr "Segunda Guerra Mundial: as batalhas"
+
+#: static/js/ww2-page.js:192
+msgid ""
+"Every battle on the map, 1937 to 1945. Circles: casualties of both sides."
+msgstr "Cada batalha no mapa, de 1937 a 1945. Círculos: baixas dos dois lados."
+
+#: static/js/ww2-page.js:193
+#, javascript-format
+msgid "The war on %s. Circles: casualties of both sides."
+msgstr "A guerra em %s. Círculos: baixas dos dois lados."

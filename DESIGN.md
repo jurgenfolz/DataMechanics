@@ -33,6 +33,13 @@ colors:
   world-line: "#c9ccd0"
   good: "#2bc892"
   bad: "#f2545b"
+  soldiers: "#3987e5"
+  civilians: "#c98500"
+  uncertain: "rgb(182 185 189 / 0.3)"
+  allies: "#3987e5"
+  axis: "#d95926"
+  allies-land: "#264060"
+  axis-land: "#6c3723"
 typography:
   display-xl:
     fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
@@ -273,6 +280,26 @@ components:
     textColor: "{colors.ink-3}"
   series-tab-active:
     textColor: "{colors.ink}"
+  pill-button:
+    backgroundColor: "rgb(23 25 27 / 0.88)"
+    textColor: "{colors.ink-2}"
+    rounded: "{rounded.pill}"
+    padding: "0 14px"
+    height: "32px"
+  pill-button-hover:
+    textColor: "{colors.gold}"
+  play-button:
+    backgroundColor: "{colors.gold}"
+    textColor: "{colors.bg}"
+    rounded: "{rounded.round}"
+    size: "40px"
+  play-button-hover:
+    backgroundColor: "{colors.gold-hover}"
+  conflict-card:
+    backgroundColor: "{colors.card}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.card}"
+    padding: "24px"
 ---
 
 # Design System: Data Mechanics
@@ -327,11 +354,15 @@ A near-monochrome charcoal floor with one hot gold accent and a separate, valida
 - **World Line Grey** (#c9ccd0): the World line, always dashed.
 - **Party colours** (Politics mode): each party's colour from Wikipedia's timeline of the country's presidents or chancellors, lightened where needed to reach 3:1 against Chart Well. They colour the line, the area under it at 16%, and the party bars on labels and president buttons. A stretch without a party is #999999.
 - **Better Green** (#2bc892) and **Worse Red** (#f2545b): the change during a presidency, good or bad for the metric. Always beside an up or down arrow and the size of the change; a change with no better direction is Quiet Ink.
+- **Soldiers** and **Civilians** (Conflicts): Series Blue and Series Amber, reused as the two stacked parts of a casualties column. **Uncertain Grey** (Quiet Ink at 30%) draws the faint segment that runs from a country's lowest estimate to its highest; the legend swatch for it is the same grey at 45%.
+- **Allies** and **Axis** (Conflicts): Series Blue and Series Rust, reused for the two sides wherever the war is drawn: the halves of a battle circle, the winner's bar on the timeline, the legend keys and the saved images. Land on the battle map takes a quiet mix of its side into Chart Well: **Allied Land** (#264060, blue at 32%) and **Axis Land** (#6c3723, rust at 42%); the countries in a hovered battle brighten to 75%. Land not at war is No-Data Grey, brightening to #45484c. Both pairs pass the dataviz palette validator against Chart Well.
 
 ### Named Rules
 **The One Gold Rule.** Gold is the only accent in the interface: primary buttons, value pills, the active nav link and series tab, focus glow. A second accent colour is never introduced: the interface carries no green or red, and Kalshi's green is not used, for titles or anything else. The one exception is Politics mode, where Better Green and Worse Red mark a presidency's change, always with an arrow.
 
 **The Data Stays In The Chart Rule.** Map ramps and line colours belong to the data. They never colour interface chrome, and gold never colours a chart mark, except as the hover outline of a country.
+
+**The Fixed Sides Rule.** In Conflicts the Allies are always Series Blue and the Axis always Series Rust; soldiers are always Series Blue and civilians Series Amber. One constant feeds the map, the timeline, the battle list, every legend and the saved images, so a side or a kind of death never changes colour between views.
 
 ## Typography
 
@@ -356,10 +387,10 @@ A near-monochrome charcoal floor with one hot gold accent and a separate, valida
 - **Meta** (400, 0.8125rem, Muted Ink): source lines, card feet, notes, timestamps, and the question under a market card's title.
 - **Nav Label** (800, 0.8125rem, 0.08em, uppercase): the three main header links only.
 - **Value** (700, 0.9375rem, tabular figures): numbers in value pills and ranking lists.
-- **Mono** (JetBrains Mono, 0.75rem, 0.02em): ranks, table year column, chart x-axis years. Tile year spans and search category tags run at 0.6875rem uppercase.
+- **Mono** (JetBrains Mono, 0.75rem, 0.02em): ranks, table year column, chart x-axis years. Tile year spans and search category tags run at 0.6875rem uppercase. Conflicts adds one bold mono ticker, local to that section and not a step of the ramp: the war timeline's date (700, 1.25rem; 500 at 1rem in Quiet Ink while the whole war shows). The war page's years under its title are mono at 0.8125rem with 0.06em tracking, and a conflict card's years the same at 0.75rem.
 
 ### Named Rules
-**The Condensed Headline Rule.** Page titles, the home introduction headline, the spotlight title, section titles and the About title are Archivo at 75% width (font-stretch 75%). Card titles, body text and numbers stay at normal width.
+**The Condensed Headline Rule.** Page titles, the home introduction headline, the spotlight title, section titles and the About title are Archivo at 75% width (font-stretch 75%). Card titles, body text and numbers stay at normal width. The one card title at 75% width is a conflict card's name (700, 2rem, line-height 1.05): it is the page's title quoted on the index, not a card title. A war page's title is Display Large and its section titles Headline Small.
 
 **The Mono Ticker Rule.** JetBrains Mono is for codes, years and ranks. Values in pills, names and prose are never set in mono.
 
@@ -388,6 +419,7 @@ The system is flat and tonal. Depth comes from three steps of charcoal (Exchange
 - **Tab Glow** (`box-shadow: 0 0 10px rgb(255 215 0 / 0.5)`): under the 2 px gold underline of the active series tab.
 - **Country Glow** (gold border 1.4 px with a 14 px gold blur at 55%): a hovered country on the map.
 - **Flag Hairline** (`box-shadow: 0 0 0 1px rgb(255 255 255 / 0.08)`): keeps light flags from melting into the dark.
+- **Timeline Head** (`box-shadow: 0 0 10px rgb(255 215 0 / 0.45)`): the 2 px gold line that marks the date on the war timeline.
 
 ### Named Rules
 **The Tonal Stack Rule.** Cards rest flat on the floor with a hairline border. Hover changes the border (to gold on link cards), never the elevation.
@@ -450,7 +482,7 @@ The market quote. A 36 px pill at least 88 px wide with a 1.5 px gold border, Br
 - **Mobile:** below 860 px only the wordmark, the search and the tab row remain; below 640 px the search becomes a round button.
 
 ### Introduction
-The home page's opening statement, set straight on the gridded floor with no card. A Display Extra Large headline in Bright Ink, written as two phrases that each hold together on one line on wide screens; a paragraph in Quiet Ink at 1.125rem (line-height 1.6, up to 62ch) 20 px below it; then, 26 px below that, two large primary pills with arrows (Explore the metrics, Explore politics) and a large outline pill (Read the posts), 12 px apart and wrapping when narrow.
+The home page's opening statement, set straight on the gridded floor with no card. A Display Extra Large headline in Bright Ink, written as two phrases that each hold together on one line on wide screens; a paragraph in Quiet Ink at 1.125rem (line-height 1.6, up to 62ch) 20 px below it; then, 26 px below that, three large primary pills with arrows (Explore the metrics, View politics section, View conflicts section) and a large outline pill (Read the posts), 12 px apart and wrapping when narrow.
 
 ### Chart Card, Well and Source Line
 Every chart lives in a card: a head with the title and its control (year select or country picker), then the source line, then the well. The source line (Meta, Muted Ink) names the source with a Quiet Ink link, the source's own update date and the date it was fetched. The well is Chart Well with 8 px corners. While data loads the well dims to 55% and keeps its size.
@@ -469,6 +501,19 @@ The chart is one line with the area under it; a stretch of line that ends at a y
 A dashed World Line Grey line (1.5 px, 6/4 dashes, under the country's line) shows the comparison group: World, BRICS, the G7 or the G20, picked in a "Compared with" select in the chart card's head, whose label starts with a 22 px dashed swatch of the line. "No comparison" hides the line and the note's sentence about groups, and dims the swatch to 30%. Groups have no logos: their names alone mark them. The tooltip adds the group's value under the leader. Each timeline row gives the group's change under the country's, in 11 px Muted Ink mono: the group's short name and a neutral arrow, never green or red. In a reel, the group's line draws itself after the country's, its tip at 60% opacity, and this pass compares values, not changes: each term's end card on it holds two rows, the country's and the group's, each with its name in 9 px mono and its value at the end of the term, large, in Bright Ink. Once the card has popped, a 1.5 px Better Green outline traces around the better value's row in 0.6 s with a brief glow, the row takes a 10% green tint, the value turns green, and a 14 px green check pops onto the outline's top-left corner. The timeline row under the chart reads "At end of term" with both values in grey. With a group, the closing ranking orders the leaders by how far ahead of the group they left the country: the year in Muted Ink mono, then the country's and the group's values in Bright Ink, the better one in Better Green with the same check, popping row after row once the panel is in place. Groups without values for a series read "(no data)" in the dropdown and can't be picked; totals such as GDP hide the dropdown. The saved images and the reel add the group to their subtitle ("Brazil, president by president, compared with G7 countries").
 
 Under the chart, the presidents (chancellors in Germany) with data for the measure form a timeline from today back: years in mono, a 2 px rail in each party's colour with a 12 px dot (ringed for the leader in office), the logo tiles, the short name with its parties, the start and end values ("$2.86 k - $11.4 k"), a data bar of the change, and the change with its arrow. The bars share one axis, like Power BI's data bars: a Strong Rule zero line runs down the list, rises grow right and falls left, in Better Green or Worse Red at 80% (Muted Ink when the metric has no better direction). A note counts the presidents left out for lack of data. Above the list, series-tab buttons switch between three views: Timeline, By party and By president (kept in the URL as ?view=). The two rankings use the same row style without years or rail: a mono rank, the logo tiles, the name with a mono aside (the party's full name, or the president's parties) over a second line (a party's presidents), the per-year change's data bar, then the change per year and the total as the last column, under mono column labels ("Per year", "Total"). Each timeline row is a button: pressing it zooms the chart to that presidency, pressing it again zooms back. On phones the years move under the name and the values drop out. Party logos always sit on a #f2f3f4 tile, because many have black lettering; a party without a logo shows its initials on its colour. "Show the numbers" lists every year with its value, the leader in office on 1 July and the party.
+
+### Conflicts
+A war page opens on the floor, not in a card: breadcrumb, the war's name in Display Large, its years in mono under it, the lead in Quiet Ink (up to 62ch), a credit line, then jump pills to its sections (32 px outlined pills, Quiet Ink at 0.8125rem 600, gold on hover). Each section is 56 px below the last with a Headline Small title.
+
+**Casualties by country.** A chart card like the metrics pages': the title with the country picker in its head (up to 12 countries, the eight with the most deaths at first), a summary line, then two checkable pills, Soldiers and Civilians (32 px, Strong Rule border, a 12 px swatch at 35% that turns solid when pressed, gold border on Gold Wash when pressed; one always stays on), with the Uncertain Grey key beside them; the source line; and a Chart Well (clamp 320–440 px tall) holding an ECharts column chart. Columns are at most 56 px wide with 36% gaps: soldiers (Series Blue) under civilians (Series Amber), and a 4 px-rounded Uncertain Grey cap running on to the highest estimate; the x-axis labels are 24 × 18 flags with the country's name under them (flags alone on narrow charts or past ten countries); gridlines Hairline, labels Muted Ink. Under the well, series keys repeat each country as a pill with its flag and a remove button, as on the line chart, and "Show the numbers" opens the table. An empty well says "Choose a country to see its casualties."
+
+**Battle Map.** A chart card with the series-tab style switching three views, "Whole war", "Europe and Africa" and "Asia and the Pacific", then the source line and a well at 1.9:1 (1.5:1 on phones, up to 640 px tall). Land takes Allied Land or Axis Land for the side it fought on that day, No-Data Grey when not at war, with borders in Chart Well. Each battle is a dot in its winner's colour (Series Blue, Series Rust, Quiet Ink when inconclusive), 8 to 17 px across by its casualties, on a 1.5 px Chart Well ring; the hovered or pressed battle takes a Bright Ink ring and the countries in it brighten to 75% of their side's colour. Hover opens the battle's card as a tooltip (its picture up to 150 px tall with a credit line when its licence asks for one, name, dates and result, each side's flags and casualties); a press pins the card, which then also carries a gold "Read on Wikipedia" link, until a click elsewhere or Escape. The wheel zooms around the pointer up to 10× and two fingers pinch, easing to the target; a drag pans (the cursor becomes a hand); a double click or the "Whole map" pill at the well's bottom right (shown only while zoomed) resets, and a change of view resets too. While the war plays, an event caption sits over the top-left of the well in a 10 px rounded Card Slate panel at 92% with a Strong Rule border: a mono uppercase date at 0.6875rem over the event in 600 at 0.875rem, fading in 220 ms. The legend under the well shows the two land fills as 16 × 11 swatches ringed in their side's colour, and a small and a large half-and-half bubble for the casualties. Tooltips are the site's tooltip in HTML over the canvas.
+
+**War Timeline.** Under the map's legend, past a hairline: a 40 px round gold play button (Exchange Floor glyph, Bright Gear Gold on hover, scales to 0.94 on press), the date in bold mono at 1.25rem, and a hint in Muted Ink at 0.75rem on the right. The track is an SVG: a lane per theatre of the chosen region named in 11 px 600 Muted Ink on the left (on a 14 px row of its own above the lane on phones), with a 6 px bar per battle on a 9 px pitch, coloured by its winner (Series Blue, Series Rust, or Muted Ink when inconclusive); future bars sit at 16%, and the battle under the pointer or under way takes a 1 px Bright Ink stroke. Years are 11 px mono labels on faint white rules. A 2 px gold head line with its 10 px dot and the timeline-head glow marks the date; it is dragged, or moved with the arrow keys, and the track takes the gold focus glow. Under it, a key of 16 × 6 bars for the winners in Muted Ink at 0.75rem. The region tabs over the map (Whole war, Europe and Africa, Asia and the Pacific) filter the map's dots, the timeline's lanes and the lists below together.
+
+**Battle by battle.** The last card, with two series tabs in its head, "Battles" and "Other events". Battles: the Politics timeline's rows in the order the battles began, under a mono column head: the dates in mono (8.5rem), the rail with a 12 px dot in the winner's colour, the battle's picture as a 56 × 40 tile with 6 px corners (an outlined empty tile without one), the name as a 700 button (gold on hover and while pressed) over a line of the flags of both sides (18 × 13.5, overlapping by 5 px, a "+N" chip past three) and the theatre in mono, each side's casualties in mono behind an 8 px dot of its colour, a 28 px pie of the two sides' lowest estimates (Series Blue for the Allies, Series Rust for the Axis, ringed in Card Slate and Strong Rule), the result in mono Muted Ink, and a 24 px round "W" link to the Wikipedia article (gold on hover). Pressing a name moves the map's timeline to the battle's first day, scrolls the map into view and opens the battle's card over its dot; a battle lit on the map or the timeline lights its row. Other events: the same rows with the date, the rail dot in the kind's colour (Quiet Ink for war, Series Violet for diplomacy, Series Coral for crimes, Series Amber for bombing), the name over its kind in mono, and the W link. Hovering the picture opens the battle's card with the picture at 340 px wide. On phones the picture and the pie drop out and the row stacks beside the rail: dates, name with flags and theatre, both sides' casualties, result; the map's card opens under the map inside its well, with the picture at most 110 px tall.
+
+**Conflict card.** On the Conflicts index, a link card (12 px, 24 px padding, at least 280 px tall, gold border on hover): the war's name condensed at 2rem, its years in mono under it, a line of what the page holds in Quiet Ink (up to 44ch), and a gold "Open ..." link with the arrow nudge. A dashed, transparent card beside it holds "More conflicts soon" at 1.25rem normal width in Quiet Ink.
 
 ### Save as Image
 Every chart well carries a 30 px icon button in its free top-right corner, at 30% opacity until the card is hovered or the button focused (45% on touch screens); hover turns it gold on Card Slate. It saves a 1080 × 1350 PNG, Instagram's portrait post: the gridded ground, the title in Display condensed at 56 px with a 23 px Quiet Ink subtitle, the chart drawn again at 1.6 times its size in a plain Chart Well, a strip at the foot of the well holding the gear and "Data Mechanics" in bold with "(Follow @datamechanics)" in regular weight after it, at 45% opacity (the reels' bottom band repeats it), then the legend (a colour bar and the top ten for maps, colour, flag and name for lines), and the data's source in 15 px Muted Ink with the site's address in gold. A logo whose licence asks for credit (CC BY) adds one short line on the image that shows it; nothing else is credited there. On phones the image goes to the share sheet; elsewhere it downloads.
@@ -506,6 +551,7 @@ The closing card on every page: a 96 px round portrait ringed in gold at 55% ove
 - **Do** keep a country's line colour while it stays selected, in the fixed eight-colour order, with World as the dashed #c9ccd0 line.
 - **Do** keep the map at its own proportions, use the diverging ramp with the median at grey for metrics with a better direction, the blue ramp otherwise, and #2a2c2f for no data.
 - **Do** stop the logo spin and slide animations under reduced motion.
+- **Do** draw the Allies in Series Blue and the Axis in Series Rust, soldiers in Series Blue and civilians in Series Amber, from the one shared constant, in every view of a conflict.
 
 ### Don't:
 - **Don't** introduce a second accent colour or any green or red in the interface (Politics mode's arrows aside), and don't use Kalshi's bright green for the title or anything else.

@@ -6,7 +6,7 @@ from unittest import mock
 from django.test import TestCase
 
 from geo.models import Country, EtlLoad, GdpCountryYear, GovernmentDebtCountryYear, SchoolingCountryYear
-from providers import load
+from providers import geometry, load
 from providers.imf import government_debt
 from providers.naturalearth import countries
 from providers.undp import composite_indices, schooling
@@ -89,11 +89,11 @@ class UndpTests(TestCase):
 class NaturalEarthTests(TestCase):
     def test_straight_lines_lose_their_middle_points(self):
         line = [[0, 0], [1, 0.001], [2, 0], [2, 2], [0, 0]]
-        self.assertEqual(countries._douglas_peucker(line, 0.05), [[0, 0], [2, 0], [2, 2], [0, 0]])
+        self.assertEqual(geometry.douglas_peucker(line, 0.05), [[0, 0], [2, 0], [2, 2], [0, 0]])
 
     def test_tiny_countries_keep_a_shape(self):
         islet = {'type': 'Polygon', 'coordinates': [[[0, 0], [0.001, 0], [0.001, 0.001], [0, 0]]]}
-        self.assertEqual(len(countries._simplify_geometry(islet)['coordinates']), 1)
+        self.assertEqual(len(geometry.simplify(islet, 0.05, 2)['coordinates']), 1)
 
     def test_names_and_codes(self):
         feature = {

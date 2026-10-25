@@ -1,10 +1,10 @@
-"""Writes one fact table and logs the load. Every ETL module ends by calling replace_table()."""
+"""Writes one table and logs the load. Every ETL module ends by calling replace_table() or replace_rows()."""
 
 from dataclasses import dataclass
 
-from django.db import transaction
+from django.db import router, transaction
 
-from geo.models import Country, EtlLoad
+from geo.models import Country, EtlLoad, table_name
 
 WORLD = 'WLD'
 
@@ -52,15 +52,27 @@ def replace_table(model, rows, source):
             skipped.add(code)
             continue
         objects.append(model(country_id=iso3, year=year, **fields))
+    return LoadResult(rows=replace_rows(model, objects, source), skipped_codes=sorted(skipped))
 
-    with transaction.atomic():
+
+def replace_rows(model, objects, source):
+    """Replace every row of a table with `objects` in one transaction, log the load, and return the row count.
+
+    The table may live in another database (the conflicts tables do); the log always goes to etl_load.
+    """
+    with transaction.atomic(using=router.db_for_write(model)), transaction.atomic():
         model.objects.all().delete()
         model.objects.bulk_create(objects, batch_size=5000)
-        EtlLoad.objects.create(
-            table_name=model._meta.db_table,
-            source_name=source.name,
-            source_url=source.url,
-            source_updated=source.updated,
-            row_count=len(objects),
-        )
-    return LoadResult(rows=len(objects), skipped_codes=sorted(skipped))
+        log_load(model, source, len(objects))
+    return len(objects)
+
+
+def log_load(model, source, rows):
+    """Record in etl_load that `rows` rows of the model's table were loaded from `source`."""
+    EtlLoad.objects.create(
+        table_name=table_name(model),
+        source_name=source.name,
+        source_url=source.url,
+        source_updated=source.updated,
+        row_count=rows,
+    )

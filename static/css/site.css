@@ -1587,3 +1587,219 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   .slide.is-entering, .picker__panel, .menu.is-open .menu__panel, .site-header.is-nav-open .nav { animation: none; }
   .button:active, .round-btn:active { transform: none; }
 }
+
+
+/* ---------- Conflicts: World War II ---------- */
+
+.section-title { font-weight: 700; font-stretch: var(--condensed); font-size: 1.75rem; line-height: 1.1; letter-spacing: -0.01em; }
+.chart-note { max-width: 82ch; margin-top: 14px; font-size: 0.8125rem; line-height: 1.6; color: var(--ink-3); }
+
+.war-head { margin-top: 14px; }
+.war-head h1 { font-weight: 700; font-stretch: var(--condensed); font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.02em; }
+.war-head__years { margin-top: 8px; font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--ink-3); }
+.war-head__lead { margin-top: 14px; max-width: 62ch; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
+.war-head__credit { margin-top: 10px; font-size: 0.875rem; color: var(--ink-3); }
+.war-head__credit a, .war-sources a { color: var(--ink-2); text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.war-head__credit a:hover, .war-sources a:hover { color: var(--gold); text-decoration-color: var(--gold); }
+.war-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.war-jump a {
+  display: inline-flex; align-items: center; height: 32px; padding: 0 14px;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  color: var(--ink-2); font-size: 0.8125rem; font-weight: 600; text-decoration: none;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.war-jump a:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Casualties by country: a chart card like the metrics pages', with the parts to show as checkable pills. */
+.war-card { position: relative; margin-top: 40px; scroll-margin-top: 80px; }
+.war-card__summary { margin-top: 8px; max-width: 72ch; font-size: 0.9375rem; color: var(--ink-2); }
+.toggle-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 14px; }
+.toggle {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px;
+  border: 1px solid var(--line-strong); border-radius: 999px; background: transparent;
+  color: var(--ink-2); font: 600 0.8125rem var(--font); cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease, transform 120ms var(--ease-out);
+}
+.toggle i { width: 12px; height: 12px; border-radius: 3px; opacity: 0.35; transition: opacity 150ms ease; }
+.toggle:hover { color: var(--ink); border-color: var(--gold); }
+.toggle:active { transform: scale(0.97); }
+.toggle:focus-visible { outline: none; box-shadow: var(--gold-glow); }
+.toggle[aria-pressed="true"] { color: var(--ink); border-color: var(--gold); background: var(--gold-wash); }
+.toggle[aria-pressed="true"] i { opacity: 1; }
+.toggle-group__key { display: inline-flex; align-items: center; gap: 8px; margin-left: 4px; font-size: 0.8125rem; color: var(--ink-3); }
+.toggle-group__key i { width: 12px; height: 12px; border-radius: 3px; background: rgb(182 185 189 / 0.3); }
+.casualties-well { height: clamp(320px, 38vw, 440px); }
+.war-empty { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--ink-3); }
+
+/* Tooltips drawn by the World War II charts, over their canvas. */
+.tooltip-layer {
+  position: absolute; top: 0; left: 0; z-index: 4; max-width: 300px; padding: 10px 12px;
+  background: var(--card); border: 1px solid var(--line-strong); border-radius: 10px;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.5); pointer-events: none;
+}
+.tip__title { margin-bottom: 2px; font-size: 0.9375rem; font-weight: 700; }
+.tip__line { display: flex; justify-content: space-between; gap: 18px; padding-top: 3px; color: var(--ink-2); }
+.tip__line strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+.tip__side { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; align-items: center; gap: 8px; margin-top: 8px; }
+.tip__side i { width: 10px; height: 10px; border-radius: 50%; }
+.tip__side strong { font-variant-numeric: tabular-nums; }
+.tip__flags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tip__flags img, .tip__ruler img { width: 20px; height: 15px; border-radius: 3px; box-shadow: 0 0 0 1px rgb(255 255 255 / 0.08); }
+.tip__ruler { display: inline-flex; align-items: center; gap: 6px; margin-left: 4px; color: var(--ink-3); font-weight: 500; }
+.tip--battle { min-width: 220px; }
+.tip--battle > .tip__muted:last-child { margin-top: 8px; font-size: 0.75rem; }
+
+.table-scroll--tall { max-height: 520px; }
+.war-table th[scope="row"] { font-family: var(--font); color: var(--ink); text-align: left; font-weight: 600; }
+.war-table__state { display: inline-flex; align-items: center; gap: 8px; }
+.war-table__state .flag { width: 20px; height: 15px; }
+.war-table__note { display: block; max-width: 34ch; font-size: 0.75rem; font-weight: 400; line-height: 1.4; white-space: normal; color: var(--ink-3); }
+.war-table td strong { color: var(--ink); }
+
+/* Battles: the map, its legend and the war's timeline in one card. */
+.war-views { margin: 0; border: 0; }
+.war-well { overflow: hidden; }
+.war-map { display: block; width: 100%; aspect-ratio: 1.9 / 1; max-height: 640px; touch-action: pan-y; }
+.war-well.is-zoomed .war-map { cursor: grab; touch-action: none; }
+.war-well.is-zoomed .war-map:active { cursor: grabbing; }
+.war-caption {
+  position: absolute; top: 14px; left: 14px; max-width: min(420px, 72%); padding: 8px 12px;
+  background: rgb(23 25 27 / 0.92); border: 1px solid var(--line-strong); border-radius: 10px;
+  font-size: 0.875rem; font-weight: 600; color: var(--ink);
+  opacity: 0; transform: translateY(-4px); pointer-events: none;
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+.war-caption time { display: block; margin-bottom: 2px; font-family: var(--mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.war-caption.is-shown { opacity: 1; transform: none; }
+.war-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin: 14px 0 0; padding: 0; list-style: none; font-size: 0.8125rem; color: var(--ink-2); }
+.war-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.war-legend__swatch { width: 16px; height: 11px; border-radius: 3px; }
+.war-legend__swatch--allies { background: #264060; box-shadow: inset 0 0 0 1px #3987e5; }
+.war-legend__swatch--axis { background: #6c3723; box-shadow: inset 0 0 0 1px #d95926; }
+.war-legend__swatch--none { background: #2a2c2f; box-shadow: inset 0 0 0 1px var(--line-strong); }
+.war-legend__dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 1.5px var(--well), 0 0 0 2.5px rgb(242 243 244 / 0.45); }
+.war-legend__dot + .war-legend__dot { margin-left: 4px; }
+.war-legend__dot:last-of-type { margin-right: 4px; }
+.war-map.is-over-battle { cursor: pointer; }
+.war-reset { position: absolute; right: 14px; bottom: 14px; display: none; }
+.war-well.is-zoomed .war-reset { display: inline-flex; align-items: center; }
+/* A pinned card stays while the pointer leaves; its link can then be pressed. */
+.tooltip-layer.is-pinned { pointer-events: auto; }
+.tip__picture { display: block; width: 100%; max-height: 150px; margin: -2px 0 8px; object-fit: cover; border-radius: 6px; }
+.tip--large { width: 340px; }
+.tip--large .tip__picture { max-height: 255px; }
+.tooltip-layer:has(.tip--large) { max-width: 364px; }
+.tip__credit { margin: -4px 0 8px; font-size: 0.6875rem; color: var(--ink-3); }
+.tip__link { display: inline-block; margin-top: 8px; color: var(--gold); font-weight: 600; text-decoration: none; }
+.tip__link:hover { text-decoration: underline; }
+
+.war-timeline { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.war-timeline__bar { display: flex; align-items: center; gap: 14px; }
+.play-button {
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: 50%; background: var(--gold); color: var(--bg); cursor: pointer;
+  transition: background-color 150ms ease, transform 120ms var(--ease-out);
+}
+.play-button:hover { background: var(--gold-hover); }
+.play-button:active { transform: scale(0.94); }
+.play-button:focus-visible { outline: none; box-shadow: var(--gold-glow); }
+.play-button svg { fill: currentColor; }
+.play-button__play svg { margin-left: 2px; }
+.play-button__pause, .play-button.is-playing .play-button__play { display: none; }
+.play-button.is-playing .play-button__pause { display: grid; }
+.war-timeline__date { min-width: 11ch; font-family: var(--mono); font-size: 1.25rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.war-timeline__date.is-whole { font-size: 1rem; font-weight: 500; color: var(--ink-2); }
+.war-timeline__hint { margin-left: auto; font-size: 0.75rem; color: var(--ink-3); }
+.war-timeline__key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 0.75rem; color: var(--ink-3); }
+.war-timeline__key li { display: inline-flex; align-items: center; gap: 7px; }
+.war-timeline__key i { width: 16px; height: 6px; border-radius: 3px; }
+.war-timeline__scroll { position: relative; margin-top: 12px; }
+.war-timeline__track { position: relative; cursor: pointer; touch-action: pan-y; border-radius: 8px; user-select: none; }
+.war-timeline__track:focus-visible { outline: none; box-shadow: var(--gold-glow); }
+.war-timeline__svg { display: block; overflow: visible; }
+.war-timeline__year { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+.war-timeline__year-line { stroke: rgb(255 255 255 / 0.05); }
+.war-timeline__lane { font-family: var(--font); font-size: 11px; font-weight: 600; fill: var(--ink-3); paint-order: stroke; stroke: var(--card); stroke-width: 3px; }
+.war-timeline__rule { stroke: var(--line); }
+.war-timeline__bar { opacity: 0.8; transition: opacity 150ms ease; }
+.war-timeline__bar.is-future { opacity: 0.16; }
+.war-timeline__bar.is-now, .war-timeline__bar.is-lit { opacity: 1; stroke: var(--ink); stroke-width: 1; }
+.war-timeline__head { position: absolute; top: -6px; bottom: 18px; left: 0; width: 2px; margin-left: -1px; background: var(--gold); box-shadow: 0 0 10px rgb(255 215 0 / 0.45); pointer-events: none; }
+.war-timeline__head::before { content: ""; position: absolute; top: -4px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+
+.war-sources { margin-top: 56px; scroll-margin-top: 80px; }
+.war-sources__list { margin: 14px 0 0; padding: 0; list-style: none; max-width: 90ch; }
+.war-sources__list li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; line-height: 1.6; color: var(--ink-2); }
+
+/* Battle by battle: the Politics timeline's rows, with flags for logos and two casualty bars on one scale. */
+.battle-list .term-row--battle, .battle-head { grid-template-columns: 8.5rem 20px 56px minmax(0, 1fr) auto 32px 6.5rem 24px; cursor: default; }
+.battle-row__pie { width: 28px; height: 28px; border-radius: 50%; box-shadow: 0 0 0 2px var(--card), 0 0 0 3px var(--line-strong); }
+.battle-head { margin-top: 18px; }
+.battle-list .term-row--battle.is-lit { background: var(--raised); }
+.battle-list .term-row--event { grid-template-columns: 8.5rem 20px minmax(0, 1fr) 24px; cursor: default; }
+.battle-row__picture { display: block; width: 56px; height: 40px; border-radius: 6px; object-fit: cover; background: var(--well); }
+.battle-row__picture--none { box-shadow: inset 0 0 0 1px var(--line); }
+.battle-row__name {
+  display: block; max-width: 100%; padding: 0; border: 0; background: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: var(--ink); font: 700 0.9375rem var(--font); text-align: left; cursor: pointer; text-decoration-color: transparent;
+  transition: color 150ms ease;
+}
+.battle-row__name:hover { color: var(--gold); }
+.battle-row__name:focus-visible { outline: none; box-shadow: var(--gold-glow); border-radius: 4px; }
+.battle-row__name[aria-pressed="true"] { color: var(--gold); }
+.battle-row__sides { display: flex; align-items: center; gap: 8px; margin-top: 3px; }
+.battle-row__sides > span { display: flex; align-items: center; }
+.battle-row__sides .flag { width: 18px; height: 13.5px; }
+.battle-row__theatre { font-family: var(--mono); font-size: 0.6875rem; color: var(--ink-3); white-space: nowrap; }
+.battle-row__link {
+  display: inline-grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line-strong); border-radius: 50%;
+  color: var(--ink-2); font: 700 0.75rem serif; text-decoration: none; transition: color 150ms ease, border-color 150ms ease;
+}
+.battle-row__link:hover { color: var(--gold); border-color: var(--gold); }
+.battle-row__sides .flag + .flag, .battle-row__sides .flag + .battle-row__more { margin-left: -5px; box-shadow: 0 0 0 2px var(--card); }
+.battle-row__more { display: inline-grid; place-items: center; width: 18px; height: 13.5px; border-radius: 3px; background: var(--pill); font: 600 0.625rem var(--mono); font-style: normal; color: var(--ink-2); }
+.battle-row__values { display: grid; gap: 3px; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.battle-row__values span { display: inline-flex; align-items: center; gap: 6px; }
+.battle-row__values i { width: 8px; height: 8px; border-radius: 50%; }
+.battle-row__result { justify-self: end; font-family: var(--mono); font-size: 0.6875rem; text-align: right; color: var(--ink-3); }
+.term-row--battle[aria-pressed="true"] .battle-row__result { color: var(--ink); }
+
+/* Conflicts index */
+.conflict-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; margin-top: 28px; }
+.conflict-card { display: flex; flex-direction: column; gap: 10px; min-height: 280px; padding: 24px; text-decoration: none; transition: border-color 150ms ease; }
+.conflict-card:hover { border-color: var(--gold); }
+.conflict-card:hover .country-card__cta svg { transform: translateX(3px); }
+.conflict-card__years { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--ink-3); }
+.conflict-card__name { font-weight: 700; font-stretch: var(--condensed); font-size: 2rem; line-height: 1.05; color: var(--ink); }
+.conflict-card__meta { max-width: 44ch; color: var(--ink-2); line-height: 1.5; }
+.conflict-card--soon { justify-content: center; min-height: 0; border-style: dashed; background: transparent; }
+.conflict-card--soon .conflict-card__name { font-size: 1.25rem; font-stretch: 100%; color: var(--ink-2); }
+
+@media (max-width: 640px) {
+  .war-map { aspect-ratio: 1.5 / 1; }
+  /* A battle's card would not fit over the map: it opens under it, inside the well, with a smaller picture. */
+  .war-well .tooltip-layer { position: static; max-width: none; margin: 0 8px 8px; transform: none !important; }
+  .war-well .tip--battle { min-width: 0; }
+  .war-well .tip__picture { max-height: 110px; }
+  .casualties-well { height: 320px; }
+  /* Phones: the battle rows keep the dates, flags, name and bar; the values and result move to the tooltip-free table. */
+  /* Phones: a battle's row stacks its parts beside the rail: dates, name and flags, casualties, result. No picture, no pie. */
+  .battle-list .term-row--battle { grid-template-columns: 16px minmax(0, 1fr) 24px; grid-template-rows: auto auto auto auto; gap: 2px 10px; padding-inline: 4px 6px; }
+  .battle-list .term-row--battle .term-row__rail { grid-column: 1; grid-row: 1 / span 4; }
+  /* Politics hides a term's years on phones; a battle keeps its dates, over its name. */
+  .battle-list .term-row--battle .term-row__years { display: block; grid-column: 2; grid-row: 1; text-align: left; font-size: 0.6875rem; white-space: normal; }
+  .battle-list .term-row--battle .term-row__who { grid-column: 2; grid-row: 2; }
+  .battle-list .term-row--battle .battle-row__values { grid-column: 2; grid-row: 3; grid-auto-flow: column; justify-content: start; gap: 14px; margin-top: 2px; }
+  .battle-list .term-row--battle .battle-row__result { grid-column: 2; grid-row: 4; justify-self: start; text-align: left; }
+  .battle-list .term-row--battle .battle-row__link { grid-column: 3; grid-row: 1 / span 4; align-self: center; }
+  .battle-row__name { white-space: normal; }
+  .battle-row__picture, .battle-row__pie, .battle-head { display: none; }
+  .battle-list .term-row--event { grid-template-columns: 4.5rem 16px minmax(0, 1fr) 24px; gap: 0 8px; padding-inline: 4px 8px; }
+  .battle-row__sides { gap: 6px; }
+  .battle-row__sides .flag { width: 16px; height: 12px; }
+  .war-timeline__hint { display: none; }
+  .war-views { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .war-caption { transition: none; }
+}
