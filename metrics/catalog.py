@@ -40,7 +40,7 @@ class Series:
     short: str = ''  # tab label, when the full label is too long for a tab
     note: str = ''  # what sets this measure apart from the metric's others, shown under the measure tabs
     measured_in: str = ''  # what the values are in, for titles: 'current US$', '% of GDP', '0 to 1'
-    total: bool = False  # the values add up across countries (GDP, population): a group's value is its members' sum
+    total: bool = False  # the values add up across countries (GDP, population): Politics mode compares them with no group
 
     @property
     def tab_label(self):
@@ -730,18 +730,19 @@ METRICS = (
     ),
     Metric(
         slug='undernourishment',
-        title=_('Undernourished people'),
-        question=_('Where do the most people go hungry?'),
-        summary=_('People whose food does not give them the minimum energy they need.'),
+        title=_('Undernourishment'),
+        question=_('Where is hunger most common?'),
+        summary=_('The share of people whose food does not give them the minimum energy they need.'),
         description=(
-            _('This counts the people whose usual diet does not give them enough calories to meet their minimum energy '
-            'needs. The Food and Agriculture Organization of the United Nations (FAO) estimates it for each country from '
-            'national food and population data, and Our World in Data republishes it. Big countries have more '
-            'undernourished people partly because they have more people, so compare countries of a similar size, or '
-            'follow one country over time.')
+            _('This is the share of people whose usual diet does not give them enough calories to meet their minimum '
+            'energy needs. The Food and Agriculture Organization of the United Nations (FAO) estimates it for each '
+            'country from national food supply, food consumption surveys and population data, as an average over '
+            'three years, and the World Bank republishes it. The FAO publishes no share below 2.5%: those years show '
+            'as 2.5%, which means 2.5% or less. Its current estimates start in 2001.')
         ),
         model=geo.UndernourishmentCountryYear,
-        series=(Series('value', _('Undernourished people'), 'people', measured_in=pgettext_lazy('measured in', 'people'), log_scale=True, total=True),),
+        series=(Series('value', _('Undernourished, % of population'), 'percent', better='lower',
+                       measured_in=pgettext_lazy('measured in', '% of population')),),
         tags=Tags('Food', (_('Hunger'), _('Nutrition'), _('FAO'))),
         keywords=(_('hunger'), _('malnutrition'), _('food security'), _('fao')),
     ),

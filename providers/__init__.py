@@ -48,7 +48,7 @@ MODULES = [
     'owid.gender_wage_gap',
     'owid.vdem_women_empowerment',
     'owid.vdem_women_in_parliament',
-    'owid.fao_undernourishment',
+    'worldbank.undernourishment',
     'owid.healthy_diet',
     'owid.fao_meat_production',
     'worldbank.air_pollution',

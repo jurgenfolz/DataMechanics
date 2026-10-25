@@ -379,7 +379,7 @@ class WomenInParliamentCountryYear(CountryYear):
 
 
 class UndernourishmentCountryYear(CountryYear):
-    value = models.FloatField(help_text='People whose food intake is below their minimum energy needs (FAO).')
+    value = models.FloatField(help_text='% of people whose food intake is below their minimum energy needs (FAO); 2.5 means 2.5 or less.')
 
     class Meta(CountryYear.Meta):
         db_table = 'geo_undernourishment_country_year'
