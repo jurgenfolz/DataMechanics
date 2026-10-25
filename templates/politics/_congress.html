@@ -1,0 +1,47 @@
+{% load i18n %}{% comment %}The seats in Congress, for a Politics page tab: static/js/lib/congress-view.js wires it.{% endcomment %}
+  <section class="card chart-card congress-card" aria-labelledby="congress-title" data-congress-card>
+    <div class="chart-card__head">
+      <h2 class="chart-card__title" id="congress-title"><span class="chart-card__name">{% translate "Seats in Congress" %}</span> <span data-house-name></span></h2>
+      {% with terms=congress.houses.0.terms %}{% if terms|length > 1 %}<div class="pol-chart__tools">
+        <label class="select">{% translate "Seats" %}
+          <select data-term>{% for term in terms %}<option value="{{ term.key }}">{{ term.label }}</option>{% endfor %}</select>
+        </label>
+      </div>{% endif %}{% endwith %}
+    </div>
+    <div class="series-tabs" role="group" aria-label="{% translate "View" %}">
+      <button type="button" data-by="party" aria-pressed="true">{% translate "By party" %}</button>
+      <button type="button" data-by="bloc" aria-pressed="false">{% translate "Left, centre and right" %}</button>
+    </div>
+    <p class="source-line" data-congress-source></p>
+    <div class="congress-body">
+      <div class="well congress-well" data-congress-well>
+        {% include "partials/save_image.html" %}
+        <canvas class="congress-canvas" data-hemicycle role="img"></canvas>
+      </div>
+      <ol class="seat-list" data-seat-list aria-label="{% translate "Seats by party" %}"></ol>
+    </div>
+    <p class="pol-chart__note">{% blocktranslate trimmed %}
+      One dot is one seat.
+      The parties sit from left to right by where 571 political scientists placed them on one left-right scale in 2022; parties without a place sit last.
+    {% endblocktranslate %}</p>
+    <p class="pol-chart__note" data-note="now">{% blocktranslate trimmed %}
+      Today's count is the house as it is: a member who changed party counts for the new one, and a substitute in office for the member they stand in for.
+    {% endblocktranslate %}</p>
+    {% if congress.starts %}<p class="pol-chart__note" data-note="next" hidden>{% blocktranslate trimmed with starts=congress.starts %}
+      The members just elected take office on {{ starts }}, each with the party they ran for.
+      In the Senate, the senators whose terms run on count with the party they have today.
+      A senator elected to another office, such as governor, hands the seat to a substitute, who may sit for another party.
+    {% endblocktranslate %}</p>{% endif %}
+    <p class="pol-chart__note" data-note="bloc" hidden>{% blocktranslate trimmed %}
+      The blocs join the seven bands the survey's authors drew on its scale from 0, the far left, to 10, the far right.
+      Left: up to 3, the far left and the left.
+      Centre: 3.01 to 7, from the centre-left to the centre-right.
+      Right: above 7, the right and the far right.
+      In 2022 no party fell in the centre band itself, 4.5 to 5.5.
+      PRD, founded after the survey by PTB and Patriota, takes the average of the two; a party founded later has no score.
+    {% endblocktranslate %}</p>
+  </section>
+  <p class="source-line pol-credits">{% blocktranslate trimmed %}
+    Seats: the open data of the Câmara dos Deputados, the Senado Federal and the Tribunal Superior Eleitoral (CC BY).
+    Left and right: Bolognesi, Codato, Ribeiro and Silva's survey of Brazilian political scientists (Harvard Dataverse, CC0), with the bands of Bolognesi, Ribeiro and Codato (Dados, 2023).
+  {% endblocktranslate %}</p>

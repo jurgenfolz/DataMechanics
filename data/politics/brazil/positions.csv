@@ -1,0 +1,68 @@
+survey,party,name_at_survey,economic,social,experts,inferred,inferred_from,economic_fit,social_fit
+prepps,pdt,,2.78,3.34,161,,,,
+prepps,dem,,8.43,7.31,167,,,,
+prepps,pl,PR,7.55,7.91,160,,,,
+prepps,mdb,,7.11,6.61,168,,,,
+prepps,pp,,7.62,7.56,146,,,,
+prepps,psb,,3.72,3.74,161,,,,
+prepps,psdb,,7.55,5.60,166,,,,
+prepps,pt,,2.10,2.16,169,,,,
+prepps,ptb,,5.88,6.26,148,,,,
+prepps,republicanos,PRB,7.28,8.19,145,,,,
+prepps,psd,,7.14,7.02,148,,,,
+prepps,podemos,,7.43,6.97,132,,,,
+prepps,novo,,9.19,6.90,24,,,,
+prepps,psol,,0.89,0.97,47,,,,
+prepps,pv,,4.72,3.77,35,,,,
+prepps,rede,,4.89,4.25,42,,,,
+prepps,psl,,7.30,8.30,31,,,,
+prepps,pcdob,,1.28,1.37,512,scale,,0.96,0.93
+prepps,uniao,,7.87,7.81,0,merger,"DEM, PSL",,
+prepps,avante,,6.10,5.81,451,scale,,0.96,0.93
+prepps,solidariedade,,6.30,6.00,469,scale,,0.96,0.93
+prepps,prd,,7.22,7.16,0,merger,"PTB, Patriota",,
+prepps,cidadania,,4.58,4.41,472,scale,,0.96,0.93
+ches,pt,,2.62,1.85,13,,,,
+ches,psb,,2.85,3.08,12,,,,
+ches,pdt,,3.77,4.17,12,,,,
+ches,psdb,,5.25,3.50,12,,,,
+ches,mdb,,5.31,5.67,12,,,,
+ches,psd,,6.42,7.00,12,,,,
+ches,dem,,7.15,5.92,12,,,,
+ches,pl,PR,7.20,7.90,10,,,,
+ches,pp,,7.46,7.82,11,,,,
+ches,republicanos,PRB,7.64,8.27,11,,,,
+ches,psl,,8.54,9.69,13,,,,
+ches,psol,,0.71,0.48,513,scale,,0.88,0.65
+ches,pv,,4.57,4.56,435,scale,,0.88,0.65
+ches,rede,,4.07,4.04,451,scale,,0.88,0.65
+ches,pcdob,,1.32,1.13,512,scale,,0.88,0.65
+ches,podemos,,6.46,6.55,469,scale,,0.88,0.65
+ches,uniao,,7.85,7.80,0,merger,"DEM, PSL",,
+ches,novo,,7.31,7.46,474,scale,,0.88,0.65
+ches,avante,,5.56,5.61,451,scale,,0.88,0.65
+ches,solidariedade,,5.74,5.80,469,scale,,0.88,0.65
+ches,prd,,6.53,6.63,0,merger,"PTB, Patriota",,
+ches,cidadania,,4.22,4.19,472,scale,,0.88,0.65
+gps,pt,,2.44,1.49,39,,,,
+gps,psl,,8.92,9.72,36,,,,
+gps,pp,,8.29,8.53,28,,,,
+gps,mdb,,6.19,5.50,12,,,,
+gps,psd,,6.58,5.70,19,,,,
+gps,pl,PR,8.05,8.48,22,,,,
+gps,psb,,2.97,2.42,34,,,,
+gps,republicanos,PRB,8.04,8.50,23,,,,
+gps,dem,,8.51,8.07,27,,,,
+gps,psdb,,5.75,3.59,16,,,,
+gps,psol,,0.00,0.00,513,scale,,0.94,0.78
+gps,pdt,,3.06,2.13,483,scale,,0.94,0.78
+gps,pv,,4.69,4.02,435,scale,,0.94,0.78
+gps,rede,,4.07,3.31,451,scale,,0.94,0.78
+gps,pcdob,,0.66,0.00,512,scale,,0.94,0.78
+gps,podemos,,7.02,6.72,469,scale,,0.94,0.78
+gps,uniao,,8.72,8.90,0,merger,"DEM, PSL",,
+gps,novo,,8.08,7.95,474,scale,,0.94,0.78
+gps,avante,,5.91,5.44,451,scale,,0.94,0.78
+gps,solidariedade,,6.13,5.69,469,scale,,0.94,0.78
+gps,prd,,7.12,6.83,0,merger,"PTB, Patriota",,
+gps,cidadania,,4.25,3.52,472,scale,,0.94,0.78

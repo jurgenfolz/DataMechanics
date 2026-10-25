@@ -3,7 +3,7 @@
 // The images keep each row exactly as on the page, at SCALE times its size. Rows that do not fit go on the next image.
 // gettext, ngettext and interpolate are Django's, from the translation catalog base.html loads.
 import {
-  handOver, imageFrame, imageName, imageWell, loadImage, MONO, paintPageNumber, paintWatermark, SCALE, wrap,
+  handOver, imageFrame, imageName, imageWell, loadImage, MONO, paintPageNumber, SCALE, wrap,
 } from './chart-image.js';
 import { paintLogoTile, paintTrend, toneOf } from './term-chart.js';
 
@@ -56,7 +56,7 @@ export function groupRows(data, view) {
     rank: i + 1,
     logos: party ? [group.party] : group.parties,
     name: party ? group.party.abbreviation || group.party.name : group.shortName,
-    // The full name only adds something when the short one is an abbreviation (PT: Workers' Party, not Democratic).
+    // The full name only adds something when the short one is an abbreviation (PT: Partido dos Trabalhadores, not Democratic).
     aside: party ? (group.party.name.startsWith(group.party.abbreviation) ? '' : group.party.name)
       : group.parties.map((p) => p.abbreviation || p.name).join(', '),
     sub: party ? group.presidents.join(', ') : '',
@@ -113,7 +113,7 @@ export async function saveTimelineImages({ data, view = 'timeline', title, subti
   for (let page = 0; page < pages; page += 1) {
     const shown = rows.slice(page * perImage, (page + 1) * perImage);
     const frame = await imageFrame(text(shown));
-    const { well, inner } = imageWell(frame.ctx, probe.top, room);
+    const { well, inner } = imageWell(frame.ctx, probe.top, room, { strip: true });
     const ctx = frame.ctx;
     ctx.save();
     ctx.translate(inner.x, inner.y);
@@ -127,7 +127,6 @@ export async function saveTimelineImages({ data, view = 'timeline', title, subti
     }
     ctx.restore();
     paintPageNumber(ctx, well, page + 1, pages);
-    await paintWatermark(ctx, well);
     images.push({ canvas: frame.canvas, filename: imageName(...nameParts, timeline ? '' : view, pages > 1 ? page + 1 : '') });
   }
   await handOver(images, title);
@@ -154,7 +153,7 @@ export function logoCredits(rows) {
 
 function imageWellInnerHeight(room) {
   const probe = document.createElement('canvas').getContext('2d');
-  return imageWell(probe, 0, room).inner.h;
+  return imageWell(probe, 0, room, { strip: true }).inner.h;
 }
 
 const BAR_WIDTH = 48;  // the data bars' column, between the text and the change

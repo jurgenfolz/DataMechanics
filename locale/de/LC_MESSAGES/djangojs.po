@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-25 15:18+0000\n"
+"POT-Creation-Date: 2026-10-25 22:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,16 +57,239 @@ msgstr "%s seiner Bevölkerung von 1939"
 msgid "Up to the highest estimate"
 msgstr "Bis zur höchsten Schätzung"
 
-#: static/js/lib/chart-image.js:212
-#, javascript-format
-msgid "(Follow %s)"
-msgstr "(Folge %s)"
+#: static/js/lib/compass-reel.js:136 static/js/lib/compass-reel.js:220
+msgid "Inferred, not measured."
+msgstr "Abgeleitet, nicht gemessen."
 
-#: static/js/lib/country-picker.js:35
+#: static/js/lib/compass-reel.js:155 static/js/lib/compass-reel.js:236
+#: static/js/lib/compass-view.js:146
+msgid "Economy"
+msgstr "Wirtschaft"
+
+#: static/js/lib/compass-reel.js:155 static/js/lib/compass-reel.js:236
+#: static/js/lib/compass-view.js:146
+msgid "Left"
+msgstr "Links"
+
+#: static/js/lib/compass-reel.js:155 static/js/lib/compass-reel.js:236
+#: static/js/lib/compass-view.js:146
+msgid "Right"
+msgstr "Rechts"
+
+#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
+#: static/js/lib/compass-view.js:147
+msgid "Social values"
+msgstr "Gesellschaftliche Werte"
+
+#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
+#: static/js/lib/compass-view.js:147 static/js/lib/compass.js:185
+msgid "Progressive"
+msgstr "Progressiv"
+
+#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
+#: static/js/lib/compass-view.js:147 static/js/lib/compass.js:183
+msgid "Conservative"
+msgstr "Konservativ"
+
+#: static/js/lib/compass-reel.js:248
+#, javascript-format
+msgid "%s party, as experts placed it"
+msgid_plural "%s parties, as experts placed them"
+msgstr[0] "%s Partei, wie Fachleute sie verortet haben"
+msgstr[1] "%s Parteien, wie Fachleute sie verortet haben"
+
+#: static/js/lib/compass-reel.js:260
+msgid ""
+"These are estimates from one survey. Other surveys place some parties "
+"elsewhere, and parties change."
+msgstr ""
+"Das sind Schätzungen aus einer Umfrage. Andere Umfragen verorten manche "
+"Parteien anders, und Parteien verändern sich."
+
+#: static/js/lib/compass-view.js:55
+msgid "Choose parties"
+msgstr "Parteien wählen"
+
+#: static/js/lib/compass-view.js:56
+msgid "All parties"
+msgstr "Alle Parteien"
+
+#: static/js/lib/compass-view.js:57
+msgid "No party matches."
+msgstr "Keine Partei passt."
+
+#: static/js/lib/compass-view.js:140
+#, javascript-format
+msgid "Placed by at least %s expert"
+msgid_plural "Placed by at least %s experts"
+msgstr[0] "Von mindestens %s Fachperson verortet"
+msgstr[1] "Von mindestens %s Fachleuten verortet"
+
+#: static/js/lib/compass-view.js:150
+msgid "Views: Wikipedia"
+msgstr "Ansichten: Wikipedia"
+
+#: static/js/lib/compass-view.js:225 static/js/lib/compass-view.js:294
+#: static/js/lib/congress-view.js:143 static/js/lib/congress-view.js:229
+#: static/js/lib/congress-view.js:262 static/js/politics-page.js:255
+#: static/js/ww2-page.js:20
+msgid "Source:"
+msgstr "Quelle:"
+
+#: static/js/lib/compass-view.js:244
+msgid ""
+"%(parties)s are inferred from where 519 political scientists put them on one"
+" left-right scale in 2018 (Bolognesi, Ribeiro and Codato). For the parties "
+"%(survey)s did place, that scale explains %(economic)s of the differences on"
+" the economy and %(social)s on social values."
+msgstr ""
+"%(parties)s sind daraus abgeleitet, wo 519 Politikwissenschaftler sie 2018 "
+"auf einer Links-rechts-Skala verorteten (Bolognesi, Ribeiro und Codato). Bei"
+" den Parteien, die %(survey)s verortet hat, erklärt diese Skala %(economic)s"
+" der Unterschiede bei der Wirtschaft und %(social)s bei den "
+"gesellschaftlichen Werten."
+
+#: static/js/lib/compass-view.js:248
+msgid "%(parties)s are the average of the parties that merged into them."
+msgstr ""
+"%(parties)s sind der Durchschnitt der Parteien, die in ihnen aufgingen."
+
+#: static/js/lib/compass-view.js:251
+msgid "Inferred, marked *:"
+msgstr "Abgeleitet, mit * markiert:"
+
+#: static/js/lib/compass-view.js:257
+msgid "inferred"
+msgstr "abgeleitet"
+
+#: static/js/lib/compass-view.js:261 static/js/politics-page.js:346
+msgid "Party"
+msgstr "Partei"
+
+#: static/js/lib/compass-view.js:261
+msgid "Name"
+msgstr "Name"
+
+#: static/js/lib/compass-view.js:261
+msgid "Economy, 0 left to 10 right"
+msgstr "Wirtschaft, 0 links bis 10 rechts"
+
+#: static/js/lib/compass-view.js:262
+msgid "Social values, 0 progressive to 10 conservative"
+msgstr "Gesellschaftliche Werte, 0 progressiv bis 10 konservativ"
+
+#: static/js/lib/compass-view.js:262
+msgid "Experts, at least"
+msgstr "Fachleute, mindestens"
+
+#: static/js/lib/compass-view.js:293
+msgid "As experts placed the parties · %(survey)s, %(years)s"
+msgstr "Wie Fachleute die Parteien verortet haben · %(survey)s, %(years)s"
+
+#: static/js/lib/compass-view.js:294
+msgid "*: inferred places. Logos: Wikimedia Commons, in the public domain."
+msgstr "*: abgeleitete Plätze. Logos: Wikimedia Commons, gemeinfrei."
+
+#: static/js/lib/compass.js:178
+msgid "Economic left"
+msgstr "Wirtschaftlich links"
+
+#: static/js/lib/compass.js:180
+msgid "Economic right"
+msgstr "Wirtschaftlich rechts"
+
+#: static/js/lib/congress-reel.js:96 static/js/lib/congress-reel.js:152
+#: static/js/lib/congress-reel.js:274 static/js/lib/congress-reel.js:275
+msgid "Seats"
+msgstr "Sitze"
+
+#: static/js/lib/congress-reel.js:253 static/js/lib/congress-reel.js:304
+msgid "By party"
+msgstr "Nach Partei"
+
+#: static/js/lib/congress-reel.js:257
+msgid ""
+"The same %(seats)s seats, coloured by party. Next, the %(count)s largest "
+"parties, from the fewest seats to the most."
+msgstr ""
+"Dieselben %(seats)s Sitze, nach Partei gefärbt. Als Nächstes die %(count)s "
+"größten Parteien, von den wenigsten Sitzen bis zu den meisten."
+
+#: static/js/lib/congress-reel.js:296 static/js/lib/congress-view.js:224
+msgid "Left, centre and right"
+msgstr "Links, Mitte und rechts"
+
+#: static/js/lib/congress-view.js:55 static/js/lib/congress-view.js:237
+msgid "seats"
+msgstr "Sitze"
+
+#: static/js/lib/congress-view.js:110
+msgid "%(place)s, from %(parties)s"
+msgstr "%(place)s, aus %(parties)s"
+
+#: static/js/lib/congress-view.js:117
+msgid "Seats by party"
+msgstr "Sitze nach Partei"
+
+#: static/js/lib/congress-view.js:121
+msgid "Seats by bloc"
+msgstr "Sitze nach Block"
+
+#: static/js/lib/congress-view.js:140
+msgid ""
+"left and right as %(experts)s political scientists placed the parties in "
+"%(year)s"
+msgstr ""
+"links und rechts, wie %(experts)s Politikwissenschaftler die Parteien "
+"%(year)s verorteten"
+
+#: static/js/lib/congress-view.js:142
+msgid "%(members)s of %(seats)s seats filled"
+msgstr "%(members)s von %(seats)s Sitzen besetzt"
+
+#: static/js/lib/congress-view.js:143 static/js/lib/congress-view.js:229
+#: static/js/lib/congress-view.js:262
+msgid "Sources:"
+msgstr "Quellen:"
+
+#: static/js/lib/congress-view.js:144
+msgid ""
+"The %(house)s as a half circle of %(seats)s dots, one for each seat, "
+"coloured by party. The table beside it lists the seats."
+msgstr ""
+"%(house)s, dargestellt als Halbkreis aus %(seats)s Punkten, einer je Sitz, "
+"nach Partei gefärbt. Die Tabelle daneben listet die Sitze auf."
+
+#: static/js/lib/congress-view.js:227
+msgid "%(house)s · %(seats)s seats, %(when)s"
+msgstr "%(house)s · %(seats)s Sitze, %(when)s"
+
+#: static/js/lib/congress-view.js:250
+msgid "%(seats)s seats, from %(from)s to %(to)s"
+msgstr "%(seats)s Sitze, vom %(from)s bis %(to)s"
+
+#: static/js/lib/congress-view.js:259
+msgid ""
+"Left, centre and right as %(experts)s political scientists placed the "
+"parties in %(year)s."
+msgstr ""
+"Links, Mitte und rechts, wie %(experts)s Politikwissenschaftler die Parteien"
+" %(year)s verorteten."
+
+#: static/js/lib/line-chart.js:139 static/js/lib/world-map.js:207
+#: static/js/lib/world-map.js:268 static/js/lib/world-map.js:272
+msgid "No data"
+msgstr "Keine Daten"
+
+#: static/js/lib/picker.js:10
+msgid "Choose countries"
+msgstr "Länder wählen"
+
+#: static/js/lib/picker.js:10
 msgid "No country matches."
 msgstr "Kein Land gefunden."
 
-#: static/js/lib/country-picker.js:38
+#: static/js/lib/picker.js:48
 #, javascript-format
 msgid "%s country is the limit. Remove one to add another."
 msgid_plural "%s countries is the limit. Remove one to add another."
@@ -75,61 +298,48 @@ msgstr[0] ""
 msgstr[1] ""
 "%s Länder sind die Grenze. Entfernen Sie eines, um ein anderes hinzuzufügen."
 
-#: static/js/lib/country-picker.js:39
+#: static/js/lib/picker.js:49
 #, javascript-format
 msgid "Pick up to %s country."
 msgid_plural "Pick up to %s countries."
 msgstr[0] "Wählen Sie bis zu %s Land."
 msgstr[1] "Wählen Sie bis zu %s Länder."
 
-#: static/js/lib/country-picker.js:43
-msgid "World"
-msgstr "Welt"
-
-#: static/js/lib/country-picker.js:44
-msgid "Choose countries"
-msgstr "Länder wählen"
-
-#: static/js/lib/line-chart.js:139 static/js/lib/world-map.js:207
-#: static/js/lib/world-map.js:268 static/js/lib/world-map.js:272
-msgid "No data"
-msgstr "Keine Daten"
-
-#: static/js/lib/reel.js:534
+#: static/js/lib/reel.js:417
 msgid "Start of term"
 msgstr "Beginn der Amtszeit"
 
-#: static/js/lib/reel.js:534 static/js/lib/reel.js:598
+#: static/js/lib/reel.js:417 static/js/lib/reel.js:481
 #: static/js/lib/term-chart.js:232 static/js/lib/term-chart.js:482
-#: static/js/lib/timeline.js:243 static/js/politics-page.js:276
+#: static/js/lib/timeline.js:242 static/js/politics-page.js:280
 msgid "In office"
 msgstr "Im Amt"
 
-#: static/js/lib/reel.js:534 static/js/lib/reel.js:598
+#: static/js/lib/reel.js:417 static/js/lib/reel.js:481
 #: static/js/lib/term-chart.js:232 static/js/lib/term-chart.js:482
 msgid "End of term"
 msgstr "Ende der Amtszeit"
 
-#: static/js/lib/reel.js:810
+#: static/js/lib/reel.js:693
 msgid "At end of term"
 msgstr "Am Ende der Amtszeit"
 
-#: static/js/lib/reel.js:847 static/js/lib/timeline.js:109
-#: static/js/lib/timeline.js:284 static/js/politics-page.js:312
+#: static/js/lib/reel.js:730 static/js/lib/timeline.js:109
+#: static/js/lib/timeline.js:283 static/js/politics-page.js:316
 msgid "Total"
 msgstr "Gesamt"
 
-#: static/js/lib/reel.js:847 static/js/lib/timeline.js:138
-#: static/js/politics-page.js:311
+#: static/js/lib/reel.js:730 static/js/lib/timeline.js:137
+#: static/js/politics-page.js:315
 msgid "Per year"
 msgstr "Pro Jahr"
 
-#: static/js/lib/reel.js:868 static/js/metric-page.js:218
-#: static/js/politics-page.js:342
+#: static/js/lib/reel.js:751 static/js/metric-page.js:218
+#: static/js/politics-page.js:346
 msgid "Year"
 msgstr "Jahr"
 
-#: static/js/lib/reel.js:999
+#: static/js/lib/reel.js:882
 msgid "Change since start"
 msgstr "Seit Amtsbeginn"
 
@@ -234,7 +444,11 @@ msgstr "Medianland"
 msgid "Highest values, %s"
 msgstr "Höchste Werte, %s"
 
-#: static/js/metric-page.js:205 static/js/politics-page.js:121
+#: static/js/metric-page.js:110
+msgid "World"
+msgstr "Welt"
+
+#: static/js/metric-page.js:205 static/js/politics-page.js:125
 #: static/js/ww2-page.js:68
 #, javascript-format
 msgid "%s (no data)"
@@ -245,52 +459,44 @@ msgstr "%s (keine Daten)"
 msgid "Remove %s"
 msgstr "%s entfernen"
 
-#: static/js/politics-page.js:87
+#: static/js/politics-page.js:91
 msgid "The data did not load. Reload the page to try again."
 msgstr ""
 "Die Daten wurden nicht geladen. Laden Sie die Seite neu, um es erneut zu "
 "versuchen."
 
-#: static/js/politics-page.js:99
+#: static/js/politics-page.js:103
 #, javascript-format
 msgid "No data for %s on this measure yet."
 msgstr "Noch keine Daten für %s zu dieser Messgröße."
 
-#: static/js/politics-page.js:214
+#: static/js/politics-page.js:218
 msgid ""
 "%(title)s in %(name)s over time, coloured by the leader in office. The list "
 "below gives the change during each term."
 msgstr ""
-"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die "
-"Liste darunter zeigt die Veränderung während jeder Amtszeit."
+"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die"
+" Liste darunter zeigt die Veränderung während jeder Amtszeit."
 
-#: static/js/politics-page.js:245
+#: static/js/politics-page.js:249
 msgid "Source: not loaded yet."
 msgstr "Quelle: noch nicht geladen."
 
-#: static/js/politics-page.js:249
+#: static/js/politics-page.js:253
 msgid "updated %(date)s"
 msgstr "Stand %(date)s"
 
-#: static/js/politics-page.js:250
+#: static/js/politics-page.js:254
 msgid "fetched %(date)s"
 msgstr "abgerufen am %(date)s"
 
-#: static/js/politics-page.js:251 static/js/ww2-page.js:20
-msgid "Source:"
-msgstr "Quelle:"
-
-#: static/js/politics-page.js:274
+#: static/js/politics-page.js:278
 msgid "%(years)s, %(name)s, %(parties)s: from %(start)s to %(end)s."
 msgstr "%(years)s, %(name)s, %(parties)s: von %(start)s auf %(end)s."
 
-#: static/js/politics-page.js:342
+#: static/js/politics-page.js:346
 msgid "In office on 1 July"
 msgstr "Im Amt am 1. Juli"
-
-#: static/js/politics-page.js:342
-msgid "Party"
-msgstr "Partei"
 
 #: static/js/search.js:53
 #, javascript-format

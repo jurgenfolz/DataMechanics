@@ -6,6 +6,7 @@ from django.http import Http404, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.formats import date_format
+from django.utils.translation import gettext
 from django.views.decorators.cache import cache_control
 
 from geo.models import EtlLoad
@@ -13,7 +14,7 @@ from metrics.catalog import BY_SLUG, CATEGORY_LABELS
 from metrics.formatting import units
 from metrics.queries import flag_url, latest_load
 
-from . import comparison, queries
+from . import comparison, compass, congress, queries
 from .metrics import GROUPS
 from .models import Administration, Party
 from .offices import office_of
@@ -52,6 +53,13 @@ def country_page(request, slug):
     group = next(key for key, _, items in groups if metric.slug in {m.slug for m in items})
     tenures = queries.tenures(country.iso3)
     office = office_of(tenures)
+    # The party compass and the seats in Congress, for the countries that have them, as the first tabs.
+    compass_data = compass.data(country) if compass.has_compass(country) else None
+    congress_data = congress.data(country) if congress.has_seats(country) else None
+    houses = [house['key'] for house in congress_data['houses']] if congress_data else []
+    tab = request.GET.get('tab')
+    tab = tab if (tab == 'compass' and compass_data) or (tab == 'congress' and congress_data) else 'metric'
+    house_key = request.GET.get('house') if request.GET.get('house') in houses else (houses[0] if houses else '')
     title = office.title % {'name': country.local_name}
     flag = flag_url(country.iso3, country.iso2, '1x1')
     return render(request, 'politics/country.html', {
@@ -64,6 +72,10 @@ def country_page(request, slug):
         'group': group,
         'comparisons': [(key, group.label) for key, group in comparison.GROUPS.items()],
         'compare': _compare(request),
+        'compass': compass_data,
+        'congress': congress_data,
+        'tab': tab,
+        'house_key': house_key,
         'metric': metric,
         'series': series,
         'current': tenures[-1],
@@ -86,6 +98,13 @@ def country_page(request, slug):
             'metric': metric.slug,
             'series': series.field,
             'compare': _compare(request),
+            'compass': compass_data,
+            'congress': congress_data,
+            'tab': tab,
+            'house': house_key,
+            # The titles of the compass's and the seats' images and videos.
+            'compassTitle': gettext('%(name)s’s party positions') % {'name': country.local_name},
+            'congressTitle': gettext('%(name)s’s Congress, party by party') % {'name': country.local_name},
         },
     })
 

@@ -77,7 +77,7 @@ Fabric file formats, Microsoft APIs, Power BI Desktop, the service, and the code
 
 ### Architecture
 
-- **One folder per data provider** in `providers/`: `worldbank/`, `imf/`, `undp/`, `owid/` (Our World in Data), `naturalearth/`, and `curated/` for tables we compile by hand as CSV files in `data/`.
+- **One folder per data provider** in `providers/`: `worldbank/`, `imf/`, `undp/`, `owid/` (Our World in Data), `naturalearth/`, `camara/` and `senado/` (Brazil's Congress), `tse/` (Brazil's electoral court), and `curated/` for tables we compile by hand as CSV files in `data/`.
 - **One module per source** inside a provider folder (a `.py` file). The module calls the provider's API, transforms the data and writes it to PostgreSQL. The whole ETL for that source lives in the module.
 - **Each module writes one table, and only one.** It replaces the table in one transaction through `providers/load.py`, which also logs the load in `etl_load`.
 - **Run the ETL** with `python manage.py etl` (every metric module, in the order of `providers.MODULES`) or `python manage.py etl worldbank.gdp` (one module). The conflicts' modules (`providers.CONFLICT_MODULES`) never run in a plain `etl`: World War II is static, so the weekly refresh leaves it alone; they load only when named, as every deploy does.
@@ -124,7 +124,7 @@ Charts follow the dataviz skill: one axis, colours assigned to a country when it
 
 Missing years: a gap of up to 25 years is drawn as the straight line between its ends, with a dot on each real value at the ends; a longer gap stays open, and a value alone between open gaps gets a dot (`BRIDGE` in `static/js/lib/gaps.js`, used by the line chart and the Politics chart). Tooltips show real values only.
 
-Every chart has a quiet "Save as image" button in its well (`templates/partials/save_image.html`). It saves a 1080 × 1350 PNG for Instagram, with the source and a semi-transparent watermark: "Data Mechanics (Follow @datamechanics)" (`paintBrandName` in `static/js/lib/chart-image.js`, used by the reels too). Each chart module gives it a `*ImageParts` helper that draws the chart again off screen. The Politics timeline saves as several images when its rows do not fit one (`static/js/lib/timeline.js`); rows keep their size.
+Every chart has a quiet "Save as image" button in its well (`templates/partials/save_image.html`). It saves a 1080 × 1350 PNG for Instagram, with the source. Images and videos carry no watermark over the chart: a line under their title (and a video's explanation) names the site, the gear logo then "Data Mechanics - @datamechanics", a little faded (`paintBrandLine` in `static/js/lib/chart-image.js`). Images keep the address in gold at the foot; videos, which have no such footer, end the line with "- data-mechanics.com". Each chart module gives it a `*ImageParts` helper that draws the chart again off screen. The Politics timeline saves as several images when its rows do not fit one (`static/js/lib/timeline.js`); rows keep their size.
 
 Politics images carry the country's round flag before the title; the page's note about terms without data stays off them.
 
@@ -143,6 +143,7 @@ At each term's end on it, a card gives the country's value and the group's in th
 Once the card is up, a green outline draws itself around the better value for the metric, the value turns green, and a check pops onto the outline's corner (`paintWinner` in `reel.js`). Neither wins when the metric has no better direction or the two read the same.
 A ranking by president, in the chart's place, closes the reel: by change per year, as on the page. With a group it ranks instead by how far ahead of the group each leader left the country at the end of their last term (`lead` from `at_the_end` in `politics/queries.py`), with the year and both values; the better value is green, with the cards' check.
 Its pace is `TIME` in `reel.js`, and a reel's layout keeps clear of the bands Instagram covers (`safe` in its format).
+What every video shares (its two shapes, its title and the site's line under it, its source, its card panel, its easing) is in `static/js/lib/reel-frame.js`.
 
 ## Conflicts
 
@@ -178,6 +179,7 @@ The site speaks English, German and Portuguese (Brazilian). English lives at the
 - **Numbers and dates** follow the language: `metrics/formatting.py` hands its unit rules, with the language's words and decimal marks, to the browser. Date formats are in `config/formats/<language>/formats.py`.
 - **Country names** come from Natural Earth in all three languages (`name`, `name_de`, `name_pt` in `geo_country`). Fix a name in `NAME_FIXES` in `providers/naturalearth/countries.py`; Portuguese names use Brazilian spelling.
 - **Blog posts stay in English.** Their pages mark them `lang="en"`.
+- **Party names are never translated.** Every page shows a party's own name, in its country's language (`name` in `parties.csv` and `party_profiles.csv`): Partido dos Trabalhadores, Sozialdemokratische Partei Österreichs.
 
 ## Politics mode
 
@@ -188,6 +190,36 @@ Politics mode shows one country at a time, leader by leader (`/politics/<country
 - **Add a country**: add its folder to `data/politics/` and to `COUNTRIES` in `providers/curated/__init__.py`, then run `python manage.py etl curated.parties curated.administrations`. Every deploy runs this too.
 - **Follow the office that governs**: the president in Brazil, France and the United States, the chancellor in Austria and Germany (their presidents have little power). Germany starts with the Federal Republic in 1949, so the Nazi dictatorship is not in Politics mode. Austria starts with the Second Republic in April 1945, which leaves out Austrofascism and the Nazi annexation. France starts with the Fifth Republic in 1959: the Fourth Republic's presidents had little power, and Vichy is left out. Each role in the CSV is in `ROLES` in `politics/offices.py`, which names its office. The current leader's office picks the page's words in `OFFICES` ("chancellor by chancellor", "By chancellor"). Text shared by every office says "term" or "leader", never "president".
 - **Metrics**: `politics/metrics.py` lists the metrics Politics mode shows, grouped into tabs. Add a metric there once it has country data.
+- **Party compass** (`politics/compass.py`, shown as "Party positions": a name anyone understands): where expert surveys place a country's parties on two axes. It is the first tab of the country's page (`?tab=compass`), before the metric tabs. Brazil only for now.
+  The economic axis runs from 0, the left (an active state), to 10, the right (a smaller state); the social axis from 0, progressive, to 10, conservative.
+  Three surveys, each shown on its own and never averaged or mixed on one chart: PREPPS Latam 2018–2019 (the default, 17 parties measured), CHES Latin America 2020 (11) and the Global Party Survey 2019 (10). `?survey=` keeps the choice.
+  `tools/party_positions.py` downloads them and writes `data/politics/<country>/positions.csv`; its docstring says how each survey's answers become the two axes.
+  **Inferred places**: a relevant party (`RELEVANT` in the tool: two or more deputies, or a senator) that a survey left out gets an inferred place, marked `inferred` in the CSV.
+  A party that merged into it gives the average of the old parties (`MERGERS`: União is DEM and PSL, PRD is PTB and Patriota).
+  Any other is estimated from one 2018 left-right scale of 519 Brazilian political scientists (Bolognesi, Ribeiro and Codato), by a straight-line fit on the parties both cover; the fit's R² is stored with it.
+  The page marks an inferred place with a gold asterisk at its logo's corner, says so in its tooltip, and lists every inferred party under the chart with the fit's R².
+  `data/politics/<country>/party_profiles.csv` holds each party: its own name, logo and its licence, colour, Wikipedia's position and ideologies (keys of `POSITIONS` and `IDEOLOGIES` in `politics/compass.py`, which translate them), and its code in Congress.
+  A logo whose ink is too dark for the dark chart gets a light-ink copy in `logo_on_dark`, used only on dark grounds (`darkLogo` in `static/js/lib/compass.js`).
+  The ETL loads them with `curated.party_profiles` and `curated.party_positions`; every deploy runs both.
+  `static/js/lib/compass.js` draws the compass for the page, its saved image and its video (`static/js/lib/compass-reel.js`); `static/js/lib/compass-view.js` wires the tab. Tiles that would overlap are pushed apart, with a line back to their point.
+  The page explains, in simple words, how each survey placed the parties and what the chart cannot say.
+- **Congress** (`politics/congress.py`): the seats of each house, one tab (`?tab=congress`) with a pill per house (`?house=chamber` or `senate`). Brazil only for now.
+  The members in office come from the Câmara's and the Senado's open-data APIs (`providers/camara/deputies.py`, `providers/senado/senators.py`), loaded with the other modules and refreshed each week.
+  A party's code in the data is matched to `congress` in `party_profiles.csv`, whatever its case (the court writes PCDOB, the Chamber PCdoB); a member without a party counts as "No party".
+  Each house is a half circle of dots, one a seat (`static/js/lib/hemicycle.js`), beside a table of the parties with their logos, seats and share (`static/js/lib/congress-view.js`).
+  **Next term**: after a general election, a "Seats" select (`?term=next`) shows the houses as they will sit from 1 February of the next year, until that day.
+  The members elected come from the electoral court's candidate file (`providers/tse/elected.py`, CC BY): deputies elected by quotient or by average, senators elected.
+  The next Senate adds the senators whose terms run on (`term_ends` on `pol_senator`, from the Senado's mandate data), with their party today.
+  **Left, centre and right** (`politics/spectrum.py`, `?by=bloc`): the second view colours each seat by bloc, and the table lists each bloc with its parties.
+  The scores are the 2022 wave of a survey of 571 Brazilian political scientists, who placed every party from 0, far left, to 10, far right (Bolognesi, Codato, Ribeiro and Silva, Harvard Dataverse, CC0).
+  `tools/party_left_right.py` writes them to `data/politics/<country>/left_right.csv`; `curated.party_left_right` loads them, and every deploy runs it.
+  The authors' seven bands (Dados, 2023) join into three blocs: left (far left, left: up to 3), centre (centre-left, centre, centre-right: up to 7), right (right, far right).
+  A party founded after the survey takes the average of the parties that merged into it (PRD: PTB and Patriota); one founded later is "Not classified".
+  In both views, the parties sit from left to right by that score; parties without one sit last.
+  Each term carries its legislature's period (`LEGISLATURE` in `politics/congress.py`: four years from 1 February after an election); the card's title gives its years.
+  **Video** (`static/js/lib/congress-reel.js`): `?reel=1` on the Congress tab plays the open house in the open term, and `tools/reel.py` records it like any other.
+  The seats fill the half circle fast in their bloc's colour; a card goes through left, centre and right; the seats turn to their party's colour and a card goes through the ten largest parties (`PARTIES`), from the fewest seats to the most, so the largest comes last; the tables of blocs and parties close it.
+  The title carries the period's years and the subtitle its first and last days. Its pace is `TIME` in the module.
 - **Comparison groups** (`politics/comparison.py`): a dashed line, and a small change under each term, measure the country against one group over the same years.
   The groups are World, BRICS (its five founding members), the G7 and the G20. The page shows one at a time, World by default, kept in the URL as `?compare=`.
   `?compare=none` compares with nothing: the page and the reel then look as they did before groups existed.

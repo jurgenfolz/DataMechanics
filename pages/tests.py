@@ -1,7 +1,10 @@
 """Languages: every page in English, German and Portuguese, with numbers and names written the local way."""
 
 import re
+import shutil
+import subprocess
 from pathlib import Path
+from unittest import skipUnless
 
 from django.conf import settings
 from django.test import TestCase
@@ -104,3 +107,10 @@ class CatalogTests(TestCase):
                     continue
                 strings = re.findall(r'^msgstr(?:\[\d\])? ((?:".*"\n?)+)', entry + '\n', re.M)
                 self.assertTrue(strings and all(s.strip() != '""' for s in strings), f'{po}: {entry[:120]}')
+
+    @skipUnless(shutil.which('msgfmt'), 'needs gettext')
+    def test_every_catalog_compiles(self):
+        """Every .po file compiles, as compilemessages does on every deploy, with its placeholders matching."""
+        for po in Path(settings.BASE_DIR, 'locale').glob('*/LC_MESSAGES/*.po'):
+            result = subprocess.run(['msgfmt', '--check-format', '-o', '/dev/null', str(po)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, f'{po}: {result.stderr}')

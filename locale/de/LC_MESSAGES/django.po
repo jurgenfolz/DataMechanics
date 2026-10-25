@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-25 16:56+0000\n"
+"POT-Creation-Date: 2026-10-25 20:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,18 +234,18 @@ msgstr ""
 #: metrics/catalog.py:103
 msgid ""
 "Gross domestic product (GDP) is the total value of the goods and services "
-"produced in a country in a year. Each country's statistics office or central "
-"bank measures it from its national accounts, and the World Bank collects the "
-"figures and converts them to US dollars at each year's exchange rate. The "
-"values are in current dollars, not adjusted for inflation, so part of the "
-"growth over time is rising prices."
+"produced in a country in a year. Each country's statistics office or central"
+" bank measures it from its national accounts, and the World Bank collects "
+"the figures and converts them to US dollars at each year's exchange rate. "
+"The values are in current dollars, not adjusted for inflation, so part of "
+"the growth over time is rising prices."
 msgstr ""
 "Das Bruttoinlandsprodukt (BIP) ist der Gesamtwert der Waren und "
 "Dienstleistungen, die in einem Land in einem Jahr produziert werden. Das "
 "Statistikamt oder die Zentralbank jedes Landes berechnet es aus den "
 "volkswirtschaftlichen Gesamtrechnungen; die Weltbank sammelt die Zahlen und "
-"rechnet sie zum Wechselkurs des jeweiligen Jahres in US-Dollar um. Die Werte "
-"sind in laufenden Dollar und nicht inflationsbereinigt, ein Teil des "
+"rechnet sie zum Wechselkurs des jeweiligen Jahres in US-Dollar um. Die Werte"
+" sind in laufenden Dollar und nicht inflationsbereinigt, ein Teil des "
 "Wachstums über die Zeit geht also auf steigende Preise zurück."
 
 #: metrics/catalog.py:110 metrics/catalog.py:129
@@ -279,7 +279,8 @@ msgstr "Wo ist die Wirtschaftsleistung pro Kopf am höchsten?"
 
 #: metrics/catalog.py:118
 msgid "GDP divided by population: what a country produces per person."
-msgstr "BIP geteilt durch die Bevölkerung: was ein Land pro Person produziert."
+msgstr ""
+"BIP geteilt durch die Bevölkerung: was ein Land pro Person produziert."
 
 #: metrics/catalog.py:120
 msgid ""
@@ -297,8 +298,8 @@ msgstr ""
 "zur Jahresmitte: der Wert der Waren und Dienstleistungen, die pro Person "
 "produziert werden. Es ist ein gängiges Maß für den durchschnittlichen "
 "Lebensstandard, sagt aber nichts darüber, wie das Einkommen verteilt ist. "
-"Die Weltbank berechnet es aus den volkswirtschaftlichen Gesamtrechnungen und "
-"Bevölkerungsschätzungen auf zwei Arten: in laufenden US-Dollar zu "
+"Die Weltbank berechnet es aus den volkswirtschaftlichen Gesamtrechnungen und"
+" Bevölkerungsschätzungen auf zwei Arten: in laufenden US-Dollar zu "
 "Marktwechselkursen und in Kaufkraftparität (KKP), die Preisunterschiede "
 "zwischen Ländern mit den Preisen des International Comparison Program "
 "ausgleicht. Die KKP ist der fairere Weg, Lebensstandards zu vergleichen. "
@@ -310,8 +311,8 @@ msgstr "Laufende US$"
 
 #: metrics/catalog.py:130
 msgid ""
-"In current US dollars, converted at each year's market exchange rate. Prices "
-"differ between countries, so a dollar does not buy the same everywhere."
+"In current US dollars, converted at each year's market exchange rate. Prices"
+" differ between countries, so a dollar does not buy the same everywhere."
 msgstr ""
 "In laufenden US-Dollar, umgerechnet zum Marktwechselkurs des jeweiligen "
 "Jahres. Die Preise unterscheiden sich zwischen Ländern, ein Dollar kauft "
@@ -339,8 +340,8 @@ msgid ""
 msgstr ""
 "In Kaufkraftparität (KKP), in internationalen Dollar: ein Dollar, der in "
 "jedem Land gleich viele Waren und Dienstleistungen kauft, berechnet mit den "
-"Preisen des International Comparison Program. So lassen sich Lebensstandards "
-"zwischen Ländern fairer vergleichen."
+"Preisen des International Comparison Program. So lassen sich Lebensstandards"
+" zwischen Ländern fairer vergleichen."
 
 #: metrics/catalog.py:137
 msgid "Per capita"
@@ -381,7 +382,8 @@ msgstr "Wie demokratisch ist jedes Land?"
 #: metrics/catalog.py:144
 msgid "Five V-Dem indices that rate how democratic a country is, from 0 to 1."
 msgstr ""
-"Fünf V-Dem-Indizes, die bewerten, wie demokratisch ein Land ist, von 0 bis 1."
+"Fünf V-Dem-Indizes, die bewerten, wie demokratisch ein Land ist, von 0 bis "
+"1."
 
 #: metrics/catalog.py:146
 msgid ""
@@ -390,16 +392,16 @@ msgid ""
 "(most democratic). Each index captures one idea of democracy: free and fair "
 "elections (electoral), individual rights and limits on power (liberal), "
 "citizens taking part (participatory), decisions based on public reasoning "
-"(deliberative) and equal access to power across social groups (egalitarian). "
-"The scores combine the ratings of thousands of country experts through a "
+"(deliberative) and equal access to power across social groups (egalitarian)."
+" The scores combine the ratings of thousands of country experts through a "
 "statistical model. Our World in Data republishes the central estimates."
 msgstr ""
 "Das Projekt Varieties of Democracy (V-Dem) an der Universität Göteborg "
 "bewertet politische Regime mit fünf Indizes von 0 (am wenigsten "
 "demokratisch) bis 1 (am demokratischsten). Jeder Index erfasst eine "
-"Vorstellung von Demokratie: freie und faire Wahlen (elektoral), individuelle "
-"Rechte und Grenzen der Macht (liberal), die Beteiligung der Bürgerinnen und "
-"Bürger (partizipativ), Entscheidungen auf Grundlage öffentlicher Abwägung "
+"Vorstellung von Demokratie: freie und faire Wahlen (elektoral), individuelle"
+" Rechte und Grenzen der Macht (liberal), die Beteiligung der Bürgerinnen und"
+" Bürger (partizipativ), Entscheidungen auf Grundlage öffentlicher Abwägung "
 "(deliberativ) und gleichen Zugang zur Macht für alle gesellschaftlichen "
 "Gruppen (egalitär). Die Werte verbinden die Einschätzungen tausender "
 "Länderexpertinnen und -experten über ein statistisches Modell. Our World in "
@@ -508,7 +510,8 @@ msgstr "Wo ist die menschliche Entwicklung am höchsten?"
 
 #: metrics/catalog.py:169
 msgid "A 0 to 1 score combining health, education and income."
-msgstr "Ein Wert von 0 bis 1, der Gesundheit, Bildung und Einkommen verbindet."
+msgstr ""
+"Ein Wert von 0 bis 1, der Gesundheit, Bildung und Einkommen verbindet."
 
 #: metrics/catalog.py:171
 msgid ""
@@ -525,8 +528,8 @@ msgstr ""
 "(Lebenserwartung bei Geburt), Wissen (durchschnittliche und erwartete "
 "Schuljahre) und einen angemessenen Lebensstandard (Bruttonationaleinkommen "
 "pro Kopf, bereinigt um Preisunterschiede). Jede Dimension wird von 0 bis 1 "
-"skaliert, und der HDI ist ihr geometrisches Mittel. Das Entwicklungsprogramm "
-"der Vereinten Nationen (UNDP) veröffentlicht ihn jedes Jahr in seinem "
+"skaliert, und der HDI ist ihr geometrisches Mittel. Das Entwicklungsprogramm"
+" der Vereinten Nationen (UNDP) veröffentlicht ihn jedes Jahr in seinem "
 "Bericht über die menschliche Entwicklung; diese Daten stammen aus dem "
 "Bericht 2025."
 
@@ -581,8 +584,8 @@ msgstr ""
 "Die Lebenserwartung bei Geburt ist die Zahl der Jahre, die ein Neugeborenes "
 "leben würde, wenn die Sterberaten seines Geburtsjahres sein ganzes Leben "
 "lang gleich blieben. Sie beschreibt die Gesundheit einer Bevölkerung in "
-"diesem Jahr; sie ist keine Vorhersage für eine einzelne Person. Die Weltbank "
-"veröffentlicht sie vor allem auf Grundlage der World Population Prospects "
+"diesem Jahr; sie ist keine Vorhersage für eine einzelne Person. Die Weltbank"
+" veröffentlicht sie vor allem auf Grundlage der World Population Prospects "
 "der UN-Bevölkerungsabteilung, die auf nationale Statistikämter, "
 "Volkszählungen und Erhebungen zurückgreifen."
 
@@ -622,7 +625,8 @@ msgstr "Wie lange gehen Menschen zur Schule?"
 
 #: metrics/catalog.py:203
 msgid ""
-"Average years adults spent in school, and the years a child can expect today."
+"Average years adults spent in school, and the years a child can expect "
+"today."
 msgstr ""
 "Wie viele Jahre Erwachsene im Schnitt zur Schule gingen und wie viele ein "
 "Kind heute erwarten kann."
@@ -633,16 +637,16 @@ msgid ""
 "completed by people aged 25 and over. Expected years of schooling is how "
 "many years a child starting school can expect to spend in education if "
 "today's enrolment rates stay the same. The UNDP uses both in the Human "
-"Development Index and builds them from UNESCO Institute for Statistics data, "
-"Barro and Lee estimates and household surveys."
+"Development Index and builds them from UNESCO Institute for Statistics data,"
+" Barro and Lee estimates and household surveys."
 msgstr ""
 "Die durchschnittliche Schulbesuchsdauer ist die mittlere Zahl "
 "abgeschlossener Bildungsjahre von Menschen ab 25 Jahren. Die erwartete "
 "Schulbesuchsdauer gibt an, wie viele Jahre ein Kind bei Schulbeginn in "
-"Bildung verbringen kann, wenn die heutigen Einschulungsraten gleich bleiben. "
-"Das UNDP verwendet beide im Index der menschlichen Entwicklung und berechnet "
-"sie aus Daten des UNESCO-Instituts für Statistik, Schätzungen von Barro und "
-"Lee sowie Haushaltserhebungen."
+"Bildung verbringen kann, wenn die heutigen Einschulungsraten gleich bleiben."
+" Das UNDP verwendet beide im Index der menschlichen Entwicklung und "
+"berechnet sie aus Daten des UNESCO-Instituts für Statistik, Schätzungen von "
+"Barro und Lee sowie Haushaltserhebungen."
 
 #: metrics/catalog.py:213
 msgid "Mean years of schooling"
@@ -701,20 +705,20 @@ msgid ""
 "The literacy rate is the share of people aged 15 and older who can read and "
 "write a simple sentence about their everyday life. Our World in Data "
 "combines historical estimates, back to the 15th century for some European "
-"countries, with recent figures from UNESCO and other sources. What counts as "
-"literate has varied between countries and over time, so compare with care. "
-"Many rich countries stopped tracking literacy in the late 20th century, once "
-"nearly everyone could read, so their series end early. It measures basic "
+"countries, with recent figures from UNESCO and other sources. What counts as"
+" literate has varied between countries and over time, so compare with care. "
+"Many rich countries stopped tracking literacy in the late 20th century, once"
+" nearly everyone could read, so their series end early. It measures basic "
 "literacy, not whether people can follow complex written texts."
 msgstr ""
 "Die Alphabetisierungsrate ist der Anteil der Menschen ab 15 Jahren, die "
-"einen einfachen Satz über ihren Alltag lesen und schreiben können. Our World "
-"in Data verbindet historische Schätzungen, für einige europäische Länder bis "
-"ins 15. Jahrhundert zurück, mit neueren Zahlen der UNESCO und anderer "
-"Quellen. Was als alphabetisiert gilt, war je nach Land und Zeit verschieden, "
-"daher ist beim Vergleichen Vorsicht geboten. Viele reiche Länder haben die "
-"Alphabetisierung im späten 20. Jahrhundert nicht mehr erfasst, als fast alle "
-"lesen konnten, daher enden ihre Reihen früh. Gemessen wird die "
+"einen einfachen Satz über ihren Alltag lesen und schreiben können. Our World"
+" in Data verbindet historische Schätzungen, für einige europäische Länder "
+"bis ins 15. Jahrhundert zurück, mit neueren Zahlen der UNESCO und anderer "
+"Quellen. Was als alphabetisiert gilt, war je nach Land und Zeit verschieden,"
+" daher ist beim Vergleichen Vorsicht geboten. Viele reiche Länder haben die "
+"Alphabetisierung im späten 20. Jahrhundert nicht mehr erfasst, als fast alle"
+" lesen konnten, daher enden ihre Reihen früh. Gemessen wird die "
 "Grundfähigkeit, nicht ob Menschen komplexe Texte verstehen."
 
 #: metrics/catalog.py:233
@@ -760,16 +764,17 @@ msgstr "Welche Staaten geben am meisten für Bildung aus?"
 
 #: metrics/catalog.py:243
 msgid "What governments spend on education at every level, as a share of GDP."
-msgstr "Was der Staat für Bildung auf allen Stufen ausgibt, als Anteil am BIP."
+msgstr ""
+"Was der Staat für Bildung auf allen Stufen ausgibt, als Anteil am BIP."
 
 #: metrics/catalog.py:245
 msgid ""
 "This is what a country's central, regional and local governments spend on "
-"education at every level in a year, as a share of GDP. It includes salaries, "
-"textbooks, buildings and donor money that passes through the budget. Recent "
-"figures come from UNESCO; older ones from records such as League of Nations "
-"yearbooks and OECD reports, which differ in method, so read them with care. "
-"A higher share means more of the economy goes to education, not more per "
+"education at every level in a year, as a share of GDP. It includes salaries,"
+" textbooks, buildings and donor money that passes through the budget. Recent"
+" figures come from UNESCO; older ones from records such as League of Nations"
+" yearbooks and OECD reports, which differ in method, so read them with care."
+" A higher share means more of the economy goes to education, not more per "
 "student or better results. Our World in Data combines the sources."
 msgstr ""
 "Das sind die Ausgaben der zentralen, regionalen und lokalen Regierungen "
@@ -777,8 +782,8 @@ msgstr ""
 "Dazu zählen Gehälter, Schulbücher, Gebäude und Gebergelder, die durch den "
 "Haushalt fließen. Neuere Zahlen stammen von der UNESCO, ältere aus Quellen "
 "wie den Jahrbüchern des Völkerbunds und Berichten der OECD, deren Methoden "
-"sich unterscheiden; sie sind daher mit Vorsicht zu lesen. Ein höherer Anteil "
-"heißt, dass mehr von der Wirtschaftsleistung in die Bildung fließt, nicht "
+"sich unterscheiden; sie sind daher mit Vorsicht zu lesen. Ein höherer Anteil"
+" heißt, dass mehr von der Wirtschaftsleistung in die Bildung fließt, nicht "
 "mehr Geld pro Schülerin oder Schüler oder bessere Ergebnisse. Our World in "
 "Data führt die Quellen zusammen."
 
@@ -829,8 +834,8 @@ msgstr "Welche Länder veröffentlichen die meiste Forschung?"
 
 #: metrics/catalog.py:260
 msgid ""
-"Articles in science and engineering journals and conference proceedings, per "
-"year."
+"Articles in science and engineering journals and conference proceedings, per"
+" year."
 msgstr ""
 "Artikel in Fachzeitschriften und Tagungsbänden aus Natur- und "
 "Ingenieurwissenschaften, pro Jahr."
@@ -850,8 +855,8 @@ msgstr ""
 "erscheinen, von Physik, Biologie und Chemie bis zu klinischer Medizin, "
 "Technik und Geo- und Weltraumwissenschaften. Die US-amerikanische National "
 "Science Foundation ermittelt die Zahlen aus der Datenbank Scopus, und die "
-"Weltbank veröffentlicht sie. Große Länder veröffentlichen auch deshalb mehr, "
-"weil sie groß sind; vergleichen Sie daher ähnlich große Länder oder "
+"Weltbank veröffentlicht sie. Große Länder veröffentlichen auch deshalb mehr,"
+" weil sie groß sind; vergleichen Sie daher ähnlich große Länder oder "
 "verfolgen Sie ein Land über die Zeit."
 
 #: metrics/catalog.py:269
@@ -904,26 +909,27 @@ msgid ""
 "How many people live in each country, how many are born and die, and how "
 "many move in or out."
 msgstr ""
-"Wie viele Menschen in jedem Land leben, wie viele geboren werden und sterben "
-"und wie viele zu- oder abwandern."
+"Wie viele Menschen in jedem Land leben, wie viele geboren werden und sterben"
+" und wie viele zu- oder abwandern."
 
 #: metrics/catalog.py:279
 msgid ""
 "Population counts everyone who lives in a country at mid-year, whatever "
-"their legal status or citizenship. The birth rate and the death rate are the "
-"live births and the deaths in a year per 1,000 people. When births outnumber "
-"deaths a population grows naturally; migration changes it too. Net migration "
-"is the number of people who moved into the country in the year minus those "
-"who left, citizens and non-citizens alike. The World Bank compiles these "
-"figures mainly from the UN Population Division's World Population Prospects, "
-"which combines censuses, civil registration and surveys."
+"their legal status or citizenship. The birth rate and the death rate are the"
+" live births and the deaths in a year per 1,000 people. When births "
+"outnumber deaths a population grows naturally; migration changes it too. Net"
+" migration is the number of people who moved into the country in the year "
+"minus those who left, citizens and non-citizens alike. The World Bank "
+"compiles these figures mainly from the UN Population Division's World "
+"Population Prospects, which combines censuses, civil registration and "
+"surveys."
 msgstr ""
 "Die Bevölkerung zählt alle, die zur Jahresmitte in einem Land leben, "
 "unabhängig von Rechtsstatus oder Staatsangehörigkeit. Geburten- und "
 "Sterberate sind die Lebendgeburten und die Sterbefälle eines Jahres pro "
 "1.000 Menschen. Wenn die Geburten die Sterbefälle übersteigen, wächst eine "
-"Bevölkerung natürlich; auch Migration verändert sie. Der Wanderungssaldo ist "
-"die Zahl der Menschen, die im Jahr ins Land gezogen sind, abzüglich derer, "
+"Bevölkerung natürlich; auch Migration verändert sie. Der Wanderungssaldo ist"
+" die Zahl der Menschen, die im Jahr ins Land gezogen sind, abzüglich derer, "
 "die es verlassen haben, Staatsangehörige wie Ausländer. Die Weltbank stellt "
 "diese Zahlen vor allem aus den World Population Prospects der UN-"
 "Bevölkerungsabteilung zusammen, die Volkszählungen, Personenstandsregister "
@@ -1026,8 +1032,8 @@ msgid ""
 "The unemployment rate is the share of the labour force that has no job but "
 "is available for and looking for work. The labour force is everyone of "
 "working age who has a job or is looking for one. These are modelled "
-"estimates from the International Labour Organization (ILO), which fills gaps "
-"in national labour force surveys so that countries can be compared. The "
+"estimates from the International Labour Organization (ILO), which fills gaps"
+" in national labour force surveys so that countries can be compared. The "
 "World Bank republishes them."
 msgstr ""
 "Die Arbeitslosenquote ist der Anteil der Erwerbspersonen, die keine Arbeit "
@@ -1087,11 +1093,11 @@ msgstr "Alles, was der Staat eines Landes schuldet, als Anteil am BIP."
 msgid ""
 "General government gross debt is everything a country's governments owe: "
 "central, state and local government and social security funds together. It "
-"covers loans, bonds and other liabilities that must be repaid with interest, "
-"and is shown as a share of GDP so that countries of different sizes can be "
+"covers loans, bonds and other liabilities that must be repaid with interest,"
+" and is shown as a share of GDP so that countries of different sizes can be "
 "compared. The International Monetary Fund (IMF) publishes it in its World "
-"Economic Outlook. We show past years only and leave out the IMF's forecasts; "
-"the latest year can still be an IMF estimate."
+"Economic Outlook. We show past years only and leave out the IMF's forecasts;"
+" the latest year can still be an IMF estimate."
 msgstr ""
 "Die Bruttoverschuldung des Gesamtstaats ist alles, was der Staat eines "
 "Landes schuldet: Zentralstaat, Länder und Gemeinden sowie "
@@ -1151,11 +1157,11 @@ msgstr ""
 msgid ""
 "This is the interest a central government pays on its debt in a year, as a "
 "share of the revenue it collects: how much of every tax dollar goes to its "
-"lenders before it pays for anything else. It covers interest on bonds, loans "
-"and other debt, to lenders at home and abroad. It shows how heavy a debt is "
-"to carry, which the size of the debt alone does not: it also depends on "
-"interest rates and on how much the government collects. The IMF compiles the "
-"figures, and the World Bank publishes them."
+"lenders before it pays for anything else. It covers interest on bonds, loans"
+" and other debt, to lenders at home and abroad. It shows how heavy a debt is"
+" to carry, which the size of the debt alone does not: it also depends on "
+"interest rates and on how much the government collects. The IMF compiles the"
+" figures, and the World Bank publishes them."
 msgstr ""
 "Das sind die Zinsen, die ein Zentralstaat in einem Jahr auf seine Schulden "
 "zahlt, als Anteil an seinen Einnahmen: wie viel von jedem Steuerdollar an "
@@ -1210,17 +1216,17 @@ msgstr ""
 #: metrics/catalog.py:353
 msgid ""
 "The budget balance is a country's government revenue minus its spending, "
-"interest included, as a share of GDP. Above zero is a surplus; below zero is "
-"a deficit, which the government covers by borrowing, so its debt grows. It "
+"interest included, as a share of GDP. Above zero is a surplus; below zero is"
+" a deficit, which the government covers by borrowing, so its debt grows. It "
 "covers central, state and local government and social security funds "
 "together. The International Monetary Fund (IMF) publishes it in its World "
-"Economic Outlook. We show past years only and leave out the IMF's forecasts; "
-"the latest year can still be an IMF estimate."
+"Economic Outlook. We show past years only and leave out the IMF's forecasts;"
+" the latest year can still be an IMF estimate."
 msgstr ""
 "Der Haushaltssaldo sind die Einnahmen des Staates minus seine Ausgaben, "
 "Zinsen eingeschlossen, als Anteil am BIP. Über null ist ein Überschuss; "
-"unter null ein Defizit, das der Staat mit neuen Krediten deckt, sodass seine "
-"Schulden wachsen. Erfasst sind Zentralstaat, Länder, Gemeinden und "
+"unter null ein Defizit, das der Staat mit neuen Krediten deckt, sodass seine"
+" Schulden wachsen. Erfasst sind Zentralstaat, Länder, Gemeinden und "
 "Sozialversicherungen zusammen. Der Internationale Währungsfonds (IWF) "
 "veröffentlicht ihn in seinem World Economic Outlook. Wir zeigen nur "
 "vergangene Jahre und lassen die Prognosen des IWF weg; das letzte Jahr kann "
@@ -1256,7 +1262,8 @@ msgstr "Welche Staaten kommen vor Zinsen mit ihren Mitteln aus?"
 
 #: metrics/catalog.py:369
 msgid "The budget balance before interest on the debt, as a share of GDP."
-msgstr "Der Haushaltssaldo vor den Zinsen auf die Schulden, als Anteil am BIP."
+msgstr ""
+"Der Haushaltssaldo vor den Zinsen auf die Schulden, als Anteil am BIP."
 
 #: metrics/catalog.py:371
 msgid ""
@@ -1268,10 +1275,10 @@ msgid ""
 "Fund (IMF) publishes it in its Fiscal Monitor. We show past years only and "
 "leave out the IMF's forecasts."
 msgstr ""
-"Der Primärsaldo ist der Haushaltssaldo ohne die Zinsen auf die Schulden: was "
-"ein Staat einnimmt minus was er für alles andere ausgibt, als Anteil am BIP. "
-"Er zeigt, ob ein Staat heute mit seinen Mitteln auskommt, abgesehen von den "
-"Kosten seiner alten Schulden. Ein Land mit einem Primärüberschuss und "
+"Der Primärsaldo ist der Haushaltssaldo ohne die Zinsen auf die Schulden: was"
+" ein Staat einnimmt minus was er für alles andere ausgibt, als Anteil am "
+"BIP. Er zeigt, ob ein Staat heute mit seinen Mitteln auskommt, abgesehen von"
+" den Kosten seiner alten Schulden. Ein Land mit einem Primärüberschuss und "
 "insgesamt einem Defizit leiht sich nur Geld, um Zinsen zu zahlen. Der "
 "Internationale Währungsfonds (IWF) veröffentlicht ihn in seinem Fiscal "
 "Monitor. Wir zeigen nur vergangene Jahre und lassen die Prognosen des IWF "
@@ -1315,11 +1322,11 @@ msgid ""
 "it."
 msgstr ""
 "Das sind alle Ausgaben eines Staates in einem Jahr, einschließlich der "
-"Zinsen auf seine Schulden, als Anteil am BIP. Die Datenbank „Public Finances "
-"in Modern History“ des IWF trägt sie für 200 Jahre aus historischen Quellen "
-"zusammen. Je nach Land und Jahr umfasst sie nur den Zentralstaat oder auch "
-"Länder und Gemeinden, daher ist beim Vergleichen Vorsicht geboten. Our World "
-"in Data veröffentlicht sie."
+"Zinsen auf seine Schulden, als Anteil am BIP. Die Datenbank „Public Finances"
+" in Modern History“ des IWF trägt sie für 200 Jahre aus historischen Quellen"
+" zusammen. Je nach Land und Jahr umfasst sie nur den Zentralstaat oder auch "
+"Länder und Gemeinden, daher ist beim Vergleichen Vorsicht geboten. Our World"
+" in Data veröffentlicht sie."
 
 #: metrics/catalog.py:395
 msgid "Government spending, % of GDP"
@@ -1353,8 +1360,8 @@ msgstr "Wie schnell die Verbraucherpreise jedes Jahr steigen."
 msgid ""
 "Inflation is how fast consumer prices rise: the yearly percentage change in "
 "what an average household pays for a basket of goods and services, measured "
-"by the consumer price index. National statistics offices collect the prices, "
-"the International Monetary Fund compiles the figures, and the World Bank "
+"by the consumer price index. National statistics offices collect the prices,"
+" the International Monetary Fund compiles the figures, and the World Bank "
 "republishes them. A few percent a year is normal. Very high rates erode "
 "wages and savings, while falling prices (deflation) can be a sign of a weak "
 "economy."
@@ -1413,23 +1420,23 @@ msgstr "Welche Volkswirtschaften wachsen am schnellsten?"
 msgid ""
 "How much more an economy produced than the year before, after inflation."
 msgstr ""
-"Wie viel mehr eine Volkswirtschaft produziert hat als im Vorjahr, nach Abzug "
-"der Inflation."
+"Wie viel mehr eine Volkswirtschaft produziert hat als im Vorjahr, nach Abzug"
+" der Inflation."
 
 #: metrics/catalog.py:423
 msgid ""
-"GDP growth is the yearly percentage change in a country's GDP after removing "
-"the effect of price changes, so it shows how much more the economy really "
+"GDP growth is the yearly percentage change in a country's GDP after removing"
+" the effect of price changes, so it shows how much more the economy really "
 "produced than the year before. The World Bank computes it from national "
-"accounts at constant 2015 prices. A negative value means the economy shrank, "
-"as it did in many countries in 2020."
+"accounts at constant 2015 prices. A negative value means the economy shrank,"
+" as it did in many countries in 2020."
 msgstr ""
 "Das BIP-Wachstum ist die jährliche prozentuale Veränderung des BIP eines "
-"Landes ohne den Effekt von Preisänderungen; es zeigt also, wie viel mehr die "
-"Wirtschaft tatsächlich produziert hat als im Vorjahr. Die Weltbank berechnet "
-"es aus den volkswirtschaftlichen Gesamtrechnungen zu konstanten Preisen von "
-"2015. Ein negativer Wert bedeutet, dass die Wirtschaft geschrumpft ist, wie "
-"2020 in vielen Ländern."
+"Landes ohne den Effekt von Preisänderungen; es zeigt also, wie viel mehr die"
+" Wirtschaft tatsächlich produziert hat als im Vorjahr. Die Weltbank "
+"berechnet es aus den volkswirtschaftlichen Gesamtrechnungen zu konstanten "
+"Preisen von 2015. Ein negativer Wert bedeutet, dass die Wirtschaft "
+"geschrumpft ist, wie 2020 in vielen Ländern."
 
 #: metrics/catalog.py:429
 msgid "Real GDP growth"
@@ -1467,7 +1474,8 @@ msgstr "Wo bringt eine Arbeitsstunde am meisten?"
 msgid ""
 "GDP per hour worked: what an hour of work produces, adjusted for prices."
 msgstr ""
-"BIP pro Arbeitsstunde: was eine Stunde Arbeit erwirtschaftet, preisbereinigt."
+"BIP pro Arbeitsstunde: was eine Stunde Arbeit erwirtschaftet, "
+"preisbereinigt."
 
 #: metrics/catalog.py:439
 msgid ""
@@ -1544,8 +1552,8 @@ msgid ""
 msgstr ""
 "Die Steuereinnahmen sind, was der Zentralstaat eines Landes an "
 "Pflichtzahlungen einnimmt, etwa Steuern auf Einkommen, Gewinne, Waren und "
-"Dienstleistungen sowie Handel, als Anteil am BIP. Geldbußen, Strafen und die "
-"meisten Sozialversicherungsbeiträge zählen nicht dazu. Der Internationale "
+"Dienstleistungen sowie Handel, als Anteil am BIP. Geldbußen, Strafen und die"
+" meisten Sozialversicherungsbeiträge zählen nicht dazu. Der Internationale "
 "Währungsfonds stellt die Zahlen aus der Finanzstatistik des Staates "
 "zusammen, und die Weltbank veröffentlicht sie ebenfalls."
 
@@ -1585,16 +1593,16 @@ msgstr "Exporte plus Importe, als Anteil am BIP."
 msgid ""
 "Trade is the sum of a country's exports and imports of goods and services, "
 "shown as a share of its GDP. Small, open economies often trade more than "
-"their whole GDP in a year, partly because goods pass through them on the way "
-"elsewhere, while large economies trade less relative to their size. The "
+"their whole GDP in a year, partly because goods pass through them on the way"
+" elsewhere, while large economies trade less relative to their size. The "
 "World Bank computes it from national accounts."
 msgstr ""
 "Der Handel ist die Summe der Exporte und Importe von Waren und "
 "Dienstleistungen eines Landes, als Anteil an seinem BIP. Kleine, offene "
 "Volkswirtschaften handeln oft mehr als ihr gesamtes BIP eines Jahres, auch "
 "weil Waren auf dem Weg anderswohin durch sie hindurchgehen, während große "
-"Volkswirtschaften im Verhältnis zu ihrer Größe weniger handeln. Die Weltbank "
-"berechnet ihn aus den volkswirtschaftlichen Gesamtrechnungen."
+"Volkswirtschaften im Verhältnis zu ihrer Größe weniger handeln. Die Weltbank"
+" berechnet ihn aus den volkswirtschaftlichen Gesamtrechnungen."
 
 #: metrics/catalog.py:478
 msgid "Trade, % of GDP"
@@ -1644,8 +1652,8 @@ msgstr ""
 
 #: metrics/catalog.py:488
 msgid ""
-"The female labour force participation rate is the share of women aged 15 and "
-"over who are in the labour force: those who have a job and those who are "
+"The female labour force participation rate is the share of women aged 15 and"
+" over who are in the labour force: those who have a job and those who are "
 "looking for one. These are modelled estimates from the International Labour "
 "Organization (ILO), which fills gaps in national labour force surveys so "
 "that countries can be compared. The World Bank republishes them."
@@ -1705,14 +1713,14 @@ msgstr ""
 msgid ""
 "The total fertility rate is the number of children a woman would have over "
 "her life if, at each age, she had children at the rates of that year. In "
-"countries where few children die young, about 2.1 children per woman keeps a "
-"population stable in the long run, without migration. The World Bank "
+"countries where few children die young, about 2.1 children per woman keeps a"
+" population stable in the long run, without migration. The World Bank "
 "publishes it mainly from the UN Population Division's World Population "
 "Prospects."
 msgstr ""
 "Die zusammengefasste Fertilitätsrate ist die Zahl der Kinder, die eine Frau "
-"im Laufe ihres Lebens bekäme, wenn sie in jedem Alter so viele Kinder bekäme "
-"wie die Frauen dieses Alters in diesem Jahr. In Ländern, in denen wenige "
+"im Laufe ihres Lebens bekäme, wenn sie in jedem Alter so viele Kinder bekäme"
+" wie die Frauen dieses Alters in diesem Jahr. In Ländern, in denen wenige "
 "Kinder jung sterben, halten etwa 2,1 Kinder pro Frau eine Bevölkerung ohne "
 "Migration langfristig stabil. Die Weltbank veröffentlicht sie vor allem auf "
 "Grundlage der World Population Prospects der UN-Bevölkerungsabteilung."
@@ -1771,9 +1779,9 @@ msgstr ""
 "Das Medianalter teilt eine Bevölkerung in zwei Hälften: Die eine Hälfte der "
 "Menschen ist jünger, die andere älter. Es ist ein einfaches Maß dafür, wie "
 "alt eine Bevölkerung ist. Die UN-Bevölkerungsabteilung schätzt es in ihren "
-"World Population Prospects aus Volkszählungen, Erhebungen und Registern, und "
-"Our World in Data veröffentlicht die Schätzungen ebenfalls. Die Projektionen "
-"der UN für künftige Jahre sind nicht enthalten."
+"World Population Prospects aus Volkszählungen, Erhebungen und Registern, und"
+" Our World in Data veröffentlicht die Schätzungen ebenfalls. Die "
+"Projektionen der UN für künftige Jahre sind nicht enthalten."
 
 #: metrics/catalog.py:527
 msgid "Ageing"
@@ -1863,7 +1871,8 @@ msgstr "Wo ist Adipositas am häufigsten?"
 
 #: metrics/catalog.py:550
 msgid "The share of adults with a body mass index of 30 or more."
-msgstr "Der Anteil der Erwachsenen mit einem Body-Mass-Index von 30 oder mehr."
+msgstr ""
+"Der Anteil der Erwachsenen mit einem Body-Mass-Index von 30 oder mehr."
 
 #: metrics/catalog.py:552
 msgid ""
@@ -1877,8 +1886,8 @@ msgstr ""
 "Dies ist der Anteil der Erwachsenen ab 18 Jahren mit Adipositas, also einem "
 "Body-Mass-Index (BMI) von 30 oder mehr. Die Weltgesundheitsorganisation "
 "schätzt ihn aus nationalen Erhebungen und bereinigt ihn nach Alter, damit "
-"Länder mit älterer oder jüngerer Bevölkerung vergleichbar sind. Our World in "
-"Data veröffentlicht ihn ebenfalls. Die WHO lizenziert diese Daten unter CC "
+"Länder mit älterer oder jüngerer Bevölkerung vergleichbar sind. Our World in"
+" Data veröffentlicht ihn ebenfalls. Die WHO lizenziert diese Daten unter CC "
 "BY-NC-SA 4.0: frei für nichtkommerzielle Nutzung, und Kopien behalten "
 "dieselbe Lizenz."
 
@@ -1933,8 +1942,9 @@ msgstr ""
 "Dienstleistungen der Gesundheitsversorgung, die ein Land in einem Jahr "
 "verbraucht, ob Staat, Versicherungen oder Haushalte sie bezahlen, in "
 "laufenden US-Dollar. Investitionen in Gebäude und Ausrüstung sind nicht "
-"enthalten. Die Weltgesundheitsorganisation stellt sie in ihrer Global Health "
-"Expenditure Database zusammen, und die Weltbank veröffentlicht sie ebenfalls."
+"enthalten. Die Weltgesundheitsorganisation stellt sie in ihrer Global Health"
+" Expenditure Database zusammen, und die Weltbank veröffentlicht sie "
+"ebenfalls."
 
 #: metrics/catalog.py:574
 msgid "Health spending per person"
@@ -1984,8 +1994,8 @@ msgid ""
 msgstr ""
 "Dies ist der Anteil der Menschen, die von weniger als 3,00 $ am Tag leben, "
 "der internationalen Armutsgrenze der Weltbank, zu Preisen von 2021 und "
-"bereinigt um Unterschiede in der Kaufkraft zwischen Ländern. Die Poverty and "
-"Inequality Platform der Weltbank berechnet ihn aus Haushaltserhebungen "
+"bereinigt um Unterschiede in der Kaufkraft zwischen Ländern. Die Poverty and"
+" Inequality Platform der Weltbank berechnet ihn aus Haushaltserhebungen "
 "nationaler Statistikämter. Erhebungen finden nicht jedes Jahr statt, daher "
 "haben viele Länder Lücken zwischen den Jahren."
 
@@ -2044,13 +2054,13 @@ msgid ""
 "international dollars at 2021 prices. The World Bank's Poverty and "
 "Inequality Platform builds it from national household surveys. Rich "
 "countries measure income after taxes and benefits; most low- and middle-"
-"income countries measure consumption instead, including food people grow for "
-"themselves. Surveys change over time, so some years compare less well. Our "
+"income countries measure consumption instead, including food people grow for"
+" themselves. Surveys change over time, so some years compare less well. Our "
 "World in Data republishes the figures."
 msgstr ""
 "Das ist das durchschnittliche Einkommen oder der Konsum pro Person und Tag, "
-"bereinigt um Inflation und um Unterschiede der Lebenshaltungskosten zwischen "
-"Ländern, in internationalen Dollar zu Preisen von 2021. Die Poverty and "
+"bereinigt um Inflation und um Unterschiede der Lebenshaltungskosten zwischen"
+" Ländern, in internationalen Dollar zu Preisen von 2021. Die Poverty and "
 "Inequality Platform der Weltbank berechnet es aus nationalen "
 "Haushaltsbefragungen. Reiche Länder messen das Einkommen nach Steuern und "
 "Sozialleistungen; die meisten Länder mit niedrigem und mittlerem Einkommen "
@@ -2105,8 +2115,8 @@ msgid ""
 "The Gini index measures how unequally income, or in some countries "
 "consumption, is shared among a country's people, from 0 (everyone has the "
 "same) to 100 (one person has everything). The World Bank's Poverty and "
-"Inequality Platform computes it from household surveys. Surveys are not held "
-"every year, so many countries have gaps between years."
+"Inequality Platform computes it from household surveys. Surveys are not held"
+" every year, so many countries have gaps between years."
 msgstr ""
 "Der Gini-Index misst, wie ungleich das Einkommen, in manchen Ländern der "
 "Konsum, unter den Menschen eines Landes verteilt ist, von 0 (alle haben "
@@ -2157,8 +2167,8 @@ msgid ""
 "The share of all income that goes to the richest 1% of people, before taxes "
 "and benefits."
 msgstr ""
-"Der Anteil am gesamten Einkommen, der an das reichste 1 % der Menschen geht, "
-"vor Steuern und Sozialleistungen."
+"Der Anteil am gesamten Einkommen, der an das reichste 1 % der Menschen geht,"
+" vor Steuern und Sozialleistungen."
 
 #: metrics/catalog.py:635
 msgid ""
@@ -2170,8 +2180,8 @@ msgid ""
 "republishes the figures."
 msgstr ""
 "Das ist der Anteil am gesamten Einkommen, der an das reichste 1 % der "
-"Menschen geht, gemessen vor Steuern und Sozialleistungen. Wäre das Einkommen "
-"gleich verteilt, bekäme das reichste 1 % genau 1 % davon. Die World "
+"Menschen geht, gemessen vor Steuern und Sozialleistungen. Wäre das Einkommen"
+" gleich verteilt, bekäme das reichste 1 % genau 1 % davon. Die World "
 "Inequality Database (WID.world) verbindet Steuerdaten, Befragungen und "
 "volkswirtschaftliche Gesamtrechnungen, um die Einkommen ganz oben zu "
 "erfassen, die Befragungen allein meist unterschätzen. Our World in Data "
@@ -2230,9 +2240,9 @@ msgstr ""
 "Die Lebenszufriedenheit ist die durchschnittliche Antwort auf eine einzige "
 "Umfragefrage: Stellen Sie sich eine Leiter vor, auf der 10 das bestmögliche "
 "Leben für Sie ist und 0 das schlechteste; auf welcher Stufe stehen Sie "
-"jetzt? Gallup stellt sie in seinem World Poll, meist etwa 1.000 Menschen pro "
-"Land und Jahr, und der World Happiness Report veröffentlicht die Ergebnisse "
-"des Wellbeing Research Centre der Universität Oxford. Our World in Data "
+"jetzt? Gallup stellt sie in seinem World Poll, meist etwa 1.000 Menschen pro"
+" Land und Jahr, und der World Happiness Report veröffentlicht die Ergebnisse"
+" des Wellbeing Research Centre der Universität Oxford. Our World in Data "
 "veröffentlicht sie ebenfalls."
 
 #: metrics/catalog.py:658
@@ -2289,16 +2299,16 @@ msgid ""
 "The homicide rate counts intentional homicides per 100,000 people: unlawful "
 "killings meant to cause death or serious injury. The UN Office on Drugs and "
 "Crime (UNODC) collects the figures from national police and health records, "
-"and the World Bank republishes them. Countries record deaths differently, so "
-"small differences between them are uncertain."
+"and the World Bank republishes them. Countries record deaths differently, so"
+" small differences between them are uncertain."
 msgstr ""
 "Die Mordrate zählt vorsätzliche Tötungsdelikte pro 100.000 Menschen: "
 "rechtswidrige Tötungen, die den Tod oder schwere Verletzungen herbeiführen "
 "sollen. Das Büro der Vereinten Nationen für Drogen- und "
-"Verbrechensbekämpfung (UNODC) sammelt die Zahlen aus nationalen Polizei- und "
-"Gesundheitsdaten, und die Weltbank veröffentlicht sie ebenfalls. Länder "
-"erfassen Todesfälle unterschiedlich, daher sind kleine Unterschiede zwischen "
-"ihnen unsicher."
+"Verbrechensbekämpfung (UNODC) sammelt die Zahlen aus nationalen Polizei- und"
+" Gesundheitsdaten, und die Weltbank veröffentlicht sie ebenfalls. Länder "
+"erfassen Todesfälle unterschiedlich, daher sind kleine Unterschiede zwischen"
+" ihnen unsicher."
 
 #: metrics/catalog.py:674
 msgid "Homicides per 100,000 people"
@@ -2355,12 +2365,12 @@ msgstr ""
 #: metrics/catalog.py:684
 msgid ""
 "The gender wage gap is the difference between men's and women's average "
-"hourly earnings, as a share of men's earnings. A positive gap means men earn "
-"more; a negative one means women do. It is unadjusted: it does not account "
+"hourly earnings, as a share of men's earnings. A positive gap means men earn"
+" more; a negative one means women do. It is unadjusted: it does not account "
 "for education, experience or the kind of job, so it reflects both unequal "
 "pay for similar work and the different jobs men and women hold. It covers "
-"employees only, not the self-employed. The International Labour Organization "
-"compiles it from national surveys, which differ, so compare countries with "
+"employees only, not the self-employed. The International Labour Organization"
+" compiles it from national surveys, which differ, so compare countries with "
 "care. Our World in Data leaves out the figures the ILO flags as unreliable."
 msgstr ""
 "Das geschlechtsspezifische Lohngefälle ist der Unterschied zwischen dem "
@@ -2371,8 +2381,8 @@ msgstr ""
 "er sowohl ungleiche Bezahlung für ähnliche Arbeit als auch die "
 "unterschiedlichen Berufe von Männern und Frauen. Er umfasst nur "
 "Beschäftigte, keine Selbstständigen. Die Internationale Arbeitsorganisation "
-"(ILO) stellt ihn aus nationalen Erhebungen zusammen, die sich unterscheiden; "
-"beim Vergleich von Ländern ist daher Vorsicht geboten. Our World in Data "
+"(ILO) stellt ihn aus nationalen Erhebungen zusammen, die sich unterscheiden;"
+" beim Vergleich von Ländern ist daher Vorsicht geboten. Our World in Data "
 "lässt die Werte weg, die die ILO als unzuverlässig kennzeichnet."
 
 #: metrics/catalog.py:692
@@ -2420,8 +2430,8 @@ msgstr ""
 msgid ""
 "The V-Dem women's political empowerment index measures how far women enjoy "
 "civil liberties, can take part in civil society and are represented in "
-"politics. It runs from 0 (least empowered) to 1 (most empowered) and is made "
-"up of three sub-indices: women's civil liberties, women's civil society "
+"politics. It runs from 0 (least empowered) to 1 (most empowered) and is made"
+" up of three sub-indices: women's civil liberties, women's civil society "
 "participation and women's political participation. It rests mainly on the "
 "ratings of V-Dem's country experts, combined through a statistical model, "
 "and also uses the share of women in parliament. Our World in Data "
@@ -2431,8 +2441,8 @@ msgstr ""
 "Frauen bürgerliche Freiheiten genießen, sich in der Zivilgesellschaft "
 "beteiligen können und in der Politik vertreten sind. Er reicht von 0 (am "
 "wenigsten Teilhabe) bis 1 (am meisten Teilhabe) und setzt sich aus drei "
-"Teilindizes zusammen: bürgerliche Freiheiten von Frauen, ihre Beteiligung an "
-"der Zivilgesellschaft und ihre politische Beteiligung. Er beruht vor allem "
+"Teilindizes zusammen: bürgerliche Freiheiten von Frauen, ihre Beteiligung an"
+" der Zivilgesellschaft und ihre politische Beteiligung. Er beruht vor allem "
 "auf den Einschätzungen der Länderexpertinnen und -experten von V-Dem, "
 "verbunden über ein statistisches Modell, und nutzt auch den Frauenanteil im "
 "Parlament. Our World in Data stellt die zentralen Schätzwerte bereit."
@@ -2519,8 +2529,8 @@ msgid ""
 "The share of people whose food does not give them the minimum energy they "
 "need."
 msgstr ""
-"Der Anteil der Menschen, deren Nahrung ihnen nicht die nötige Mindestenergie "
-"gibt."
+"Der Anteil der Menschen, deren Nahrung ihnen nicht die nötige Mindestenergie"
+" gibt."
 
 #: metrics/catalog.py:737
 msgid ""
@@ -2529,8 +2539,8 @@ msgid ""
 "Organization of the United Nations (FAO) estimates it for each country from "
 "national food supply, food consumption surveys and population data, as an "
 "average over three years, and the World Bank republishes it. The FAO "
-"publishes no share below 2.5%: those years show as 2.5%, which means 2.5% or "
-"less. Its current estimates start in 2001."
+"publishes no share below 2.5%: those years show as 2.5%, which means 2.5% or"
+" less. Its current estimates start in 2001."
 msgstr ""
 "Das ist der Anteil der Menschen, deren übliche Ernährung ihnen nicht genug "
 "Kalorien für ihren Mindestenergiebedarf gibt. Die Ernährungs- und "
@@ -2596,15 +2606,15 @@ msgid ""
 "their country: the lowest-cost set of foods that meets the dietary "
 "guidelines of governments and public health agencies. A diet counts as "
 "unaffordable when its cost, plus basic non-food needs such as housing and "
-"transport, is more than daily income. FAO and the World Bank compute it with "
-"methods from Bai et al. (2024), and Our World in Data republishes it."
+"transport, is more than daily income. FAO and the World Bank compute it with"
+" methods from Bai et al. (2024), and Our World in Data republishes it."
 msgstr ""
 "Das ist der Anteil der Menschen, die sich die günstigste gesunde Ernährung "
 "in ihrem Land nicht leisten können: die billigste Auswahl an Lebensmitteln, "
 "die den Ernährungsempfehlungen von Regierungen und Gesundheitsbehörden "
 "entspricht. Eine Ernährung gilt als unerschwinglich, wenn ihre Kosten plus "
-"der Grundbedarf außerhalb der Nahrung, etwa Wohnen und Verkehr, das tägliche "
-"Einkommen übersteigen. FAO und Weltbank berechnen sie mit Methoden von Bai "
+"der Grundbedarf außerhalb der Nahrung, etwa Wohnen und Verkehr, das tägliche"
+" Einkommen übersteigen. FAO und Weltbank berechnen sie mit Methoden von Bai "
 "et al. (2024), und Our World in Data veröffentlicht sie."
 
 #: metrics/catalog.py:762
@@ -2652,8 +2662,8 @@ msgid ""
 msgstr ""
 "Das ist das Fleisch, das ein Land in einem Jahr erzeugt, in Tonnen, von "
 "Rindern, Geflügel, Schweinen, Schafen, Ziegen und Wild. Die Ernährungs- und "
-"Landwirtschaftsorganisation der Vereinten Nationen (FAO) stellt es zusammen, "
-"und Our World in Data veröffentlicht es."
+"Landwirtschaftsorganisation der Vereinten Nationen (FAO) stellt es zusammen,"
+" und Our World in Data veröffentlicht es."
 
 #: metrics/catalog.py:777 metrics/catalog.py:916
 msgctxt "measured in"
@@ -2709,16 +2719,16 @@ msgid ""
 "The V-Dem human rights index measures how free people are from government "
 "torture, political killings and forced labour, and how far they enjoy "
 "property rights and the freedoms of movement, religion, expression and "
-"association. It runs from 0 (least free) to 1 (most free) and, like the V-"
-"Dem democracy indices, combines the ratings of thousands of country experts "
-"through a statistical model. Our World in Data republishes the central "
-"estimates."
+"association. It runs from 0 (least free) to 1 (most free) and, like the "
+"V-Dem democracy indices, combines the ratings of thousands of country "
+"experts through a statistical model. Our World in Data republishes the "
+"central estimates."
 msgstr ""
 "Der Menschenrechtsindex von V-Dem misst, wie frei Menschen von staatlicher "
 "Folter, politischen Morden und Zwangsarbeit sind und wie weit sie "
 "Eigentumsrechte sowie Bewegungs-, Religions-, Meinungs- und "
-"Vereinigungsfreiheit genießen. Er reicht von 0 (am wenigsten frei) bis 1 (am "
-"freiesten) und verbindet, wie die Demokratieindizes von V-Dem, die "
+"Vereinigungsfreiheit genießen. Er reicht von 0 (am wenigsten frei) bis 1 (am"
+" freiesten) und verbindet, wie die Demokratieindizes von V-Dem, die "
 "Einschätzungen tausender Länderexpertinnen und -experten über ein "
 "statistisches Modell. Our World in Data stellt die zentralen Schätzwerte "
 "bereit."
@@ -2776,11 +2786,11 @@ msgstr ""
 "öffentliches Geld stehlen und wie stark Korruption bestimmt, wie Gesetze "
 "gemacht und umgesetzt werden. Er reicht von 0 (am wenigsten korrupt) bis 1 "
 "(am korruptesten) und setzt sich aus vier Teilindizes zusammen: Korruption "
-"in Regierung, Parlament, Justiz und öffentlicher Verwaltung. Wie die anderen "
-"Indizes von V-Dem verbindet er die Einschätzungen tausender "
+"in Regierung, Parlament, Justiz und öffentlicher Verwaltung. Wie die anderen"
+" Indizes von V-Dem verbindet er die Einschätzungen tausender "
 "Länderexpertinnen und -experten über ein statistisches Modell. Er erfasst "
-"Bestechung und Diebstahl auf hoher Ebene, nicht die Korruption, der Menschen "
-"im Alltag begegnen. Our World in Data stellt die zentralen Schätzwerte "
+"Bestechung und Diebstahl auf hoher Ebene, nicht die Korruption, der Menschen"
+" im Alltag begegnen. Our World in Data stellt die zentralen Schätzwerte "
 "bereit."
 
 #: metrics/catalog.py:814
@@ -2820,8 +2830,8 @@ msgstr ""
 
 #: metrics/catalog.py:822
 msgid ""
-"How far heads of government and ministers take bribes or steal public money, "
-"from 0 (least corrupt) to 1 (most corrupt)."
+"How far heads of government and ministers take bribes or steal public money,"
+" from 0 (least corrupt) to 1 (most corrupt)."
 msgstr ""
 "Wie sehr Regierungschefs und Minister Bestechungsgeld annehmen oder "
 "öffentliches Geld stehlen, von 0 (am wenigsten korrupt) bis 1 (am "
@@ -2830,8 +2840,8 @@ msgstr ""
 #: metrics/catalog.py:824
 msgid ""
 "The V-Dem executive corruption index measures how far high-ranking members "
-"of the executive, such as the head of government and cabinet ministers, take "
-"bribes or steal public money. It runs from 0 (least corrupt) to 1 (most "
+"of the executive, such as the head of government and cabinet ministers, take"
+" bribes or steal public money. It runs from 0 (least corrupt) to 1 (most "
 "corrupt) and is one of the four parts of the political corruption index. "
 "Like the other V-Dem indices, it combines the ratings of thousands of "
 "country experts through a statistical model. Our World in Data republishes "
@@ -2839,9 +2849,9 @@ msgid ""
 msgstr ""
 "Der Index der Korruption in der Regierung von V-Dem misst, wie sehr "
 "hochrangige Mitglieder der Exekutive, etwa Regierungschefs und Minister, "
-"Bestechungsgeld annehmen oder öffentliches Geld stehlen. Er reicht von 0 (am "
-"wenigsten korrupt) bis 1 (am korruptesten) und ist einer der vier Teile des "
-"Index der politischen Korruption. Wie die anderen Indizes von V-Dem "
+"Bestechungsgeld annehmen oder öffentliches Geld stehlen. Er reicht von 0 (am"
+" wenigsten korrupt) bis 1 (am korruptesten) und ist einer der vier Teile des"
+" Index der politischen Korruption. Wie die anderen Indizes von V-Dem "
 "verbindet er die Einschätzungen tausender Länderexpertinnen und -experten "
 "über ein statistisches Modell. Our World in Data stellt die zentralen "
 "Schätzwerte bereit."
@@ -2883,10 +2893,10 @@ msgstr ""
 msgid ""
 "The V-Dem public sector corruption index measures how far public sector "
 "employees take bribes or steal public money. It runs from 0 (least corrupt) "
-"to 1 (most corrupt) and is one of the four parts of the political corruption "
-"index. Like the other V-Dem indices, it combines the ratings of thousands of "
-"country experts through a statistical model. Our World in Data republishes "
-"the central estimates."
+"to 1 (most corrupt) and is one of the four parts of the political corruption"
+" index. Like the other V-Dem indices, it combines the ratings of thousands "
+"of country experts through a statistical model. Our World in Data "
+"republishes the central estimates."
 msgstr ""
 "Der Index der Korruption im öffentlichen Sektor von V-Dem misst, wie sehr "
 "Beschäftigte im öffentlichen Sektor Bestechungsgeld annehmen oder "
@@ -2935,16 +2945,16 @@ msgid ""
 "make undocumented extra payments or bribes to speed up or delay a court "
 "case, or to win a favourable decision. Unlike the V-Dem corruption indices, "
 "a higher score means less corruption. A score of 0 is about the average "
-"across all countries and years, and scores run from about -3 to 4. It is one "
-"of the four parts of the political corruption index. Like the other V-Dem "
+"across all countries and years, and scores run from about -3 to 4. It is one"
+" of the four parts of the political corruption index. Like the other V-Dem "
 "measures, it combines the ratings of thousands of country experts through a "
 "statistical model. Our World in Data republishes the central estimates."
 msgstr ""
-"Der Wert der Korruption in der Justiz von V-Dem misst, wie oft Menschen oder "
-"Unternehmen nicht belegte Extrazahlungen oder Bestechungsgelder leisten, um "
-"ein Gerichtsverfahren zu beschleunigen oder zu verzögern oder um ein "
-"günstiges Urteil zu erhalten. Anders als bei den Korruptionsindizes von V-"
-"Dem bedeutet ein höherer Wert weniger Korruption. Ein Wert von 0 ist etwa "
+"Der Wert der Korruption in der Justiz von V-Dem misst, wie oft Menschen oder"
+" Unternehmen nicht belegte Extrazahlungen oder Bestechungsgelder leisten, um"
+" ein Gerichtsverfahren zu beschleunigen oder zu verzögern oder um ein "
+"günstiges Urteil zu erhalten. Anders als bei den Korruptionsindizes von "
+"V-Dem bedeutet ein höherer Wert weniger Korruption. Ein Wert von 0 ist etwa "
 "der Durchschnitt über alle Länder und Jahre, und die Werte reichen von etwa "
 "-3 bis 4. Er ist einer der vier Teile des Index der politischen Korruption. "
 "Wie die anderen Maße von V-Dem verbindet er die Einschätzungen tausender "
@@ -2989,14 +2999,14 @@ msgstr ""
 
 #: metrics/catalog.py:875
 msgid ""
-"Transparency International's Corruption Perceptions Index scores how corrupt "
-"a country's public sector is seen to be by experts and business people. Each "
-"year it averages up to 13 independent sources, such as expert assessments "
-"and business surveys, each converted to a scale from 0 (very corrupt) to 100 "
-"(very clean). It measures perceptions, not corruption itself, because no "
-"fully objective national measure of corruption exists. The method has stayed "
-"the same since 2012, so scores from 2012 on can be compared over time. Our "
-"World in Data republishes the scores."
+"Transparency International's Corruption Perceptions Index scores how corrupt"
+" a country's public sector is seen to be by experts and business people. "
+"Each year it averages up to 13 independent sources, such as expert "
+"assessments and business surveys, each converted to a scale from 0 (very "
+"corrupt) to 100 (very clean). It measures perceptions, not corruption "
+"itself, because no fully objective national measure of corruption exists. "
+"The method has stayed the same since 2012, so scores from 2012 on can be "
+"compared over time. Our World in Data republishes the scores."
 msgstr ""
 "Der Korruptionswahrnehmungsindex von Transparency International bewertet, "
 "wie korrupt Fachleute und Unternehmen den öffentlichen Sektor eines Landes "
@@ -3046,9 +3056,10 @@ msgid ""
 msgstr ""
 "Die Militärausgaben umfassen die Ausgaben für die Streitkräfte, "
 "einschließlich Friedenseinsätzen, Verteidigungsministerien, "
-"paramilitärischer Kräfte und militärischer Raumfahrt, als Anteil am BIP. Das "
-"Stockholmer Internationale Friedensforschungsinstitut (SIPRI) stellt sie aus "
-"amtlichen Quellen zusammen, und die Weltbank veröffentlicht sie ebenfalls."
+"paramilitärischer Kräfte und militärischer Raumfahrt, als Anteil am BIP. Das"
+" Stockholmer Internationale Friedensforschungsinstitut (SIPRI) stellt sie "
+"aus amtlichen Quellen zusammen, und die Weltbank veröffentlicht sie "
+"ebenfalls."
 
 #: metrics/catalog.py:898
 msgid "Military spending, % of GDP"
@@ -3095,7 +3106,8 @@ msgid "Who emits the most carbon dioxide per person?"
 msgstr "Wer stößt pro Person am meisten Kohlendioxid aus?"
 
 #: metrics/catalog.py:906
-msgid "Carbon dioxide from fossil fuels and industry, per person and in total."
+msgid ""
+"Carbon dioxide from fossil fuels and industry, per person and in total."
 msgstr ""
 "Kohlendioxid aus fossilen Brennstoffen und Industrie, pro Person und "
 "insgesamt."
@@ -3109,8 +3121,8 @@ msgid ""
 "Carbon Budget, and Our World in Data adds the per-person figures and "
 "republishes them."
 msgstr ""
-"Dies sind die Emissionen von Kohlendioxid (CO2) aus der Verbrennung fossiler "
-"Brennstoffe und aus der Industrie, etwa der Zementherstellung, gezählt in "
+"Dies sind die Emissionen von Kohlendioxid (CO2) aus der Verbrennung fossiler"
+" Brennstoffe und aus der Industrie, etwa der Zementherstellung, gezählt in "
 "dem Land, in dem sie entstehen. Emissionen aus Landnutzungsänderungen wie "
 "der Entwaldung sind nicht enthalten. Das Global Carbon Project "
 "veröffentlicht sie in seinem jährlichen Global Carbon Budget, und Our World "
@@ -3134,7 +3146,7 @@ msgid "Total CO2"
 msgstr "CO2 gesamt"
 
 #: metrics/catalog.py:916 templates/conflicts/world_war_ii.html:77
-#: templates/politics/country.html:87
+#: templates/politics/country.html:95
 msgid "Total"
 msgstr "Gesamt"
 
@@ -3335,8 +3347,8 @@ msgstr "Wo ist die Luft am stärksten verschmutzt?"
 
 #: metrics/catalog.py:952
 msgid ""
-"How much fine-particle pollution people breathe, and how many live above the "
-"WHO guideline."
+"How much fine-particle pollution people breathe, and how many live above the"
+" WHO guideline."
 msgstr ""
 "Wie viel Feinstaub Menschen einatmen und wie viele über dem WHO-Richtwert "
 "leben."
@@ -3344,19 +3356,19 @@ msgstr ""
 #: metrics/catalog.py:954
 msgid ""
 "Fine particles smaller than 2.5 microns (PM2.5) reach deep into the lungs "
-"and cause severe harm. The first measure is the average yearly concentration "
-"people are exposed to, weighted by where they live, in cities and the "
+"and cause severe harm. The first measure is the average yearly concentration"
+" people are exposed to, weighted by where they live, in cities and the "
 "countryside; IHME's Global Burden of Disease study estimates it. The second "
 "is the share of people living where it is above 10 micrograms per cubic "
-"metre, the guideline value of the World Health Organization (WHO) that these "
-"estimates use. The World Bank republishes both."
+"metre, the guideline value of the World Health Organization (WHO) that these"
+" estimates use. The World Bank republishes both."
 msgstr ""
-"Feinstaubteilchen, die kleiner als 2,5 Mikrometer sind (PM2,5), dringen tief "
-"in die Lunge ein und richten schweren Schaden an. Die erste Messgröße ist "
-"die durchschnittliche jährliche Konzentration, der Menschen ausgesetzt sind, "
-"gewichtet danach, wo sie leben, in Städten und auf dem Land; die Global-"
-"Burden-of-Disease-Studie des IHME schätzt sie. Die zweite ist der Anteil der "
-"Menschen, die dort leben, wo sie über 10 Mikrogramm pro Kubikmeter liegt, "
+"Feinstaubteilchen, die kleiner als 2,5 Mikrometer sind (PM2,5), dringen tief"
+" in die Lunge ein und richten schweren Schaden an. Die erste Messgröße ist "
+"die durchschnittliche jährliche Konzentration, der Menschen ausgesetzt sind,"
+" gewichtet danach, wo sie leben, in Städten und auf dem Land; die Global-"
+"Burden-of-Disease-Studie des IHME schätzt sie. Die zweite ist der Anteil der"
+" Menschen, die dort leben, wo sie über 10 Mikrogramm pro Kubikmeter liegt, "
 "dem Richtwert der Weltgesundheitsorganisation (WHO), den diese Schätzungen "
 "verwenden. Die Weltbank veröffentlicht beide."
 
@@ -3496,6 +3508,291 @@ msgstr "G20"
 msgid "compared with G20 countries"
 msgstr "im Vergleich mit den G20-Ländern"
 
+#: politics/compass.py:34
+msgid ""
+"Experts on Brazilian politics rated each party on single issues, from 1 to "
+"20. The economic axis here is the average of four of them: taxes and "
+"spending, privatization, deregulation and redistribution. The social axis is"
+" the average of four others: abortion and other moral questions, religion in"
+" politics, minority rights, and civil liberties against tough measures on "
+"crime. Both were then stretched from 1–20 to 0–10."
+msgstr ""
+"Fachleute für brasilianische Politik bewerteten jede Partei bei einzelnen "
+"Themen, von 1 bis 20. Die wirtschaftliche Achse ist hier der Durchschnitt "
+"aus vier davon: Steuern und Ausgaben, Privatisierung, Deregulierung und "
+"Umverteilung. Die gesellschaftliche Achse ist der Durchschnitt aus vier "
+"anderen: Abtreibung und andere moralische Fragen, Religion in der Politik, "
+"Rechte von Minderheiten sowie Bürgerrechte gegenüber hartem Vorgehen gegen "
+"Kriminalität. Beide wurden dann von 1–20 auf 0–10 gestreckt."
+
+#: politics/compass.py:46
+msgid ""
+"Experts on Brazilian politics placed each party directly on the two axes, "
+"from 0 to 10: one for economic issues such as taxes, privatization and the "
+"welfare state, one for social and cultural values such as abortion, same-sex"
+" marriage and order and tradition."
+msgstr ""
+"Fachleute für brasilianische Politik setzten jede Partei direkt auf die "
+"beiden Achsen, von 0 bis 10: eine für wirtschaftliche Fragen wie Steuern, "
+"Privatisierung und Sozialstaat, eine für gesellschaftliche und kulturelle "
+"Werte wie Abtreibung, gleichgeschlechtliche Ehe sowie Ordnung und Tradition."
+
+#: politics/compass.py:57
+msgid ""
+"Experts on Brazilian politics placed each party directly on the two axes, "
+"from 0 to 10, with questions much like those of the Chapel Hill survey. Its "
+"own party list leaves out PSD and PL, then called PR, so their places here "
+"are the average of the experts’ answers, worked out as for the other "
+"parties."
+msgstr ""
+"Fachleute für brasilianische Politik setzten jede Partei direkt auf die "
+"beiden Achsen, von 0 bis 10, mit Fragen ähnlich denen der Chapel-Hill-"
+"Umfrage. Ihre eigene Parteienliste lässt PSD und PL, damals PR, aus. Deren "
+"Plätze sind hier daher der Durchschnitt der Antworten der Fachleute, "
+"berechnet wie bei den anderen Parteien."
+
+#: politics/compass.py:69
+msgid "far-left"
+msgstr "linksextrem"
+
+#: politics/compass.py:70
+msgid "left-wing"
+msgstr "links"
+
+#: politics/compass.py:71
+msgid "centre-left"
+msgstr "Mitte-links"
+
+#: politics/compass.py:72
+msgid "centre"
+msgstr "Mitte"
+
+#: politics/compass.py:73
+msgid "centre-right"
+msgstr "Mitte-rechts"
+
+#: politics/compass.py:74
+msgid "right-wing"
+msgstr "rechts"
+
+#: politics/compass.py:75
+msgid "far-right"
+msgstr "rechtsextrem"
+
+#: politics/compass.py:80
+msgid "anti-corruption"
+msgstr "Antikorruption"
+
+#: politics/compass.py:81
+msgid "big tent"
+msgstr "Volkspartei"
+
+#: politics/compass.py:82
+msgid "Bolsonarism"
+msgstr "Bolsonarismus"
+
+#: politics/compass.py:83
+msgid "Brazilian nationalism"
+msgstr "brasilianischer Nationalismus"
+
+#: politics/compass.py:84
+msgid "Catholic social teaching"
+msgstr "katholische Soziallehre"
+
+#: politics/compass.py:85
+msgid "Christian democracy"
+msgstr "Christdemokratie"
+
+#: politics/compass.py:86
+msgid "Christian right"
+msgstr "christliche Rechte"
+
+#: politics/compass.py:87
+msgid "Christian solidarism"
+msgstr "christlicher Solidarismus"
+
+#: politics/compass.py:88
+msgid "classical liberalism"
+msgstr "klassischer Liberalismus"
+
+#: politics/compass.py:89
+msgid "communism"
+msgstr "Kommunismus"
+
+#: politics/compass.py:90
+msgid "conservatism"
+msgstr "Konservatismus"
+
+#: politics/compass.py:91
+msgid "conservative liberalism"
+msgstr "konservativer Liberalismus"
+
+#: politics/compass.py:92
+msgid "democratic socialism"
+msgstr "demokratischer Sozialismus"
+
+#: politics/compass.py:93
+msgid "developmentalism"
+msgstr "Desarrollismo"
+
+#: politics/compass.py:94
+msgid "direct democracy"
+msgstr "direkte Demokratie"
+
+#: politics/compass.py:95
+msgid "eco-socialism"
+msgstr "Ökosozialismus"
+
+#: politics/compass.py:96
+msgid "economic liberalism"
+msgstr "Wirtschaftsliberalismus"
+
+#: politics/compass.py:97
+msgid "environmentalism"
+msgstr "Umweltschutz"
+
+#: politics/compass.py:98
+msgid "federalism"
+msgstr "Föderalismus"
+
+#: politics/compass.py:99
+msgid "green politics"
+msgstr "grüne Politik"
+
+#: politics/compass.py:100
+msgid "labourism"
+msgstr "Laborismus"
+
+#: politics/compass.py:101
+msgid "liberal conservatism"
+msgstr "Liberalkonservatismus"
+
+#: politics/compass.py:102
+msgid "libertarianism"
+msgstr "Libertarismus"
+
+#: politics/compass.py:103
+msgid "national conservatism"
+msgstr "Nationalkonservatismus"
+
+#: politics/compass.py:104
+msgid "national liberalism"
+msgstr "Nationalliberalismus"
+
+#: politics/compass.py:105
+msgid "neoliberalism"
+msgstr "Neoliberalismus"
+
+#: politics/compass.py:106
+msgid "parliamentarism"
+msgstr "Parlamentarismus"
+
+#: politics/compass.py:107
+msgid "paternalistic conservatism"
+msgstr "paternalistischer Konservatismus"
+
+#: politics/compass.py:108
+msgid "progressivism"
+msgstr "Progressivismus"
+
+#: politics/compass.py:109
+msgid "right-wing populism"
+msgstr "Rechtspopulismus"
+
+#: politics/compass.py:110
+msgid "social conservatism"
+msgstr "Sozialkonservatismus"
+
+#: politics/compass.py:111
+msgid "social democracy"
+msgstr "Sozialdemokratie"
+
+#: politics/compass.py:112
+msgid "social liberalism"
+msgstr "Sozialliberalismus"
+
+#: politics/compass.py:113
+msgid "socialism of the 21st century"
+msgstr "Sozialismus des 21. Jahrhunderts"
+
+#: politics/compass.py:114
+msgid "Third Way"
+msgstr "Dritter Weg"
+
+#: politics/compass.py:125
+#, python-format
+msgid "%(from)s to %(to)s"
+msgstr "%(from)s bis %(to)s"
+
+#: politics/compass.py:141
+#, python-format
+msgid "Merged into %(party)s in %(year)s."
+msgstr "%(year)s in %(party)s aufgegangen."
+
+#: politics/compass.py:150
+#, python-format
+msgid ""
+"Inferred, not measured: the average of %(parties)s, which merged into it."
+msgstr ""
+"Abgeleitet, nicht gemessen: der Durchschnitt von %(parties)s, die in ihr "
+"aufgingen."
+
+#: politics/compass.py:153
+#, python-format
+msgid ""
+"Inferred, not measured: estimated from where %(experts)s political "
+"scientists put it on one left-right scale in 2018."
+msgstr ""
+"Abgeleitet, nicht gemessen: geschätzt daraus, wo %(experts)s "
+"Politikwissenschaftler sie 2018 auf einer Links-rechts-Skala verorteten."
+
+#: politics/compass.py:172
+#, python-format
+msgid "Called %(name)s when this survey asked."
+msgstr "Hieß zur Zeit dieser Umfrage %(name)s."
+
+#: politics/congress.py:27
+msgid "Chamber of Deputies"
+msgstr "Abgeordnetenkammer"
+
+#: politics/congress.py:28
+msgid "Federal Senate"
+msgstr "Bundessenat"
+
+#: politics/congress.py:52
+#, python-format
+msgid "members in office on %(date)s"
+msgstr "Mitglieder im Amt am %(date)s"
+
+#: politics/congress.py:55
+msgid "Today"
+msgstr "Heute"
+
+#: politics/congress.py:74
+#, python-format
+msgid "elected on %(day)s"
+msgstr "gewählt am %(day)s"
+
+#: politics/congress.py:79
+#, python-format
+msgid "%(count)s elected on %(day)s"
+msgstr "%(count)s gewählt am %(day)s"
+
+#: politics/congress.py:81
+#, python-format
+msgid "%(count)s whose terms run on, with their party on %(date)s"
+msgstr "%(count)s, deren Amtszeit weiterläuft, mit ihrer Partei am %(date)s"
+
+#: politics/congress.py:84
+#, python-format
+msgid "From %(year)s"
+msgstr "Ab %(year)s"
+
+#: politics/congress.py:119 politics/queries.py:306
+#: templates/politics/_party_logo.html:2
+msgid "No party"
+msgstr "Parteilos"
+
 #: politics/offices.py:23
 #, python-format
 msgid "%(name)s by president"
@@ -3568,14 +3865,52 @@ msgstr "Kommissarischer Kanzler"
 msgid "no change"
 msgstr "keine Änderung"
 
-#: politics/queries.py:306 templates/politics/_party_logo.html:2
-msgid "No party"
-msgstr "Parteilos"
-
 #: politics/queries.py:320
 #, python-format
 msgid "%(party)s logo: %(author)s, %(licence)s, Wikimedia Commons"
 msgstr "%(party)s-Logo: %(author)s, %(licence)s, Wikimedia Commons"
+
+#: politics/spectrum.py:41
+msgid "Left"
+msgstr "Links"
+
+#: politics/spectrum.py:41
+msgid "far left and left"
+msgstr "linksextrem und links"
+
+#: politics/spectrum.py:42
+msgid "Centre"
+msgstr "Mitte"
+
+#: politics/spectrum.py:42
+msgid "centre-left to centre-right"
+msgstr "Mitte-links bis Mitte-rechts"
+
+#: politics/spectrum.py:43
+msgid "Right"
+msgstr "Rechts"
+
+#: politics/spectrum.py:43
+msgid "right and far right"
+msgstr "rechts und rechtsextrem"
+
+#: politics/spectrum.py:44
+msgid "Not classified"
+msgstr "Nicht eingeordnet"
+
+#: politics/spectrum.py:44
+msgid "no score in the survey"
+msgstr "kein Wert in der Umfrage"
+
+#: politics/views.py:106
+#, python-format
+msgid "%(name)s’s party positions"
+msgstr "Parteipositionen: %(name)s"
+
+#: politics/views.py:107
+#, python-format
+msgid "%(name)s’s Congress, party by party"
+msgstr "Kongress: %(name)s, Partei für Partei"
 
 #: templates/404.html:4
 msgid "Page not found"
@@ -3587,8 +3922,8 @@ msgstr "Diese Seite gibt es nicht."
 
 #: templates/404.html:10
 msgid ""
-"The link may be old, or the page has moved. Every metric and post is still a "
-"search away."
+"The link may be old, or the page has moved. Every metric and post is still a"
+" search away."
 msgstr ""
 "Der Link ist vielleicht veraltet, oder die Seite ist umgezogen. Jede "
 "Kennzahl und jeder Beitrag ist nur eine Suche entfernt."
@@ -3616,8 +3951,8 @@ msgstr ""
 "erneut."
 
 #: templates/base.html:6
-msgid "Data Mechanics · Free public data, charted and sourced"
-msgstr "Data Mechanics · Freie öffentliche Daten, als Diagramm und mit Quelle"
+msgid "Data Mechanics · The world in numbers"
+msgstr "Data Mechanics · Die Welt in Zahlen"
 
 #: templates/base.html:7
 msgid ""
@@ -3708,8 +4043,8 @@ msgstr ""
 "Öffentliche Daten sind oft verstreut, schwer zu finden oder hinter "
 "Bezahlschranken versteckt, und zu vieles, was wir über die Welt lesen, ist "
 "einseitig. Hier wird jede Zahl so gezeigt, wie sie veröffentlicht wurde, "
-"neben ihrer Quelle, damit alle sie prüfen, Länder und Regierende vergleichen "
-"und ihre eigenen Schlüsse ziehen können."
+"neben ihrer Quelle, damit alle sie prüfen, Länder und Regierende vergleichen"
+" und ihre eigenen Schlüsse ziehen können."
 
 #: templates/base.html:90
 msgid "Follow on LinkedIn"
@@ -3733,23 +4068,25 @@ msgstr "Quellcode: folgt bald"
 
 #: templates/base.html:112
 msgid ""
-"Data from the <a href=\"https://data.worldbank.org/\">World Bank</a>, the <a "
-"href=\"https://www.imf.org/external/datamapper/\">IMF</a>, the <a "
-"href=\"https://hdr.undp.org/\">UNDP</a>, <a href=\"https://v-dem.net/\">V-"
-"Dem</a> via <a href=\"https://ourworldindata.org/\">Our World in Data</a>, "
-"borders from <a href=\"https://www.naturalearthdata.com/\">Natural Earth</a> "
-"and, for 1937–1945, <a href=\"https://icr.ethz.ch/data/cshapes/\">CShapes</"
-"a>. Every chart and download names its source. The site's code is licensed "
-"under the AGPL-3.0."
+"Data from the <a href=\"https://data.worldbank.org/\">World Bank</a>, the <a"
+" href=\"https://www.imf.org/external/datamapper/\">IMF</a>, the <a "
+"href=\"https://hdr.undp.org/\">UNDP</a>, <a "
+"href=\"https://v-dem.net/\">V-Dem</a> via <a "
+"href=\"https://ourworldindata.org/\">Our World in Data</a>, borders from <a "
+"href=\"https://www.naturalearthdata.com/\">Natural Earth</a> and, for "
+"1937–1945, <a href=\"https://icr.ethz.ch/data/cshapes/\">CShapes</a>. Every "
+"chart and download names its source. The site's code is licensed under the "
+"AGPL-3.0."
 msgstr ""
 "Daten von der <a href=\"https://data.worldbank.org/\">Weltbank</a>, dem <a "
 "href=\"https://www.imf.org/external/datamapper/\">IWF</a>, dem <a "
-"href=\"https://hdr.undp.org/\">UNDP</a>, <a href=\"https://v-dem.net/\">V-"
-"Dem</a> über <a href=\"https://ourworldindata.org/\">Our World in Data</a>, "
-"Grenzen von <a href=\"https://www.naturalearthdata.com/\">Natural Earth</a> "
-"und, für 1937–1945, von <a href=\"https://icr.ethz.ch/data/cshapes/"
-"\">CShapes</a>. Jedes Diagramm und jeder Download nennt seine Quelle. Der "
-"Code der Seite steht unter der Lizenz AGPL-3.0."
+"href=\"https://hdr.undp.org/\">UNDP</a>, <a "
+"href=\"https://v-dem.net/\">V-Dem</a> über <a "
+"href=\"https://ourworldindata.org/\">Our World in Data</a>, Grenzen von <a "
+"href=\"https://www.naturalearthdata.com/\">Natural Earth</a> und, für "
+"1937–1945, von <a href=\"https://icr.ethz.ch/data/cshapes/\">CShapes</a>. "
+"Jedes Diagramm und jeder Download nennt seine Quelle. Der Code der Seite "
+"steht unter der Lizenz AGPL-3.0."
 
 #: templates/blog/post_detail.html:10 templates/conflicts/world_war_ii.html:9
 #: templates/metrics/metric_detail.html:10 templates/politics/country.html:11
@@ -3814,8 +4151,8 @@ msgstr "Zweiter Weltkrieg"
 #: templates/conflicts/index.html:19
 #, python-format
 msgid ""
-"Deaths in %(states)s countries and territories, %(battles)s battles, and the "
-"war from China to Berlin."
+"Deaths in %(states)s countries and territories, %(battles)s battles, and the"
+" war from China to Berlin."
 msgstr ""
 "Tote in %(states)s Ländern und Gebieten, %(battles)s Schlachten und der "
 "Krieg von China bis Berlin."
@@ -3833,8 +4170,8 @@ msgid ""
 "Each war needs its states, battles and sources checked by hand before it is "
 "added."
 msgstr ""
-"Für jeden Krieg müssen Staaten, Schlachten und Quellen erst von Hand geprüft "
-"werden, bevor er dazukommt."
+"Für jeden Krieg müssen Staaten, Schlachten und Quellen erst von Hand geprüft"
+" werden, bevor er dazukommt."
 
 #: templates/conflicts/world_war_ii.html:4
 msgid "World War II: casualties, battles and timeline"
@@ -3864,8 +4201,8 @@ msgid ""
 "Inspired by Neil Halloran's documentary <a href=\"%(film)s\">The Fallen of "
 "World War II</a> (<a href=\"%(site)s\">neilfilms.com</a>)."
 msgstr ""
-"Inspiriert von Neil Hallorans Dokumentarfilm <a href=\"%(film)s\">The Fallen "
-"of World War II</a> (<a href=\"%(site)s\">neilfilms.com</a>)."
+"Inspiriert von Neil Hallorans Dokumentarfilm <a href=\"%(film)s\">The Fallen"
+" of World War II</a> (<a href=\"%(site)s\">neilfilms.com</a>)."
 
 #: templates/conflicts/world_war_ii.html:23
 msgid "On this page"
@@ -3914,8 +4251,8 @@ msgstr "Länder"
 
 #: templates/conflicts/world_war_ii.html:47
 msgid ""
-"Deaths in the war, soldiers and civilians, by country. Pick the countries to "
-"compare, and the parts to show."
+"Deaths in the war, soldiers and civilians, by country. Pick the countries to"
+" compare, and the parts to show."
 msgstr ""
 "Tote des Krieges, Soldaten und Zivilisten, nach Land. Wählen Sie die Länder "
 "zum Vergleich und die Teile, die zu sehen sind."
@@ -3960,8 +4297,8 @@ msgid ""
 "A column is the lowest estimate; the faint top runs on to the highest. With "
 "both parts shown, soldiers are the lowest estimate of military deaths and "
 "civilians the rest of the total, which includes famine and disease. Borders "
-"are those each figure was counted in; the table notes where they differ from "
-"1939."
+"are those each figure was counted in; the table notes where they differ from"
+" 1939."
 msgstr ""
 "Eine Säule ist die niedrigste Schätzung; die blasse Spitze reicht bis zur "
 "höchsten. Sind beide Teile zu sehen, sind die Soldaten die niedrigste "
@@ -3972,7 +4309,8 @@ msgstr ""
 
 #: templates/conflicts/world_war_ii.html:68
 #: templates/conflicts/world_war_ii.html:160
-#: templates/metrics/metric_detail.html:72 templates/politics/country.html:97
+#: templates/metrics/metric_detail.html:72 templates/politics/_compass.html:40
+#: templates/politics/country.html:105
 msgid "Show the numbers"
 msgstr "Zahlen anzeigen"
 
@@ -4017,13 +4355,13 @@ msgstr "Region"
 msgid ""
 "Each dot is a battle, in the winner's colour, a little larger for a larger "
 "battle; hover it for the details, press it to keep them open. Press play to "
-"watch the war unfold, or drag along the timeline. Scroll or pinch on the map "
-"to zoom, drag to move it."
+"watch the war unfold, or drag along the timeline. Scroll or pinch on the map"
+" to zoom, drag to move it."
 msgstr ""
 "Jeder Punkt ist eine Schlacht, in der Farbe des Siegers, etwas größer bei "
-"einer größeren Schlacht; zeigen Sie darauf für die Einzelheiten, drücken Sie "
-"darauf, um sie offen zu halten. Drücken Sie auf Play, um den Krieg ablaufen "
-"zu sehen, oder ziehen Sie an der Zeitleiste. Scrollen oder ziehen Sie mit "
+"einer größeren Schlacht; zeigen Sie darauf für die Einzelheiten, drücken Sie"
+" darauf, um sie offen zu halten. Drücken Sie auf Play, um den Krieg ablaufen"
+" zu sehen, oder ziehen Sie an der Zeitleiste. Scrollen oder ziehen Sie mit "
 "zwei Fingern auf der Karte, um zu zoomen, und ziehen Sie, um sie zu "
 "verschieben."
 
@@ -4059,8 +4397,8 @@ msgstr "Karte als Bild speichern"
 
 #: templates/conflicts/world_war_ii.html:122
 msgid ""
-"Map of the battles of World War II, with countries coloured by the side they "
-"fought on at the chosen date. The table below lists every battle."
+"Map of the battles of World War II, with countries coloured by the side they"
+" fought on at the chosen date. The table below lists every battle."
 msgstr ""
 "Karte der Schlachten des Zweiten Weltkriegs; die Länder sind in der Farbe "
 "der Seite gefärbt, auf der sie am gewählten Tag kämpften. Die Tabelle "
@@ -4155,9 +4493,9 @@ msgstr "Weitere Ereignisse"
 msgid ""
 "Every battle in the order it began, with the flags of both sides and their "
 "casualties on one shared scale, and the war's other events: pacts, "
-"invasions, surrenders. Press a battle's name to see it on the map above; the "
-"W opens its Wikipedia article. The region chosen above the map applies here "
-"too."
+"invasions, surrenders. Press a battle's name to see it on the map above; the"
+" W opens its Wikipedia article. The region chosen above the map applies here"
+" too."
 msgstr ""
 "Jede Schlacht in der Reihenfolge ihres Beginns, mit den Flaggen beider "
 "Seiten und ihren Verlusten auf einer gemeinsamen Skala, und die weiteren "
@@ -4183,12 +4521,12 @@ msgstr ""
 #, python-format
 msgid ""
 "Deaths by country: Wikipedia, <a href=\"%(url)s\">\"World War II "
-"casualties\"</a>, the revision of 25 October 2026 (CC BY-SA 4.0). Our CSV of "
-"it is shared under the same licence."
+"casualties\"</a>, the revision of 25 October 2026 (CC BY-SA 4.0). Our CSV of"
+" it is shared under the same licence."
 msgstr ""
-"Tote nach Land: Wikipedia, <a href=\"%(url)s\">„World War II casualties“</"
-"a>, die Version vom 25. Oktober 2026 (CC BY-SA 4.0). Unsere CSV-Datei daraus "
-"steht unter derselben Lizenz."
+"Tote nach Land: Wikipedia, <a href=\"%(url)s\">„World War II "
+"casualties“</a>, die Version vom 25. Oktober 2026 (CC BY-SA 4.0). Unsere "
+"CSV-Datei daraus steht unter derselben Lizenz."
 
 #: templates/conflicts/world_war_ii.html:221
 msgid ""
@@ -4215,8 +4553,8 @@ msgid ""
 "Borders: <a href=\"%(url)s\">CShapes 2.0</a> by Schvitz, Rüegger, Girardin, "
 "Cederman, Weidmann and Gleditsch, ETH Zürich, licensed CC BY-NC-SA 4.0."
 msgstr ""
-"Grenzen: <a href=\"%(url)s\">CShapes 2.0</a> von Schvitz, Rüegger, Girardin, "
-"Cederman, Weidmann und Gleditsch, ETH Zürich, unter der Lizenz CC BY-NC-SA "
+"Grenzen: <a href=\"%(url)s\">CShapes 2.0</a> von Schvitz, Rüegger, Girardin,"
+" Cederman, Weidmann und Gleditsch, ETH Zürich, unter der Lizenz CC BY-NC-SA "
 "4.0."
 
 #: templates/conflicts/world_war_ii.html:231
@@ -4285,7 +4623,7 @@ msgstr "Karte, Diagramm und kostenloser Download, mit der Quelle jeder Zahl."
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: templates/metrics/metric_detail.html:25 templates/politics/country.html:57
+#: templates/metrics/metric_detail.html:25 templates/politics/country.html:65
 msgid "Measure"
 msgstr "Messgröße"
 
@@ -4408,9 +4746,9 @@ msgstr "Die Welt in Zahlen."
 msgid ""
 "Data Mechanics is an open-source project that gathers data from public "
 "sources like the World Bank, the IMF and the United Nations. Every number "
-"shows its source, so you can check it, compare it and form your own informed "
-"opinion. Explore it on maps and charts and download it for free. No paywall, "
-"no sign-up."
+"shows its source, so you can check it, compare it and form your own informed"
+" opinion. Explore it on maps and charts and download it for free. No "
+"paywall, no sign-up."
 msgstr ""
 "Data Mechanics ist ein Open-Source-Projekt, das Daten aus öffentlichen "
 "Quellen wie der Weltbank, dem IWF und den Vereinten Nationen sammelt. Jede "
@@ -4532,7 +4870,7 @@ msgstr "Neueste Daten"
 msgid "Scroll left"
 msgstr "Nach links scrollen"
 
-#: templates/pages/home.html:126 templates/politics/country.html:36
+#: templates/pages/home.html:126 templates/politics/country.html:38
 msgid "Scroll right"
 msgstr "Nach rechts scrollen"
 
@@ -4543,8 +4881,8 @@ msgstr "Alle Kennzahlen erkunden"
 #: templates/pages/home.html:153
 #, python-format
 msgid ""
-"%(total)s metrics on every country, each with a world map, a chart over time "
-"and a free download."
+"%(total)s metrics on every country, each with a world map, a chart over time"
+" and a free download."
 msgstr ""
 "%(total)s Kennzahlen zu jedem Land, jede mit Weltkarte, Diagramm im "
 "Zeitverlauf und kostenlosem Download."
@@ -4573,11 +4911,241 @@ msgstr "Erstes Jahr"
 msgid "Last year"
 msgstr "Letztes Jahr"
 
+#: templates/politics/_compass.html:5 templates/politics/country.html:32
+msgid "Party positions"
+msgstr "Parteipositionen"
+
+#: templates/politics/_compass.html:7
+msgid "Survey"
+msgstr "Umfrage"
+
+#: templates/politics/_compass.html:11 templates/politics/_compass.html:12
+msgid "Choose parties"
+msgstr "Parteien wählen"
+
+#: templates/politics/_compass.html:16
+msgid "Search parties"
+msgstr "Parteien suchen"
+
+#: templates/politics/_compass.html:19
+msgid "Parties"
+msgstr "Parteien"
+
+#: templates/politics/_compass.html:29
+msgid ""
+"Each party's logo on two axes: the economy across, social values up and "
+"down. The table under the chart lists the numbers."
+msgstr ""
+"Das Logo jeder Partei auf zwei Achsen: die Wirtschaft quer, "
+"gesellschaftliche Werte von unten nach oben. Die Tabelle unter dem Diagramm "
+"nennt die Zahlen."
+
+#: templates/politics/_compass.html:33
+msgid ""
+"Across, the economy: left parties want the state to play an active role, "
+"right parties a smaller one. Up and down, social values: progressive parties"
+" favour more personal freedoms, conservative ones order, tradition and "
+"religion. Point at a logo for the party’s views and its numbers."
+msgstr ""
+"Quer die Wirtschaft: Linke Parteien wollen einen aktiven Staat, rechte einen"
+" kleineren. Von unten nach oben gesellschaftliche Werte: Progressive "
+"Parteien stehen für mehr persönliche Freiheiten, konservative für Ordnung, "
+"Tradition und Religion. Zeigen Sie auf ein Logo für die Ansichten der Partei"
+" und ihre Zahlen."
+
+#: templates/politics/_compass.html:47
+msgid "How this survey placed the parties"
+msgstr "Wie diese Umfrage die Parteien verortet hat"
+
+#: templates/politics/_compass.html:52
+msgid "Things to keep in mind"
+msgstr "Was man bedenken sollte"
+
+#: templates/politics/_compass.html:54
+msgid ""
+"<strong>These are estimates.</strong> Experts placed the parties: the "
+"parties did not place themselves, and no votes are counted."
+msgstr ""
+"<strong>Das sind Schätzungen.</strong> Fachleute haben die Parteien "
+"verortet, nicht die Parteien selbst, und es werden keine Stimmen gezählt."
+
+#: templates/politics/_compass.html:55
+msgid ""
+"<strong>Each survey shows one moment.</strong> PREPPS asked in 2018 and "
+"2019, the Global Party Survey in 2019 and CHES in 2020. Parties have changed"
+" since: Bolsonaro joined PL at the end of 2021, and PSL and DEM merged into "
+"União Brasil in 2022."
+msgstr ""
+"<strong>Jede Umfrage zeigt einen Moment.</strong> PREPPS fragte 2018 und "
+"2019, der Global Party Survey 2019 und CHES 2020. Die Parteien haben sich "
+"seitdem verändert: Bolsonaro trat Ende 2021 der PL bei, und PSL und DEM "
+"gingen 2022 in União Brasil auf."
+
+#: templates/politics/_compass.html:56
+msgid ""
+"<strong>The surveys do not always agree.</strong> They asked different "
+"experts different questions. Switch the survey to see how far a party moves:"
+" PSDB, for one, sits near the centre on the economy in two surveys and "
+"clearly right of it in PREPPS."
+msgstr ""
+"<strong>Die Umfragen sind sich nicht immer einig.</strong> Sie fragten "
+"verschiedene Fachleute verschiedene Fragen. Wechseln Sie die Umfrage und "
+"sehen Sie, wie weit sich eine Partei bewegt: Die PSDB etwa liegt bei der "
+"Wirtschaft in zwei Umfragen nahe der Mitte und bei PREPPS deutlich rechts "
+"davon."
+
+#: templates/politics/_compass.html:57
+msgid ""
+"<strong>Two axes leave a lot out.</strong> A party can be left on one issue "
+"and right on another, and many Brazilian parties are divided inside or "
+"change course with their leaders."
+msgstr ""
+"<strong>Zwei Achsen lassen viel aus.</strong> Eine Partei kann bei einem "
+"Thema links und bei einem anderen rechts stehen, und viele brasilianische "
+"Parteien sind in sich gespalten oder ändern mit ihrer Führung den Kurs."
+
+#: templates/politics/_compass.html:58
+msgid ""
+"<strong>Some places are inferred.</strong> Each survey placed only the "
+"parties it chose. Relevant parties it left out have an inferred place, "
+"marked with an asterisk (*): an estimate from another survey, which can be "
+"further off than the survey's own places, above all at the ends of the "
+"scale."
+msgstr ""
+"<strong>Einige Plätze sind abgeleitet.</strong> Jede Umfrage hat nur die "
+"Parteien verortet, die sie ausgewählt hat. Wichtige Parteien, die sie "
+"ausließ, haben einen abgeleiteten Platz, mit einem Sternchen (*) markiert: "
+"eine Schätzung aus einer anderen Umfrage. Sie kann weiter danebenliegen als "
+"die eigenen Plätze der Umfrage, vor allem an den Enden der Skala."
+
+#: templates/politics/_compass.html:59
+msgid ""
+"<strong>Small parties are missing.</strong> Parties with fewer than two "
+"deputies and no senator are left out, and a few parties had few experts "
+"placing them: the tooltip says how many."
+msgstr ""
+"<strong>Kleine Parteien fehlen.</strong> Parteien mit weniger als zwei "
+"Abgeordneten und ohne Senator fehlen, und einige Parteien wurden nur von "
+"wenigen Fachleuten verortet: Der Tooltip sagt, von wie vielen."
+
+#: templates/politics/_compass.html:60
+msgid ""
+"<strong>The views come from Wikipedia, not the surveys.</strong> In the "
+"tooltip, the position and ideologies are how Wikipedia describes the party "
+"today."
+msgstr ""
+"<strong>Die Ansichten stammen aus Wikipedia, nicht aus den "
+"Umfragen.</strong> Im Tooltip stehen Position und Ideologien so, wie "
+"Wikipedia die Partei heute beschreibt."
+
+#: templates/politics/_compass.html:65
+msgid ""
+"Positions: PREPPS Latam, CHES Latin America and the Global Party Survey, as "
+"each survey's notes describe. Inferred places: Bolognesi, Ribeiro and "
+"Codato, a 2018 survey of Brazilian political scientists (Harvard Dataverse, "
+"CC0). Views: Wikipedia, linked from each party. Logos: Wikimedia Commons, "
+"all in the public domain."
+msgstr ""
+"Positionen: PREPPS Latam, CHES Latin America und der Global Party Survey, "
+"wie in den Hinweisen jeder Umfrage beschrieben. Abgeleitete Plätze: "
+"Bolognesi, Ribeiro und Codato, eine Umfrage unter brasilianischen "
+"Politikwissenschaftlern von 2018 (Harvard Dataverse, CC0). Ansichten: "
+"Wikipedia, verlinkt bei jeder Partei. Logos: Wikimedia Commons, alle "
+"gemeinfrei."
+
+#: templates/politics/_congress.html:5
+msgid "Seats in Congress"
+msgstr "Sitze im Kongress"
+
+#: templates/politics/_congress.html:7
+msgid "Seats"
+msgstr "Sitze"
+
+#: templates/politics/_congress.html:12 templates/politics/country.html:86
+msgid "View"
+msgstr "Ansicht"
+
+#: templates/politics/_congress.html:13 templates/politics/country.html:88
+msgid "By party"
+msgstr "Nach Partei"
+
+#: templates/politics/_congress.html:14
+msgid "Left, centre and right"
+msgstr "Links, Mitte und rechts"
+
+#: templates/politics/_congress.html:22
+msgid "Seats by party"
+msgstr "Sitze nach Partei"
+
+#: templates/politics/_congress.html:24
+msgid ""
+"One dot is one seat. The parties sit from left to right by where 571 "
+"political scientists placed them on one left-right scale in 2022; parties "
+"without a place sit last."
+msgstr ""
+"Ein Punkt ist ein Sitz. Die Parteien sitzen von links nach rechts danach, wo"
+" 571 Politikwissenschaftler sie 2022 auf einer Links-rechts-Skala "
+"verorteten. Parteien ohne Platz sitzen am Ende."
+
+#: templates/politics/_congress.html:28
+msgid ""
+"Today's count is the house as it is: a member who changed party counts for "
+"the new one, and a substitute in office for the member they stand in for."
+msgstr ""
+"Die heutige Zählung zeigt die Kammer, wie sie ist: Wer die Partei gewechselt"
+" hat, zählt für die neue, und ein amtierender Stellvertreter für das "
+"Mitglied, das er vertritt."
+
+#: templates/politics/_congress.html:31
+#, python-format
+msgid ""
+"The members just elected take office on %(starts)s, each with the party they"
+" ran for. In the Senate, the senators whose terms run on count with the "
+"party they have today. A senator elected to another office, such as "
+"governor, hands the seat to a substitute, who may sit for another party."
+msgstr ""
+"Die gerade Gewählten treten ihr Amt am %(starts)s an, jeweils mit der "
+"Partei, für die sie kandidiert haben. Im Senat zählen die Senatoren, deren "
+"Amtszeit weiterläuft, mit ihrer heutigen Partei. Wer in ein anderes Amt "
+"gewählt wurde, etwa als Gouverneur, übergibt den Sitz an einen "
+"Stellvertreter, der für eine andere Partei sitzen kann."
+
+#: templates/politics/_congress.html:36
+msgid ""
+"The blocs join the seven bands the survey's authors drew on its scale from "
+"0, the far left, to 10, the far right. Left: up to 3, the far left and the "
+"left. Centre: 3.01 to 7, from the centre-left to the centre-right. Right: "
+"above 7, the right and the far right. In 2022 no party fell in the centre "
+"band itself, 4.5 to 5.5. PRD, founded after the survey by PTB and Patriota, "
+"takes the average of the two; a party founded later has no score."
+msgstr ""
+"Die Blöcke fassen die sieben Bänder zusammen, die die Autoren der Umfrage "
+"auf ihrer Skala von 0, linksextrem, bis 10, rechtsextrem, gezogen haben. "
+"Links: bis 3, linksextrem und links. Mitte: 3,01 bis 7, von Mitte-links bis "
+"Mitte-rechts. Rechts: über 7, rechts und rechtsextrem. 2022 lag keine Partei"
+" im Band der Mitte selbst, 4,5 bis 5,5. Der PRD, nach der Umfrage von PTB "
+"und Patriota gegründet, erhält den Durchschnitt der beiden; eine später "
+"gegründete Partei hat keinen Wert."
+
+#: templates/politics/_congress.html:45
+msgid ""
+"Seats: the open data of the Câmara dos Deputados, the Senado Federal and the"
+" Tribunal Superior Eleitoral (CC BY). Left and right: Bolognesi, Codato, "
+"Ribeiro and Silva's survey of Brazilian political scientists (Harvard "
+"Dataverse, CC0), with the bands of Bolognesi, Ribeiro and Codato (Dados, "
+"2023)."
+msgstr ""
+"Sitze: die offenen Daten der Câmara dos Deputados, des Senado Federal und "
+"des Tribunal Superior Eleitoral (CC BY). Links und rechts: die Umfrage von "
+"Bolognesi, Codato, Ribeiro und Silva unter brasilianischen "
+"Politikwissenschaftlern (Harvard Dataverse, CC0), mit den Bändern von "
+"Bolognesi, Ribeiro und Codato (Dados, 2023)."
+
 #: templates/politics/country.html:5
 #, python-format
 msgid ""
-"%(title)s and every other metric for %(name)s, coloured by who was in power, "
-"with the change during each term."
+"%(title)s and every other metric for %(name)s, coloured by who was in power,"
+" with the change during each term."
 msgstr ""
 "%(title)s und jede weitere Kennzahl für %(name)s, eingefärbt danach, wer an "
 "der Macht war, mit der Veränderung während jeder Amtszeit."
@@ -4591,31 +5159,35 @@ msgstr "Im Amt"
 msgid "<strong>%(leader)s</strong> since %(date)s"
 msgstr "<strong>%(leader)s</strong> seit %(date)s"
 
-#: templates/politics/country.html:49
+#: templates/politics/country.html:33
+msgid "Congress"
+msgstr "Kongress"
+
+#: templates/politics/country.html:57
 msgid "Compared with"
 msgstr "Verglichen mit"
 
-#: templates/politics/country.html:51
+#: templates/politics/country.html:59
 msgid "No comparison"
 msgstr "Kein Vergleich"
 
-#: templates/politics/country.html:53
+#: templates/politics/country.html:61
 msgid "Compare every country"
 msgstr "Alle Länder vergleichen"
 
-#: templates/politics/country.html:65
+#: templates/politics/country.html:73
 #, python-format
 msgid ""
 "%(title)s in %(name)s over time, coloured by the leader in office. The list "
 "below gives the change during each term."
 msgstr ""
-"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die "
-"Liste darunter zeigt die Veränderung während jeder Amtszeit."
+"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die"
+" Liste darunter zeigt die Veränderung während jeder Amtszeit."
 
-#: templates/politics/country.html:68
+#: templates/politics/country.html:76
 msgid ""
-"A year counts for whoever was in office on 1 July. A term's change runs from "
-"the year before it began to its last year with data. The years above, or a "
+"A year counts for whoever was in office on 1 July. A term's change runs from"
+" the year before it began to its last year with data. The years above, or a "
 "name in the timeline, set the years of the chart and of every list below."
 msgstr ""
 "Ein Jahr zählt für die Person, die am 1. Juli im Amt war. Die Veränderung "
@@ -4623,7 +5195,7 @@ msgstr ""
 "mit Daten. Die Jahre oben oder ein Name in der Zeitleiste legen die Jahre "
 "des Diagramms und aller Listen darunter fest."
 
-#: templates/politics/country.html:73
+#: templates/politics/country.html:81
 msgid ""
 "The dashed line and the small change under each term are the comparison "
 "group, over the same years. BRICS, the G7 and the G20 are the average of "
@@ -4634,35 +5206,27 @@ msgstr ""
 "Durchschnitt ihrer Mitgliedsländer und zählen nur in Jahren, in denen jedes "
 "Mitglied Daten hat."
 
-#: templates/politics/country.html:78
-msgid "View"
-msgstr "Ansicht"
-
-#: templates/politics/country.html:79 templates/politics/country.html:85
+#: templates/politics/country.html:87 templates/politics/country.html:93
 msgid "Timeline"
 msgstr "Zeitleiste"
 
-#: templates/politics/country.html:80
-msgid "By party"
-msgstr "Nach Partei"
-
-#: templates/politics/country.html:87
+#: templates/politics/country.html:95
 msgid "Per year"
 msgstr "Pro Jahr"
 
-#: templates/politics/country.html:89
+#: templates/politics/country.html:97
 msgid ""
 "Ranked by the average change per year: the best first, or the highest where "
 "neither direction is better. Only years with data count. For growth that "
 "multiplies, like GDP, the average compounds; other changes are divided by "
 "the years."
 msgstr ""
-"Nach der durchschnittlichen Veränderung pro Jahr geordnet: die beste zuerst, "
-"oder die höchste, wo keine Richtung besser ist. Nur Jahre mit Daten zählen. "
-"Bei Wachstum, das sich vervielfacht, wie dem BIP, wird der Durchschnitt "
+"Nach der durchschnittlichen Veränderung pro Jahr geordnet: die beste zuerst,"
+" oder die höchste, wo keine Richtung besser ist. Nur Jahre mit Daten zählen."
+" Bei Wachstum, das sich vervielfacht, wie dem BIP, wird der Durchschnitt "
 "aufgezinst; andere Veränderungen werden durch die Jahre geteilt."
 
-#: templates/politics/country.html:103
+#: templates/politics/country.html:111
 #, python-format
 msgid ""
 "Leaders, dates and parties: <a href=\"%(url)s\">Wikipedia</a>, compiled by "
@@ -4671,16 +5235,16 @@ msgstr ""
 "Amtsinhaber, Daten und Parteien: <a href=\"%(url)s\">Wikipedia</a>, "
 "zusammengestellt von Data Mechanics"
 
-#: templates/politics/country.html:105
+#: templates/politics/country.html:113
 #, python-format
 msgid "loaded %(date)s"
 msgstr "geladen am %(date)s"
 
-#: templates/politics/country.html:106
+#: templates/politics/country.html:114
 msgid "Party logos from Wikimedia Commons"
 msgstr "Parteilogos von Wikimedia Commons"
 
-#: templates/politics/country.html:106
+#: templates/politics/country.html:114
 #, python-format
 msgid "%(abbreviation)s logo by %(author)s"
 msgstr "%(abbreviation)s-Logo von %(author)s"
@@ -4717,8 +5281,8 @@ msgstr "Bald weitere Länder"
 
 #: templates/politics/index.html:37
 msgid ""
-"Every country needs its leaders, dates and parties checked by hand before it "
-"is added."
+"Every country needs its leaders, dates and parties checked by hand before it"
+" is added."
 msgstr ""
 "Für jedes Land müssen Amtsinhaber, Daten und Parteien erst von Hand geprüft "
 "werden, bevor es dazukommt."

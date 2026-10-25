@@ -7,9 +7,9 @@ Live at https://data-mechanics.com.
 ## What is in it
 
 - **Metrics**: 49 of them in 10 categories, from GDP, productivity and public finances to life expectancy, literacy, corruption, democracy, air pollution and food. Each one has its own page with a map, a line chart, a ranking and a download.
-- **Politics mode**: one page per country with every metric coloured by the leader in office, and the change during each term, as a timeline and ranked by party and by leader. Brazil, France and the United States follow their presidents, Austria and Germany their chancellors.
-- **Sources**: the World Bank, the IMF, the UNDP, Our World in Data (V-Dem, the FAO, the World Inequality Database, the Penn World Table, Transparency International and others), and Natural Earth for country borders. Leaders and parties are compiled by hand from Wikipedia into `data/politics/`, with party logos from Wikimedia Commons.
-- **Exports**: every chart saves as an image for Instagram, and Politics charts also as videos for Instagram Reels, YouTube and LinkedIn (`tools/reel.py`).
+- **Politics mode**: one page per country with every metric coloured by the leader in office, and the change during each term, as a timeline and ranked by party and by leader. Brazil, France and the United States follow their presidents, Austria and Germany their chancellors. Brazil also has its party positions, where three expert surveys place its parties on the economy and on social values, and its seats in Congress, party by party or grouped into left, centre and right, in the Chamber of Deputies and the Senate, today and as the 2026 election left them.
+- **Sources**: the World Bank, the IMF, the UNDP, Our World in Data (V-Dem, the FAO, the World Inequality Database, the Penn World Table, Transparency International and others), Natural Earth for country borders, the open-data APIs of Brazil's Chamber of Deputies and Senate for the members in office, the electoral court (TSE) for the members just elected, and a survey of Brazilian political scientists for left and right. Leaders and parties are compiled by hand from Wikipedia into `data/politics/`, with party logos from Wikimedia Commons.
+- **Exports**: every chart saves as an image for Instagram, and Politics charts, the party positions and the seats in Congress also as videos for Instagram Reels, YouTube and LinkedIn (`tools/reel.py`).
 - **Blog**: posts written by me (Klaus Jürgen Folz).
 - **Languages**: English, German and Portuguese. German lives under `/de/`, Portuguese under `/pt/`; the translations are in `locale/`.
 

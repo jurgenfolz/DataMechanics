@@ -1,6 +1,6 @@
-// Saves a chart as a PNG the shape of an Instagram portrait post (1080 × 1350): title, chart, legend, source and a
-// semi-transparent Data Mechanics watermark. The chart is drawn again off screen and enlarged SCALE times, so its text
-// stays readable on a phone without crowding the image.
+// Saves a chart as a PNG the shape of an Instagram portrait post (1080 × 1350): title, the site's line under it, chart,
+// legend and source. The chart is drawn again off screen and enlarged SCALE times, so its text stays readable on a phone
+// without crowding the image.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 
 export const WIDTH = 1080;
@@ -9,7 +9,7 @@ export const SCALE = 1.6;
 
 const PAD = 56;
 const WELL_INSET = 12;
-const STRIP = 44;  // the room at the foot of the well that holds the watermark, so it never covers the chart
+const STRIP = 44;  // the room at the foot of a well that numbers a series of images ("2 / 3"), so it never covers the chart
 const GROUND = '#121416';
 const WELL = '#1d1f21';
 const INK = '#f2f3f4';
@@ -30,7 +30,7 @@ export const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace'
 export async function saveChartImage({ title, subtitle, sources, flag, filename, draw, aspect, belowHeight = 0 }) {
   const { canvas, ctx, top, bottom } = await imageFrame({ title, subtitle, sources, flag });
   const room = bottom - top;
-  const height = aspect ? Math.min(room, Math.round((WIDTH - 2 * (PAD - 16) - 2 * WELL_INSET) / aspect) + WELL_INSET + STRIP)
+  const height = aspect ? Math.min(room, Math.round((WIDTH - 2 * (PAD - 16) - 2 * WELL_INSET) / aspect) + 2 * WELL_INSET)
     : room - belowHeight;
   const { well, inner } = imageWell(ctx, top, height);
   const footerTop = bottom + 32;
@@ -46,7 +46,6 @@ export async function saveChartImage({ title, subtitle, sources, flag, filename,
   } finally {
     stage.remove();
   }
-  await paintWatermark(ctx, well);
   await handOver([{ canvas, filename }], title);
 }
 
@@ -61,23 +60,26 @@ export async function imageFrame({ title, subtitle, sources, flag }) {
   canvas.height = HEIGHT;
   const ctx = canvas.getContext('2d');
   paintGround(ctx);
-  const headerBottom = paintHeader(ctx, title, subtitle, await loadImage(flag));
+  const gear = await loadImage(document.querySelector('link[rel="icon"]')?.href);
+  const headerBottom = paintHeader(ctx, title, subtitle, await loadImage(flag), gear);
   const footerTop = paintFooter(ctx, sources);
   return { canvas, ctx, top: headerBottom + 36, bottom: footerTop - 32 };
 }
 
 /**
- * Paints the well at `top`, `height` tall. `inner` is the room inside it, above the watermark's strip.
+ * Paints the well at `top`, `height` tall. `inner` is the room inside it.
  * The well spans the image; a frame of another size (a reel) passes its own `width` and `pad`.
+ * With `strip`, the room ends above a strip at the foot, where a series of images numbers its pages.
  */
-export function imageWell(ctx, top, height, { width = WIDTH, pad = PAD } = {}) {
+export function imageWell(ctx, top, height, { width = WIDTH, pad = PAD, strip = false } = {}) {
   const well = { x: pad - 16, y: top, w: width - 2 * (pad - 16), h: height };
   paintWell(ctx, well);
-  const inner = { x: well.x + WELL_INSET, y: well.y + WELL_INSET, w: well.w - 2 * WELL_INSET, h: well.h - WELL_INSET - STRIP };
+  const foot = strip ? STRIP : WELL_INSET;
+  const inner = { x: well.x + WELL_INSET, y: well.y + WELL_INSET, w: well.w - 2 * WELL_INSET, h: well.h - WELL_INSET - foot };
   return { well, inner };
 }
 
-/** "2 / 3" at the left of the watermark's strip, when one subject takes several images. */
+/** "2 / 3" at the left of the well's strip, when one subject takes several images. */
 export function paintPageNumber(ctx, well, page, pages) {
   if (pages < 2) return;
   ctx.save();
@@ -121,7 +123,7 @@ export function paintGround(ctx, width = WIDTH, height = HEIGHT) {
 
 const FLAG = 52;  // the flag's diameter, about the title's height
 
-function paintHeader(ctx, title, subtitle, flag) {
+function paintHeader(ctx, title, subtitle, flag, gear) {
   let y = PAD;
   if (flag) paintRoundFlag(ctx, flag, PAD, y + 29, FLAG);
   // The title's lines start right of the flag; the subtitle starts at the edge again.
@@ -139,7 +141,29 @@ function paintHeader(ctx, title, subtitle, flag) {
     ctx.fillText(wrap(ctx, subtitle, WIDTH - 2 * PAD, 1)[0], PAD, y + 6);
     y += 36;
   }
-  return y;
+  // The address is in the footer already, so the line under the title leaves it out.
+  return paintBrandLine(ctx, PAD, y + 10, 20, gear, { address: false }) + 4;
+}
+
+// The site's name and account, and its address: the only brand on images and videos, under the title, after the gear.
+const BRAND = 'Data Mechanics - @datamechanics';
+const ADDRESS = 'data-mechanics.com';
+
+/**
+ * Paints the site's line at `x`, `y` (its top), in regular type `size` px tall, a little faded, the gear before it.
+ * Without `address`, it ends with the account. Returns the line's foot.
+ */
+export function paintBrandLine(ctx, x, y, size, gear, { address = true } = {}) {
+  const icon = Math.round(size * 1.4);
+  ctx.save();
+  ctx.globalAlpha = 0.7;
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = INK_3;
+  ctx.font = `400 ${size}px ${FONT}`;
+  if (gear) ctx.drawImage(gear, x, y + size / 2 - icon / 2, icon, icon);
+  ctx.fillText(address ? `${BRAND} - ${ADDRESS}` : BRAND, x + (gear ? icon + 12 : 0), y);
+  ctx.restore();
+  return y + Math.max(icon, size);
 }
 
 // Sources at the bottom left, the site's address at the bottom right. Returns the footer's top.
@@ -183,43 +207,6 @@ export function paintRoundFlag(ctx, flag, x, y, size) {
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
   ctx.lineWidth = 1.5;
   ctx.stroke();
-}
-
-// The gear and the name, half transparent, in the strip at the foot of the well.
-// The name is followed by the invitation to follow the site's account, in a lighter weight.
-export async function paintWatermark(ctx, well) {
-  const logo = await loadImage(document.querySelector('link[rel="icon"]')?.href);
-  ctx.save();
-  ctx.globalAlpha = 0.45;
-  ctx.textBaseline = 'middle';
-  const y = well.y + well.h - STRIP / 2 - 2;
-  const right = well.x + well.w - 28;
-  const x = right - paintBrandName(ctx, 0, y + 1, 20, { measure: true });
-  if (logo) ctx.drawImage(logo, x - 40, y - 15, 30, 30);
-  paintBrandName(ctx, x, y + 1, 20);
-  ctx.restore();
-}
-
-// The site's account, named after "Data Mechanics" wherever the name marks an image or a video.
-const HANDLE = '@datamechanics';
-
-/**
- * Paints "Data Mechanics (Follow @datamechanics)" from `x`, the name bold and the rest lighter, `size` px tall.
- * Returns its width; with `measure` it paints nothing.
- */
-export function paintBrandName(ctx, x, y, size, { measure = false } = {}) {
-  const name = 'Data Mechanics';
-  const follow = ` ${interpolate(gettext('(Follow %s)'), [HANDLE])}`;
-  ctx.font = `700 ${size}px ${FONT}`;
-  const nameWidth = ctx.measureText(name).width;
-  if (!measure) {
-    ctx.fillStyle = INK;
-    ctx.fillText(name, x, y);
-  }
-  ctx.font = `500 ${size}px ${FONT}`;
-  const followWidth = ctx.measureText(follow).width;
-  if (!measure) ctx.fillText(follow, x + nameWidth, y);
-  return nameWidth + followWidth;
 }
 
 /** Lines of text that fit `width`, at most `max`; the last one ends in … when the text runs on. */
@@ -269,10 +256,17 @@ export function loadImage(src) {
 
 /** Draws an image inside a box without stretching it. */
 export function drawContained(ctx, image, x, y, w, h) {
+  const box = containedRect(image, x, y, w, h);
+  ctx.drawImage(image, box.x, box.y, box.width, box.height);
+  return box;
+}
+
+/** Where an image fitted inside (x, y, w, h), centred and keeping its shape, lands: { x, y, width, height }. */
+export function containedRect(image, x, y, w, h) {
   const ratio = image.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight : 1;
   const width = ratio >= w / h ? w : h * ratio;
   const height = ratio >= w / h ? w / ratio : h;
-  ctx.drawImage(image, x + (w - width) / 2, y + (h - height) / 2, width, height);
+  return { x: x + (w - width) / 2, y: y + (h - height) / 2, width, height };
 }
 
 // The chart is drawn again at twice its size, without the zoom slider.

@@ -2,10 +2,10 @@
 // battle map with the war's timeline under it, and the battles one by one. The casualties chart and the map save as
 // Instagram images. The chart's state (countries, parts) lives in the URL so a view can be shared.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
-import { SCALE, bindSaveButton, handOver, imageFrame, imageName, imageWell, paintWatermark, saveChartImage } from './lib/chart-image.js';
+import { SCALE, bindSaveButton, handOver, imageFrame, imageName, imageWell, saveChartImage } from './lib/chart-image.js';
 import { createBattleList } from './lib/battle-list.js';
 import { casualtiesImageParts, createCasualtiesChart } from './lib/casualties-chart.js';
-import { createCountryPicker } from './lib/country-picker.js';
+import { createPicker } from './lib/picker.js';
 import { createWarMap, prepareBattles, viewAspect } from './lib/war-map.js';
 import { createWarTimeline } from './lib/war-timeline.js';
 import { FONT, INK_2, SIDE_COLORS, formatDay, fromDay, prepareStates, toDay } from './lib/ww2.js';
@@ -37,14 +37,14 @@ const state = {
 if (!state.countries.length) state.countries = DEFAULT_COUNTRIES;
 
 const casualties = createCasualtiesChart(casualtiesCard.querySelector('[data-casualties-chart]'), { units });
-const picker = createCountryPicker(casualtiesCard.querySelector('[data-picker]'), {
+const picker = createPicker(casualtiesCard.querySelector('[data-picker]'), {
   max: MAX_COUNTRIES,
   onToggle: (code) => {
     state.countries = state.countries.includes(code) ? state.countries.filter((c) => c !== code) : [...state.countries, code];
     drawCasualties();
   },
 });
-picker.setOptions(config.deaths.map((row) => ({ iso3: row.code, name: row.name, flag: row.flag })));
+picker.setOptions(config.deaths.map((row) => ({ id: row.code, name: row.name, image: row.flag })));
 
 function drawCasualties() {
   const shown = casualties.render(config.deaths, state.countries, state.show);
@@ -208,7 +208,6 @@ bindSaveButton(warCard.querySelector('[data-war-save]'), async () => {
     { color: SIDE_COLORS.axis, label: gettext('Axis') },
     { color: '#2a2c2f', label: gettext('Not at war') },
   ]);
-  await paintWatermark(ctx, well);
   const day = current.whole ? '' : fromDay(current.day).toISOString().slice(0, 10);
   await handOver([{ canvas, filename: imageName('world-war-ii', 'battles', day) }], title);
 });

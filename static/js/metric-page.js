@@ -2,7 +2,7 @@
 // The slider limits the line chart, its table and its image; the map keeps its own year.
 // The page state (series, year, countries, years) lives in the URL so any view can be shared.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
-import { createCountryPicker } from './lib/country-picker.js';
+import { createPicker } from './lib/picker.js';
 import { escapeHtml, formatValue } from './lib/format.js';
 import { bindSaveButton, imageName, saveChartImage } from './lib/chart-image.js';
 import { createLineChart, lineImageParts, PALETTE, shownSpan, WORLD_COLOR } from './lib/line-chart.js';
@@ -56,7 +56,7 @@ const map = createWorldMap(document.querySelector('[data-map]'), {
   onSelect: (iso3) => addCountry(iso3),
 });
 const line = createLineChart(document.querySelector('[data-line]'), { units });
-const picker = createCountryPicker(document.querySelector('[data-picker]'), {
+const picker = createPicker(document.querySelector('[data-picker]'), {
   max: MAX_COUNTRIES,
   onToggle: (iso3) => (state.selected.some((s) => s.iso3 === iso3) ? removeCountry(iso3) : addCountry(iso3)),
 });
@@ -107,10 +107,10 @@ async function drawAll() {
   seriesButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.series === data.field)));
 
   const options = [
-    ...(data.world ? [{ iso3: data.world, ...data.countries[data.world], world: true }] : []),
+    ...(data.world ? [{ id: data.world, name: data.countries[data.world].name, image: data.countries[data.world].flag, label: gettext('World'), world: true }] : []),
     ...Object.entries(data.countries)
       .filter(([iso3]) => iso3 !== WORLD)
-      .map(([iso3, country]) => ({ iso3, ...country, world: false }))
+      .map(([iso3, country]) => ({ id: iso3, name: country.name, image: country.flag }))
       .sort((a, b) => a.name.localeCompare(b.name)),
   ];
   picker.setOptions(options);

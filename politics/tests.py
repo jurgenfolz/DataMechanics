@@ -12,12 +12,13 @@ from django.urls import reverse
 from geo.models import (Country, EtlLoad, GdpCountryYear, GdpPerCapitaCountryYear, InflationCountryYear,
                         UnemploymentCountryYear)
 from metrics.catalog import BY_SLUG
-from providers.curated import COUNTRIES, DATA, administrations, parties
+from providers.curated import COUNTRIES, DATA, administrations, parties, party_left_right, party_positions, party_profiles
+from providers.tse import elected as tse_elected
 
-from . import comparison, queries
+from . import compass, comparison, queries, spectrum
 from .metrics import GROUPS
 from .offices import ROLES
-from .models import Administration, Party
+from .models import Administration, Deputy, Elected, Party, Senator
 
 GDP = BY_SLUG['gdp-per-capita']
 UNEMPLOYMENT = BY_SLUG['unemployment']
@@ -376,3 +377,135 @@ class CuratedDataTests(SimpleTestCase):
                     self.assertNotRegex(Path(party['logo']).stem, re.compile(r'^(con|prn|aux|nul|com\d|lpt\d)$', re.I),
                                         f'{party["logo"]}: Windows cannot check out this name')
                     self.assertTrue(party['logo_source'] and party['logo_licence'], f'{folder}: {abbreviation} logo needs its source and licence')
+
+
+class CompassDataTests(SimpleTestCase):
+    """The party compass's files: every party is complete, and every position belongs to a known party and survey."""
+
+    def read(self, name):
+        with open(DATA / 'brazil' / name, encoding='utf-8') as file:
+            return list(csv.DictReader(file))
+
+    def test_every_party_profile_is_complete(self):
+        well = _luminance(CuratedDataTests.CHART_WELL)
+        for party in self.read('party_profiles.csv'):
+            # A party without a free logo shows its abbreviation; one with a logo names its source and licence.
+            if party['logo']:
+                self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo']).is_file(), party['logo'])
+                self.assertTrue(party['logo_source'] and party['logo_licence'], party['key'])
+                self.assertNotRegex(Path(party['logo']).stem, re.compile(r'^(con|prn|aux|nul|com\d|lpt\d)$', re.I))
+            if party['logo_on_dark']:
+                self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo_on_dark']).is_file(), party['logo_on_dark'])
+            self.assertGreaterEqual((_luminance(party['color']) + 0.05) / (well + 0.05), 3.2, f"{party['key']} is too dark")
+            for end in party['position'].split('|'):
+                self.assertIn(end, compass.POSITIONS, party['key'])
+            for term in party['ideologies'].split(';'):
+                self.assertIn(term, compass.IDEOLOGIES, party['key'])
+            self.assertTrue(party['views_source'].startswith('https://en.wikipedia.org/wiki/'))
+
+    def test_every_position_has_its_party_and_survey_on_the_scales(self):
+        keys = {party['key'] for party in self.read('party_profiles.csv')}
+        rows = self.read('positions.csv')
+        for row in rows:
+            self.assertIn(row['party'], keys)
+            self.assertIn(row['survey'], compass.SURVEYS)
+            self.assertTrue(0 <= float(row['economic']) <= 10 and 0 <= float(row['social']) <= 10, row)
+            self.assertIn(row['inferred'], ('', 'scale', 'merger'), row)
+            if row['inferred'] != 'merger':
+                self.assertGreater(int(row['experts']), 4, row)
+        # Each survey places a party once, and shows every relevant party, measured or inferred.
+        self.assertEqual(len(rows), len({(row['survey'], row['party']) for row in rows}))
+        for survey in compass.SURVEYS:
+            self.assertIn('uniao', {row['party'] for row in rows if row['survey'] == survey})
+
+    def test_party_names_are_the_parties_own(self):
+        # One name per party, in its own language: the file has no English name beside it.
+        self.assertNotIn('name_original', self.read('party_profiles.csv')[0])
+        names = {party['key']: party['name'] for party in self.read('party_profiles.csv')}
+        self.assertEqual(names['pt'], 'Partido dos Trabalhadores')
+
+    def test_every_left_right_score_has_its_party_on_the_scale(self):
+        keys = {party['key'] for party in self.read('party_profiles.csv')}
+        rows = self.read('left_right.csv')
+        for row in rows:
+            self.assertIn(row['party'], keys)
+            self.assertTrue(0 <= float(row['score']) <= 10, row)
+            self.assertGreater(int(row['experts']), 100, row)
+        self.assertEqual(len(rows), len({row['party'] for row in rows}))
+        self.assertEqual(next(row for row in rows if row['party'] == 'prd')['inferred_from'], 'PTB, Patriota')
+
+
+class CompassAndCongressTests(TestCase):
+    def setUp(self):
+        make_brazil()
+        party_profiles.run()
+        party_positions.run()
+        party_left_right.run()
+        for i, party in enumerate(['PT'] * 3 + ['PL'] * 4 + ['PSOL'] + ['']):
+            Deputy.objects.create(country_id='BRA', member_id=str(i), name=f'Deputy {i}', party=party, state='SP')
+        # Two senators stay after the election, one leaves; two new ones join, one coded as the court codes it.
+        for i, (party, ends) in enumerate([('PT', 2031), ('PL', 2031), ('MDB', 2027)]):
+            Senator.objects.create(country_id='BRA', member_id=str(i), name=f'Senator {i}', party=party, state='SP', term_ends=ends)
+
+    def test_the_compass_is_a_tab_of_the_country_page(self):
+        response = self.client.get(reverse('politics:country', args=['brazil']), {'tab': 'compass'})
+        self.assertEqual(response.context['tab'], 'compass')
+        self.assertContains(response, 'data-tab="compass"')
+        compass_data = response.context['compass']
+        self.assertEqual([survey['key'] for survey in compass_data['surveys']], ['prepps', 'ches', 'gps'])
+        prepps = {p['party']: p for p in compass_data['positions']['prepps']}
+        self.assertEqual(prepps['pt']['inferred'], '')
+        self.assertEqual(prepps['uniao']['note'], 'Inferred, not measured: the average of DEM, PSL, which merged into it.')
+        self.assertTrue(prepps['pcdob']['note'].startswith('Inferred, not measured: estimated from where'))
+        self.assertEqual(next(p for p in compass_data['positions']['ches'] if p['party'] == 'pl')['then'], 'Called PR when this survey asked.')
+        self.assertEqual(compass_data['parties']['dem']['ended'], 'Merged into União Brasil in 2022.')
+        self.assertEqual(compass_data['parties']['psb']['position'], 'Centre to centre-left')
+
+    def test_congress_seats_run_from_left_to_right(self):
+        response = self.client.get(reverse('politics:country', args=['brazil']), {'tab': 'congress'})
+        self.assertEqual(response.context['tab'], 'congress')
+        chamber = response.context['congress']['houses'][0]['terms'][0]
+        self.assertEqual(chamber['members'], 9)
+        # PSOL before PT before PL, by the left-right scale; the deputy without a party last, not classified.
+        self.assertEqual([(p['abbreviation'], p['seats'], p['bloc']) for p in chamber['parties']],
+                         [('PSOL', 1, 'left'), ('PT', 3, 'left'), ('PL', 4, 'right'), ('No party', 1, 'none')])
+        # No election loaded: no next term.
+        self.assertEqual(response.context['congress']['starts'], '')
+
+    def test_the_next_term_is_the_elected_and_the_senators_who_stay(self):
+        today = date.today()  # an election today always takes office in the future
+        for i, (house, party) in enumerate([('chamber', 'PCDOB'), ('chamber', 'PL'), ('senate', 'PCDOB'), ('senate', 'NOVO')]):
+            Elected.objects.create(country_id='BRA', member_id=str(i), name=f'Elected {i}', party=party, state='SP',
+                                   house=house, elected_on=today)
+        data = self.client.get(reverse('politics:country', args=['brazil']), {'tab': 'congress'}).context['congress']
+        self.assertEqual(data['starts'][-4:], str(today.year + 1))
+        chamber, senate = ({t['key']: t for t in house['terms']} for house in data['houses'])
+        # The court's PCDOB is the Chamber's PCdoB: one party, matched without regard to case.
+        self.assertEqual([(p['abbreviation'], p['seats']) for p in chamber['next']['parties']], [('PCdoB', 1), ('PL', 1)])
+        self.assertEqual([(p['abbreviation'], p['seats']) for p in senate['next']['parties']], [('PCdoB', 1), ('PT', 1), ('Novo', 1), ('PL', 1)])
+        self.assertEqual(len(senate['next']['sources']), 2)
+        # Today's seats belong to the legislature that ends as the next one begins; each runs four years.
+        year = today.year + 1
+        self.assertEqual(chamber['now']['period']['years'], f'{year - 4}–{year}')
+        self.assertEqual(chamber['next']['period']['years'], f'{year}–{year + 4}')
+
+
+class SpectrumTests(SimpleTestCase):
+    def test_the_authors_bands_join_into_three_blocs(self):
+        cases = {1.5: ('far-left', 'left'), 1.51: ('left-wing', 'left'), 3.0: ('left-wing', 'left'),
+                 3.01: ('centre-left', 'centre'), 4.49: ('centre-left', 'centre'), 4.5: ('centre', 'centre'),
+                 5.5: ('centre', 'centre'), 5.51: ('centre-right', 'centre'), 7.0: ('centre-right', 'centre'),
+                 7.01: ('right-wing', 'right'), 8.5: ('right-wing', 'right'), 8.51: ('far-right', 'right'), 10: ('far-right', 'right')}
+        for score, expected in cases.items():
+            self.assertEqual(spectrum.band(score), expected, score)
+
+
+class TseTests(SimpleTestCase):
+    def test_only_the_elected_deputies_and_senators_count(self):
+        row = {'SQ_CANDIDATO': '1', 'NM_URNA_CANDIDATO': 'A', 'SG_PARTIDO': 'PT', 'SG_UF': 'SP', 'DT_ELEICAO': '04/10/2026'}
+        rows = [{**row, 'DS_CARGO': cargo, 'DS_SIT_TOT_TURNO': result} for cargo, result in [
+            ('DEPUTADO FEDERAL', 'ELEITO POR QP'), ('DEPUTADO FEDERAL', 'ELEITO POR MÉDIA'), ('DEPUTADO FEDERAL', 'SUPLENTE'),
+            ('SENADOR', 'ELEITO'), ('SENADOR', 'NÃO ELEITO'), ('GOVERNADOR', 'ELEITO'), ('DEPUTADO ESTADUAL', 'ELEITO POR QP')]]
+        found = tse_elected.elected(rows)
+        self.assertEqual([member.house for member in found], ['chamber', 'chamber', 'senate'])
+        self.assertEqual(found[0].elected_on, date(2026, 10, 4))

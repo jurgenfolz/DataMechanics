@@ -1,8 +1,15 @@
-// The country filter: a button that opens a searchable list with flags. World is listed first, like a country.
+// A filter: a button that opens a searchable list, each item with its image and a check.
+// The metric pages and the WW2 page pick countries with it, by flag; the party compass picks parties, by logo.
+// An option is { id, name, image, label?, world? }: `label` is how the button names it, the name by default.
+// A `world` option (World on a metric page) is listed like the others but does not count towards `max`.
+// With `allLabel`, the button says it ("All parties") while every option is picked.
 // gettext, ngettext and interpolate are Django's, from the translation catalog base.html loads.
 import { escapeHtml } from './format.js';
 
-export function createCountryPicker(root, { max, onToggle }) {
+export function createPicker(root, {
+  onToggle, max = Infinity, imageClass = 'flag', emptyLabel = gettext('Choose countries'), noMatch = gettext('No country matches.'),
+  allLabel = '',
+}) {
   const button = root.querySelector('[data-picker-button]');
   const label = root.querySelector('[data-picker-label]');
   const panel = root.querySelector('[data-picker-panel]');
@@ -10,45 +17,52 @@ export function createCountryPicker(root, { max, onToggle }) {
   const list = root.querySelector('[data-picker-list]');
   const hint = root.querySelector('[data-picker-hint]');
 
-  let options = [];  // [{iso3, name, flag, world}]
+  let options = [];  // [{id, name, image, label, world}]
   let selected = new Set();
   let visible = [];
   let active = 0;
 
-  function countrySelectedCount() {
-    return [...selected].filter((iso3) => !options.find((o) => o.iso3 === iso3)?.world).length;
+  function countedSelected() {
+    return [...selected].filter((id) => !options.find((o) => o.id === id)?.world).length;
   }
 
   function renderList() {
     const query = search.value.trim().toLowerCase();
-    visible = options.filter((o) => !query || o.name.toLowerCase().includes(query) || o.iso3.toLowerCase() === query);
+    visible = options.filter((o) => !query || o.name.toLowerCase().includes(query) || o.id.toLowerCase() === query);
     active = Math.min(active, Math.max(visible.length - 1, 0));
-    const full = countrySelectedCount() >= max;
+    const full = countedSelected() >= max;
     list.innerHTML = visible.map((o, i) => {
-      const isSelected = selected.has(o.iso3);
+      const isSelected = selected.has(o.id);
       const disabled = !isSelected && !o.world && full;
-      return `<li id="picker-${o.iso3}" role="option" class="picker__option${o.world ? ' picker__option--world' : ''}${i === active ? ' is-active' : ''}"`
-        + ` aria-selected="${isSelected}" aria-disabled="${disabled}" data-iso3="${o.iso3}">`
+      return `<li id="picker-${o.id}" role="option" class="picker__option${o.world ? ' picker__option--world' : ''}${i === active ? ' is-active' : ''}"`
+        + ` aria-selected="${isSelected}" aria-disabled="${disabled}" data-id="${o.id}">`
         + `<span class="picker__check" aria-hidden="true"></span>`
-        + `<img class="flag" src="${escapeHtml(o.flag)}" alt="" loading="lazy">`
+        + `<img class="${imageClass}" src="${escapeHtml(o.image)}" alt="" loading="lazy">`
         + `<span>${escapeHtml(o.name)}</span></li>`;
-    }).join('') || `<li class="picker__hint">${escapeHtml(gettext('No country matches.'))}</li>`;
-    search.setAttribute('aria-activedescendant', visible[active] ? `picker-${visible[active].iso3}` : '');
+    }).join('') || `<li class="picker__hint">${escapeHtml(noMatch)}</li>`;
+    search.setAttribute('aria-activedescendant', visible[active] ? `picker-${visible[active].id}` : '');
+    // Without a limit there is nothing to say.
+    hint.hidden = max === Infinity;
+    if (hint.hidden) return;
     hint.textContent = interpolate(full
       ? ngettext('%s country is the limit. Remove one to add another.', '%s countries is the limit. Remove one to add another.', max)
       : ngettext('Pick up to %s country.', 'Pick up to %s countries.', max), [max]);
   }
 
   function renderLabel() {
-    const names = options.filter((o) => selected.has(o.iso3)).map((o) => (o.world ? gettext('World') : o.name));
-    label.textContent = names.length ? (names.length > 2 ? `${names.slice(0, 2).join(', ')} +${names.length - 2}` : names.join(', ')) : gettext('Choose countries');
+    const names = options.filter((o) => selected.has(o.id)).map((o) => (o.label ?? o.name));
+    if (allLabel && names.length > 2 && names.length === options.length) {
+      label.textContent = allLabel;
+      return;
+    }
+    label.textContent = names.length ? (names.length > 2 ? `${names.slice(0, 2).join(', ')} +${names.length - 2}` : names.join(', ')) : emptyLabel;
   }
 
-  function toggle(iso3) {
-    const option = options.find((o) => o.iso3 === iso3);
+  function toggle(id) {
+    const option = options.find((o) => o.id === id);
     if (!option) return;
-    if (!selected.has(iso3) && !option.world && countrySelectedCount() >= max) return;
-    onToggle(iso3);
+    if (!selected.has(id) && !option.world && countedSelected() >= max) return;
+    onToggle(id);
   }
 
   function open() {
@@ -85,14 +99,14 @@ export function createCountryPicker(root, { max, onToggle }) {
       list.querySelector('.is-active')?.scrollIntoView({ block: 'nearest' });
     } else if (event.key === 'Enter') {
       event.preventDefault();
-      if (visible[active]) toggle(visible[active].iso3);
+      if (visible[active]) toggle(visible[active].id);
     } else if (event.key === 'Escape') {
       close();
     }
   });
   list.addEventListener('click', (event) => {
-    const item = event.target.closest('[data-iso3]');
-    if (item) toggle(item.dataset.iso3);
+    const item = event.target.closest('[data-id]');
+    if (item) toggle(item.dataset.id);
   });
 
   return {

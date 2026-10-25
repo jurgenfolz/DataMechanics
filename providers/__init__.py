@@ -62,6 +62,12 @@ MODULES = [
     # Politics mode: parties first, administrations point at them.
     'curated.parties',
     'curated.administrations',
+    'curated.party_profiles',
+    'curated.party_positions',
+    'curated.party_left_right',
+    'camara.deputies',
+    'senado.senators',
+    'tse.elected',
 ]
 
 # World War II, in the conflicts database: the states first, every other table points at them.

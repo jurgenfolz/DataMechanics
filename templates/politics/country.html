@@ -29,19 +29,27 @@
     <div class="pol-cats-wrap">
       <button class="round-btn pol-cats__arrow pol-cats__arrow--prev" type="button" data-cats-scroll="-1" aria-label="{% translate "Scroll left" %}" hidden>{% include "partials/icon.html" with name="chevron-left" size="16" %}</button>
       <div class="pol-cats">
+        {% if compass %}<a class="pol-cat" href="?tab=compass" data-group="compass" data-tab="compass"{% if tab == "compass" %} aria-current="true"{% endif %}>{% include "partials/icon.html" with name="compass" size="18" %}<span>{% translate "Party positions" %}</span></a>{% endif %}
+        {% if congress %}<a class="pol-cat" href="?tab=congress" data-group="congress" data-tab="congress"{% if tab == "congress" %} aria-current="true"{% endif %}>{% include "partials/icon.html" with name="congress" size="18" %}<span>{% translate "Congress" %}</span></a>{% endif %}
         {% for key, label, items in groups %}
-        <a class="pol-cat" href="?metric={{ items.0.slug }}" data-group="{{ key }}"{% if key == group %} aria-current="true"{% endif %}>{% include "partials/icon.html" with name=key size="18" %}<span>{{ label }}</span></a>
+        <a class="pol-cat" href="?metric={{ items.0.slug }}" data-group="{{ key }}"{% if key == group and tab == "metric" %} aria-current="true"{% endif %}>{% include "partials/icon.html" with name=key size="18" %}<span>{{ label }}</span></a>
         {% endfor %}
       </div>
       <button class="round-btn pol-cats__arrow pol-cats__arrow--next" type="button" data-cats-scroll="1" aria-label="{% translate "Scroll right" %}" hidden>{% include "partials/icon.html" with name="chevron-right" size="16" %}</button>
     </div>
+    {% if congress %}<div class="pol-metrics" data-group-panel="congress"{% if tab != "congress" %} hidden{% endif %}>
+      {% for house in congress.houses %}<a class="pol-metric" href="?tab=congress&amp;house={{ house.key }}" data-house="{{ house.key }}"{% if house.key == house_key %} aria-current="page"{% endif %}>{{ house.name }}</a>{% endfor %}
+    </div>{% endif %}
     {% for key, label, items in groups %}
-    <div class="pol-metrics" data-group-panel="{{ key }}"{% if key != group %} hidden{% endif %}>
+    <div class="pol-metrics" data-group-panel="{{ key }}"{% if key != group or tab != "metric" %} hidden{% endif %}>
       {% for item in items %}<a class="pol-metric" href="?metric={{ item.slug }}" data-metric="{{ item.slug }}"{% if item.slug == metric.slug %} aria-current="page"{% endif %}>{{ item.title }}</a>{% endfor %}
     </div>
     {% endfor %}
   </nav>
 
+  {% if compass %}<div data-section="compass"{% if tab != "compass" %} hidden{% endif %}>{% include "politics/_compass.html" %}</div>{% endif %}
+  {% if congress %}<div data-section="congress"{% if tab != "congress" %} hidden{% endif %}>{% include "politics/_congress.html" %}</div>{% endif %}
+  <div data-section="metric"{% if tab != "metric" %} hidden{% endif %}>
   <section class="card chart-card pol-chart" aria-labelledby="chart-title" data-chart-card>
     <div class="chart-card__head">
       <h2 class="chart-card__title" id="chart-title"><span class="chart-card__name" data-metric-title>{{ metric.title }}</span> <span data-series-label{% if metric.series|length < 2 or series.label == metric.title %} hidden{% endif %}>· {{ series.label }}</span></h2>
@@ -105,6 +113,7 @@
     {% endblocktranslate %}{% if politics_load %} · {% blocktranslate with date=politics_load.loaded_at|date:"SHORT_DATE_FORMAT" %}loaded {{ date }}{% endblocktranslate %}{% endif %}.
     {% translate "Party logos from Wikimedia Commons" %}{% for party in logo_credits %}{% if forloop.first %}; {% endif %}{% blocktranslate with abbreviation=party.abbreviation author=party.logo_author %}{{ abbreviation }} logo by {{ author }}{% endblocktranslate %}, <a href="{{ party.logo_source }}">{{ party.logo_licence }}</a>{% if not forloop.last %}; {% endif %}{% endfor %}.
   </p>
+  </div>
 </div>
 {% endblock %}
 

@@ -1,0 +1,69 @@
+{% load i18n %}{% comment %}The party compass, for a Politics page tab: static/js/lib/compass-view.js wires it.{% endcomment %}
+  <section class="card chart-card compass-card" aria-labelledby="compass-title" data-compass-card>
+    <div class="chart-card__head">
+      <h2 class="chart-card__title" id="compass-title"><span class="chart-card__name">{% translate "Party positions" %}</span> <span data-survey-label></span></h2>
+      <div class="pol-chart__tools">
+        <label class="select">{% translate "Survey" %}
+          <select data-survey>{% for survey in compass.surveys %}<option value="{{ survey.key }}"{% if forloop.first %} selected{% endif %}>{{ survey.name }} ({{ survey.years }})</option>{% endfor %}</select>
+        </label>
+        <div class="picker" data-picker>
+          <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="{% translate "Choose parties" %}">
+            <span data-picker-label>{% translate "Choose parties" %}</span>
+            <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <div class="picker__panel" data-picker-panel hidden>
+            <input class="picker__search" data-picker-search type="search" placeholder="{% translate "Search parties" %}" aria-label="{% translate "Search parties" %}"
+                   role="combobox" aria-controls="picker-list" aria-expanded="true" autocomplete="off">
+            <p class="picker__hint" data-picker-hint hidden></p>
+            <ul class="picker__list" id="picker-list" data-picker-list role="listbox" aria-multiselectable="true" aria-label="{% translate "Parties" %}"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="source-line" data-compass-source></p>
+    {# The tooltip sits beside the well, not in it: where it cannot fit over the chart, it docks under it (lib/compass-view.js). #}
+    <div class="compass-stage">
+      <div class="well compass-well" data-compass-well>
+        {% include "partials/save_image.html" %}
+        <canvas class="compass-canvas" data-compass role="img" aria-label="{% translate "Each party's logo on two axes: the economy across, social values up and down. The table under the chart lists the numbers." %}"></canvas>
+      </div>
+      <div class="compass-tip" data-tip hidden></div>
+    </div>
+    <p class="pol-chart__note">{% blocktranslate trimmed %}
+      Across, the economy: left parties want the state to play an active role, right parties a smaller one.
+      Up and down, social values: progressive parties favour more personal freedoms, conservative ones order, tradition and religion.
+      Point at a logo for the party’s views and its numbers.
+    {% endblocktranslate %}</p>
+    <p class="pol-chart__note compass-inferred" data-inferred hidden></p>
+    <details class="numbers">
+      <summary>{% translate "Show the numbers" %}</summary>
+      <div class="table-scroll"><table data-compass-table></table></div>
+    </details>
+  </section>
+
+  <div class="compass-notes">
+    <section class="card compass-note" aria-labelledby="survey-title">
+      <h2 id="survey-title">{% translate "How this survey placed the parties" %}</h2>
+      <p data-method></p>
+      <p class="source-line" data-citation></p>
+    </section>
+    <section class="card compass-note" aria-labelledby="limits-title">
+      <h2 id="limits-title">{% translate "Things to keep in mind" %}</h2>
+      <ul class="compass-limits">
+        <li>{% blocktranslate trimmed %}<strong>These are estimates.</strong> Experts placed the parties: the parties did not place themselves, and no votes are counted.{% endblocktranslate %}</li>
+        <li>{% blocktranslate trimmed %}<strong>Each survey shows one moment.</strong> PREPPS asked in 2018 and 2019, the Global Party Survey in 2019 and CHES in 2020. Parties have changed since: Bolsonaro joined PL at the end of 2021, and PSL and DEM merged into União Brasil in 2022.{% endblocktranslate %}</li>
+        <li>{% blocktranslate trimmed %}<strong>The surveys do not always agree.</strong> They asked different experts different questions. Switch the survey to see how far a party moves: PSDB, for one, sits near the centre on the economy in two surveys and clearly right of it in PREPPS.{% endblocktranslate %}</li>
+        <li>{% blocktranslate trimmed %}<strong>Two axes leave a lot out.</strong> A party can be left on one issue and right on another, and many Brazilian parties are divided inside or change course with their leaders.{% endblocktranslate %}</li>
+        <li>{% blocktranslate trimmed %}<strong>Some places are inferred.</strong> Each survey placed only the parties it chose. Relevant parties it left out have an inferred place, marked with an asterisk (*): an estimate from another survey, which can be further off than the survey's own places, above all at the ends of the scale.{% endblocktranslate %}</li>
+        <li>{% blocktranslate trimmed %}<strong>Small parties are missing.</strong> Parties with fewer than two deputies and no senator are left out, and a few parties had few experts placing them: the tooltip says how many.{% endblocktranslate %}</li>
+        <li>{% blocktranslate trimmed %}<strong>The views come from Wikipedia, not the surveys.</strong> In the tooltip, the position and ideologies are how Wikipedia describes the party today.{% endblocktranslate %}</li>
+      </ul>
+    </section>
+  </div>
+
+  <p class="source-line pol-credits">{% blocktranslate trimmed %}
+    Positions: PREPPS Latam, CHES Latin America and the Global Party Survey, as each survey's notes describe.
+    Inferred places: Bolognesi, Ribeiro and Codato, a 2018 survey of Brazilian political scientists (Harvard Dataverse, CC0).
+    Views: Wikipedia, linked from each party.
+    Logos: Wikimedia Commons, all in the public domain.
+  {% endblocktranslate %}</p>

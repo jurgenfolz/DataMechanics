@@ -11,6 +11,8 @@ import {
   barScale, groupRows, logoCredits, omittedNote, saveTimelineImages, timelineRows, valueRange,
 } from './lib/timeline.js';
 import { toneOf } from './lib/term-chart.js';
+import { createCompassView } from './lib/compass-view.js';
+import { createCongressView } from './lib/congress-view.js';
 import { createReel, FPS } from './lib/reel.js';
 import { createYearSlicer, fitWindow as fitInside } from './lib/year-slicer.js';
 
@@ -45,6 +47,8 @@ const metricTabs = [...document.querySelectorAll('[data-metric]')];
 const params = new URLSearchParams(window.location.search);
 const urlWindow = [Number(params.get('from')), Number(params.get('to'))];
 const state = {
+  tab: config.tab,  // 'metric', or the party compass's or Congress's tab
+  house: config.house,  // the house of Congress shown on its tab
   metric: config.metric,
   field: config.series,
   view: VIEWS.includes(params.get('view')) ? params.get('view') : 'timeline',
@@ -228,7 +232,7 @@ function drawHead() {
     else tab.removeAttribute('aria-current');
   }
   const panel = panels.find((p) => p.querySelector(`[data-metric="${state.metric}"]`));
-  showGroup(panel?.dataset.groupPanel);
+  if (state.tab === 'metric') showGroup(panel?.dataset.groupPanel);
   document.title = `${config.pageTitle}: ${metric.title} · Data Mechanics`;
 }
 
@@ -346,6 +350,12 @@ function drawTable(data) {
 
 function syncUrl() {
   const next = new URLSearchParams({ metric: state.metric });
+  if (state.tab !== 'metric') next.set('tab', state.tab);
+  if (state.tab === 'congress' && state.house !== config.congress.houses[0].key) next.set('house', state.house);
+  // The compass keeps its survey in the address itself (lib/compass-view.js), and Congress its term and view
+  // (lib/congress-view.js).
+  const kept = new URLSearchParams(window.location.search);
+  for (const key of ['survey', 'term', 'by']) if (kept.get(key)) next.set(key, kept.get(key));
   if (state.field !== metrics[state.metric].series[0].field) next.set('series', state.field);
   if (state.view !== 'timeline') next.set('view', state.view);
   if (state.compare !== 'world') next.set('compare', state.compare);
@@ -365,11 +375,57 @@ function select(metric, field) {
   draw();
 }
 
+// ---------- The tabs before the metrics: the party compass and the seats in Congress ----------
+// Each has its own section, which takes the metric chart's place while its tab is open.
+const sections = Object.fromEntries([...document.querySelectorAll('[data-section]')].map((element) => [element.dataset.section, element]));
+const views = {
+  compass: config.compass && createCompassView(sections.compass, config.compass,
+    { country: config.countryName, flag: config.flag, title: config.compassTitle }),
+  congress: config.congress && createCongressView(sections.congress, config.congress,
+    { country: config.countryName, flag: config.flag, title: config.congressTitle }),
+};
+const houseTabs = [...document.querySelectorAll('[data-house]')];
+
+function openTab(tab) {
+  state.tab = tab;
+  for (const [key, element] of Object.entries(sections)) element.hidden = key !== tab;
+  if (tab === 'metric') {
+    showGroup(panels.find((p) => p.querySelector(`[data-metric="${state.metric}"]`))?.dataset.groupPanel);
+  } else {
+    showGroup(tab);
+    if (tab === 'congress') showHouse(state.house);
+    else views.compass.show();
+  }
+  syncUrl();
+}
+
+function showHouse(key) {
+  state.house = key;
+  for (const button of houseTabs) {
+    if (button.dataset.house === key) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  }
+  views.congress.show(key);
+}
+
+for (const button of houseTabs) {
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    showHouse(button.dataset.house);
+    syncUrl();
+  });
+}
+
 // ---------- Controls ----------
 for (const tab of categories) {
   tab.addEventListener('click', (event) => {
     event.preventDefault();
+    if (tab.dataset.tab) {
+      openTab(tab.dataset.tab);
+      return;
+    }
     const panel = panels.find((p) => p.dataset.groupPanel === tab.dataset.group);
+    if (state.tab !== 'metric') openTab('metric');
     if (!panel.querySelector(`[data-metric="${state.metric}"]`)) select(panel.querySelector('[data-metric]').dataset.metric);
   });
 }
@@ -488,11 +544,17 @@ compareSelect.addEventListener('change', () => {
 // ---------- The reel (lib/reel.js): a video for Instagram, or with &format=wide for YouTube and LinkedIn ----------
 // ?reel=1 plays it over the page, as large as the window allows; a click pauses it.
 // ?reel=record draws nothing until tools/reel.py asks for each frame through window.reel.
+// On the compass's tab, the video is the compass's (lib/compass-reel.js); on Congress's, the open house's (lib/congress-reel.js).
 async function openReel(mode) {
+  const format = params.get('format') === 'wide' ? 'wide' : 'reel';
+  if (state.tab === 'compass' || state.tab === 'congress') {
+    const reel = await views[state.tab].createReel(format);
+    present(reel, reel.filename, mode);
+    return;
+  }
   const { title, subtitle } = imageText();
   const range = currentRange();
   const leaders = viewButtons.find((button) => button.dataset.view === 'president');
-  const format = params.get('format') === 'wide' ? 'wide' : 'reel';
   const reel = await createReel({
     format,
     data: state.lists,
@@ -506,6 +568,12 @@ async function openReel(mode) {
     rankingTitle: leaders.textContent.trim(),
     source: clean(source),
   });
+  present(reel, imageName(config.countryName, state.metric, state.field, `${range[0]}-${range[1]}`, format === 'wide' && 'wide')
+    .replace(/\.png$/, '.mp4'), mode);
+}
+
+// Shows a video over the page and hands its frames to tools/reel.py through window.reel; `mode` 'record' only does the second.
+function present(reel, filename, mode) {
   const stage = document.createElement('div');
   stage.className = 'reel-stage';
   stage.append(reel.canvas);
@@ -515,8 +583,7 @@ async function openReel(mode) {
     ready: true,
     fps: FPS,
     frames: reel.frames,
-    filename: imageName(config.countryName, state.metric, state.field, `${range[0]}-${range[1]}`, format === 'wide' && 'wide')
-      .replace(/\.png$/, '.mp4'),
+    filename,
     width: reel.canvas.width,
     height: reel.canvas.height,
     frame(n) {
@@ -540,6 +607,7 @@ async function openReel(mode) {
 
 drawHead();
 showView(state.view);
+if (state.tab !== 'metric') openTab(state.tab);
 draw().then(() => {
-  if (params.has('reel') && state.lists?.points.length) openReel(params.get('reel'));
+  if (params.has('reel') && (state.tab !== 'metric' || state.lists?.points.length)) openReel(params.get('reel'));
 });
