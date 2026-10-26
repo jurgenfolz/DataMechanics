@@ -104,7 +104,7 @@ def country_page(request, slug):
             'house': house_key,
             # The titles of the compass's and the seats' images and videos.
             'compassTitle': gettext('%(name)s’s party positions') % {'name': country.local_name},
-            'congressTitle': gettext('%(name)s’s Congress, party by party') % {'name': country.local_name},
+            'congressTitle': congress_data['parliament']['title'] if congress_data else '',
         },
     })
 

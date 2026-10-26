@@ -51,19 +51,12 @@
       <h2 id="limits-title">{% translate "Things to keep in mind" %}</h2>
       <ul class="compass-limits">
         <li>{% blocktranslate trimmed %}<strong>These are estimates.</strong> Experts placed the parties: the parties did not place themselves, and no votes are counted.{% endblocktranslate %}</li>
-        <li>{% blocktranslate trimmed %}<strong>Each survey shows one moment.</strong> PREPPS asked in 2018 and 2019, the Global Party Survey in 2019 and CHES in 2020. Parties have changed since: Bolsonaro joined PL at the end of 2021, and PSL and DEM merged into União Brasil in 2022.{% endblocktranslate %}</li>
-        <li>{% blocktranslate trimmed %}<strong>The surveys do not always agree.</strong> They asked different experts different questions. Switch the survey to see how far a party moves: PSDB, for one, sits near the centre on the economy in two surveys and clearly right of it in PREPPS.{% endblocktranslate %}</li>
-        <li>{% blocktranslate trimmed %}<strong>Two axes leave a lot out.</strong> A party can be left on one issue and right on another, and many Brazilian parties are divided inside or change course with their leaders.{% endblocktranslate %}</li>
-        <li>{% blocktranslate trimmed %}<strong>Some places are inferred.</strong> Each survey placed only the parties it chose. Relevant parties it left out have an inferred place, marked with an asterisk (*): an estimate from another survey, which can be further off than the survey's own places, above all at the ends of the scale.{% endblocktranslate %}</li>
-        <li>{% blocktranslate trimmed %}<strong>Small parties are missing.</strong> Parties with fewer than two deputies and no senator are left out, and a few parties had few experts placing them: the tooltip says how many.{% endblocktranslate %}</li>
-        <li>{% blocktranslate trimmed %}<strong>The views come from Wikipedia, not the surveys.</strong> In the tooltip, the position and ideologies are how Wikipedia describes the party today.{% endblocktranslate %}</li>
+        {% for limit in compass.context.limits %}<li>{{ limit }}</li>
+        {% endfor %}<li>{% blocktranslate trimmed %}<strong>Two axes leave a lot out.</strong> A party can be left on one issue and right on another, and parties can be divided inside or change course with their leaders.{% endblocktranslate %}</li>
+        {% if compass.inferred %}<li>{% blocktranslate trimmed %}<strong>Some places are inferred.</strong> Each survey placed only the parties it chose. Relevant parties it left out have an inferred place, marked with an asterisk (*): an estimate from another survey, which can be further off than the survey's own places, above all at the ends of the scale.{% endblocktranslate %}</li>
+        {% endif %}<li>{% blocktranslate trimmed %}<strong>The views come from Wikipedia, not the surveys.</strong> In the tooltip, the position and ideologies are how Wikipedia describes the party today.{% endblocktranslate %}</li>
       </ul>
     </section>
   </div>
 
-  <p class="source-line pol-credits">{% blocktranslate trimmed %}
-    Positions: PREPPS Latam, CHES Latin America and the Global Party Survey, as each survey's notes describe.
-    Inferred places: Bolognesi, Ribeiro and Codato, a 2018 survey of Brazilian political scientists (Harvard Dataverse, CC0).
-    Views: Wikipedia, linked from each party.
-    Logos: Wikimedia Commons, all in the public domain.
-  {% endblocktranslate %}</p>
+  <p class="source-line pol-credits">{{ compass.context.credits }}</p>

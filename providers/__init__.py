@@ -68,6 +68,9 @@ MODULES = [
     'camara.deputies',
     'senado.senators',
     'tse.elected',
+    'abgeordnetenwatch.bundestag',
+    'parlament_at.nationalrat',
+    'parlament_at.bundesrat',
 ]
 
 # World War II, in the conflicts database: the states first, every other table points at them.

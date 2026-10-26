@@ -77,9 +77,9 @@ Fabric file formats, Microsoft APIs, Power BI Desktop, the service, and the code
 
 ### Architecture
 
-- **One folder per data provider** in `providers/`: `worldbank/`, `imf/`, `undp/`, `owid/` (Our World in Data), `naturalearth/`, `camara/` and `senado/` (Brazil's Congress), `tse/` (Brazil's electoral court), and `curated/` for tables we compile by hand as CSV files in `data/`.
+- **One folder per data provider** in `providers/`: `worldbank/`, `imf/`, `undp/`, `owid/` (Our World in Data), `naturalearth/`, `camara/` and `senado/` (Brazil's Congress), `tse/` (Brazil's electoral court), `abgeordnetenwatch/` (Germany's Bundestag), `parlament_at/` (Austria's Parliament), and `curated/` for tables we compile by hand as CSV files in `data/`.
 - **One module per source** inside a provider folder (a `.py` file). The module calls the provider's API, transforms the data and writes it to PostgreSQL. The whole ETL for that source lives in the module.
-- **Each module writes one table, and only one.** It replaces the table in one transaction through `providers/load.py`, which also logs the load in `etl_load`.
+- **Each module writes one table, and only one.** It replaces the table in one transaction through `providers/load.py`, which also logs the load in `etl_load`. The parliament members' tables, `pol_deputy` and `pol_senator`, hold several countries: each of their modules replaces only its own country's rows.
 - **Run the ETL** with `python manage.py etl` (every metric module, in the order of `providers.MODULES`) or `python manage.py etl worldbank.gdp` (one module). The conflicts' modules (`providers.CONFLICT_MODULES`) never run in a plain `etl`: World War II is static, so the weekly refresh leaves it alone; they load only when named, as every deploy does.
 - **The website reads only the database**, never a provider's API. Keep transformations on read small: reshaping and ranking (`metrics/queries.py`).
 - **Table names**: country data starts with `geo_` and names its grain, e.g. GDP by country and year is `geo_gdp_country_year`. The models live in `geo/models.py`. Political data starts with `pol_` (`pol_party`, `pol_administration`); its models live in `politics/models.py`.
@@ -190,11 +190,14 @@ Politics mode shows one country at a time, leader by leader (`/politics/<country
 - **Add a country**: add its folder to `data/politics/` and to `COUNTRIES` in `providers/curated/__init__.py`, then run `python manage.py etl curated.parties curated.administrations`. Every deploy runs this too.
 - **Follow the office that governs**: the president in Brazil, France and the United States, the chancellor in Austria and Germany (their presidents have little power). Germany starts with the Federal Republic in 1949, so the Nazi dictatorship is not in Politics mode. Austria starts with the Second Republic in April 1945, which leaves out Austrofascism and the Nazi annexation. France starts with the Fifth Republic in 1959: the Fourth Republic's presidents had little power, and Vichy is left out. Each role in the CSV is in `ROLES` in `politics/offices.py`, which names its office. The current leader's office picks the page's words in `OFFICES` ("chancellor by chancellor", "By chancellor"). Text shared by every office says "term" or "leader", never "president".
 - **Metrics**: `politics/metrics.py` lists the metrics Politics mode shows, grouped into tabs. Add a metric there once it has country data.
-- **Party compass** (`politics/compass.py`, shown as "Party positions": a name anyone understands): where expert surveys place a country's parties on two axes. It is the first tab of the country's page (`?tab=compass`), before the metric tabs. Brazil only for now.
+- **Party compass** (`politics/compass.py`, shown as "Party positions": a name anyone understands): where expert surveys place a country's parties on two axes. It is the first tab of the country's page (`?tab=compass`), before the metric tabs. Brazil, Germany and Austria.
   The economic axis runs from 0, the left (an active state), to 10, the right (a smaller state); the social axis from 0, progressive, to 10, conservative.
-  Three surveys, each shown on its own and never averaged or mixed on one chart: PREPPS Latam 2018–2019 (the default, 17 parties measured), CHES Latin America 2020 (11) and the Global Party Survey 2019 (10). `?survey=` keeps the choice.
+  Each survey is shown on its own, never averaged or mixed on one chart; a country shows the surveys that place its parties, in the order of `SURVEYS`, and `?survey=` keeps the choice.
+  Brazil has three: PREPPS Latam 2018–2019 (the default, 17 parties measured), CHES Latin America 2020 (11) and the Global Party Survey 2019 (10).
+  Germany and Austria have two: CHES Europe 2024 (the default; 19 and 12 experts, its expert-level file) and the Global Party Survey 2019. Their parties are those in the national parliament, and in Germany those with at least 3 percent in 2025 (`EUROPE` in the tool); none is inferred.
+  What a country's page says of it alone (the notes to keep in mind beside the general ones, and its credits) is in `CONTEXT` in `politics/compass.py`.
   `tools/party_positions.py` downloads them and writes `data/politics/<country>/positions.csv`; its docstring says how each survey's answers become the two axes.
-  **Inferred places**: a relevant party (`RELEVANT` in the tool: two or more deputies, or a senator) that a survey left out gets an inferred place, marked `inferred` in the CSV.
+  **Inferred places** (Brazil): a relevant party (`RELEVANT` in the tool: two or more deputies, or a senator) that a survey left out gets an inferred place, marked `inferred` in the CSV.
   A party that merged into it gives the average of the old parties (`MERGERS`: União is DEM and PSL, PRD is PTB and Patriota).
   Any other is estimated from one 2018 left-right scale of 519 Brazilian political scientists (Bolognesi, Ribeiro and Codato), by a straight-line fit on the parties both cover; the fit's R² is stored with it.
   The page marks an inferred place with a gold asterisk at its logo's corner, says so in its tooltip, and lists every inferred party under the chart with the fit's R².
@@ -203,17 +206,21 @@ Politics mode shows one country at a time, leader by leader (`/politics/<country
   The ETL loads them with `curated.party_profiles` and `curated.party_positions`; every deploy runs both.
   `static/js/lib/compass.js` draws the compass for the page, its saved image and its video (`static/js/lib/compass-reel.js`); `static/js/lib/compass-view.js` wires the tab. Tiles that would overlap are pushed apart, with a line back to their point.
   The page explains, in simple words, how each survey placed the parties and what the chart cannot say.
-- **Congress** (`politics/congress.py`): the seats of each house, one tab (`?tab=congress`) with a pill per house (`?house=chamber` or `senate`). Brazil only for now.
-  The members in office come from the Câmara's and the Senado's open-data APIs (`providers/camara/deputies.py`, `providers/senado/senators.py`), loaded with the other modules and refreshed each week.
+- **Congress** (`politics/congress.py`): the seats of each house of a country's parliament, one tab (`?tab=congress`) with a pill per house (`?house=`). Brazil, Germany and Austria; `HOUSES` lists each country's houses, and `PARLIAMENTS` names the tab (Brazil's "Congress", everyone else's "Parliament").
+  The members in office are loaded with the other modules and refreshed each week:
+  - Brazil: the Câmara's and the Senado's open-data APIs (`providers/camara/deputies.py`, `providers/senado/senators.py`).
+  - Germany, the Bundestag only: abgeordnetenwatch.de's API (`providers/abgeordnetenwatch/bundestag.py`, CC0), each member with their party today. The Bundestag's own member file lags months behind and states no licence. Never fetch bundestag.de's per-member pages: a few hundred requests lock the site's IP out. The Bundesrat seats the states' governments, not party members, so it has no half circle.
+  - Austria: the Parliament's list API (`providers/parlament_at/`, CC BY 4.0), the Nationalrat by club and the Bundesrat by the party a member was elected for (its groups need five members, so its Greens and NEOS sit in none).
+  A house elected for a fixed term gives its term's first day and length in `HOUSES` (`term`); update it after each election. Brazil's terms come from its last election.
   A party's code in the data is matched to `congress` in `party_profiles.csv`, whatever its case (the court writes PCDOB, the Chamber PCdoB); a member without a party counts as "No party".
   Each house is a half circle of dots, one a seat (`static/js/lib/hemicycle.js`), beside a table of the parties with their logos, seats and share (`static/js/lib/congress-view.js`).
   **Next term**: after a general election, a "Seats" select (`?term=next`) shows the houses as they will sit from 1 February of the next year, until that day.
   The members elected come from the electoral court's candidate file (`providers/tse/elected.py`, CC BY): deputies elected by quotient or by average, senators elected.
   The next Senate adds the senators whose terms run on (`term_ends` on `pol_senator`, from the Senado's mandate data), with their party today.
   **Left, centre and right** (`politics/spectrum.py`, `?by=bloc`): the second view colours each seat by bloc, and the table lists each bloc with its parties.
-  The scores are the 2022 wave of a survey of 571 Brazilian political scientists, who placed every party from 0, far left, to 10, far right (Bolognesi, Codato, Ribeiro and Silva, Harvard Dataverse, CC0).
+  The scores, from 0, far left, to 10, far right, come from one survey per country (`SURVEYS` in `politics/spectrum.py`): for Brazil the 2022 wave of a survey of 571 Brazilian political scientists (Bolognesi, Codato, Ribeiro and Silva, Harvard Dataverse, CC0), for Germany and Austria the general left-right question of CHES Europe 2024.
   `tools/party_left_right.py` writes them to `data/politics/<country>/left_right.csv`; `curated.party_left_right` loads them, and every deploy runs it.
-  The authors' seven bands (Dados, 2023) join into three blocs: left (far left, left: up to 3), centre (centre-left, centre, centre-right: up to 7), right (right, far right).
+  Every country uses Bolognesi, Ribeiro and Codato's seven bands (Dados, 2023), joined into three blocs: left (far left, left: up to 3), centre (centre-left, centre, centre-right: up to 7), right (right, far right).
   A party founded after the survey takes the average of the parties that merged into it (PRD: PTB and Patriota); one founded later is "Not classified".
   In both views, the parties sit from left to right by that score; parties without one sit last.
   Each term carries its legislature's period (`LEGISLATURE` in `politics/congress.py`: four years from 1 February after an election); the card's title gives its years.

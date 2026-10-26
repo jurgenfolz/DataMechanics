@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-25 22:04+0000\n"
+"POT-Creation-Date: 2026-10-25 22:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgstr "Visões: Wikipédia"
 
 #: static/js/lib/compass-view.js:225 static/js/lib/compass-view.js:294
 #: static/js/lib/congress-view.js:143 static/js/lib/congress-view.js:229
-#: static/js/lib/congress-view.js:262 static/js/politics-page.js:255
+#: static/js/lib/congress-view.js:264 static/js/politics-page.js:255
 #: static/js/ww2-page.js:20
 msgid "Source:"
 msgstr "Fonte:"
@@ -245,7 +245,7 @@ msgid "%(members)s of %(seats)s seats filled"
 msgstr "%(members)s de %(seats)s cadeiras ocupadas"
 
 #: static/js/lib/congress-view.js:143 static/js/lib/congress-view.js:229
-#: static/js/lib/congress-view.js:262
+#: static/js/lib/congress-view.js:264
 msgid "Sources:"
 msgstr "Fontes:"
 
@@ -261,11 +261,15 @@ msgstr ""
 msgid "%(house)s · %(seats)s seats, %(when)s"
 msgstr "%(house)s · %(seats)s cadeiras, %(when)s"
 
-#: static/js/lib/congress-view.js:250
+#: static/js/lib/congress-view.js:251
 msgid "%(seats)s seats, from %(from)s to %(to)s"
 msgstr "%(seats)s cadeiras, de %(from)s a %(to)s"
 
-#: static/js/lib/congress-view.js:259
+#: static/js/lib/congress-view.js:251
+msgid "%(seats)s seats, since %(from)s"
+msgstr "%(seats)s cadeiras, desde %(from)s"
+
+#: static/js/lib/congress-view.js:261
 msgid ""
 "Left, centre and right as %(experts)s political scientists placed the "
 "parties in %(year)s."

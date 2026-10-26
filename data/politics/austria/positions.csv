@@ -1,0 +1,11 @@
+survey,party,name_at_survey,economic,social,experts,inferred,inferred_from,economic_fit,social_fit
+ches-europe,ovp,,7.00,7.25,12,,,,
+ches-europe,spo,,2.75,4.08,12,,,,
+ches-europe,fpo,,6.58,9.50,12,,,,
+ches-europe,neos,,7.50,2.25,12,,,,
+ches-europe,gruene,,2.67,1.58,12,,,,
+gps,ovp,,7.33,7.68,18,,,,
+gps,spo,,3.37,2.93,14,,,,
+gps,fpo,,7.20,8.05,10,,,,
+gps,neos,,8.28,2.63,18,,,,
+gps,gruene,,2.74,1.45,19,,,,

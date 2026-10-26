@@ -1,4 +1,4 @@
-"""The senators in office and their parties, from the Senate's open data. Writes pol_senator.
+"""The senators in office and their parties, from the Senate's open data. Writes Brazil's rows of pol_senator.
 
 The list is the house as it is today, substitutes in office included. The Senate writes S/Partido for a senator
 without a party; the table keeps that as an empty party.
@@ -11,10 +11,11 @@ import urllib.request
 from django.db import transaction
 
 from geo.models import EtlLoad
+from politics.congress import HOUSES
 from politics.models import Senator
 
 URL = 'https://legis.senado.leg.br/dadosabertos/senador/lista/atual.json'
-SOURCE = 'Senado Federal, Dados Abertos'
+SOURCE = HOUSES['BRA']['senate']['source']
 HEADERS = {'User-Agent': 'DataMechanics/1.0 (https://data-mechanics.com)', 'Accept': 'application/json'}
 NO_PARTY = 'S/Partido'
 
@@ -32,7 +33,7 @@ def run():
                             party='' if party == NO_PARTY else party, state=who.get('UfParlamentar', ''),
                             term_ends=int(ends[:4])))
     with transaction.atomic():
-        Senator.objects.all().delete()
+        Senator.objects.filter(country_id='BRA').delete()  # the other countries' senators stay
         Senator.objects.bulk_create(rows)
         EtlLoad.objects.create(table_name=Senator._meta.db_table, source_name=SOURCE,
                                source_url='https://www12.senado.leg.br/dados-abertos', row_count=len(rows))

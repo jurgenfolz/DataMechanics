@@ -136,7 +136,7 @@ export function createCongressView(root, config, page) {
     title.textContent = period ? `· ${name}, ${period.years}` : `· ${name}`;
     const from = sources.map((s) => `<a href="${escapeHtml(s.url)}">${escapeHtml(s.name)}</a> · ${escapeHtml(s.note)}`);
     if (state.by === 'bloc') {
-      from.push(`<a href="${escapeHtml(config.spectrum.url)}">Bolognesi, Codato, Ribeiro &amp; Silva</a> · `
+      from.push(`<a href="${escapeHtml(config.spectrum.url)}">${escapeHtml(config.spectrum.label)}</a> · `
         + escapeHtml(interpolate(gettext('left and right as %(experts)s political scientists placed the parties in %(year)s'), config.spectrum, true)));
     }
     const vacant = members < seats ? ` · ${escapeHtml(interpolate(gettext('%(members)s of %(seats)s seats filled'), { members, seats }, true))}` : '';
@@ -247,15 +247,17 @@ export function createCongressView(root, config, page) {
     const { name } = house();
     const current = term();
     const { members, period, sources } = current;
-    const seats = period ? interpolate(gettext('%(seats)s seats, from %(from)s to %(to)s'), { seats: members, from: period.from, to: period.to }, true) : '';
+    // A term with a set last day gives both days; one that ends with the next election, only its first.
+    const span = period && (period.to ? gettext('%(seats)s seats, from %(from)s to %(to)s') : gettext('%(seats)s seats, since %(from)s'));
+    const seats = period ? interpolate(span, { seats: members, from: period.from, to: period.to }, true) : '';
     // Under the title: the seats and the term they are for; then who the numbers are, and who placed the parties.
     const who = sources.map((s) => s.note).join('; ');
     const reel = await createCongressReel({
       format,
       title: name,
       unit: period ? period.years : '',
-      subtitle: seats || who,
-      explanation: [seats ? `${who.charAt(0).toUpperCase()}${who.slice(1)}.` : '',
+      subtitle: seats || capitalised(who),  // a house without terms, like Austria's Bundesrat, leads with who sits
+      explanation: [seats ? `${capitalised(who)}.` : '',
         interpolate(gettext('Left, centre and right as %(experts)s political scientists placed the parties in %(year)s.'), config.spectrum, true),
       ].filter(Boolean).join(' '),
       flag: page.flag,
@@ -276,6 +278,8 @@ export function createCongressView(root, config, page) {
     createReel,
   };
 }
+
+const capitalised = (text) => `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 
 async function loadLogos(parties) {
   const files = new Set(parties.flatMap((p) => [p.logo, p.logoOnDark]).filter(Boolean));

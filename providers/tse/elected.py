@@ -16,12 +16,13 @@ from datetime import datetime
 from django.db import transaction
 
 from geo.models import EtlLoad
+from politics.congress import ELECTION_SOURCE
 from politics.models import Elected
 
 ELECTION = 2026
 URL = f'https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_{ELECTION}.zip'
 MEMBER = f'consulta_cand_{ELECTION}_BRASIL.csv'  # every state in one file
-SOURCE = 'Tribunal Superior Eleitoral, Dados Abertos'
+SOURCE = ELECTION_SOURCE
 SOURCE_URL = f'https://dadosabertos.tse.jus.br/dataset/candidatos-{ELECTION}'
 HEADERS = {'User-Agent': 'DataMechanics/1.0 (https://data-mechanics.com)'}
 HOUSES = {'DEPUTADO FEDERAL': 'chamber', 'SENADOR': 'senate'}

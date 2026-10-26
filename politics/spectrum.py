@@ -1,10 +1,11 @@
 """Left, centre and right: where political scientists place a country's parties on one left-right scale.
 
 The scale runs from 0, the far left, to 10, the far right.
-The scores come from a 2022 survey of Brazilian political scientists (Bolognesi, Codato, Ribeiro and Silva), loaded by
-providers/curated/party_left_right.py.
-The survey's authors cut the scale into seven bands, from the far left to the far right (Bolognesi, Ribeiro and Codato,
-Dados, 2023).
+Each country's scores come from one expert survey (SURVEYS), loaded by providers/curated/party_left_right.py: for Brazil a
+2022 survey of Brazilian political scientists (Bolognesi, Codato, Ribeiro and Silva), for Germany and Austria the
+general left-right question of the 2024 Chapel Hill Expert Survey.
+Bolognesi, Ribeiro and Codato cut the scale into seven bands, from the far left to the far right (Dados, 2023), and every
+country uses their bands, so the blocs mean the same everywhere.
 The page joins the bands into three blocs: the left (far left and left), the centre (centre-left, centre and
 centre-right) and the right (right and far right).
 """
@@ -13,15 +14,19 @@ from django.utils.translation import gettext_lazy as _
 
 from . import compass
 
-SURVEY = {
-    'experts': 571,
-    'year': 2022,
-    'citation': ('Bolognesi, B., Codato, A., Ribeiro, E. and Silva, B. F. (2025). Database on the ideological '
-                 'classification of all Brazilian political parties (2018–2022). Harvard Dataverse.'),
-    'url': 'https://doi.org/10.7910/DVN/MFIXKW',
-    'bands': ('Bolognesi, B., Ribeiro, E. and Codato, A. (2023). Uma Nova Classificação Ideológica dos Partidos '
-              'Políticos Brasileiros. Dados, 66(2).'),
-    'bands_url': 'https://doi.org/10.1590/dados.2023.66.2.303',
+CHES_2024 = ('Rovny, J., Polk, J., Bakker, R., Hooghe, L., Jolly, S., Marks, G., Steenbergen, M. and Vachudova, M. A. '
+             '(2025). The 2024 Chapel Hill Expert Survey on political party positioning in Europe.')
+
+# Each country's survey: how many experts answered it, when, and how to cite it. `label` names it in the source line.
+SURVEYS = {
+    'BRA': {
+        'experts': 571, 'year': 2022, 'label': 'Bolognesi, Codato, Ribeiro & Silva',
+        'citation': ('Bolognesi, B., Codato, A., Ribeiro, E. and Silva, B. F. (2025). Database on the ideological '
+                     'classification of all Brazilian political parties (2018–2022). Harvard Dataverse.'),
+        'url': 'https://doi.org/10.7910/DVN/MFIXKW',
+    },
+    'DEU': {'experts': 19, 'year': 2024, 'label': 'CHES Europe', 'citation': CHES_2024, 'url': 'https://www.chesdata.eu/ches-europe'},
+    'AUT': {'experts': 12, 'year': 2024, 'label': 'CHES Europe', 'citation': CHES_2024, 'url': 'https://www.chesdata.eu/ches-europe'},
 }
 
 # The authors' seven bands, by the highest mean score in each (two decimals), and the bloc each joins.

@@ -64,7 +64,7 @@ class PartyProfile(models.Model):
     logo_source = models.URLField(max_length=500, blank=True)
     logo_licence = models.CharField(max_length=50, blank=True)
     logo_author = models.CharField(max_length=200, blank=True)
-    position = models.CharField(max_length=60, help_text="Where Wikipedia puts the party, e.g. 'centre|centre-right' for a range.")
+    position = models.CharField(max_length=60, blank=True, help_text="Where Wikipedia puts the party, e.g. 'centre|centre-right' for a range; empty where it gives none.")
     ideologies = models.CharField(max_length=300, help_text="Its main ideologies on Wikipedia, ';'-separated keys of compass.IDEOLOGIES.")
     views_source = models.URLField(max_length=500, help_text='The Wikipedia article the position and ideologies come from.')
     merged_into = models.CharField(max_length=100, blank=True, help_text='The party it merged into, if it no longer exists.')
@@ -130,7 +130,7 @@ class Deputy(Legislator):
 
 
 class Senator(Legislator):
-    term_ends = models.PositiveSmallIntegerField(help_text="The year the seat's term ends, e.g. 2031: a senator sits for eight years.")
+    term_ends = models.PositiveSmallIntegerField(null=True, blank=True, help_text="The year the seat's term ends, e.g. 2031: a Brazilian senator sits for eight years. Empty where the house has no fixed terms, like Austria's Bundesrat.")
 
     class Meta(Legislator.Meta):
         db_table = 'pol_senator'

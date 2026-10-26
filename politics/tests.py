@@ -13,9 +13,11 @@ from geo.models import (Country, EtlLoad, GdpCountryYear, GdpPerCapitaCountryYea
                         UnemploymentCountryYear)
 from metrics.catalog import BY_SLUG
 from providers.curated import COUNTRIES, DATA, administrations, parties, party_left_right, party_positions, party_profiles
+from providers.abgeordnetenwatch import bundestag as abgeordnetenwatch_bundestag
+from providers.parlament_at import text as austrian_text
 from providers.tse import elected as tse_elected
 
-from . import compass, comparison, queries, spectrum
+from . import compass, comparison, congress, queries, spectrum
 from .metrics import GROUPS
 from .offices import ROLES
 from .models import Administration, Deputy, Elected, Party, Senator
@@ -380,64 +382,83 @@ class CuratedDataTests(SimpleTestCase):
 
 
 class CompassDataTests(SimpleTestCase):
-    """The party compass's files: every party is complete, and every position belongs to a known party and survey."""
+    """Every country's compass files: every party is complete, and every position belongs to a known party and survey."""
 
-    def read(self, name):
-        with open(DATA / 'brazil' / name, encoding='utf-8') as file:
+    # The countries with a compass, by their folder in data/politics/.
+    FOLDERS = [folder for folder in COUNTRIES if (DATA / folder / 'party_profiles.csv').exists()]
+
+    def read(self, folder, name):
+        with open(DATA / folder / name, encoding='utf-8') as file:
             return list(csv.DictReader(file))
+
+    def test_brazil_germany_and_austria_have_a_compass(self):
+        self.assertEqual(sorted(self.FOLDERS), ['austria', 'brazil', 'germany'])
 
     def test_every_party_profile_is_complete(self):
         well = _luminance(CuratedDataTests.CHART_WELL)
-        for party in self.read('party_profiles.csv'):
-            # A party without a free logo shows its abbreviation; one with a logo names its source and licence.
-            if party['logo']:
-                self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo']).is_file(), party['logo'])
-                self.assertTrue(party['logo_source'] and party['logo_licence'], party['key'])
-                self.assertNotRegex(Path(party['logo']).stem, re.compile(r'^(con|prn|aux|nul|com\d|lpt\d)$', re.I))
-            if party['logo_on_dark']:
-                self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo_on_dark']).is_file(), party['logo_on_dark'])
-            self.assertGreaterEqual((_luminance(party['color']) + 0.05) / (well + 0.05), 3.2, f"{party['key']} is too dark")
-            for end in party['position'].split('|'):
-                self.assertIn(end, compass.POSITIONS, party['key'])
-            for term in party['ideologies'].split(';'):
-                self.assertIn(term, compass.IDEOLOGIES, party['key'])
-            self.assertTrue(party['views_source'].startswith('https://en.wikipedia.org/wiki/'))
+        for folder in self.FOLDERS:
+            for party in self.read(folder, 'party_profiles.csv'):
+                # A party without a free logo shows its abbreviation; one with a logo names its source and licence.
+                if party['logo']:
+                    self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo']).is_file(), party['logo'])
+                    self.assertTrue(party['logo_source'] and party['logo_licence'], party['key'])
+                    self.assertNotRegex(Path(party['logo']).stem, re.compile(r'^(con|prn|aux|nul|com\d|lpt\d)$', re.I))
+                    # A logo whose licence asks for credit names its author.
+                    if party['logo_licence'].startswith('CC BY'):
+                        self.assertTrue(party['logo_author'], party['key'])
+                if party['logo_on_dark']:
+                    self.assertTrue((Path(settings.MEDIA_ROOT) / party['logo_on_dark']).is_file(), party['logo_on_dark'])
+                self.assertGreaterEqual((_luminance(party['color']) + 0.05) / (well + 0.05), 3.2, f"{party['key']} is too dark")
+                for end in filter(None, party['position'].split('|')):
+                    self.assertIn(end, compass.POSITIONS, party['key'])
+                for term in party['ideologies'].split(';'):
+                    self.assertIn(term, compass.IDEOLOGIES, party['key'])
+                self.assertTrue(party['views_source'].startswith('https://en.wikipedia.org/wiki/'))
 
     def test_every_position_has_its_party_and_survey_on_the_scales(self):
-        keys = {party['key'] for party in self.read('party_profiles.csv')}
-        rows = self.read('positions.csv')
-        for row in rows:
-            self.assertIn(row['party'], keys)
-            self.assertIn(row['survey'], compass.SURVEYS)
-            self.assertTrue(0 <= float(row['economic']) <= 10 and 0 <= float(row['social']) <= 10, row)
-            self.assertIn(row['inferred'], ('', 'scale', 'merger'), row)
-            if row['inferred'] != 'merger':
-                self.assertGreater(int(row['experts']), 4, row)
-        # Each survey places a party once, and shows every relevant party, measured or inferred.
-        self.assertEqual(len(rows), len({(row['survey'], row['party']) for row in rows}))
-        for survey in compass.SURVEYS:
+        for folder in self.FOLDERS:
+            keys = {party['key'] for party in self.read(folder, 'party_profiles.csv')}
+            rows = self.read(folder, 'positions.csv')
+            for row in rows:
+                self.assertIn(row['party'], keys)
+                self.assertIn(row['survey'], compass.SURVEYS)
+                self.assertTrue(0 <= float(row['economic']) <= 10 and 0 <= float(row['social']) <= 10, row)
+                self.assertIn(row['inferred'], ('', 'scale', 'merger'), row)
+                if row['inferred'] != 'merger':
+                    self.assertGreater(int(row['experts']), 4, row)
+            # Each survey places a party once.
+            self.assertEqual(len(rows), len({(row['survey'], row['party']) for row in rows}), folder)
+        # In Brazil every survey shows every relevant party, measured or inferred.
+        rows = self.read('brazil', 'positions.csv')
+        for survey in {row['survey'] for row in rows}:
             self.assertIn('uniao', {row['party'] for row in rows if row['survey'] == survey})
 
     def test_party_names_are_the_parties_own(self):
         # One name per party, in its own language: the file has no English name beside it.
-        self.assertNotIn('name_original', self.read('party_profiles.csv')[0])
-        names = {party['key']: party['name'] for party in self.read('party_profiles.csv')}
+        self.assertNotIn('name_original', self.read('brazil', 'party_profiles.csv')[0])
+        names = {party['key']: party['name'] for folder in self.FOLDERS for party in self.read(folder, 'party_profiles.csv')}
         self.assertEqual(names['pt'], 'Partido dos Trabalhadores')
+        self.assertEqual(names['spd'], 'Sozialdemokratische Partei Deutschlands')
 
     def test_every_left_right_score_has_its_party_on_the_scale(self):
-        keys = {party['key'] for party in self.read('party_profiles.csv')}
-        rows = self.read('left_right.csv')
-        for row in rows:
-            self.assertIn(row['party'], keys)
-            self.assertTrue(0 <= float(row['score']) <= 10, row)
-            self.assertGreater(int(row['experts']), 100, row)
-        self.assertEqual(len(rows), len({row['party'] for row in rows}))
-        self.assertEqual(next(row for row in rows if row['party'] == 'prd')['inferred_from'], 'PTB, Patriota')
+        for folder in self.FOLDERS:
+            keys = {party['key'] for party in self.read(folder, 'party_profiles.csv')}
+            rows = self.read(folder, 'left_right.csv')
+            for row in rows:
+                self.assertIn(row['party'], keys)
+                self.assertTrue(0 <= float(row['score']) <= 10, row)
+                self.assertGreater(int(row['experts']), 4, row)
+            self.assertEqual(len(rows), len({row['party'] for row in rows}), folder)
+        self.assertEqual(next(row for row in self.read('brazil', 'left_right.csv') if row['party'] == 'prd')['inferred_from'],
+                         'PTB, Patriota')
 
 
 class CompassAndCongressTests(TestCase):
     def setUp(self):
         make_brazil()
+        # The curated loaders read every country's files.
+        Country.objects.create(iso3='DEU', iso2='de', name='Germany')
+        Country.objects.create(iso3='AUT', iso2='at', name='Austria')
         party_profiles.run()
         party_positions.run()
         party_left_right.run()
@@ -488,6 +509,47 @@ class CompassAndCongressTests(TestCase):
         year = today.year + 1
         self.assertEqual(chamber['now']['period']['years'], f'{year - 4}–{year}')
         self.assertEqual(chamber['next']['period']['years'], f'{year}–{year + 4}')
+
+
+    def test_germany_has_a_parliament_with_its_own_names_and_notes(self):
+        germany = Country.objects.get(iso3='DEU')
+        for i, party in enumerate(['CDU'] * 2 + ['CSU', 'Die Linke', 'SSW', '']):
+            Deputy.objects.create(country=germany, member_id=str(i), name=f'Member {i}', party=party, state='')
+        data = congress.data(germany)
+        self.assertEqual(data['parliament']['tab'], 'Parliament')
+        self.assertEqual(data['parliament']['title'], 'Germany’s Parliament, party by party')
+        self.assertEqual(data['spectrum']['experts'], 19)
+        [bundestag] = data['houses']
+        [now] = bundestag['terms']  # no election to come, so no next term
+        self.assertEqual((bundestag['key'], now['period']['years'], now['period']['to']), ('bundestag', '2025–2029', ''))
+        # By CHES 2024's left-right scale: the CDU in the centre band, the CSU right of it; SSW is in no survey.
+        self.assertEqual([(p['abbreviation'], p['seats'], p['bloc']) for p in now['parties']],
+                         [('Linke', 1, 'left'), ('CDU', 2, 'centre'), ('CSU', 1, 'right'), ('No party', 1, 'none'), ('SSW', 1, 'none')])
+        # Brazil's members stay Brazil's.
+        self.assertEqual(congress.data(Country.objects.get(iso3='BRA'))['houses'][0]['terms'][0]['members'], 9)
+
+    def test_austria_has_two_houses_and_its_compass_two_surveys(self):
+        austria = Country.objects.get(iso3='AUT')
+        Deputy.objects.create(country=austria, member_id='1', name='A', party='GRÜNE', state='')
+        Senator.objects.create(country=austria, member_id='2', name='B', party='Grüne', state='', term_ends=None)
+        houses = congress.data(austria)['houses']
+        self.assertEqual([house['key'] for house in houses], ['nationalrat', 'bundesrat'])
+        self.assertIsNone(houses[1]['terms'][0]['period'])  # the Bundesrat sits without terms
+        # The club's GRÜNE and the party's Grüne are one party.
+        self.assertEqual({house['terms'][0]['parties'][0]['abbreviation'] for house in houses}, {'Grüne'})
+        data = compass.data(austria)
+        self.assertEqual([survey['key'] for survey in data['surveys']], ['ches-europe', 'gps'])
+        self.assertFalse(data['inferred'])
+        self.assertEqual(len(data['context']['limits']), 3)
+
+
+class ProviderTests(SimpleTestCase):
+    def test_a_german_member_without_a_party_has_none(self):
+        self.assertEqual(abgeordnetenwatch_bundestag.party_code('parteilos'), '')
+        self.assertEqual(abgeordnetenwatch_bundestag.party_code('BÜNDNIS 90/\u00adDIE GRÜNEN'), 'BÜNDNIS 90/DIE GRÜNEN')
+
+    def test_austrian_cells_lose_their_html(self):
+        self.assertEqual(austrian_text('<span title="Freiheitlicher Parlamentsklub" class="x">FPÖ</span>'), 'FPÖ')
 
 
 class SpectrumTests(SimpleTestCase):

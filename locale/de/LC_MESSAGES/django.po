@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-25 20:24+0000\n"
+"POT-Creation-Date: 2026-10-25 22:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2500,7 +2500,7 @@ msgctxt "measured in"
 msgid "% of seats"
 msgstr "% der Sitze"
 
-#: metrics/catalog.py:727
+#: metrics/catalog.py:727 politics/congress.py:54
 msgid "Parliament"
 msgstr "Parlament"
 
@@ -3508,7 +3508,7 @@ msgstr "G20"
 msgid "compared with G20 countries"
 msgstr "im Vergleich mit den G20-Ländern"
 
-#: politics/compass.py:34
+#: politics/compass.py:36
 msgid ""
 "Experts on Brazilian politics rated each party on single issues, from 1 to "
 "20. The economic axis here is the average of four of them: taxes and "
@@ -3525,7 +3525,7 @@ msgstr ""
 "Rechte von Minderheiten sowie Bürgerrechte gegenüber hartem Vorgehen gegen "
 "Kriminalität. Beide wurden dann von 1–20 auf 0–10 gestreckt."
 
-#: politics/compass.py:46
+#: politics/compass.py:48
 msgid ""
 "Experts on Brazilian politics placed each party directly on the two axes, "
 "from 0 to 10: one for economic issues such as taxes, privatization and the "
@@ -3537,199 +3537,385 @@ msgstr ""
 "Privatisierung und Sozialstaat, eine für gesellschaftliche und kulturelle "
 "Werte wie Abtreibung, gleichgeschlechtliche Ehe sowie Ordnung und Tradition."
 
-#: politics/compass.py:57
+#: politics/compass.py:59
 msgid ""
-"Experts on Brazilian politics placed each party directly on the two axes, "
-"from 0 to 10, with questions much like those of the Chapel Hill survey. Its "
-"own party list leaves out PSD and PL, then called PR, so their places here "
-"are the average of the experts’ answers, worked out as for the other "
+"Political scientists who study the country’s parties placed each party "
+"directly on the two axes, from 0 to 10, between October and December 2024: "
+"one for economic issues such as taxes, privatization and the welfare state, "
+"one for social and cultural values, from expanded personal freedoms to order"
+" and tradition. A party’s place is the average of their answers."
+msgstr ""
+"Politikwissenschaftler, die die Parteien des Landes erforschen, setzten jede"
+" Partei zwischen Oktober und Dezember 2024 direkt auf die beiden Achsen, von"
+" 0 bis 10: eine für wirtschaftliche Fragen wie Steuern, Privatisierung und "
+"Sozialstaat, eine für gesellschaftliche und kulturelle Werte, von mehr "
+"persönlichen Freiheiten bis zu Ordnung und Tradition. Der Platz einer Partei"
+" ist der Durchschnitt ihrer Antworten."
+
+#: politics/compass.py:71
+msgid ""
+"Experts placed each party directly on the two axes, from 0 to 10, with "
+"questions much like those of the Chapel Hill survey."
+msgstr ""
+"Fachleute setzten jede Partei direkt auf die beiden Achsen, von 0 bis 10, "
+"mit Fragen ähnlich denen der Chapel-Hill-Umfrage."
+
+#: politics/compass.py:81
+msgid ""
+"Its own party list leaves out PSD and PL, then called PR, so their places "
+"here are the average of the experts’ answers, worked out as for the other "
 "parties."
 msgstr ""
-"Fachleute für brasilianische Politik setzten jede Partei direkt auf die "
-"beiden Achsen, von 0 bis 10, mit Fragen ähnlich denen der Chapel-Hill-"
-"Umfrage. Ihre eigene Parteienliste lässt PSD und PL, damals PR, aus. Deren "
-"Plätze sind hier daher der Durchschnitt der Antworten der Fachleute, "
-"berechnet wie bei den anderen Parteien."
+"Ihre eigene Parteienliste lässt PSD und PL, damals PR, aus. Deren Plätze "
+"sind hier daher der Durchschnitt der Antworten der Fachleute, berechnet wie "
+"bei den anderen Parteien."
 
-#: politics/compass.py:69
+#: politics/compass.py:89
+msgid ""
+"<strong>Each survey shows one moment.</strong> PREPPS asked in 2018 and "
+"2019, the Global Party Survey in 2019 and CHES in 2020. Parties have changed"
+" since: Bolsonaro joined PL at the end of 2021, and PSL and DEM merged into "
+"União Brasil in 2022."
+msgstr ""
+"<strong>Jede Umfrage zeigt einen Moment.</strong> PREPPS fragte 2018 und "
+"2019, der Global Party Survey 2019 und CHES 2020. Die Parteien haben sich "
+"seitdem verändert: Bolsonaro trat Ende 2021 der PL bei, und PSL und DEM "
+"gingen 2022 in União Brasil auf."
+
+#: politics/compass.py:92
+msgid ""
+"<strong>The surveys do not always agree.</strong> They asked different "
+"experts different questions. Switch the survey to see how far a party moves:"
+" PSDB, for one, sits near the centre on the economy in two surveys and "
+"clearly right of it in PREPPS."
+msgstr ""
+"<strong>Die Umfragen sind sich nicht immer einig.</strong> Sie fragten "
+"verschiedene Fachleute verschiedene Fragen. Wechseln Sie die Umfrage und "
+"sehen Sie, wie weit sich eine Partei bewegt: Die PSDB etwa liegt bei der "
+"Wirtschaft in zwei Umfragen nahe der Mitte und bei PREPPS deutlich rechts "
+"davon."
+
+#: politics/compass.py:95
+msgid ""
+"<strong>Small parties are missing.</strong> Parties with fewer than two "
+"deputies and no senator are left out, and a few parties had few experts "
+"placing them: the tooltip says how many."
+msgstr ""
+"<strong>Kleine Parteien fehlen.</strong> Parteien mit weniger als zwei "
+"Abgeordneten und ohne Senator fehlen, und einige Parteien wurden nur von "
+"wenigen Fachleuten verortet: Der Tooltip sagt, von wie vielen."
+
+#: politics/compass.py:98
+msgid ""
+"Positions: PREPPS Latam, CHES Latin America and the Global Party Survey, as "
+"each survey's notes describe. Inferred places: Bolognesi, Ribeiro and "
+"Codato, a 2018 survey of Brazilian political scientists (Harvard Dataverse, "
+"CC0). Views: Wikipedia, linked from each party. Logos: Wikimedia Commons, "
+"all in the public domain."
+msgstr ""
+"Positionen: PREPPS Latam, CHES Latin America und der Global Party Survey, "
+"wie in den Hinweisen jeder Umfrage beschrieben. Abgeleitete Plätze: "
+"Bolognesi, Ribeiro und Codato, eine Umfrage unter brasilianischen "
+"Politikwissenschaftlern von 2018 (Harvard Dataverse, CC0). Ansichten: "
+"Wikipedia, verlinkt bei jeder Partei. Logos: Wikimedia Commons, alle "
+"gemeinfrei."
+
+#: politics/compass.py:105
+msgid ""
+"<strong>Each survey shows one moment.</strong> The Global Party Survey asked"
+" in 2019 and CHES at the end of 2024. Parties have changed since: BSW split "
+"from Die Linke in January 2024, so only CHES places it, and the FDP and BSW "
+"left the Bundestag at the February 2025 election."
+msgstr ""
+"<strong>Jede Umfrage zeigt einen Moment.</strong> Der Global Party Survey "
+"fragte 2019, CHES Ende 2024. Die Parteien haben sich seitdem verändert: Das "
+"BSW spaltete sich im Januar 2024 von der Linken ab, daher verortet es nur "
+"CHES, und FDP und BSW schieden bei der Wahl im Februar 2025 aus dem "
+"Bundestag aus."
+
+#: politics/compass.py:108
+msgid ""
+"<strong>The surveys do not always agree.</strong> They asked different "
+"experts different questions, five years apart. Switch the survey to see how "
+"far a party moves: the AfD, for one, sits further right on the economy in "
+"CHES than in the Global Party Survey."
+msgstr ""
+"<strong>Die Umfragen sind sich nicht immer einig.</strong> Sie fragten "
+"verschiedene Fachleute verschiedene Fragen, fünf Jahre auseinander. Wechseln"
+" Sie die Umfrage und sehen Sie, wie weit sich eine Partei bewegt: Die AfD "
+"etwa steht bei der Wirtschaft in CHES weiter rechts als im Global Party "
+"Survey."
+
+#: politics/compass.py:111
+msgid ""
+"<strong>Small parties are missing.</strong> The chart shows the parties in "
+"the Bundestag and those that won at least 3 percent of the vote in 2025. "
+"SSW, the party of the Danish and Frisian minorities, holds a seat but is in "
+"neither survey."
+msgstr ""
+"<strong>Kleine Parteien fehlen.</strong> Die Grafik zeigt die Parteien im "
+"Bundestag und jene, die 2025 mindestens 3 Prozent der Stimmen erhielten. Der"
+" SSW, die Partei der dänischen und friesischen Minderheit, hat einen Sitz, "
+"ist aber in keiner der beiden Umfragen."
+
+#: politics/compass.py:115 politics/compass.py:127
+msgid ""
+"Positions: CHES Europe and the Global Party Survey, as each survey's notes "
+"describe. Views: Wikipedia, linked from each party. Logos: Wikimedia "
+"Commons."
+msgstr ""
+"Positionen: CHES Europe und der Global Party Survey, wie in den Hinweisen "
+"jeder Umfrage beschrieben. Ansichten: Wikipedia, verlinkt bei jeder Partei. "
+"Logos: Wikimedia Commons."
+
+#: politics/compass.py:120
+msgid ""
+"<strong>Each survey shows one moment.</strong> The Global Party Survey asked"
+" in 2019 and CHES at the end of 2024, after the election of September 2024."
+msgstr ""
+"<strong>Jede Umfrage zeigt einen Moment.</strong> Der Global Party Survey "
+"fragte 2019, CHES Ende 2024, nach der Wahl vom September 2024."
+
+#: politics/compass.py:122
+msgid ""
+"<strong>The surveys do not always agree.</strong> They asked different "
+"experts different questions, five years apart. Switch the survey to see how "
+"far a party moves: the FPÖ, for one, sits further towards order and "
+"tradition in CHES than in the Global Party Survey."
+msgstr ""
+"<strong>Die Umfragen sind sich nicht immer einig.</strong> Sie fragten "
+"verschiedene Fachleute verschiedene Fragen, fünf Jahre auseinander. Wechseln"
+" Sie die Umfrage und sehen Sie, wie weit sich eine Partei bewegt: Die FPÖ "
+"etwa steht in CHES näher an Ordnung und Tradition als im Global Party "
+"Survey."
+
+#: politics/compass.py:125
+msgid ""
+"<strong>Small parties are missing.</strong> The chart shows the parties in "
+"the Nationalrat."
+msgstr ""
+"<strong>Kleine Parteien fehlen.</strong> Die Grafik zeigt die Parteien im "
+"Nationalrat."
+
+#: politics/compass.py:134
 msgid "far-left"
 msgstr "linksextrem"
 
-#: politics/compass.py:70
+#: politics/compass.py:135
 msgid "left-wing"
 msgstr "links"
 
-#: politics/compass.py:71
+#: politics/compass.py:136
 msgid "centre-left"
 msgstr "Mitte-links"
 
-#: politics/compass.py:72
+#: politics/compass.py:137
 msgid "centre"
 msgstr "Mitte"
 
-#: politics/compass.py:73
+#: politics/compass.py:138
 msgid "centre-right"
 msgstr "Mitte-rechts"
 
-#: politics/compass.py:74
+#: politics/compass.py:139
 msgid "right-wing"
 msgstr "rechts"
 
-#: politics/compass.py:75
+#: politics/compass.py:140
 msgid "far-right"
 msgstr "rechtsextrem"
 
-#: politics/compass.py:80
+#: politics/compass.py:145
 msgid "anti-corruption"
 msgstr "Antikorruption"
 
-#: politics/compass.py:81
+#: politics/compass.py:146
 msgid "big tent"
 msgstr "Volkspartei"
 
-#: politics/compass.py:82
+#: politics/compass.py:147
 msgid "Bolsonarism"
 msgstr "Bolsonarismus"
 
-#: politics/compass.py:83
+#: politics/compass.py:148
 msgid "Brazilian nationalism"
 msgstr "brasilianischer Nationalismus"
 
-#: politics/compass.py:84
+#: politics/compass.py:149
 msgid "Catholic social teaching"
 msgstr "katholische Soziallehre"
 
-#: politics/compass.py:85
+#: politics/compass.py:150
 msgid "Christian democracy"
 msgstr "Christdemokratie"
 
-#: politics/compass.py:86
+#: politics/compass.py:151
 msgid "Christian right"
 msgstr "christliche Rechte"
 
-#: politics/compass.py:87
+#: politics/compass.py:152
 msgid "Christian solidarism"
 msgstr "christlicher Solidarismus"
 
-#: politics/compass.py:88
+#: politics/compass.py:153
 msgid "classical liberalism"
 msgstr "klassischer Liberalismus"
 
-#: politics/compass.py:89
+#: politics/compass.py:154
 msgid "communism"
 msgstr "Kommunismus"
 
-#: politics/compass.py:90
+#: politics/compass.py:155
 msgid "conservatism"
 msgstr "Konservatismus"
 
-#: politics/compass.py:91
+#: politics/compass.py:156
 msgid "conservative liberalism"
 msgstr "konservativer Liberalismus"
 
-#: politics/compass.py:92
+#: politics/compass.py:157
+msgid "Danish minority interests"
+msgstr "Interessen der dänischen Minderheit"
+
+#: politics/compass.py:158
 msgid "democratic socialism"
 msgstr "demokratischer Sozialismus"
 
-#: politics/compass.py:93
+#: politics/compass.py:159
 msgid "developmentalism"
 msgstr "Desarrollismo"
 
-#: politics/compass.py:94
+#: politics/compass.py:160
 msgid "direct democracy"
 msgstr "direkte Demokratie"
 
-#: politics/compass.py:95
+#: politics/compass.py:161
+msgid "eco-feminism"
+msgstr "Ökofeminismus"
+
+#: politics/compass.py:162
 msgid "eco-socialism"
 msgstr "Ökosozialismus"
 
-#: politics/compass.py:96
+#: politics/compass.py:163
 msgid "economic liberalism"
 msgstr "Wirtschaftsliberalismus"
 
-#: politics/compass.py:97
+#: politics/compass.py:164
 msgid "environmentalism"
 msgstr "Umweltschutz"
 
-#: politics/compass.py:98
+#: politics/compass.py:165
+msgid "Euroscepticism"
+msgstr "Euroskeptizismus"
+
+#: politics/compass.py:166
 msgid "federalism"
 msgstr "Föderalismus"
 
-#: politics/compass.py:99
+#: politics/compass.py:167
+msgid "Frisian minority interests"
+msgstr "Interessen der friesischen Minderheit"
+
+#: politics/compass.py:168
 msgid "green politics"
 msgstr "grüne Politik"
 
-#: politics/compass.py:100
+#: politics/compass.py:169
 msgid "labourism"
 msgstr "Laborismus"
 
-#: politics/compass.py:101
+#: politics/compass.py:170
+msgid "left-conservatism"
+msgstr "Linkskonservatismus"
+
+#: politics/compass.py:171
+msgid "left-wing populism"
+msgstr "Linkspopulismus"
+
+#: politics/compass.py:172
 msgid "liberal conservatism"
 msgstr "Liberalkonservatismus"
 
-#: politics/compass.py:102
+#: politics/compass.py:173
+msgid "liberalism"
+msgstr "Liberalismus"
+
+#: politics/compass.py:174
 msgid "libertarianism"
 msgstr "Libertarismus"
 
-#: politics/compass.py:103
+#: politics/compass.py:175
 msgid "national conservatism"
 msgstr "Nationalkonservatismus"
 
-#: politics/compass.py:104
+#: politics/compass.py:176
 msgid "national liberalism"
 msgstr "Nationalliberalismus"
 
-#: politics/compass.py:105
+#: politics/compass.py:177
 msgid "neoliberalism"
 msgstr "Neoliberalismus"
 
-#: politics/compass.py:106
+#: politics/compass.py:178
 msgid "parliamentarism"
 msgstr "Parlamentarismus"
 
-#: politics/compass.py:107
+#: politics/compass.py:179
 msgid "paternalistic conservatism"
 msgstr "paternalistischer Konservatismus"
 
-#: politics/compass.py:108
+#: politics/compass.py:180
 msgid "progressivism"
 msgstr "Progressivismus"
 
-#: politics/compass.py:109
+#: politics/compass.py:181
+msgid "regionalism"
+msgstr "Regionalismus"
+
+#: politics/compass.py:182
 msgid "right-wing populism"
 msgstr "Rechtspopulismus"
 
-#: politics/compass.py:110
+#: politics/compass.py:183
 msgid "social conservatism"
 msgstr "Sozialkonservatismus"
 
-#: politics/compass.py:111
+#: politics/compass.py:184
 msgid "social democracy"
 msgstr "Sozialdemokratie"
 
-#: politics/compass.py:112
+#: politics/compass.py:185
 msgid "social liberalism"
 msgstr "Sozialliberalismus"
 
-#: politics/compass.py:113
+#: politics/compass.py:186
+msgid "socialism"
+msgstr "Sozialismus"
+
+#: politics/compass.py:187
 msgid "socialism of the 21st century"
 msgstr "Sozialismus des 21. Jahrhunderts"
 
-#: politics/compass.py:114
+#: politics/compass.py:188
 msgid "Third Way"
 msgstr "Dritter Weg"
 
-#: politics/compass.py:125
+#: politics/compass.py:189
+msgid "völkisch nationalism"
+msgstr "völkischer Nationalismus"
+
+#: politics/compass.py:202
 #, python-format
 msgid "%(from)s to %(to)s"
 msgstr "%(from)s bis %(to)s"
 
-#: politics/compass.py:141
+#: politics/compass.py:218
 #, python-format
 msgid "Merged into %(party)s in %(year)s."
 msgstr "%(year)s in %(party)s aufgegangen."
 
-#: politics/compass.py:150
+#: politics/compass.py:227
 #, python-format
 msgid ""
 "Inferred, not measured: the average of %(parties)s, which merged into it."
@@ -3737,7 +3923,7 @@ msgstr ""
 "Abgeleitet, nicht gemessen: der Durchschnitt von %(parties)s, die in ihr "
 "aufgingen."
 
-#: politics/compass.py:153
+#: politics/compass.py:230
 #, python-format
 msgid ""
 "Inferred, not measured: estimated from where %(experts)s political "
@@ -3746,49 +3932,132 @@ msgstr ""
 "Abgeleitet, nicht gemessen: geschätzt daraus, wo %(experts)s "
 "Politikwissenschaftler sie 2018 auf einer Links-rechts-Skala verorteten."
 
-#: politics/compass.py:172
+#: politics/compass.py:250
 #, python-format
 msgid "Called %(name)s when this survey asked."
 msgstr "Hieß zur Zeit dieser Umfrage %(name)s."
 
-#: politics/congress.py:27
+#: politics/congress.py:35
 msgid "Chamber of Deputies"
 msgstr "Abgeordnetenkammer"
 
-#: politics/congress.py:28
+#: politics/congress.py:36
 msgid "Federal Senate"
 msgstr "Bundessenat"
 
-#: politics/congress.py:52
+#: politics/congress.py:39
+msgid "Bundestag"
+msgstr "Bundestag"
+
+#: politics/congress.py:43
+msgid "National Council"
+msgstr "Nationalrat"
+
+#: politics/congress.py:45
+msgid "Federal Council"
+msgstr "Bundesrat"
+
+#: politics/congress.py:51
+msgid "Congress"
+msgstr "Kongress"
+
+#: politics/congress.py:51
+msgid "Seats in Congress"
+msgstr "Sitze im Kongress"
+
+#: politics/congress.py:51
+#, python-format
+msgid "%(name)s’s Congress, party by party"
+msgstr "Kongress: %(name)s, Partei für Partei"
+
+#: politics/congress.py:54
+msgid "Seats in Parliament"
+msgstr "Sitze im Parlament"
+
+#: politics/congress.py:54
+#, python-format
+msgid "%(name)s’s Parliament, party by party"
+msgstr "Parlament: %(name)s, Partei für Partei"
+
+#: politics/congress.py:59
+msgid ""
+"In 2022 no party fell in the centre band itself, 4.5 to 5.5. PRD, founded "
+"after the survey by PTB and Patriota, takes the average of the two; a party "
+"founded later has no score."
+msgstr ""
+"2022 lag keine Partei im Band der Mitte selbst, 4,5 bis 5,5. Der PRD, nach "
+"der Umfrage von PTB und Patriota gegründet, erhält den Durchschnitt der "
+"beiden; eine später gegründete Partei hat keinen Wert."
+
+#: politics/congress.py:61
+msgid ""
+"Seats: the open data of the Câmara dos Deputados, the Senado Federal and the"
+" Tribunal Superior Eleitoral (CC BY). Left and right: Bolognesi, Codato, "
+"Ribeiro and Silva's survey of Brazilian political scientists (Harvard "
+"Dataverse, CC0), with the bands of Bolognesi, Ribeiro and Codato (Dados, "
+"2023)."
+msgstr ""
+"Sitze: die offenen Daten der Câmara dos Deputados, des Senado Federal und "
+"des Tribunal Superior Eleitoral (CC BY). Links und rechts: die Umfrage von "
+"Bolognesi, Codato, Ribeiro und Silva unter brasilianischen "
+"Politikwissenschaftlern (Harvard Dataverse, CC0), mit den Bändern von "
+"Bolognesi, Ribeiro und Codato (Dados, 2023)."
+
+#: politics/congress.py:67
+msgid "SSW is not in the survey, so its seat is not classified."
+msgstr ""
+"Der SSW ist nicht in der Umfrage, daher ist sein Sitz nicht eingeordnet."
+
+#: politics/congress.py:68
+msgid ""
+"Seats: abgeordnetenwatch.de (CC0). Left and right: the 2024 Chapel Hill "
+"Expert Survey (CHES Europe), with the bands of Bolognesi, Ribeiro and Codato"
+" (Dados, 2023)."
+msgstr ""
+"Sitze: abgeordnetenwatch.de (CC0). Links und rechts: der Chapel Hill Expert "
+"Survey 2024 (CHES Europe), mit den Bändern von Bolognesi, Ribeiro und Codato"
+" (Dados, 2023)."
+
+#: politics/congress.py:73
+msgid ""
+"Seats: the open data of the Austrian Parliament (CC BY 4.0). Left and right:"
+" the 2024 Chapel Hill Expert Survey (CHES Europe), with the bands of "
+"Bolognesi, Ribeiro and Codato (Dados, 2023)."
+msgstr ""
+"Sitze: die offenen Daten des Österreichischen Parlaments (CC BY 4.0). Links "
+"und rechts: der Chapel Hill Expert Survey 2024 (CHES Europe), mit den "
+"Bändern von Bolognesi, Ribeiro und Codato (Dados, 2023)."
+
+#: politics/congress.py:105
 #, python-format
 msgid "members in office on %(date)s"
 msgstr "Mitglieder im Amt am %(date)s"
 
-#: politics/congress.py:55
+#: politics/congress.py:111
 msgid "Today"
 msgstr "Heute"
 
-#: politics/congress.py:74
+#: politics/congress.py:133
 #, python-format
 msgid "elected on %(day)s"
 msgstr "gewählt am %(day)s"
 
-#: politics/congress.py:79
+#: politics/congress.py:138
 #, python-format
 msgid "%(count)s elected on %(day)s"
 msgstr "%(count)s gewählt am %(day)s"
 
-#: politics/congress.py:81
+#: politics/congress.py:140
 #, python-format
 msgid "%(count)s whose terms run on, with their party on %(date)s"
 msgstr "%(count)s, deren Amtszeit weiterläuft, mit ihrer Partei am %(date)s"
 
-#: politics/congress.py:84
+#: politics/congress.py:143
 #, python-format
 msgid "From %(year)s"
 msgstr "Ab %(year)s"
 
-#: politics/congress.py:119 politics/queries.py:306
+#: politics/congress.py:183 politics/queries.py:306
 #: templates/politics/_party_logo.html:2
 msgid "No party"
 msgstr "Parteilos"
@@ -3870,35 +4139,35 @@ msgstr "keine Änderung"
 msgid "%(party)s logo: %(author)s, %(licence)s, Wikimedia Commons"
 msgstr "%(party)s-Logo: %(author)s, %(licence)s, Wikimedia Commons"
 
-#: politics/spectrum.py:41
+#: politics/spectrum.py:46
 msgid "Left"
 msgstr "Links"
 
-#: politics/spectrum.py:41
+#: politics/spectrum.py:46
 msgid "far left and left"
 msgstr "linksextrem und links"
 
-#: politics/spectrum.py:42
+#: politics/spectrum.py:47
 msgid "Centre"
 msgstr "Mitte"
 
-#: politics/spectrum.py:42
+#: politics/spectrum.py:47
 msgid "centre-left to centre-right"
 msgstr "Mitte-links bis Mitte-rechts"
 
-#: politics/spectrum.py:43
+#: politics/spectrum.py:48
 msgid "Right"
 msgstr "Rechts"
 
-#: politics/spectrum.py:43
+#: politics/spectrum.py:48
 msgid "right and far right"
 msgstr "rechts und rechtsextrem"
 
-#: politics/spectrum.py:44
+#: politics/spectrum.py:49
 msgid "Not classified"
 msgstr "Nicht eingeordnet"
 
-#: politics/spectrum.py:44
+#: politics/spectrum.py:49
 msgid "no score in the survey"
 msgstr "kein Wert in der Umfrage"
 
@@ -3906,11 +4175,6 @@ msgstr "kein Wert in der Umfrage"
 #, python-format
 msgid "%(name)s’s party positions"
 msgstr "Parteipositionen: %(name)s"
-
-#: politics/views.py:107
-#, python-format
-msgid "%(name)s’s Congress, party by party"
-msgstr "Kongress: %(name)s, Partei für Partei"
 
 #: templates/404.html:4
 msgid "Page not found"
@@ -4969,42 +5233,17 @@ msgstr ""
 "<strong>Das sind Schätzungen.</strong> Fachleute haben die Parteien "
 "verortet, nicht die Parteien selbst, und es werden keine Stimmen gezählt."
 
-#: templates/politics/_compass.html:55
-msgid ""
-"<strong>Each survey shows one moment.</strong> PREPPS asked in 2018 and "
-"2019, the Global Party Survey in 2019 and CHES in 2020. Parties have changed"
-" since: Bolsonaro joined PL at the end of 2021, and PSL and DEM merged into "
-"União Brasil in 2022."
-msgstr ""
-"<strong>Jede Umfrage zeigt einen Moment.</strong> PREPPS fragte 2018 und "
-"2019, der Global Party Survey 2019 und CHES 2020. Die Parteien haben sich "
-"seitdem verändert: Bolsonaro trat Ende 2021 der PL bei, und PSL und DEM "
-"gingen 2022 in União Brasil auf."
-
 #: templates/politics/_compass.html:56
 msgid ""
-"<strong>The surveys do not always agree.</strong> They asked different "
-"experts different questions. Switch the survey to see how far a party moves:"
-" PSDB, for one, sits near the centre on the economy in two surveys and "
-"clearly right of it in PREPPS."
-msgstr ""
-"<strong>Die Umfragen sind sich nicht immer einig.</strong> Sie fragten "
-"verschiedene Fachleute verschiedene Fragen. Wechseln Sie die Umfrage und "
-"sehen Sie, wie weit sich eine Partei bewegt: Die PSDB etwa liegt bei der "
-"Wirtschaft in zwei Umfragen nahe der Mitte und bei PREPPS deutlich rechts "
-"davon."
-
-#: templates/politics/_compass.html:57
-msgid ""
 "<strong>Two axes leave a lot out.</strong> A party can be left on one issue "
-"and right on another, and many Brazilian parties are divided inside or "
-"change course with their leaders."
+"and right on another, and parties can be divided inside or change course "
+"with their leaders."
 msgstr ""
 "<strong>Zwei Achsen lassen viel aus.</strong> Eine Partei kann bei einem "
-"Thema links und bei einem anderen rechts stehen, und viele brasilianische "
-"Parteien sind in sich gespalten oder ändern mit ihrer Führung den Kurs."
+"Thema links und bei einem anderen rechts stehen, und Parteien können in sich"
+" gespalten sein oder mit ihrer Führung den Kurs ändern."
 
-#: templates/politics/_compass.html:58
+#: templates/politics/_compass.html:57
 msgid ""
 "<strong>Some places are inferred.</strong> Each survey placed only the "
 "parties it chose. Relevant parties it left out have an inferred place, "
@@ -5018,17 +5257,7 @@ msgstr ""
 "eine Schätzung aus einer anderen Umfrage. Sie kann weiter danebenliegen als "
 "die eigenen Plätze der Umfrage, vor allem an den Enden der Skala."
 
-#: templates/politics/_compass.html:59
-msgid ""
-"<strong>Small parties are missing.</strong> Parties with fewer than two "
-"deputies and no senator are left out, and a few parties had few experts "
-"placing them: the tooltip says how many."
-msgstr ""
-"<strong>Kleine Parteien fehlen.</strong> Parteien mit weniger als zwei "
-"Abgeordneten und ohne Senator fehlen, und einige Parteien wurden nur von "
-"wenigen Fachleuten verortet: Der Tooltip sagt, von wie vielen."
-
-#: templates/politics/_compass.html:60
+#: templates/politics/_compass.html:58
 msgid ""
 "<strong>The views come from Wikipedia, not the surveys.</strong> In the "
 "tooltip, the position and ideologies are how Wikipedia describes the party "
@@ -5037,25 +5266,6 @@ msgstr ""
 "<strong>Die Ansichten stammen aus Wikipedia, nicht aus den "
 "Umfragen.</strong> Im Tooltip stehen Position und Ideologien so, wie "
 "Wikipedia die Partei heute beschreibt."
-
-#: templates/politics/_compass.html:65
-msgid ""
-"Positions: PREPPS Latam, CHES Latin America and the Global Party Survey, as "
-"each survey's notes describe. Inferred places: Bolognesi, Ribeiro and "
-"Codato, a 2018 survey of Brazilian political scientists (Harvard Dataverse, "
-"CC0). Views: Wikipedia, linked from each party. Logos: Wikimedia Commons, "
-"all in the public domain."
-msgstr ""
-"Positionen: PREPPS Latam, CHES Latin America und der Global Party Survey, "
-"wie in den Hinweisen jeder Umfrage beschrieben. Abgeleitete Plätze: "
-"Bolognesi, Ribeiro und Codato, eine Umfrage unter brasilianischen "
-"Politikwissenschaftlern von 2018 (Harvard Dataverse, CC0). Ansichten: "
-"Wikipedia, verlinkt bei jeder Partei. Logos: Wikimedia Commons, alle "
-"gemeinfrei."
-
-#: templates/politics/_congress.html:5
-msgid "Seats in Congress"
-msgstr "Sitze im Kongress"
 
 #: templates/politics/_congress.html:7
 msgid "Seats"
@@ -5078,14 +5288,15 @@ msgid "Seats by party"
 msgstr "Sitze nach Partei"
 
 #: templates/politics/_congress.html:24
+#, python-format
 msgid ""
-"One dot is one seat. The parties sit from left to right by where 571 "
-"political scientists placed them on one left-right scale in 2022; parties "
-"without a place sit last."
+"One dot is one seat. The parties sit from left to right by where %(experts)s"
+" political scientists placed them on one left-right scale in %(year)s; "
+"parties without a place sit last."
 msgstr ""
 "Ein Punkt ist ein Sitz. Die Parteien sitzen von links nach rechts danach, wo"
-" 571 Politikwissenschaftler sie 2022 auf einer Links-rechts-Skala "
-"verorteten. Parteien ohne Platz sitzen am Ende."
+" %(experts)s Politikwissenschaftler sie %(year)s auf einer Links-rechts-"
+"Skala verorteten. Parteien ohne Platz sitzen am Ende."
 
 #: templates/politics/_congress.html:28
 msgid ""
@@ -5112,34 +5323,16 @@ msgstr ""
 
 #: templates/politics/_congress.html:36
 msgid ""
-"The blocs join the seven bands the survey's authors drew on its scale from "
-"0, the far left, to 10, the far right. Left: up to 3, the far left and the "
-"left. Centre: 3.01 to 7, from the centre-left to the centre-right. Right: "
-"above 7, the right and the far right. In 2022 no party fell in the centre "
-"band itself, 4.5 to 5.5. PRD, founded after the survey by PTB and Patriota, "
-"takes the average of the two; a party founded later has no score."
+"The blocs join the seven bands that Bolognesi, Ribeiro and Codato drew on a "
+"left-right scale from 0, the far left, to 10, the far right. Left: up to 3, "
+"the far left and the left. Centre: 3.01 to 7, from the centre-left to the "
+"centre-right. Right: above 7, the right and the far right."
 msgstr ""
-"Die Blöcke fassen die sieben Bänder zusammen, die die Autoren der Umfrage "
-"auf ihrer Skala von 0, linksextrem, bis 10, rechtsextrem, gezogen haben. "
-"Links: bis 3, linksextrem und links. Mitte: 3,01 bis 7, von Mitte-links bis "
-"Mitte-rechts. Rechts: über 7, rechts und rechtsextrem. 2022 lag keine Partei"
-" im Band der Mitte selbst, 4,5 bis 5,5. Der PRD, nach der Umfrage von PTB "
-"und Patriota gegründet, erhält den Durchschnitt der beiden; eine später "
-"gegründete Partei hat keinen Wert."
-
-#: templates/politics/_congress.html:45
-msgid ""
-"Seats: the open data of the Câmara dos Deputados, the Senado Federal and the"
-" Tribunal Superior Eleitoral (CC BY). Left and right: Bolognesi, Codato, "
-"Ribeiro and Silva's survey of Brazilian political scientists (Harvard "
-"Dataverse, CC0), with the bands of Bolognesi, Ribeiro and Codato (Dados, "
-"2023)."
-msgstr ""
-"Sitze: die offenen Daten der Câmara dos Deputados, des Senado Federal und "
-"des Tribunal Superior Eleitoral (CC BY). Links und rechts: die Umfrage von "
-"Bolognesi, Codato, Ribeiro und Silva unter brasilianischen "
-"Politikwissenschaftlern (Harvard Dataverse, CC0), mit den Bändern von "
-"Bolognesi, Ribeiro und Codato (Dados, 2023)."
+"Die Blöcke fassen die sieben Bänder zusammen, die Bolognesi, Ribeiro und "
+"Codato auf einer Links-rechts-Skala von 0, linksextrem, bis 10, "
+"rechtsextrem, gezogen haben. Links: bis 3, linksextrem und links. Mitte: "
+"3,01 bis 7, von Mitte-links bis Mitte-rechts. Rechts: über 7, rechts und "
+"rechtsextrem."
 
 #: templates/politics/country.html:5
 #, python-format
@@ -5158,10 +5351,6 @@ msgstr "Im Amt"
 #, python-format
 msgid "<strong>%(leader)s</strong> since %(date)s"
 msgstr "<strong>%(leader)s</strong> seit %(date)s"
-
-#: templates/politics/country.html:33
-msgid "Congress"
-msgstr "Kongress"
 
 #: templates/politics/country.html:57
 msgid "Compared with"

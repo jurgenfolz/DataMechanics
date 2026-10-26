@@ -1,4 +1,4 @@
-"""The deputies in office and their parties, from the Chamber's open data. Writes pol_deputy.
+"""The deputies in office and their parties, from the Chamber's open data. Writes Brazil's rows of pol_deputy.
 
 The list is the house as it is today: a deputy who changed party counts for the new one, and a substitute in office
 counts instead of the member they stand in for.
@@ -10,10 +10,11 @@ import urllib.request
 from django.db import transaction
 
 from geo.models import EtlLoad
+from politics.congress import HOUSES
 from politics.models import Deputy
 
 URL = 'https://dadosabertos.camara.leg.br/api/v2/deputados?itens=100&ordem=ASC&ordenarPor=nome'
-SOURCE = 'Câmara dos Deputados, Dados Abertos'
+SOURCE = HOUSES['BRA']['chamber']['source']
 HEADERS = {'User-Agent': 'DataMechanics/1.0 (https://data-mechanics.com)', 'Accept': 'application/json'}
 
 
@@ -32,7 +33,7 @@ def run():
     rows = [Deputy(country_id='BRA', member_id=str(m['id']), name=m['nome'], party=m['siglaPartido'] or '', state=m['siglaUf'])
             for m in members()]
     with transaction.atomic():
-        Deputy.objects.all().delete()
+        Deputy.objects.filter(country_id='BRA').delete()  # the other countries' deputies stay
         Deputy.objects.bulk_create(rows)
         EtlLoad.objects.create(table_name=Deputy._meta.db_table, source_name=SOURCE,
                                source_url='https://dadosabertos.camara.leg.br/', row_count=len(rows))

@@ -11,18 +11,21 @@ const INNER = 0.36;  // the empty middle, as a share of the outer radius
  * ({ x, y }) in the order seats are handed out, left to right.
  */
 export function hemicycleLayout(seats, box) {
-  const radius = Math.max(10, Math.min(box.w / 2, box.h) * 0.98);
-  const inner = radius * INNER;
-  const cx = box.x + box.w / 2;
-  const cy = box.y + box.h - (box.h - radius) / 2;
   // The fewest rows that hold every seat, with as much room between rows as between neighbours in a row.
+  // Rows hold the same seats at any size, so they are counted on a half circle of radius 1.
   let rows = 1;
   let capacities = [];
   for (; rows < 60; rows += 1) {
-    const step = (radius - inner) / Math.max(rows - 1, 1);
-    capacities = Array.from({ length: rows }, (_, i) => Math.floor((Math.PI * (inner + i * step)) / step) + 1);
+    const share = (1 - INNER) / Math.max(rows - 1, 1);
+    capacities = Array.from({ length: rows }, (_, i) => Math.floor((Math.PI * (INNER + i * share)) / share) + 1);
     if (capacities.reduce((a, b) => a + b, 0) >= seats) break;
   }
+  // As large as the box allows, with the outer dots' own radius inside it too: few seats make large dots.
+  const dotShare = 0.4 * (1 - INNER) / Math.max(rows - 1, 1);
+  const radius = Math.max(10, Math.min(box.w / (2 * (1 + dotShare)), box.h / (1 + 2 * dotShare)) * 0.98);
+  const inner = radius * INNER;
+  const cx = box.x + box.w / 2;
+  const cy = box.y + box.h - (box.h - radius) / 2;
   const step = (radius - inner) / Math.max(rows - 1, 1);
   // Each row takes its share of the seats by its length; rounding leftovers go to the outer rows.
   const total = capacities.reduce((a, b) => a + b, 0);
