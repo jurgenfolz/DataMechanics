@@ -2,6 +2,7 @@
 // gettext is Django's, from the translation catalog base.html loads.
 import { loadImage, whenFinished } from './chart-image.js';
 import { escapeHtml, formatTick, formatValue, tickStep } from './format.js';
+import { bindEventTips, eventLegendHeight, eventRoom, eventSeries, eventsIn, layoutEvents, paintEventLegend } from './events.js';
 import { BRIDGE } from './gaps.js';
 
 // The validated eight-colour order (dark surface). A country keeps its colour while it stays selected.
@@ -16,8 +17,8 @@ const DOTS = ':dots';  // the id suffix of a country's dot series
 // A country's values as the chart draws them. A short gap gets filler points on the straight line between its ends;
 // the tooltip reads the real values, so a filler never shows a number.
 // `dots` marks the real values a reader must see as points: both ends of a bridged gap, and a value alone between
-// open gaps, which no line reaches.
-function lineData(values) {
+// open gaps, which no line reaches. The Compare page's chart draws its lines the same way.
+export function lineData(values) {
   const known = values.flatMap((value, i) => (value === null ? [] : [i]));
   const data = [...values];
   const dots = values.map(() => null);
@@ -54,12 +55,24 @@ export function createLineChart(element, { units, animate = true, flagsOnly = fa
   const chart = echarts.init(element, null, { renderer: 'canvas' });
   const observer = new ResizeObserver(() => chart.resize());
   observer.observe(element);
+  let laid = { items: [], rows: 0 };  // the world events on the chart (lib/events.js)
+  bindEventTips(chart, element.parentElement, () => laid);
 
   // `window`, [from, to], limits the years drawn; without it the chart spans every year the countries have.
-  function render(data, selected, window = null) {
+  // `events` are the world events to mark (lib/events.js); those outside the years drawn are left out.
+  function render(data, selected, window = null, events = []) {
     const rule = units[data.unit];
     const narrow = flagsOnly || element.clientWidth < 560;
     const [first, last] = shownSpan(data, selected, window);
+    const right = narrow ? 34 : 150;
+    // The chips' rows are laid out on an estimate of the plot (the value axis's labels take about 50 px);
+    // their x comes from the chart itself.
+    const shownEvents = eventsIn(events, data.years[first], data.years[last]);
+    const toAxis = (at) => at - data.years[first];
+    const plotLeft = 58;
+    const plotWidth = Math.max(100, element.clientWidth - plotLeft - right);
+    laid = layoutEvents(shownEvents, (at) => plotLeft + (toAxis(at) / Math.max(1, last - first)) * plotWidth,
+      { left: plotLeft, right: plotLeft + plotWidth, narrow });
     const dots = [];  // a scatter series per country, for the real values at bridged gaps and lone values
     const lines = selected
       .filter(({ iso3 }) => data.values[iso3])
@@ -98,7 +111,7 @@ export function createLineChart(element, { units, animate = true, flagsOnly = fa
       animation: animate,
       animationDuration: 500,
       animationEasing: 'cubicOut',
-      grid: { left: 8, right: narrow ? 34 : 150, top: 20, bottom: 8, containLabel: true },
+      grid: { left: 8, right, top: 20 + eventRoom(laid.rows), bottom: 8, containLabel: true },
       xAxis: {
         type: 'category',
         data: data.years.slice(first, last + 1),
@@ -139,7 +152,7 @@ export function createLineChart(element, { units, animate = true, flagsOnly = fa
           return `<div class="tip"><div class="tip__head">${year}</div>${rows.join('') || `<div class="tip__muted">${escapeHtml(gettext('No data'))}</div>`}</div>`;
         },
       },
-      series: [...lines, ...dots],
+      series: [...lines, ...dots, ...(laid.items.length ? [eventSeries(laid, toAxis, { narrow })] : [])],
     }, { replaceMerge: ['series'] });
     return lines.map((line) => line.id);
   }
@@ -160,17 +173,26 @@ function shortName(name) {
 const LEGEND_ROW = 36;
 
 /** What saveChartImage needs for the line chart: how to draw it, in the years on screen, and its legend's room and painting. */
-export function lineImageParts(data, selected, units, window = null) {
+export function lineImageParts(data, selected, units, window = null, events = []) {
   const shown = selected.filter(({ iso3 }) => data.values[iso3]);
+  const [first, last] = shownSpan(data, selected, window);
+  const marked = eventsIn(events, data.years[first], data.years[last]);
   return {
-    belowHeight: Math.ceil(shown.length / 3) * LEGEND_ROW + 8,
+    belowHeight: Math.ceil(shown.length / 3) * LEGEND_ROW + 8 + eventLegendHeight(marked),
     async draw(element) {
       // The image names the countries in its legend, so the lines end in their flags alone.
       const line = createLineChart(element, { units, animate: false, flagsOnly: true });
       const finished = whenFinished(line.chart);
-      line.render(data, selected, window);
+      line.render(data, selected, window, events);
       await finished;
-      return { chart: line.chart, dispose: line.dispose, below: (ctx, box) => paintLineLegend(ctx, box, data, shown) };
+      return {
+        chart: line.chart,
+        dispose: line.dispose,
+        async below(ctx, box) {
+          const foot = await paintLineLegend(ctx, box, data, shown);
+          paintEventLegend(ctx, { ...box, y: foot }, marked);
+        },
+      };
     },
   };
 }
@@ -199,5 +221,6 @@ async function paintLineLegend(ctx, box, data, shown) {
     ctx.fillText(shortName(data.countries[iso3]?.name || iso3), x + 68, y);
   });
   ctx.restore();
+  return box.y + Math.ceil(shown.length / 3) * LEGEND_ROW + 8;
 }
 

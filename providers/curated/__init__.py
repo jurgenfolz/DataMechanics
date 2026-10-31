@@ -20,6 +20,8 @@ COUNTRIES = {
     'germany': 'DEU',
     'france': 'FRA',
     'austria': 'AUT',
+    'italy': 'ITA',
+    'united-kingdom': 'GBR',
 }
 
 

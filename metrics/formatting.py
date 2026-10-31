@@ -29,6 +29,18 @@ UNITS = {
     'score': {'decimals': 2},
     'points': {'decimals': 1},
     'score_100': {'decimals': 0},  # a whole-number score out of 100, like the Corruption Perceptions Index
+    'litres': {'suffix': pgettext_lazy('unit', ' l'), 'decimals': 1},
+    'kgoe': {'suffix': pgettext_lazy('unit', ' kgoe'), 'decimals': 0},  # kilograms of oil equivalent
+    'kwh': {'suffix': pgettext_lazy('unit', ' kWh'), 'decimals': 0},
+    'per_100': {'suffix': pgettext_lazy('unit', ' per 100'), 'decimals': 1, 'long': True},
+    'months': {'suffix': pgettext_lazy('unit', ' months'), 'decimals': 1, 'long': True},
+    'hours': {'suffix': pgettext_lazy('unit', ' h'), 'decimals': 0},
+    'celsius': {'suffix': pgettext_lazy('unit', ' °C'), 'decimals': 2},
+    'kcal': {'suffix': pgettext_lazy('unit', ' kcal'), 'decimals': 0},
+    'twh': {'suffix': pgettext_lazy('unit', ' TWh'), 'decimals': 0},
+    'kg_ha': {'suffix': pgettext_lazy('unit', ' kg/ha'), 'decimals': 0},
+    'hectares': {'suffix': pgettext_lazy('unit', ' ha'), 'decimals': 2},
+    'currency': {'compact': True, 'digits': 3},  # units of a local currency per US dollar
 }
 
 SCALES = [

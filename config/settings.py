@@ -17,6 +17,9 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 DEBUG = os.environ.get('DJANGO_DEBUG', '0') == '1'
 
+# The Crime tab of Politics mode (Germany's suspects by nationality). False hides it everywhere.
+CRIME_TAB = True
+
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # Full origins allowed to post forms, e.g. https://data-mechanics.com (needed behind HTTPS).
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'metrics',
     'politics',
     'conflicts',
+    'compare',
+    'events',
     'pages',
 ]
 

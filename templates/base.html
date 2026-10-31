@@ -41,6 +41,7 @@
             </ul>
           </div>
         </div>
+        <a class="nav__link" href="{% url 'compare:index' %}"{% if request.resolver_match.app_name == 'compare' %} aria-current="page"{% endif %}>{% translate "Compare" %}</a>
         <a class="nav__link" href="{% url 'politics:index' %}"{% if request.resolver_match.app_name == 'politics' %} aria-current="page"{% endif %}>{% translate "Politics" %}</a>
         <a class="nav__link" href="{% url 'conflicts:index' %}"{% if request.resolver_match.app_name == 'conflicts' %} aria-current="page"{% endif %}>{% translate "Conflicts" %}</a>
         <a class="nav__link" href="{% url 'blog:list' %}"{% if request.resolver_match.app_name == 'blog' %} aria-current="page"{% endif %}>{% translate "Posts" %}</a>
@@ -103,6 +104,7 @@
       </div>
       <nav aria-label="{% translate "Footer" %}">
         <a href="{% url 'home' %}#categories">{% translate "Metrics" %}</a>
+        <a href="{% url 'compare:index' %}">{% translate "Compare" %}</a>
         <a href="{% url 'politics:index' %}">{% translate "Politics" %}</a>
         <a href="{% url 'conflicts:index' %}">{% translate "Conflicts" %}</a>
         <a href="{% url 'blog:list' %}">{% translate "Posts" %}</a>

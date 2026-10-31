@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% translate "Compare metrics" %} · Data Mechanics{% endblock %}
+{% block description %}{% translate "Two metrics of one country on one chart, with the source of every number." %}{% endblock %}
+
+{% block content %}
+<div class="wrap layout">
+  <div>
+    <nav class="crumbs" aria-label="{% translate "Breadcrumb" %}">
+      <a href="{% url 'home' %}#categories">{% translate "Metrics" %}</a>
+    </nav>
+
+    <header class="metric-head">
+      <h1>{% translate "Compare metrics" %}</h1>
+      <p class="metric-head__summary">{% translate "Two metrics of one country, on one chart." %}</p>
+      <p class="metric-head__about">{% blocktranslate trimmed %}
+        Pick a country and up to two metrics to see how they changed over the same years.
+        The first metric reads on the left axis, the second on the right.
+        The numbers and their sources are the same as on each metric's page.
+      {% endblocktranslate %}</p>
+    </header>
+
+    <section class="card chart-card" aria-labelledby="compare-title" data-compare-card>
+      <div class="chart-card__head">
+        <h2 class="chart-card__title" id="compare-title">{% translate "Over time" %} <span data-country-label></span></h2>
+        <div class="chart-tools">
+        {% include "partials/event_picker.html" %}
+        <div class="picker" data-picker>
+          <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="{% translate "Choose a country" %}">
+            <span data-picker-label>{% translate "Choose a country" %}</span>
+            <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <div class="picker__panel" data-picker-panel hidden>
+            <input class="picker__search" data-picker-search type="search" placeholder="{% translate "Search countries" %}" aria-label="{% translate "Search countries" %}"
+                   role="combobox" aria-controls="picker-list" aria-expanded="true" autocomplete="off">
+            <p class="picker__hint" data-picker-hint></p>
+            <ul class="picker__list" id="picker-list" data-picker-list role="listbox" aria-label="{% translate "Countries" %}"></ul>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="compare-axes">
+        <label class="select compare-axis">
+          <i class="compare-axis__key" data-axis-key aria-hidden="true"></i>
+          <span class="compare-axis__name">{% translate "Left axis" %}</span>
+          <select data-left>{% include "compare/_options.html" %}</select>
+        </label>
+        <label class="select compare-axis">
+          <i class="compare-axis__key" data-axis-key aria-hidden="true"></i>
+          <span class="compare-axis__name">{% translate "Right axis" %}</span>
+          <select data-right><option value="none">{% translate "No second metric" %}</option>{% include "compare/_options.html" %}</select>
+        </label>
+      </div>
+
+      <div class="compare-sources" data-sources></div>
+      <div class="well line-well">
+        {% include "partials/save_image.html" %}
+        <div class="map-canvas" data-chart role="img" aria-label="{% translate "Line chart of the chosen metrics over time for the chosen country, the first on the left axis and the second on the right. The table below lists the numbers." %}"></div>
+      </div>
+      <p class="compare-missing" data-missing hidden></p>
+      {% include "partials/year_slicer.html" %}
+      <div class="event-keys" data-event-keys role="list" aria-label="{% translate "World events on the chart" %}" hidden></div>
+      <p class="series-note" data-scale-note>{% blocktranslate trimmed %}
+        Each line has its own scale.
+        Where the lines cross, or how steep each one looks, depends on those scales.
+        So the chart does not show how strongly the two metrics are related.
+      {% endblocktranslate %}</p>
+      <details class="numbers">
+        <summary>{% translate "Show the numbers" %}</summary>
+        <div class="table-scroll"><table data-table></table></div>
+      </details>
+    </section>
+
+    <div class="downloads" data-downloads></div>
+    <template data-download-icon>{% include "partials/icon.html" with name="download" size="16" %}</template>
+  </div>
+
+  <aside class="layout__rail" aria-label="{% translate "The metrics on the chart" %}">
+    <section class="card rail-card" aria-labelledby="about-metrics-title">
+      <h2 class="rail-card__title" id="about-metrics-title">{% translate "The metrics on the chart" %}</h2>
+      <p class="rail-note rail-note--top">{% translate "Each metric's page has its map, every country and how it is measured." %}</p>
+      <ul class="rail-list" data-about></ul>
+    </section>
+  </aside>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ config|json_script:"compare-config" }}
+<script src="{% static 'vendor/echarts.min.js' %}"></script>
+<script type="module" src="{% static 'js/compare-page.js' %}"></script>
+{% endblock %}

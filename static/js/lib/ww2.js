@@ -37,11 +37,6 @@ export function formatDay(day, style = 'long') {
   return dateFormats[style].format(fromDay(day));
 }
 
-/** A whole number with the language's thousands mark: 12,400,000 in English, 12.400.000 in German. */
-export function formatWhole(value, units) {
-  return Math.round(value).toLocaleString('en').replace(/,/g, units.people.group);
-}
-
 /** A range of people as the site writes values: "4.44 m–5.32 m", one value when both ends agree, "–" when empty. */
 export function formatRange([low, high], units, rule = units.people) {
   if (low === null || low === undefined) return '–';

@@ -1,0 +1,20 @@
+key,abbreviation,name,color,logo,logo_on_dark,logo_source,logo_licence,logo_author,position,ideologies,views_source,merged_into,ended_year,congress
+fdi,FdI,Fratelli d'Italia,#066ed0,,,,,,right-wing|far-right,national conservatism;right-wing populism;post-fascism,https://en.wikipedia.org/wiki/Brothers_of_Italy,,,FdI
+pd,PD,Partito Democratico,#ef1c27,,,,,,centre-left,social democracy,https://en.wikipedia.org/wiki/Democratic_Party_(Italy),,,PD-IDP
+lega,Lega,Lega per Salvini Premier,#008000,politics/italy/lega.svg,politics/italy/lega-on-dark.svg,https://commons.wikimedia.org/wiki/File:Simbolo_di_Lega_per_Salvini_Premier.svg,Public domain,,right-wing|far-right,right-wing populism;conservatism;nationalism,https://en.wikipedia.org/wiki/Lega_(political_party),,,LEGA;LSP-PSd'Az
+fi,FI,Forza Italia,#0087dc,politics/italy/fi.svg,,https://commons.wikimedia.org/wiki/File:Logo_Forza_Italia.svg,Public domain,,centre-right,liberal conservatism;Christian democracy;populism,https://en.wikipedia.org/wiki/Forza_Italia_(2013),,,FI-PPE;FI-BP-PPE
+m5s,M5S,Movimento 5 Stelle,#ffeb3b,politics/italy/m5s.svg,,https://commons.wikimedia.org/wiki/File:M5S_logo_2050.svg,Public domain,,left-wing,populism;green politics,https://en.wikipedia.org/wiki/Five_Star_Movement,,,M5S
+avs,AVS,Alleanza Verdi e Sinistra,#c6365b,,,,,,left-wing,democratic socialism;green politics,https://en.wikipedia.org/wiki/Greens_and_Left_Alliance,,,AVS
+azione,Az,Azione,#0e5fff,politics/italy/azione.svg,politics/italy/azione-on-dark.svg,"https://commons.wikimedia.org/wiki/File:Azione_-_logo_(Italy,_2021-).svg",Public domain,,centre,liberalism,https://en.wikipedia.org/wiki/Action_(Italian_political_party),,,AZ-PER-RE
+iv,IV,Italia Viva,#d6418c,,,,,,centre|centre-left,liberalism,https://en.wikipedia.org/wiki/Italia_Viva,,,IV-CR
+noi_moderati,NM,Noi Moderati,#596ab1,politics/italy/noi_moderati.svg,,"https://commons.wikimedia.org/wiki/File:Noi_Moderati_-_logo_(Italy,_2024).svg",Public domain,,centre|centre-right,liberal conservatism;Christian democracy,https://en.wikipedia.org/wiki/Us_Moderates,,,NM(N-C-U-I)M-CP
+civici,Cd'I-NM,Civici d'Italia - UDC - Noi Moderati - MAIE - Centro Popolare,#596ab1,,,,,,,,https://en.wikipedia.org/wiki/Us_Moderates,,,"Cd'I-UDC-NM (NcI, CI, IaC)-MAIE-CP"
+fn,FN,Futuro Nazionale,#566ea3,,,,,,far-right,ultranationalism;ultraconservatism;right-wing populism,https://en.wikipedia.org/wiki/National_Future,,,MISTO-FNV-F
+autonomie,Aut,Per le Autonomie,#ff8581,,,,,,centre|centre-left,regionalism;Christian democracy;social democracy,https://en.wikipedia.org/wiki/For_the_Autonomies,,,"Aut (SVP-PATT, Cb)"
+minoranze,Min. Ling.,Minoranze Linguistiche,#786a6e,,,,,,,,https://en.wikipedia.org/wiki/Mixed_Group,,,MISTO-MIN.LING.
+piu_europa,+E,Più Europa,#ffd700,politics/italy/piu_europa.svg,,https://commons.wikimedia.org/wiki/File:Pi%C3%B9_Europa_wordmark.svg,Public domain,,centre|centre-left,liberalism;pro-Europeanism,https://en.wikipedia.org/wiki/More_Europe,,,MISTO-+EU-SUEU
+scn,ScN,Sud chiama Nord,#f2ab14,politics/italy/scn.png,,https://commons.wikimedia.org/wiki/File:Sud_chiama_Nord.png,Public domain,,,regionalism;populism;autonomism,https://en.wikipedia.org/wiki/South_calls_North,,,MISTO-SCN
+misto,Misto,Gruppo misto,#dcdcdc,,,,,,,,https://en.wikipedia.org/wiki/Mixed_Group,,,Misto
+svp,SVP,Südtiroler Volkspartei,#786a6e,,,,,,centre,regionalism;German and Ladin minority interests;Christian democracy,https://en.wikipedia.org/wiki/South_Tyrolean_People%27s_Party,,,
+ev,EV,Europa Verde,#54c160,,,,,,left-wing,green politics,https://en.wikipedia.org/wiki/Green_Europe,,,
+si,SI,Sinistra Italiana,#ef3e3e,politics/italy/si.svg,,https://commons.wikimedia.org/wiki/File:Sinistra_Italiana.svg,Public domain,,left-wing,democratic socialism;eco-socialism,https://en.wikipedia.org/wiki/Italian_Left,,,

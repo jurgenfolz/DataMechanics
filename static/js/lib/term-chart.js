@@ -6,7 +6,8 @@
 // A card goes where it covers neither another card nor the line. Without such a place it shrinks, then hides;
 // only the card of the leader in office may cross the line, so the latest change always shows.
 import { drawContained, loadImage, MONO, whenFinished } from './chart-image.js';
-import { escapeHtml, formatTick, formatValue, tickStep } from './format.js';
+import { bindEventTips, chipBoxes, eventLegendHeight, eventRoom, eventSeries, eventsIn, layoutEvents, paintEventLegend } from './events.js';
+import { badgeText, escapeHtml, formatTick, formatValue, tickStep } from './format.js';
 import { BRIDGE } from './gaps.js';
 
 const INK_3 = '#8b8f94';
@@ -25,7 +26,10 @@ const GAP = 4;           // the space kept clear around a label
 const FORMS = ['', 'is-compact', 'is-mini'];
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-export function createTermChart(element, { units, onZoom, animate = true, slider = true }) {
+// `showEvents` false keeps the room above the plot for the world events' chips without drawing them: the reel paints
+// them itself, frame by frame (lib/reel.js).
+// `iconsOnly` keeps the events' chips to their icons: the saved image names the events under the chart.
+export function createTermChart(element, { units, onZoom, animate = true, slider = true, showEvents = true, iconsOnly = false }) {
   const chart = echarts.init(element, null, { renderer: 'canvas' });
   const layer = document.createElement('div');
   layer.className = 'term-labels';
@@ -37,7 +41,9 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
   let groupValues = new Map();  // the comparison group's value by year, for the tooltip
   let labels = [];
   let dots = [];
+  let laid = { items: [], rows: 0 };  // the world events on the chart (lib/events.js)
   let frame = 0;
+  bindEventTips(chart, element.parentElement, () => laid);
   let quiet = false;  // true while the page itself zooms, so onZoom reports only the reader's zooms
 
   const schedule = () => {
@@ -56,20 +62,30 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
     if (!quiet) onZoom?.(visibleRange());
   });
 
-  function render(next, range) {
+  // `events` are the world events to mark (lib/events.js); those outside the data's years are left out.
+  function render(next, range, events = []) {
     data = next;
     const rule = units[data.unit];
     stretches = presidencyStretches(data);
     groupValues = new Map(data.comparison?.points || []);
     const starts = data.presidencies.filter((p) => p.spans.length).map((p) => p.spans[0].from);
     layer.classList.remove('is-shown');
+    // The chips' rows are laid out on an estimate of the plot (the value axis's labels take about 50 px);
+    // their x comes from the chart itself.
+    const years = [data.points[0][0], data.points.at(-1)[0]];
+    const plotLeft = 58;
+    const plotWidth = Math.max(100, element.clientWidth - plotLeft - 20);
+    const narrow = iconsOnly || element.clientWidth < 560;
+    laid = layoutEvents(eventsIn(events, years[0], years[1]),
+      (at) => plotLeft + ((at - years[0]) / Math.max(1, years[1] - years[0])) * plotWidth,
+      { left: plotLeft, right: plotLeft + plotWidth, narrow });
 
     chart.setOption({
       animation: animate && !REDUCED_MOTION,
       animationDuration: 500,
       animationDurationUpdate: 250,
       animationEasing: 'cubicOut',
-      grid: { left: 8, right: 20, top: 28, bottom: slider ? 56 : 12, containLabel: true },
+      grid: { left: 8, right: 20, top: 28 + eventRoom(laid.rows), bottom: slider ? 56 : 12, containLabel: true },
       xAxis: {
         type: 'value',
         min: 'dataMin',
@@ -181,7 +197,7 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
         lineStyle: { width: 1.5, type: [6, 4], opacity: 0.85 },
         emphasis: { disabled: true },
         z: 1,
-      }],
+      }, ...(showEvents && laid.items.length ? [eventSeries(laid, (at) => at, { narrow })] : [])],
     }, { replaceMerge: ['series', 'visualMap', 'dataZoom'] });
 
     buildLabels();
@@ -255,6 +271,11 @@ export function createTermChart(element, { units, onZoom, animate = true, slider
     // The well's "Save as image" button sits in the top right corner: cards keep clear of it.
     if (element.parentElement.querySelector('[data-save-image]')) {
       taken.push({ left: element.clientWidth - 44, top: 0, right: element.clientWidth, bottom: 40 });
+    }
+    // And of the world events' chips above the plot.
+    const chipX = (at) => chart.convertToPixel({ xAxisIndex: 0 }, at);
+    for (const box of chipBoxes({ items: laid.items.map((item) => ({ ...item, left: Math.max(rect.x, Math.min(chipX(item.event.at) - 11, rect.x + rect.width - item.w)) })) }, rect.y)) {
+      if (box.right > rect.x && box.left < rect.x + rect.width) taken.push(box);
     }
 
     for (const dot of dots) {
@@ -420,14 +441,21 @@ function presidencyStretches(data) {
 }
 
 /** What saveChartImage needs for this chart: how to draw it, without its slider, at the zoom on screen. */
-export function termImageParts(data, range, units) {
+export function termImageParts(data, range, units, events = []) {
+  const marked = eventsIn(events, range[0], range[1]);
   return {
+    belowHeight: eventLegendHeight(marked),
     async draw(element) {
-      const term = createTermChart(element, { units, animate: false, slider: false });
+      const term = createTermChart(element, { units, animate: false, slider: false, iconsOnly: true });
       const finished = whenFinished(term.chart);
-      term.render(data, range);
+      term.render(data, range, events);
       await finished;
-      return { chart: term.chart, dispose: term.dispose, paint: term.paintLabels };
+      return {
+        chart: term.chart,
+        dispose: term.dispose,
+        paint: term.paintLabels,
+        below: (ctx, box) => paintEventLegend(ctx, box, marked),
+      };
     },
   };
 }
@@ -580,7 +608,7 @@ function crossesLine(box, line) {
 export function logoHtml(party) {
   const title = escapeHtml(party.name);
   if (party.logo) return `<span class="party-chip" title="${title}"><img class="party-logo" src="${escapeHtml(party.logo)}" alt="${escapeHtml(party.abbreviation)}"></span>`;
-  if (party.abbreviation) return `<span class="party-chip" title="${title}"><span class="party-badge" style="--party:${party.color}">${escapeHtml(party.abbreviation)}</span></span>`;
+  if (party.abbreviation) return `<span class="party-chip" title="${title}"><span class="party-badge" style="--party:${party.color}">${escapeHtml(badgeText(party.abbreviation))}</span></span>`;
   return `<span class="party-chip" title="${title}"><span class="party-badge party-badge--none">–</span></span>`;
 }
 

@@ -85,6 +85,7 @@ export async function createCompassReel({ format = 'reel', title, subtitle, flag
     ctx.save();
     ctx.globalAlpha = easeOut(clamp(t / 0.8));
     paintCompass(ctx, plot, {
+      grid: false,  // a video shows the axes alone, without grid lines
       markers, parties, logos, size, k,
       shown: (key) => clamp((t - appearAt.get(key)) / TIME.pop),
       highlight: index >= 0 ? order[index].key : null,

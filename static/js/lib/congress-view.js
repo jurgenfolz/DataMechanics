@@ -4,9 +4,9 @@
 // Pointing at dots or at a row lights up that party, or that bloc, in both.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 import {
-  bindSaveButton, FONT, handOver, imageFrame, imageName, imageWell, loadImage, MONO,
+  bindSaveButton, FONT, handOver, imageFrame, imageName, imageWell, loadImage, MONO, sizedName, wrap,
 } from './chart-image.js';
-import { escapeHtml } from './format.js';
+import { badgeText, escapeHtml } from './format.js';
 import { hemicycleLayout, paintHemicycle, partyAt } from './hemicycle.js';
 import { darkLogo, paintTile } from './compass.js';
 import { createCongressReel } from './congress-reel.js';
@@ -92,7 +92,8 @@ export function createCongressView(root, config, page) {
   // ---------- The table: the parties, the largest first; by bloc, each bloc and then its parties ----------
   function chip(party) {
     return party.logo ? `<span class="party-chip"><img class="party-logo" src="${escapeHtml(party.logo)}" alt=""></span>`
-      : `<span class="party-chip"><span class="party-badge party-badge--small" style="--party:${party.color}">${escapeHtml(party.abbreviation)}</span></span>`;
+      // A party without a profile (no party, or an independent) is named beside its chip, so the chip stays blank.
+      : `<span class="party-chip"><span class="party-badge party-badge--small" style="--party:${party.color}">${party.key ? escapeHtml(badgeText(party.abbreviation)) : ''}</span></span>`;
   }
 
   function partyRow(party, index, detail) {
@@ -218,7 +219,7 @@ export function createCongressView(root, config, page) {
   }).observe(well);
 
   // ---------- Save as image: the half circle, then a legend of every party, or of every bloc and its parties ----------
-  bindSaveButton(card.querySelector('[data-save-image]'), async () => {
+  bindSaveButton(card.querySelector('[data-save-image]'), async (shape) => {
     const { name } = house();
     const { parties, members, sources } = term();
     const view = state.by === 'bloc' ? ` · ${gettext('Left, centre and right')}` : '';
@@ -230,16 +231,21 @@ export function createCongressView(root, config, page) {
         ...(state.by === 'bloc' ? [config.spectrum.citation] : []),
       ],
       flag: page.flag,
+      size: shape,
     });
     const room = frame.bottom - frame.top;
-    const { well: box, inner } = imageWell(frame.ctx, frame.top, Math.round(room * 0.5));
+    // Portrait: the half circle over its legend. Wide: the half circle on the left, its legend on the right.
+    const wide = shape === 'wide';
+    const { well: box, inner } = wide ? imageWell(frame.ctx, frame.top, room, { width: Math.round(frame.width * 0.56) })
+      : imageWell(frame.ctx, frame.top, Math.round(room * 0.5), { width: frame.width });
     paintHemicycle(frame.ctx, hemicycleLayout(members, { x: inner.x + 24, y: inner.y + 16, w: inner.w - 48, h: inner.h - 32 }), parties,
       { colorOf, caption: { value: members, text: gettext('seats') }, k: 1.6 });
-    const legend = { x: box.x, y: box.y + box.h + 28, w: box.w, h: frame.bottom - box.y - box.h - 28 };
+    const legend = wide ? { x: box.x + box.w + 40, y: box.y, w: frame.width - 56 - (box.x + box.w + 40), h: room }
+      : { x: box.x, y: box.y + box.h + 28, w: box.w, h: frame.bottom - box.y - box.h - 28 };
     const logos = await loadLogos(parties);
     if (state.by === 'bloc') paintBlocLegend(frame.ctx, config.blocs, parties, logos, legend);
     else paintLegend(frame.ctx, [...parties].sort((a, b) => b.seats - a.seats), logos, legend);
-    await handOver([{ canvas: frame.canvas, filename: imageName(page.country, 'congress', state.house, state.term === 'next' && term().label, state.by === 'bloc' && 'blocs') }], page.title);
+    await handOver([{ canvas: frame.canvas, filename: sizedName(imageName(page.country, 'congress', state.house, state.term === 'next' && term().label, state.by === 'bloc' && 'blocs'), shape) }], page.title);
   });
 
   // ---------- The video: the open house in the open term, by bloc and then by party, closing on the tables ----------
@@ -296,18 +302,27 @@ function paintLegendRow(ctx, party, color, logos, x, y, width, rowHeight) {
   ctx.fill();
   if (party.logo) paintTile(ctx, x + 18 + size * 0.8, y, size, party, darkLogo(party, logos), { width: size * 1.6, fill: '#17191b', k: 1.4 });
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#f2f3f4';
-  ctx.font = `700 24px ${FONT}`;
-  ctx.fillText(party.abbreviation, x + 30 + size * 1.6, y);
-  ctx.textAlign = 'right';
   ctx.font = `700 24px ${MONO}`;
+  const seatsWidth = ctx.measureText(String(party.seats)).width;
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#f2f3f4';
   ctx.fillText(String(party.seats), x + width - 24, y);
   ctx.textAlign = 'left';
+  // A long name gets smaller type, so it keeps clear of the seats.
+  const left = x + 30 + size * 1.6;
+  const room = x + width - 24 - seatsWidth - 14 - left;
+  let type = 24;
+  ctx.font = `700 ${type}px ${FONT}`;
+  while (type > 16 && ctx.measureText(party.abbreviation).width > room) {
+    type -= 1;
+    ctx.font = `700 ${type}px ${FONT}`;
+  }
+  ctx.fillText(wrap(ctx, party.abbreviation, room, 1)[0], left, y);
 }
 
-// The saved image's legend by party: every party, in as many columns as it takes to fit.
+// The saved image's legend by party: every party, in as many columns as its rows take to fit the box's height.
 function paintLegend(ctx, parties, logos, box) {
-  const columns = parties.length > 16 ? 3 : 2;
+  const columns = Math.max(2, Math.ceil(parties.length / Math.max(1, Math.floor(box.h / 56))));
   const rowsPerColumn = Math.ceil(parties.length / columns);
   const rowHeight = Math.min(56, box.h / rowsPerColumn);
   const width = box.w / columns;

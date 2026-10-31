@@ -37,16 +37,18 @@ def source(slug, column, view=''):
                   updated=meta.get('lastUpdated') or '')
 
 
-def load_charts(model, charts, view=''):
+def load_charts(model, charts, view='', scale=None):
     """Load one or more charts into one table. charts maps slug -> {CSV column: table field}.
 
     Every field of the table appears in every row (None where a chart has no value).
-    The first chart's first column names the source.
+    The first chart's first column names the source. `scale` maps a field to a factor its values are multiplied by.
     """
     rows = {}
     for slug, columns in charts.items():
         read_chart(slug, columns, rows, view)
     fields = [field for columns in charts.values() for field in columns.values()]
-    rows = {key: {field: values.get(field) for field in fields} for key, values in rows.items()}
+    factor = scale or {}
+    rows = {key: {field: None if values.get(field) is None else values[field] * factor.get(field, 1) for field in fields}
+            for key, values in rows.items()}
     slug, columns = next(iter(charts.items()))
     return replace_table(model, rows, source(slug, next(iter(columns)), view))

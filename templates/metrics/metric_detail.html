@@ -48,6 +48,8 @@
     <section class="card chart-card" aria-labelledby="line-title" data-line-card>
       <div class="chart-card__head">
         <h2 class="chart-card__title" id="line-title">{% translate "Over time" %} <span data-series-label>· {{ metric.series.0.label }}</span></h2>
+        <div class="chart-tools">
+        {% include "partials/event_picker.html" %}
         <div class="picker" data-picker>
           <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="{% translate "Choose countries" %}">
             <span data-picker-label>{% translate "Choose countries" %}</span>
@@ -60,6 +62,7 @@
             <ul class="picker__list" id="picker-list" data-picker-list role="listbox" aria-multiselectable="true" aria-label="{% translate "Countries" %}"></ul>
           </div>
         </div>
+        </div>
       </div>
       <p class="source-line">{% include "metrics/_source.html" %}</p>
       <div class="well line-well">
@@ -68,15 +71,35 @@
       </div>
       {% include "partials/year_slicer.html" %}
       <div class="series-keys" data-keys role="list" aria-label="{% translate "Countries on the chart" %}"></div>
+      <div class="event-keys" data-event-keys role="list" aria-label="{% translate "World events on the chart" %}" hidden></div>
       <details class="numbers">
         <summary>{% translate "Show the numbers" %}</summary>
         <div class="table-scroll"><table data-table></table></div>
       </details>
     </section>
 
+    {% comment %}Every country in one year as a table ranked by value (static/js/lib/rank-table.js): its rank in the world that year, filtered by continent and sorted by any column.{% endcomment %}
+    <section class="card chart-card" aria-labelledby="rank-title" data-rank-card>
+      <div class="chart-card__head">
+        <h2 class="chart-card__title" id="rank-title">{% translate "All countries" %} <span data-series-label>· {{ metric.series.0.label }}</span></h2>
+        <div class="chart-card__filters">
+          <label class="select">{% translate "Continent" %}
+            <select data-rank-continent></select>
+          </label>
+          <label class="select">{% translate "Year" %}
+            <select data-rank-year></select>
+          </label>
+        </div>
+      </div>
+      <p class="source-line">{% include "metrics/_source.html" %}</p>
+      <div class="rank-table__scroll" data-rank-table></div>
+      <p class="chart-note" data-rank-note></p>
+    </section>
+
     <div class="downloads">
       <a class="button" href="{% url 'metrics:csv' metric.slug %}" download>{% include "partials/icon.html" with name="download" size="16" %} {% translate "Download CSV" %}</a>
       <a class="text-link" href="{% url 'metrics:data' metric.slug %}">JSON</a>
+      <a class="text-link" href="{% url 'compare:index' %}?left={{ metric.slug|urlencode }}">{% translate "Compare with another metric" %}</a>
       <p>{% if metric.series|length > 1 %}{% translate "Every country, year and measure, with the source on each row." %}{% else %}{% translate "Every country and year, with the source on each row." %}{% endif %}</p>
     </div>
   </div>

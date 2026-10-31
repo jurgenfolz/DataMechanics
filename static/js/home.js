@@ -63,10 +63,11 @@ if (spotlight) {
     if (event.key === 'ArrowLeft') show(current - 1);
     if (event.key === 'ArrowRight') show(current + 1);
   });
-  bindSaveButton(spotlight.querySelector('[data-save-image]'), async () => {
+  bindSaveButton(spotlight.querySelector('[data-save-image]'), async (size) => {
     const slide = slides[current];
     const data = await load(slide);
     return saveChartImage({
+      size,
       title: slide.querySelector('.slide__title')?.textContent.trim(),
       subtitle: `${data.label}, ${data.mapYear}`,
       sources: [spotlight.querySelector('.spotlight__source')?.textContent.replace(/\s+/g, ' ').trim()],

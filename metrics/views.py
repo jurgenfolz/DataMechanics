@@ -47,7 +47,8 @@ def metric_detail(request, slug):
         'top': queries.ranking(metric, limit=10),
         'related': related or [m for m in METRICS if m is not metric][:3],
         'config': {'slug': metric.slug, 'dataUrl': reverse('metrics:data', args=[metric.slug]), 'units': units(),
-                   'defaultCountries': list(metric.default_countries)},
+                   'defaultCountries': list(metric.default_countries), 'opensFrom': metric.opens_from,
+                   'eventsUrl': reverse('events:json')},
     })
 
 

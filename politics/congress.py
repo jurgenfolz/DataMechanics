@@ -2,7 +2,9 @@
 
 Each house's provider loads the members in office from the house's own open data, into pol_deputy (lower houses) or
 pol_senator (upper houses), one country's rows each: providers/camara/ and providers/senado/ for Brazil,
-providers/abgeordnetenwatch/ for Germany, providers/parlament_at/ for Austria.
+providers/abgeordnetenwatch/ for Germany, providers/parlament_at/ for Austria, providers/unitedstates/ for the
+United States, providers/assemblee_nationale/ and providers/senat/ for France, providers/camera_it/ and
+providers/senato_it/ for Italy, providers/uk_parliament/ for the United Kingdom.
 providers/tse/ loads the members elected in Brazil's last general election, who take office on 1 February of the next year.
 Brazil's senators sit for eight years and half the Senate, roughly, is elected at a time.
 So the next Senate is the senators just elected and those whose terms run on, with the party they have today.
@@ -14,6 +16,7 @@ from collections import Counter
 from datetime import date
 
 from django.utils.formats import date_format
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext, gettext_lazy as _
 
 from geo.models import EtlLoad
@@ -39,6 +42,29 @@ HOUSES = {
         'bundestag': {'model': Deputy, 'name': _('Bundestag'), 'seats': 630, 'source': 'abgeordnetenwatch.de',
                       'term': (date(2025, 3, 25), 4)},
     },
+    'USA': {
+        'house': {'model': Deputy, 'name': _('House of Representatives'), 'seats': 435,
+                  'source': 'congress-legislators (@unitedstates)', 'term': (date(2025, 1, 3), 2)},
+        'senate': {'model': Senator, 'name': _('Senate'), 'seats': 100, 'source': 'congress-legislators (@unitedstates)'},
+    },
+    'FRA': {
+        'assemblee': {'model': Deputy, 'name': _('National Assembly'), 'seats': 577, 'source': 'Assemblée nationale, Open Data',
+                      'term': (date(2024, 7, 18), 5)},
+        'senat': {'model': Senator, 'name': _('Senate'), 'seats': 348, 'source': 'Sénat, Open Data'},
+    },
+    'ITA': {
+        'camera': {'model': Deputy, 'name': _('Chamber of Deputies'), 'seats': 400, 'source': 'Camera dei Deputati, Dati aperti',
+                   'term': (date(2022, 10, 13), 5)},
+        # 200 elected senators and the senators for life, who sit in the groups like everyone else.
+        'senato': {'model': Senator, 'name': _('Senate of the Republic'), 'seats': 205, 'source': 'Senato della Repubblica, Dati aperti',
+                   'term': (date(2022, 10, 13), 5)},
+    },
+    'GBR': {
+        'commons': {'model': Deputy, 'name': _('House of Commons'), 'seats': 650, 'source': 'UK Parliament, Members API',
+                    'term': (date(2024, 7, 9), 5)},
+        # The Lords has no fixed size: the half circle shows the members who can sit today.
+        'lords': {'model': Senator, 'name': _('House of Lords'), 'seats': None, 'source': 'UK Parliament, Members API'},
+    },
     'AUT': {
         'nationalrat': {'model': Deputy, 'name': _('National Council'), 'seats': 183, 'source': 'Parlament Österreich, Open Data',
                         'term': (date(2024, 10, 24), 5)},
@@ -49,6 +75,8 @@ HOUSES = {
 # How each country's page names its parliament: the tab, the card and the images' title. Brazil's is a Congress.
 PARLIAMENTS = {
     'BRA': {'tab': _('Congress'), 'card': _('Seats in Congress'), 'title': _('%(name)s’s Congress, party by party')},
+    'USA': {'tab': _('Congress'), 'card': _('Seats in Congress'), 'title': _('The %(name)s Congress, party by party')},
+    'GBR': {'tab': _('Parliament'), 'card': _('Seats in Parliament'), 'title': _('The %(name)s Parliament, party by party')},
 }
 ELECTION_SOURCE = 'Tribunal Superior Eleitoral, Dados Abertos'  # Brazil's elected members (providers/tse/)
 PARLIAMENT = {'tab': _('Parliament'), 'card': _('Seats in Parliament'), 'title': _('%(name)s’s Parliament, party by party')}
@@ -67,6 +95,45 @@ CONTEXT = {
         'blocs': _('SSW is not in the survey, so its seat is not classified.'),
         'credits': _('Seats: abgeordnetenwatch.de (CC0). Left and right: the 2024 Chapel Hill Expert Survey (CHES Europe), '
                      'with the bands of Bolognesi, Ribeiro and Codato (Dados, 2023).'),
+    },
+    'USA': {
+        'blocs': _('The Global Party Survey asked no general left-right question about the parties, only an economic and '
+                   'a social one, so here a party’s place is its economic one: the left wants the state to play an active '
+                   'role in the economy, the right a smaller one. Independents belong to no party, so they are not '
+                   'classified.'),
+        'credits': _('Seats: the congress-legislators data of the @unitedstates project (public domain, CC0). Left and '
+                     'right: the 2019 Global Party Survey (Norris, Harvard Dataverse, CC0), with the bands of Bolognesi, '
+                     'Ribeiro and Codato (Dados, 2023).'),
+    },
+    'FRA': {
+        'blocs': _('Seats are counted by parliamentary group, each under its main party: the Assemblée’s EPR under '
+                   'Renaissance, the Sénat’s SER under the PS, and so on. So the three UDR senators, who sit in the RN’s '
+                   'group, count for the RN. Éric Ciotti’s UDR is not in the survey, nor are LIOT, the RDSE and the Union '
+                   'centriste, groups of several small parties, so their seats are not classified. Members in no group '
+                   'count as no party.'),
+        'credits': _('Seats: the open data of the Assemblée nationale and the Sénat (Licence Ouverte). Left and right: the '
+                     '2024 Chapel Hill Expert Survey (CHES Europe), with the bands of Bolognesi, Ribeiro and Codato '
+                     '(Dados, 2023).'),
+    },
+    'ITA': {
+        'blocs': _('Seats are counted by parliamentary group, each under its party; in the Camera’s mixed group, by the '
+                   'components the Camera names. Italia Viva on its own, Noi Moderati, Futuro Nazionale and Sud chiama Nord '
+                   'are not in the survey, nor are the mixed groups and the Senate’s groups Per le Autonomie and Civici '
+                   'd’Italia, so their seats are not classified. Alleanza Verdi e Sinistra, the joint list of Europa Verde '
+                   'and Sinistra Italiana, takes the average of the two.'),
+        'credits': _('Seats: the open data of the Camera dei Deputati (CC BY-SA 4.0) and the Senato della Repubblica (CC BY 3.0); '
+                     'the seat counts here are shared under CC BY-SA too. Left and right: the 2024 Chapel Hill Expert Survey '
+                     '(CHES Europe), with the bands of Bolognesi, Ribeiro and Codato (Dados, 2023).'),
+    },
+    'GBR': {
+        'blocs': _('CHES scores only the parties of Great Britain, so the seats of the Northern Irish parties, of parties '
+                   'too new for the survey and of the Speakers, and in the Lords those of the crossbenchers, the bishops, '
+                   'the non-affiliated peers and a Conservative Independent, are not classified. Independents count as no '
+                   'party.'),
+        'credits': _('Seats: UK Parliament, Members API. Contains Parliamentary information licensed under the '
+                     '<a href="https://www.parliament.uk/site-information/copyright-parliament/open-parliament-licence/">Open '
+                     'Parliament Licence v3.0</a>. Left and right: the 2024 Chapel Hill Expert Survey (CHES Europe), with '
+                     'the bands of Bolognesi, Ribeiro and Codato (Dados, 2023).'),
     },
     'AUT': {
         'blocs': '',
@@ -88,7 +155,10 @@ def parliament(country):
 
 def data(country):
     """Each house's parties with their seats, today and after the election, and where the numbers come from."""
-    profiles = {profile.congress.casefold(): profile for profile in PartyProfile.objects.filter(country=country) if profile.congress}
+    # A party's code in each house's data; two houses may code it differently (France's PS is SOC in the Assemblée,
+    # SER in the Sénat), so a profile can hold several codes, ';'-separated.
+    profiles = {code.casefold(): profile for profile in PartyProfile.objects.filter(country=country)
+                for code in profile.congress.split(';') if code}
     scores = {row.party_id: row for row in PartyLeftRight.objects.filter(party__country=country)}
     seats = lambda codes: order([party_seats(code, n, profiles.get(code.casefold()), scores) for code, n in Counter(codes).items()])
     elected = Elected.objects.filter(country=country)
@@ -122,7 +192,8 @@ def data(country):
         'blocs': spectrum.blocs(),
         'spectrum': spectrum.SURVEYS.get(country.iso3),
         'parliament': parliament(country),
-        'context': {'blocs': str(texts['blocs']), 'credits': str(texts['credits'])},
+        # The credits are the site's own text and may hold a link, as a licence can ask.
+        'context': {'blocs': str(texts['blocs']), 'credits': mark_safe(str(texts['credits']))},
     }
 
 

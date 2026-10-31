@@ -1,10 +1,13 @@
-// Saves a chart as a PNG the shape of an Instagram portrait post (1080 × 1350): title, the site's line under it, chart,
-// legend and source. The chart is drawn again off screen and enlarged SCALE times, so its text stays readable on a phone
-// without crowding the image.
+// Saves a chart as a PNG: title, the site's line under it, chart, legend and source.
+// It comes in two shapes (SIZES): an Instagram portrait post, or a wide image for LinkedIn, X and slides.
+// The save button's menu offers both, with their sizes.
+// The chart is drawn again off screen and enlarged SCALE times, so its text stays readable on a phone without crowding the image.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 
-export const WIDTH = 1080;
-export const HEIGHT = 1350;
+export const SIZES = {
+  portrait: { width: 1080, height: 1350 },
+  wide: { width: 1920, height: 1080 },
+};
 export const SCALE = 1.6;
 
 const PAD = 56;
@@ -27,51 +30,58 @@ export const MONO = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace'
  * The chart modules build `draw` with their *ImageParts helpers.
  * With `aspect` the chart keeps that width / height and `below` gets the rest; otherwise `below` gets `belowHeight`.
  */
-export async function saveChartImage({ title, subtitle, sources, flag, filename, draw, aspect, belowHeight = 0 }) {
-  const { canvas, ctx, top, bottom } = await imageFrame({ title, subtitle, sources, flag });
+export async function saveChartImage({ title, subtitle, sources, flag, filename, draw, aspect, belowHeight = 0, size = 'portrait' }) {
+  const { canvas, ctx, top, bottom, width } = await imageFrame({ title, subtitle, sources, flag, size });
   const room = bottom - top;
-  const height = aspect ? Math.min(room, Math.round((WIDTH - 2 * (PAD - 16) - 2 * WELL_INSET) / aspect) + 2 * WELL_INSET)
+  const height = aspect ? Math.min(room, Math.round((width - 2 * (PAD - 16) - 2 * WELL_INSET) / aspect) + 2 * WELL_INSET)
     : room - belowHeight;
-  const { well, inner } = imageWell(ctx, top, height);
+  const { well, inner } = imageWell(ctx, top, height, { width });
   const footerTop = bottom + 32;
   const stage = createStage(inner.w / SCALE, inner.h / SCALE);
   try {
     const drawn = await draw(stage.element);
     ctx.drawImage(await chartImage(drawn.chart), inner.x, inner.y, inner.w, inner.h);
     await drawn.paint?.(ctx, inner.x, inner.y, SCALE);
-    const below = { x: PAD, y: well.y + well.h + 28, w: WIDTH - 2 * PAD };
+    const below = { x: PAD, y: well.y + well.h + 28, w: width - 2 * PAD };
     below.h = footerTop - 24 - below.y;
     if (below.h > 0) await drawn.below?.(ctx, below);
     drawn.dispose();
   } finally {
     stage.remove();
   }
-  await handOver([{ canvas, filename }], title);
+  await handOver([{ canvas, filename: sizedName(filename, size) }], title);
+}
+
+/** A file name for an image in shape `size`: a wide image's name ends in -wide. */
+export function sizedName(filename, size) {
+  return size === 'wide' ? filename.replace(/\.png$/, '-wide.png') : filename;
 }
 
 /**
- * A new image with its frame painted: ground, header and footer. The room between them runs from `top` to `bottom`.
+ * A new image in shape `size` (SIZES) with its frame painted: ground, header and footer.
+ * The room between them runs from `top` to `bottom`; `width` and `height` are the image's.
  * `flag`, a country's 1x1 flag, goes round before the title (Politics images; a metric's images span many countries).
  */
-export async function imageFrame({ title, subtitle, sources, flag }) {
+export async function imageFrame({ title, subtitle, sources, flag, size = 'portrait' }) {
   await fontsReady();
+  const { width, height } = SIZES[size];
   const canvas = document.createElement('canvas');
-  canvas.width = WIDTH;
-  canvas.height = HEIGHT;
+  canvas.width = width;
+  canvas.height = height;
   const ctx = canvas.getContext('2d');
-  paintGround(ctx);
+  paintGround(ctx, width, height);
   const gear = await loadImage(document.querySelector('link[rel="icon"]')?.href);
-  const headerBottom = paintHeader(ctx, title, subtitle, await loadImage(flag), gear);
-  const footerTop = paintFooter(ctx, sources);
-  return { canvas, ctx, top: headerBottom + 36, bottom: footerTop - 32 };
+  const headerBottom = paintHeader(ctx, width, title, subtitle, await loadImage(flag), gear);
+  const footerTop = paintFooter(ctx, width, height, sources);
+  return { canvas, ctx, top: headerBottom + 36, bottom: footerTop - 32, width, height };
 }
 
 /**
  * Paints the well at `top`, `height` tall. `inner` is the room inside it.
- * The well spans the image; a frame of another size (a reel) passes its own `width` and `pad`.
+ * The well spans an image `width` wide (a portrait one by default); a reel passes its own `width` and `pad`.
  * With `strip`, the room ends above a strip at the foot, where a series of images numbers its pages.
  */
-export function imageWell(ctx, top, height, { width = WIDTH, pad = PAD, strip = false } = {}) {
+export function imageWell(ctx, top, height, { width = SIZES.portrait.width, pad = PAD, strip = false } = {}) {
   const well = { x: pad - 16, y: top, w: width - 2 * (pad - 16), h: height };
   paintWell(ctx, well);
   const foot = strip ? STRIP : WELL_INSET;
@@ -109,8 +119,8 @@ export function imageName(...parts) {
 }
 
 // ---------- Painting ----------
-/** The site's ground with its faint grid, over a canvas `width` × `height` (an image by default; the reel is taller). */
-export function paintGround(ctx, width = WIDTH, height = HEIGHT) {
+/** The site's ground with its faint grid, over a canvas `width` × `height` (a portrait image by default). */
+export function paintGround(ctx, width = SIZES.portrait.width, height = SIZES.portrait.height) {
   ctx.fillStyle = GROUND;
   ctx.fillRect(0, 0, width, height);
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)';
@@ -123,7 +133,7 @@ export function paintGround(ctx, width = WIDTH, height = HEIGHT) {
 
 const FLAG = 52;  // the flag's diameter, about the title's height
 
-function paintHeader(ctx, title, subtitle, flag, gear) {
+function paintHeader(ctx, width, title, subtitle, flag, gear) {
   let y = PAD;
   if (flag) paintRoundFlag(ctx, flag, PAD, y + 29, FLAG);
   // The title's lines start right of the flag; the subtitle starts at the edge again.
@@ -131,15 +141,19 @@ function paintHeader(ctx, title, subtitle, flag, gear) {
   ctx.textBaseline = 'top';
   ctx.fillStyle = INK;
   ctx.font = `700 condensed 56px ${FONT}`;
-  for (const line of wrap(ctx, title, WIDTH - PAD - left, 2)) {
+  for (const line of wrap(ctx, title, width - PAD - left, 2)) {
     ctx.fillText(line, left, y);
     y += 60;
   }
   if (subtitle) {
     ctx.fillStyle = INK_2;
     ctx.font = `500 23px ${FONT}`;
-    ctx.fillText(wrap(ctx, subtitle, WIDTH - 2 * PAD, 1)[0], PAD, y + 6);
-    y += 36;
+    // The subtitle takes as many lines as it needs: it is never cut short.
+    for (const line of wrap(ctx, subtitle, width - 2 * PAD, Infinity)) {
+      ctx.fillText(line, PAD, y + 6);
+      y += 30;
+    }
+    y += 6;
   }
   // The address is in the footer already, so the line under the title leaves it out.
   return paintBrandLine(ctx, PAD, y + 10, 20, gear, { address: false }) + 4;
@@ -168,19 +182,19 @@ export function paintBrandLine(ctx, x, y, size, gear, { address = true } = {}) {
 
 // Sources at the bottom left, the site's address at the bottom right. Returns the footer's top.
 // Sources are never cut short: logo licences such as CC BY ask for their credit in full.
-function paintFooter(ctx, sources) {
+function paintFooter(ctx, width, height, sources) {
   const host = window.location.host;
   ctx.font = `700 15px ${FONT}`;
   const hostWidth = ctx.measureText(host).width;
   ctx.font = `400 15px ${FONT}`;
-  const lines = sources.filter(Boolean).flatMap((text) => wrap(ctx, text, WIDTH - 2 * PAD - hostWidth - 32, 6));
-  const top = HEIGHT - PAD - lines.length * 21 + 4;
+  const lines = sources.filter(Boolean).flatMap((text) => wrap(ctx, text, width - 2 * PAD - hostWidth - 32, 6));
+  const top = height - PAD - lines.length * 21 + 4;
   ctx.textBaseline = 'top';
   ctx.fillStyle = INK_3;
   lines.forEach((line, i) => ctx.fillText(line, PAD, top + i * 21));
   ctx.fillStyle = GOLD;
   ctx.font = `700 15px ${FONT}`;
-  ctx.fillText(host, WIDTH - PAD - hostWidth, top + (lines.length - 1) * 21);
+  ctx.fillText(host, width - PAD - hostWidth, top + (lines.length - 1) * 21);
   return top;
 }
 
@@ -209,14 +223,14 @@ export function paintRoundFlag(ctx, flag, x, y, size) {
   ctx.stroke();
 }
 
-/** Lines of text that fit `width`, at most `max`; the last one ends in … when the text runs on. */
-export function wrap(ctx, text, width, max) {
+/** Lines of text that fit `width`, at most `max`; the last one ends in … when the text runs on. `first` is the first line's width. */
+export function wrap(ctx, text, width, max, first = width) {
   const words = String(text).split(/\s+/).filter(Boolean);
   const lines = [];
   let line = '';
   for (const word of words) {
     const next = line ? `${line} ${word}` : word;
-    if (ctx.measureText(next).width <= width || !line) {
+    if (ctx.measureText(next).width <= (lines.length ? width : first) || !line) {
       line = next;
     } else {
       lines.push(line);
@@ -227,7 +241,8 @@ export function wrap(ctx, text, width, max) {
   if (lines.length > max) {
     lines.length = max;
     let last = `${lines[max - 1]}…`;
-    while (ctx.measureText(last).width > width && last.length > 1) last = `${last.slice(0, -2)}…`;
+    const room = max === 1 ? first : width;
+    while (ctx.measureText(last).width > room && last.length > 1) last = `${last.slice(0, -2)}…`;
     lines[max - 1] = last;
   }
   return lines;
@@ -324,19 +339,104 @@ export async function handOver(images, title) {
 }
 
 // ---------- The save buttons ----------
-/** Wires a [data-save-image] button: it shows it is busy while the image is made, and never runs twice at once. */
+let openMenu = null;  // the save menu that is open: one at a time
+
+/**
+ * Wires a [data-save-image] button: it opens a menu of the image's shapes, each with its size.
+ * `save(size)` makes the image in the chosen shape, a key of SIZES.
+ * The button shows it is busy while the image is made, and never runs twice at once.
+ */
 export function bindSaveButton(button, save) {
-  button?.addEventListener('click', async () => {
+  if (!button) return;
+  const menu = document.createElement('div');
+  menu.className = 'save-menu';
+  menu.setAttribute('role', 'menu');
+  menu.hidden = true;
+  const uses = { portrait: [gettext('Portrait'), gettext('Instagram')], wide: [gettext('Wide'), gettext('LinkedIn, X and slides')] };
+  const items = Object.entries(SIZES).map(([key, { width, height }]) => {
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'save-menu__item';
+    item.setAttribute('role', 'menuitem');
+    item.dataset.size = key;
+    const [name, use] = uses[key];
+    for (const [part, text] of [['name', name], ['size', `${width} × ${height}`], ['use', use]]) {
+      const span = document.createElement('span');
+      span.className = `save-menu__${part}`;
+      span.textContent = text;
+      item.append(span);
+    }
+    return item;
+  });
+  menu.append(...items);
+  document.body.append(menu);
+  button.setAttribute('aria-haspopup', 'menu');
+  button.setAttribute('aria-expanded', 'false');
+
+  // The menu hangs under the button, right edges level; above it when the window has no room below.
+  function place() {
+    const box = button.getBoundingClientRect();
+    menu.style.right = `${document.documentElement.clientWidth - box.right}px`;
+    const below = box.bottom + 6 + menu.offsetHeight <= window.innerHeight;
+    menu.style.top = `${below ? box.bottom + 6 : box.top - 6 - menu.offsetHeight}px`;
+  }
+
+  function open() {
+    openMenu?.();
+    menu.hidden = false;
+    place();
+    button.setAttribute('aria-expanded', 'true');
+    items[0].focus({ preventScroll: true });
+    openMenu = close;
+    document.addEventListener('pointerdown', outside);
+    // A page that is still laying itself out scrolls a little: the menu follows its button instead of closing.
+    window.addEventListener('scroll', place, { passive: true, capture: true });
+    window.addEventListener('resize', place);
+  }
+
+  function close() {
+    menu.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+    if (openMenu === close) openMenu = null;
+    document.removeEventListener('pointerdown', outside);
+    window.removeEventListener('scroll', place, { capture: true });
+    window.removeEventListener('resize', place);
+  }
+
+  function outside(event) {
+    if (!menu.contains(event.target) && !button.contains(event.target)) close();
+  }
+
+  async function run(size) {
     if (button.disabled) return;
     button.disabled = true;
     button.classList.add('is-busy');
     try {
-      await save();
+      await save(size);
     } catch (error) {
       console.error('The image could not be made.', error);
     } finally {
       button.disabled = false;
       button.classList.remove('is-busy');
+    }
+  }
+
+  button.addEventListener('click', () => (menu.hidden ? open() : close()));
+  menu.addEventListener('click', (event) => {
+    const item = event.target.closest('[data-size]');
+    if (!item) return;
+    close();
+    button.focus({ preventScroll: true });
+    run(item.dataset.size);
+  });
+  menu.addEventListener('keydown', (event) => {
+    const at = items.indexOf(document.activeElement);
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      items[(at + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length].focus();
+    } else if (event.key === 'Escape' || event.key === 'Tab') {
+      close();
+      if (event.key === 'Escape') button.focus({ preventScroll: true });
     }
   });
 }

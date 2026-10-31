@@ -6,21 +6,23 @@ from pathlib import Path
 from unittest import mock
 
 from django.conf import settings
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
+from django.utils import translation
 
-from geo.models import (Country, EtlLoad, GdpCountryYear, GdpPerCapitaCountryYear, InflationCountryYear,
+from geo.models import (Country, EtlLoad, GdpCountryYear, GdpPerCapitaCountryYear, InflationCountryYear, State,
                         UnemploymentCountryYear)
 from metrics.catalog import BY_SLUG
 from providers.curated import COUNTRIES, DATA, administrations, parties, party_left_right, party_positions, party_profiles
 from providers.abgeordnetenwatch import bundestag as abgeordnetenwatch_bundestag
 from providers.parlament_at import text as austrian_text
 from providers.tse import elected as tse_elected
+from providers.uk_parliament import party_code as uk_party_code
 
-from . import compass, comparison, congress, queries, spectrum
+from . import compass, comparison, congress, crime, crime_series, queries, spectrum
 from .metrics import GROUPS
 from .offices import ROLES
-from .models import Administration, Deputy, Elected, Party, Senator
+from .models import Administration, CrimeYear, Deputy, Elected, NationalityPopulation, Party, Senator, Suspects
 
 GDP = BY_SLUG['gdp-per-capita']
 UNEMPLOYMENT = BY_SLUG['unemployment']
@@ -384,15 +386,19 @@ class CuratedDataTests(SimpleTestCase):
 class CompassDataTests(SimpleTestCase):
     """Every country's compass files: every party is complete, and every position belongs to a known party and survey."""
 
-    # The countries with a compass, by their folder in data/politics/.
+    # The countries with party profiles (seats in parliament, and a compass where a survey places the parties), and those
+    # with a compass, by their folder in data/politics/.
     FOLDERS = [folder for folder in COUNTRIES if (DATA / folder / 'party_profiles.csv').exists()]
+    COMPASS = [folder for folder in FOLDERS if (DATA / folder / 'positions.csv').exists()]
 
     def read(self, folder, name):
         with open(DATA / folder / name, encoding='utf-8') as file:
             return list(csv.DictReader(file))
 
-    def test_brazil_germany_and_austria_have_a_compass(self):
-        self.assertEqual(sorted(self.FOLDERS), ['austria', 'brazil', 'germany'])
+    def test_which_countries_have_a_compass(self):
+        self.assertEqual(sorted(self.COMPASS), ['austria', 'brazil', 'france', 'germany', 'italy', 'united-kingdom'])
+        # The United States has its parties' seats in Congress, but no compass.
+        self.assertEqual(sorted(set(self.FOLDERS) - set(self.COMPASS)), ['united-states'])
 
     def test_every_party_profile_is_complete(self):
         well = _luminance(CuratedDataTests.CHART_WELL)
@@ -411,12 +417,12 @@ class CompassDataTests(SimpleTestCase):
                 self.assertGreaterEqual((_luminance(party['color']) + 0.05) / (well + 0.05), 3.2, f"{party['key']} is too dark")
                 for end in filter(None, party['position'].split('|')):
                     self.assertIn(end, compass.POSITIONS, party['key'])
-                for term in party['ideologies'].split(';'):
+                for term in filter(None, party['ideologies'].split(';')):
                     self.assertIn(term, compass.IDEOLOGIES, party['key'])
                 self.assertTrue(party['views_source'].startswith('https://en.wikipedia.org/wiki/'))
 
     def test_every_position_has_its_party_and_survey_on_the_scales(self):
-        for folder in self.FOLDERS:
+        for folder in self.COMPASS:
             keys = {party['key'] for party in self.read(folder, 'party_profiles.csv')}
             rows = self.read(folder, 'positions.csv')
             for row in rows:
@@ -457,8 +463,9 @@ class CompassAndCongressTests(TestCase):
     def setUp(self):
         make_brazil()
         # The curated loaders read every country's files.
-        Country.objects.create(iso3='DEU', iso2='de', name='Germany')
-        Country.objects.create(iso3='AUT', iso2='at', name='Austria')
+        for iso3, iso2, name in [('DEU', 'de', 'Germany'), ('AUT', 'at', 'Austria'), ('USA', 'us', 'United States'),
+                                 ('FRA', 'fr', 'France'), ('ITA', 'it', 'Italy'), ('GBR', 'gb', 'United Kingdom')]:
+            Country.objects.get_or_create(iso3=iso3, defaults={'iso2': iso2, 'name': name})
         party_profiles.run()
         party_positions.run()
         party_left_right.run()
@@ -543,7 +550,41 @@ class CompassAndCongressTests(TestCase):
         self.assertEqual(len(data['context']['limits']), 3)
 
 
+    def test_a_party_can_carry_a_code_per_house(self):
+        # France counts groups: the Assemblée's SOC and the Sénat's SER are both the PS.
+        france = Country.objects.get(iso3='FRA')
+        Deputy.objects.create(country=france, member_id='1', name='A', party='SOC', state='')
+        Senator.objects.create(country=france, member_id='2', name='B', party='SER', state='', term_ends=None)
+        Senator.objects.create(country=france, member_id='3', name='C', party='', state='', term_ends=None)
+        houses = congress.data(france)['houses']
+        self.assertEqual([house['key'] for house in houses], ['assemblee', 'senat'])
+        self.assertEqual([[p['abbreviation'] for p in house['terms'][0]['parties']] for house in houses],
+                         [['PS'], ['PS', 'No party']])
+
+    def test_the_united_states_has_a_congress_and_no_compass(self):
+        usa = Country.objects.get(iso3='USA')
+        for i, party in enumerate(['Democrat', 'Republican', 'Republican']):
+            Deputy.objects.create(country=usa, member_id=str(i), name=f'Member {i}', party=party, state='CA')
+        Senator.objects.create(country=usa, member_id='9', name='Senator', party='Independent', state='VT', term_ends=2031)
+        data = congress.data(usa)
+        self.assertEqual((data['parliament']['tab'], data['parliament']['title']),
+                         ('Congress', 'The United States Congress, party by party'))
+        self.assertEqual(data['spectrum']['label'], 'Global Party Survey')
+        house, senate = data['houses']
+        self.assertEqual([(p['abbreviation'], p['seats'], p['bloc']) for p in house['terms'][0]['parties']],
+                         [('Democratic', 1, 'centre'), ('Republican', 2, 'right')])
+        # An independent has no profile: named by the source's code, not classified.
+        self.assertEqual([(p['abbreviation'], p['key'], p['bloc']) for p in senate['terms'][0]['parties']],
+                         [('Independent', '', 'none')])
+        self.assertFalse(compass.has_compass(usa))
+
+
 class ProviderTests(SimpleTestCase):
+    def test_uk_members_count_for_their_party_and_independents_for_none(self):
+        self.assertEqual(uk_party_code({'abbreviation': 'Lab', 'name': 'Labour'}), 'Lab')
+        self.assertEqual(uk_party_code({'abbreviation': None, 'name': 'Non-affiliated'}), 'Non-affiliated')
+        self.assertEqual(uk_party_code({'abbreviation': 'Ind', 'name': 'Independent'}), '')
+
     def test_a_german_member_without_a_party_has_none(self):
         self.assertEqual(abgeordnetenwatch_bundestag.party_code('parteilos'), '')
         self.assertEqual(abgeordnetenwatch_bundestag.party_code('BÜNDNIS 90/\u00adDIE GRÜNEN'), 'BÜNDNIS 90/DIE GRÜNEN')
@@ -571,3 +612,186 @@ class TseTests(SimpleTestCase):
         found = tse_elected.elected(rows)
         self.assertEqual([member.house for member in found], ['chamber', 'chamber', 'senate'])
         self.assertEqual(found[0].elected_on, date(2026, 10, 4))
+
+
+class CrimeTests(TestCase):
+    """The Crime tab: each nationality's suspects by kind of offence beside its people, shown only while settings.CRIME_TAB is on."""
+
+    def setUp(self):
+        germany = Country.objects.create(iso3='DEU', iso2='de', name='Germany')
+        Country.objects.create(iso3='TUR', iso2='tr', name='Turkey')
+        Country.objects.create(iso3='SLB', iso2='sb', name='Solomon Islands')
+        party = Party.objects.create(country=germany, abbreviation='CDU', name='Christian Democratic Union', color='#6e6e6e')
+        Administration.objects.create(country=germany, leader='Lena Weber', short_name='Weber', role='Chancellor', party=party,
+                                      start_date=date(2021, 12, 8))
+        for code, people in [('DEU', 1_000_000), (None, 100_000), ('TUR', 50_000), ('SLB', 5)]:
+            NationalityPopulation.objects.create(country=germany, nationality_id=code, year=2025, source_name=code or 'all',
+                                                 population=people)
+        for code, counts in [('DEU', {'890000': 20_000, '------': 20_000, '510000': 900}),
+                             (None, {'890000': 5_000, '------': 7_000, '510000': 600}),
+                             ('TUR', {'890000': 3_000, '------': 4_000}), ('SLB', {'890000': 8, '------': 8})]:
+            for offence, suspects in counts.items():
+                Suspects.objects.create(country=germany, nationality_id=code, year=2025, offence=offence, suspects=suspects)
+
+    @override_settings(CRIME_TAB=True)
+    def test_crime_is_a_tab_with_each_nationalitys_suspects_by_offence(self):
+        response = self.client.get(reverse('politics:country', args=['germany']), {'tab': 'crime'})
+        self.assertEqual(response.context['tab'], 'crime')
+        self.assertContains(response, 'data-tab="crime"')
+        data = response.context['crime']
+        self.assertEqual(data['own'], 'de')
+        # The most people first; a nationality with too few people to give a share is left out.
+        self.assertEqual([row['code'] for row in data['nationalities']], ['de', 'tr'])
+        self.assertEqual(data['nationalities'][0]['suspects'], {'890000': 20_000, '------': 20_000, '510000': 900})
+        self.assertEqual(data['foreign'], {'population': 100_000, 'suspects': {'890000': 5_000, '------': 7_000, '510000': 600}})
+        self.assertEqual(data['text'], {'foreign': '5.0%', 'foreignAll': '7.0%', 'floor': '10,000'})
+        self.assertEqual(data['population'], 'Population in Germany')
+        self.assertEqual(data['offences']['key'], '890000')
+
+    @override_settings(CRIME_TAB=False)
+    def test_the_crime_tab_hides_while_switched_off(self):
+        response = self.client.get(reverse('politics:country', args=['germany']), {'tab': 'crime'})
+        self.assertEqual(response.context['tab'], 'metric')
+        self.assertNotContains(response, 'data-tab="crime"')
+        self.assertNotContains(response, 'data-crime-card')
+
+    def add_crime_per_year(self):
+        germany = Country.objects.get(iso3='DEU')
+        for year, rate in [(2021, 6000.0), (2022, 6600.0), (2023, 6900.0)]:
+            CrimeYear.objects.create(country=germany, year=year, crime='all', measure='rate', value=rate)
+        EtlLoad.objects.create(table_name='pol_crime_year', source_name='Data Mechanics', source_url='https://example.org',
+                               row_count=3)
+
+    @override_settings(CRIME_TAB=True)
+    def test_crime_per_year_is_a_group_of_metrics_drawn_leader_by_leader(self):
+        self.add_crime_per_year()
+        response = self.client.get(reverse('politics:country', args=['germany']), {'metric': 'crime-all'})
+        self.assertEqual(response.context['group'], 'crime')
+        self.assertContains(response, 'data-metric="crime-all"')
+        self.assertNotContains(response, 'data-metric="crime-murder"')  # a kind of crime without data has no tab
+        self.assertContains(response, 'data-tab="crime"')  # suspects by nationality, the group's last tab
+        self.assertEqual(response.context['metric_url'], '')  # no metric page where every country compares
+        data = self.client.get(reverse('politics:data', args=['germany']), {'metric': 'crime-all', 'series': 'rate'}).json()
+        self.assertEqual(data['points'], [[2021, 6000.0], [2022, 6600.0], [2023, 6900.0]])
+        self.assertEqual((data['comparable'], data['comparison']), ([], None))
+        # Weber's term runs from 2021 to 2023: up 15%, which is bad for crime.
+        summary = data['presidencies'][0]['summary']
+        self.assertEqual((summary['change'], summary['good']), ('15%', False))
+        # The BKA's source, with the licence it asks to be named.
+        self.assertEqual(data['source']['name'], crime_series.PKS_CASES.name)
+        self.assertEqual(data['source']['licence'], {'name': 'dl-de/by-2-0', 'url': 'https://www.govdata.de/dl-de/by-2-0'})
+
+    @override_settings(CRIME_TAB=True)
+    def test_a_kind_of_crime_counted_by_state_brings_its_map(self):
+        self.add_crime_per_year()
+        germany = Country.objects.get(iso3='DEU')
+        square = {'type': 'MultiPolygon', 'coordinates': [[[[10, 50], [11, 50], [11, 51], [10, 50]]]]}
+        bavaria = State.objects.create(code='DE-BY', country=germany, name='Bavaria', name_de='Bayern', geometry=square)
+        State.objects.create(code='DE-BE', country=germany, name='Berlin', name_de='Berlin', geometry=square)
+        for year, rate in [(2024, 4000.0), (2025, 3900.0)]:
+            CrimeYear.objects.create(country=germany, state=bavaria, year=year, crime='all', measure='rate', value=rate)
+        data = self.client.get(reverse('politics:data', args=['germany']), {'metric': 'crime-all', 'series': 'rate'}).json()
+        # The whole country's line leaves the states out.
+        self.assertEqual(data['points'], [[2021, 6000.0], [2022, 6600.0], [2023, 6900.0]])
+        states = data['states']
+        self.assertEqual(states['years'], [2024, 2025])
+        # A state without data has its place, empty, so the map names it.
+        self.assertEqual(states['values'], {'DE-BY': [4000.0, 3900.0], 'DE-BE': [None, None]})
+        self.assertEqual(states['countries']['DE-BY'], {'name': 'Bavaria', 'flag': None})  # no flag for a German Land yet
+        self.assertEqual((states['unit'], states['better']), ('per_100k', 'lower'))
+        # A measure without states has no map.
+        clearance = self.client.get(reverse('politics:data', args=['germany']), {'metric': 'crime-all', 'series': 'clearance'})
+        self.assertIsNone(clearance.json()['states'])
+        # The shapes come named in the page's language; the language goes back afterwards for the other tests.
+        with translation.override('en'):
+            shapes = self.client.get('/de' + reverse('politics:states', args=['germany'])).json()
+        self.assertEqual({f['properties']['code']: f['properties']['name'] for f in shapes['features']},
+                         {'DE-BY': 'Bayern', 'DE-BE': 'Berlin'})
+
+    @override_settings(CRIME_TAB=False)
+    def test_crime_per_year_hides_while_switched_off(self):
+        self.add_crime_per_year()
+        response = self.client.get(reverse('politics:country', args=['germany']), {'metric': 'crime-all'})
+        self.assertNotContains(response, 'data-metric="crime-all"')
+        data = self.client.get(reverse('politics:data', args=['germany']), {'metric': 'crime-all'}).json()
+        self.assertNotEqual(data['label'], 'Cases per 100,000 people')
+
+
+class CrimeSeriesDataTests(SimpleTestCase):
+    """data/politics/<country>/crime.csv against the kinds of crime politics/crime_series.py names."""
+
+    def test_every_row_is_a_named_measure_and_every_measure_has_rows(self):
+        for folder, iso3 in COUNTRIES.items():
+            path = DATA / folder / 'crime.csv'
+            if not path.exists():
+                self.assertNotIn(iso3, crime_series.CRIMES)
+                continue
+            with open(path, encoding='utf-8') as file:
+                rows = list(csv.DictReader(file))
+            keys = [(row['state'], row['crime'], row['measure'], row['year']) for row in rows]
+            self.assertEqual(len(keys), len(set(keys)), folder)
+            named = {(crime.key, series.field) for crime in crime_series.CRIMES[iso3] for series in crime.series}
+            self.assertEqual({(key, measure) for state, key, measure, _ in keys if not state}, named, folder)
+            # States only measure what the country does, and their codes are the country's (ISO 3166-2 starts with
+            # the alpha-2 code: AT-1, DE-BY).
+            self.assertLessEqual({(key, measure) for state, key, measure, _ in keys if state}, named, folder)
+            alpha2 = {'AUT': 'AT', 'GBR': 'GB'}.get(iso3, iso3[:2])
+            self.assertTrue(all(state.startswith(f'{alpha2}-') for state, *_ in keys if state), folder)
+
+    def test_slugs_never_take_a_catalog_metrics(self):
+        slugs = [crime.slug for crimes in crime_series.CRIMES.values() for crime in crimes]
+        self.assertFalse(set(slugs) & set(BY_SLUG))
+        for crimes in crime_series.CRIMES.values():
+            self.assertEqual(len(crimes), len({crime.key for crime in crimes}))
+
+
+def offence_keys(offence):
+    """The keys of a kind of offence and of every kind inside it."""
+    return [offence.key] + [key for child in offence.children for key in offence_keys(child)]
+
+
+class OffenceTests(SimpleTestCase):
+    def test_every_kind_of_offence_has_its_own_key(self):
+        keys = offence_keys(crime.OFFENCES)
+        self.assertEqual(len(keys), len(set(keys)))
+        # Residence and asylum law, which only foreigners can break, is no choice of its own.
+        self.assertNotIn('725000', keys)
+        self.assertNotIn('720000', keys)
+
+    def test_a_summed_kind_has_no_count_of_its_own(self):
+        self.assertNotIn('700000', crime.counted())
+        self.assertIn('730000', crime.counted())
+        self.assertEqual(crime.counted()[:2], [crime.TOTAL, '000000'])
+        self.assertEqual(crime.counted()[-1], crime.EVERY)
+
+
+class SuspectsDataTests(SimpleTestCase):
+    def setUp(self):
+        with open(DATA / 'germany' / 'population.csv', encoding='utf-8') as file:
+            self.people = list(csv.DictReader(file))
+        with open(DATA / 'germany' / 'suspects.csv', encoding='utf-8') as file:
+            self.suspects = list(csv.DictReader(file))
+
+    def test_each_nationality_once_and_its_people_within_all_foreign_nationals(self):
+        codes = [row['nationality'] for row in self.people]
+        self.assertEqual(len(codes), len(set(codes)))
+        self.assertEqual(codes[:2], ['DEU', ''])
+        self.assertLessEqual(sum(int(row['population']) for row in self.people[2:]), int(self.people[1]['population']))
+
+    def test_every_kind_of_offence_has_counts_and_each_count_is_one_row(self):
+        pairs = [(row['nationality'], row['offence']) for row in self.suspects]
+        self.assertEqual(len(pairs), len(set(pairs)))
+        self.assertEqual({row['offence'] for row in self.suspects}, set(crime.counted()))
+        self.assertLessEqual({row['nationality'] for row in self.suspects}, {row['nationality'] for row in self.people})
+
+    def test_a_kind_of_offence_never_has_more_suspects_than_every_offence(self):
+        # T62 itself gives Liechtenstein 11 suspects without residence-law offences and 10 with every offence.
+        # It has too few people to be listed, so only the listed nationalities must agree.
+        listed = {row['nationality'] for row in self.people if int(row['population']) >= crime.MIN_PEOPLE}
+        counts = {}
+        for row in self.suspects:
+            counts.setdefault(row['nationality'], {})[row['offence']] = int(row['suspects'])
+        for code in listed:
+            every = counts[code].get(crime.EVERY, 0)
+            for offence, suspects in counts[code].items():
+                self.assertLessEqual(suspects, every, (code, offence))

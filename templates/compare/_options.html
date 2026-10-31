@@ -1,0 +1,1 @@
+{% comment %}The measures a Compare select offers, by category (compare/views.py, _groups).{% endcomment %}{% for group in groups %}<optgroup label="{{ group.label }}">{% for option in group.options %}<option value="{{ option.key }}">{{ option.label }}</option>{% endfor %}</optgroup>{% endfor %}

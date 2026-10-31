@@ -13,8 +13,13 @@ import {
 import { toneOf } from './lib/term-chart.js';
 import { createCompassView } from './lib/compass-view.js';
 import { createCongressView } from './lib/congress-view.js';
-import { createReel, FPS } from './lib/reel.js';
+import { createCrimeView } from './lib/crime-view.js';
+import { createStatesView } from './lib/states-view.js';
+import { createReel } from './lib/reel.js';
+import { presentReel } from './lib/reel-frame.js';
 import { createYearSlicer, fitWindow as fitInside } from './lib/year-slicer.js';
+import { createPicker } from './lib/picker.js';
+import { eventOptions, eventsIn, loadEvents, pickEvents, renderEventKeys } from './lib/events.js';
 
 const config = JSON.parse(document.getElementById('politics-config').textContent);
 const { units, metrics } = config;
@@ -40,14 +45,18 @@ const table = document.querySelector('[data-table]');
 const compareSelect = document.querySelector('[data-compare]');
 const compareBox = document.querySelector('[data-compare-select]');
 const compareNote = document.querySelector('[data-compare-note]');
+const crimeAbout = document.querySelector('[data-crime-about]');  // what the police count, under a kind of crime's chart
+const eventKeys = document.querySelector('[data-event-keys]');
 const categories = [...document.querySelectorAll('[data-group]')];
 const panels = [...document.querySelectorAll('[data-group-panel]')];
 const metricTabs = [...document.querySelectorAll('[data-metric]')];
+// Tabs among a group's metrics that open a section of their own: Crime's suspects by nationality.
+const sectionTabs = [...document.querySelectorAll('.pol-metric[data-tab]')];
 
 const params = new URLSearchParams(window.location.search);
 const urlWindow = [Number(params.get('from')), Number(params.get('to'))];
 const state = {
-  tab: config.tab,  // 'metric', or the party compass's or Congress's tab
+  tab: config.tab,  // 'metric', or the tab of the party compass, of Congress or of crime
   house: config.house,  // the house of Congress shown on its tab
   metric: config.metric,
   field: config.series,
@@ -58,9 +67,47 @@ const state = {
   compare: config.compare,  // the comparison group (politics/comparison.py): world, brics, g7 or g20, or none
   active: null,  // the pressed president's index, whose years the window shows
   beforeActive: null,  // the window to go back to when the president is pressed again
+  events: (params.get('events') || '').split(',').filter(Boolean),  // the world events' slugs on the chart
 };
+let events = [];  // every world event (lib/events.js), once loaded
 
 const chart = createTermChart(canvas, { units, slider: false });
+const eventPicker = createPicker(document.querySelector('[data-events-picker]'), {
+  emptyLabel: gettext('World events'),
+  noMatch: gettext('No event matches.'),
+  onToggle: (slug) => toggleEvent(slug),
+});
+
+// ---------- World events: marked on the chart and popped into the reel, kept in the URL ----------
+function toggleEvent(slug) {
+  state.events = state.events.includes(slug) ? state.events.filter((s) => s !== slug) : [...state.events, slug];
+  syncUrl();
+  if (state.data?.points.length) drawEvents();
+}
+
+function chosenEvents() {
+  return pickEvents(events, state.events);
+}
+
+function drawEvents() {
+  const chosen = chosenEvents();
+  chart.render(state.data, currentRange(), chosen);
+  eventPicker.setSelected(state.events);
+  eventPicker.root.querySelector('[data-picker-button]').classList.toggle('is-set', chosen.length > 0);
+  renderEventKeys(eventKeys, chosen, toggleEvent);
+}
+
+loadEvents(config.eventsUrl).then((loaded) => {
+  events = loaded;
+  state.events = state.events.filter((slug) => events.some((event) => event.slug === slug));
+  eventPicker.setOptions(eventOptions(events));
+  if (state.data?.points.length && state.events.length) drawEvents();
+});
+// A kind of crime counted by state gets a map under its chart (lib/states-view.js).
+const statesView = createStatesView(document.querySelector('[data-states-card]'), {
+  units, statesUrl: config.statesUrl, country: config.countryName, flag: config.flag,
+  title: () => metrics[state.metric].title, summary: () => metrics[state.metric].summary,
+});
 
 const cache = new Map();
 function load(metric, field, window = null) {
@@ -89,6 +136,7 @@ async function draw() {
     data = await load(state.metric, state.field);
   } catch (error) {
     showEmpty(gettext('The data did not load. Reload the page to try again.'));
+    statesView.show(null);
     card.classList.remove('is-loading');
     return;
   }
@@ -99,6 +147,7 @@ async function draw() {
   seriesNote.hidden = !data.note;
   seriesLabel.hidden = metrics[state.metric].series.length < 2 || data.label === metrics[state.metric].title;
   drawSource(data.source);
+  statesView.show(data.states || null, state.metric, state.field, data.states && sourceHtml(data.states.source));
   if (!data.points.length) {
     showEmpty(interpolate(gettext('No data for %s on this measure yet.'), [data.country]));
     return;
@@ -106,7 +155,7 @@ async function draw() {
   empty.hidden = true;
   card.classList.remove('is-empty');
   state.window = fitWindow(state.window);
-  chart.render(data, currentRange());
+  drawEvents();
   drawSlicer();
   drawTable(data);
   drawCompareChoices(data);
@@ -214,7 +263,10 @@ function drawHead() {
   title.textContent = metric.title;
   summary.textContent = metric.summary;
   seriesLabel.hidden = metric.series.length < 2;
+  // A kind of crime has no page of its own where every country compares.
   metricLink.href = metric.url;
+  metricLink.hidden = !metric.url;
+  crimeAbout.hidden = !metric.crime || !crimeAbout.textContent.trim();
   canvas.setAttribute('aria-label', interpolate(gettext('%(title)s in %(name)s over time, coloured by the leader in office. The list below gives the change during each term.'),
     { title: metric.title, name: config.countryName }, true));
   seriesTabs.hidden = metric.series.length < 2;
@@ -227,13 +279,22 @@ function drawHead() {
     return button;
   }));
   markOverflow(seriesTabs);
-  for (const tab of metricTabs) {
-    if (tab.dataset.metric === state.metric) tab.setAttribute('aria-current', 'page');
-    else tab.removeAttribute('aria-current');
-  }
+  markTabs();
   const panel = panels.find((p) => p.querySelector(`[data-metric="${state.metric}"]`));
   if (state.tab === 'metric') showGroup(panel?.dataset.groupPanel);
   document.title = `${config.pageTitle}: ${metric.title} · Data Mechanics`;
+}
+
+// The open metric's tab, or the open section's, is the current one.
+function markTabs() {
+  for (const tab of metricTabs) {
+    if (state.tab === 'metric' && tab.dataset.metric === state.metric) tab.setAttribute('aria-current', 'page');
+    else tab.removeAttribute('aria-current');
+  }
+  for (const tab of sectionTabs) {
+    if (tab.dataset.tab === state.tab) tab.setAttribute('aria-current', 'page');
+    else tab.removeAttribute('aria-current');
+  }
 }
 
 function showGroup(name) {
@@ -245,14 +306,18 @@ function showGroup(name) {
 }
 
 function drawSource(load) {
-  if (!load) {
-    source.textContent = gettext('Source: not loaded yet.');
-    return;
-  }
+  source.innerHTML = sourceHtml(load);
+}
+
+// A source line: the source, its update, the day it was fetched and any licence to name.
+function sourceHtml(load) {
+  if (!load) return escapeHtml(gettext('Source: not loaded yet.'));
   const updated = load.updated && !load.name.includes(load.updated)
     ? ` (${escapeHtml(interpolate(gettext('updated %(date)s'), { date: load.updated }, true))})` : '';
   const fetched = escapeHtml(interpolate(gettext('fetched %(date)s'), { date: load.fetched }, true));
-  source.innerHTML = `${escapeHtml(gettext('Source:'))} <a href="${escapeHtml(load.url)}">${escapeHtml(load.name)}</a>${updated} · ${fetched}`;
+  // A licence that asks to be named beside the source (the BKA's Datenlizenz Deutschland).
+  const licence = load.licence ? ` · <a href="${escapeHtml(load.licence.url)}">${escapeHtml(load.licence.name)}</a>` : '';
+  return `${escapeHtml(gettext('Source:'))} <a href="${escapeHtml(load.url)}">${escapeHtml(load.name)}</a>${updated} · ${fetched}${licence}`;
 }
 
 // ---------- The presidents with data, as a timeline from today back. Pressing one sets the window to its years ----------
@@ -352,10 +417,10 @@ function syncUrl() {
   const next = new URLSearchParams({ metric: state.metric });
   if (state.tab !== 'metric') next.set('tab', state.tab);
   if (state.tab === 'congress' && state.house !== config.congress.houses[0].key) next.set('house', state.house);
-  // The compass keeps its survey in the address itself (lib/compass-view.js), and Congress its term and view
-  // (lib/congress-view.js).
+  // The compass keeps its survey in the address itself (lib/compass-view.js), Congress its term and view
+  // (lib/congress-view.js), and crime its offences and nationalities (lib/crime-view.js).
   const kept = new URLSearchParams(window.location.search);
-  for (const key of ['survey', 'term', 'by']) if (kept.get(key)) next.set(key, kept.get(key));
+  for (const key of ['survey', 'term', 'by', 'offences', 'nationalities']) if (kept.get(key)) next.set(key, kept.get(key));
   if (state.field !== metrics[state.metric].series[0].field) next.set('series', state.field);
   if (state.view !== 'timeline') next.set('view', state.view);
   if (state.compare !== 'world') next.set('compare', state.compare);
@@ -363,6 +428,7 @@ function syncUrl() {
     next.set('from', state.window[0]);
     next.set('to', state.window[1]);
   }
+  if (state.events.length) next.set('events', state.events.join(','));
   history.replaceState(null, '', `${window.location.pathname}?${next}`);
 }
 
@@ -375,7 +441,7 @@ function select(metric, field) {
   draw();
 }
 
-// ---------- The tabs before the metrics: the party compass and the seats in Congress ----------
+// ---------- The tabs before the metrics: the party compass, the seats in Congress and crime ----------
 // Each has its own section, which takes the metric chart's place while its tab is open.
 const sections = Object.fromEntries([...document.querySelectorAll('[data-section]')].map((element) => [element.dataset.section, element]));
 const views = {
@@ -383,18 +449,22 @@ const views = {
     { country: config.countryName, flag: config.flag, title: config.compassTitle }),
   congress: config.congress && createCongressView(sections.congress, config.congress,
     { country: config.countryName, flag: config.flag, title: config.congressTitle }),
+  crime: config.crime && createCrimeView(sections.crime, config.crime,
+    { country: config.countryName, flag: config.flag, title: config.crimeTitle, units }),
 };
 const houseTabs = [...document.querySelectorAll('[data-house]')];
 
 function openTab(tab) {
   state.tab = tab;
   for (const [key, element] of Object.entries(sections)) element.hidden = key !== tab;
+  markTabs();
   if (tab === 'metric') {
     showGroup(panels.find((p) => p.querySelector(`[data-metric="${state.metric}"]`))?.dataset.groupPanel);
   } else {
-    showGroup(tab);
+    // A section's tab may sit in a group's panel (crime's), which then stays open.
+    showGroup(sectionTabs.find((t) => t.dataset.tab === tab)?.closest('[data-group-panel]').dataset.groupPanel || tab);
     if (tab === 'congress') showHouse(state.house);
-    else views.compass.show();
+    else views[tab].show();
   }
   syncUrl();
 }
@@ -433,7 +503,15 @@ for (const tab of categories) {
 for (const tab of metricTabs) {
   tab.addEventListener('click', (event) => {
     event.preventDefault();
+    if (state.tab !== 'metric') openTab('metric');
     if (tab.dataset.metric !== state.metric) select(tab.dataset.metric);
+  });
+}
+
+for (const tab of sectionTabs) {
+  tab.addEventListener('click', (event) => {
+    event.preventDefault();
+    openTab(tab.dataset.tab);
   });
 }
 
@@ -509,18 +587,20 @@ function imageText() {
   };
 }
 
-bindSaveButton(card.querySelector('[data-save-image]'), () => state.data?.points.length && saveChartImage({
+bindSaveButton(card.querySelector('[data-save-image]'), (size) => state.data?.points.length && saveChartImage({
+  size,
   ...imageText(),
   filename: imageName(config.countryName, state.metric, state.field),
-  ...termImageParts(state.data, currentRange(), units),
+  ...termImageParts(state.data, currentRange(), units, chosenEvents()),
 }));
 
-bindSaveButton(card.querySelector('[data-save-timeline]'), () => {
+bindSaveButton(card.querySelector('[data-save-timeline]'), (size) => {
   if (!state.lists?.points.length) return null;
   const { title, subtitle, flag } = imageText();
   const view = viewButtons.find((button) => button.dataset.view === state.view);
   const years = state.window ? ` · ${state.window[0]}–${state.window[1]}` : '';
   return saveTimelineImages({
+    size,
     title,
     subtitle: `${subtitle}${state.view === 'timeline' ? '' : ` · ${view.textContent.trim()}`}${years}`,
     source: clean(source),
@@ -544,12 +624,19 @@ compareSelect.addEventListener('change', () => {
 // ---------- The reel (lib/reel.js): a video for Instagram, or with &format=wide for YouTube and LinkedIn ----------
 // ?reel=1 plays it over the page, as large as the window allows; a click pauses it.
 // ?reel=record draws nothing until tools/reel.py asks for each frame through window.reel.
-// On the compass's tab, the video is the compass's (lib/compass-reel.js); on Congress's, the open house's (lib/congress-reel.js).
+// On the compass's tab, the video is the compass's (lib/compass-reel.js); on Congress's, the open house's
+// (lib/congress-reel.js); on crime's, the chart's (lib/crime-reel.js).
+// With &states=1 on a kind of crime counted by state, it is the map's (lib/states-reel.js).
 async function openReel(mode) {
   const format = params.get('format') === 'wide' ? 'wide' : 'reel';
-  if (state.tab === 'compass' || state.tab === 'congress') {
+  if (params.has('states') && statesView.hasData()) {
+    const reel = await statesView.createReel(format);
+    presentReel(reel, reel.filename, mode);
+    return;
+  }
+  if (state.tab !== 'metric') {
     const reel = await views[state.tab].createReel(format);
-    present(reel, reel.filename, mode);
+    presentReel(reel, reel.filename, mode);
     return;
   }
   const { title, subtitle } = imageText();
@@ -567,42 +654,10 @@ async function openReel(mode) {
     explanation: [metrics[state.metric].summary, state.lists.note].filter(Boolean).join(' '),
     rankingTitle: leaders.textContent.trim(),
     source: clean(source),
+    events: eventsIn(chosenEvents(), range[0], range[1]),
   });
-  present(reel, imageName(config.countryName, state.metric, state.field, `${range[0]}-${range[1]}`, format === 'wide' && 'wide')
+  presentReel(reel, imageName(config.countryName, state.metric, state.field, `${range[0]}-${range[1]}`, format === 'wide' && 'wide')
     .replace(/\.png$/, '.mp4'), mode);
-}
-
-// Shows a video over the page and hands its frames to tools/reel.py through window.reel; `mode` 'record' only does the second.
-function present(reel, filename, mode) {
-  const stage = document.createElement('div');
-  stage.className = 'reel-stage';
-  stage.append(reel.canvas);
-  document.body.append(stage);
-  reel.draw(0);
-  window.reel = {
-    ready: true,
-    fps: FPS,
-    frames: reel.frames,
-    filename,
-    width: reel.canvas.width,
-    height: reel.canvas.height,
-    frame(n) {
-      reel.draw(n);
-      return reel.canvas.toDataURL('image/png');
-    },
-  };
-  if (mode === 'record') return;
-  let elapsed = 0;
-  let last = null;
-  let paused = false;
-  stage.addEventListener('click', () => { paused = !paused; });
-  const play = (now) => {
-    if (!paused && last !== null) elapsed += now - last;
-    last = now;
-    reel.draw(Math.floor((elapsed / 1000) * FPS) % reel.frames);
-    requestAnimationFrame(play);
-  };
-  requestAnimationFrame(play);
 }
 
 drawHead();

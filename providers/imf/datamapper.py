@@ -15,13 +15,22 @@ PAGE = 'https://www.imf.org/external/datamapper/{code}@{dataset}'
 
 def load_series(model, code, dataset):
     """Replace the table of `model` with the IMF series `code` from `dataset` (WEO, FM, ...), in its `value` column."""
-    by_country = http.get_json(API.format(code=code))['values'][code]
-    release = http.get_json(INDICATORS_API)['indicators'][code]['source']  # e.g. "World Economic Outlook (October 2026)"
+    return load_columns(model, {code: 'value'}, dataset)
+
+
+def load_columns(model, columns, dataset):
+    """Replace the table of `model` with several IMF series of one `dataset`. columns maps series code -> table column.
+
+    The first series names the source link.
+    """
     first_projected_year = date.today().year
-    rows = {
-        (country, int(year)): {'value': value}
-        for country, years in by_country.items()
-        for year, value in years.items()
-        if value is not None and int(year) < first_projected_year
-    }
+    rows, release = {}, ''
+    for code, column in columns.items():
+        by_country = http.get_json(API.format(code=code))['values'][code]
+        release = http.get_json(INDICATORS_API)['indicators'][code]['source']  # e.g. "World Economic Outlook (October 2026)"
+        for country, years in by_country.items():
+            for year, value in years.items():
+                if value is not None and int(year) < first_projected_year:
+                    rows.setdefault((country, int(year)), dict.fromkeys(columns.values()))[column] = value
+    code = next(iter(columns))
     return replace_table(model, rows, Source(name=f'IMF, {release}', url=PAGE.format(code=code, dataset=dataset), updated=release))

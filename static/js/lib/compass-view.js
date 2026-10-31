@@ -5,11 +5,11 @@
 // A party a survey left out has an inferred place: an asterisk on the chart, a note in its tooltip, and a list under the chart.
 // gettext, ngettext and interpolate are Django's, from the translation catalog base.html loads.
 import {
-  bindSaveButton, handOver, imageFrame, imageName, imageWell, loadImage, SCALE,
+  bindSaveButton, handOver, imageFrame, imageName, imageWell, loadImage, SCALE, sizedName,
 } from './chart-image.js';
 import { compassPlot, darkLogo, markerAt, paintCompass, placeMarkers, tileSize, tileWidth } from './compass.js';
 import { createCompassReel } from './compass-reel.js';
-import { escapeHtml } from './format.js';
+import { badgeText, escapeHtml } from './format.js';
 import { createPicker } from './picker.js';
 
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -139,7 +139,7 @@ export function createCompassView(root, config, page) {
     const placed = position.inferred ? ''
       : `${escapeHtml(interpolate(ngettext('Placed by at least %s expert', 'Placed by at least %s experts', position.experts), [position.experts]))} · `;
     const chip = party.logo ? `<span class="party-chip compass-tip__logo"><img class="party-logo" src="${escapeHtml(party.logo)}" alt=""></span>`
-      : `<span class="party-chip compass-tip__logo"><span class="party-badge" style="--party:${party.color}">${escapeHtml(party.abbreviation)}</span></span>`;
+      : `<span class="party-chip compass-tip__logo"><span class="party-badge" style="--party:${party.color}">${escapeHtml(badgeText(party.abbreviation))}</span></span>`;
     return `<div class="compass-tip__head">${chip}`
       + `<div><strong>${escapeHtml(party.abbreviation)}</strong><span>${escapeHtml(party.name)}</span></div></div>${inferred}${notes}`
       + '<dl class="compass-tip__axes">'
@@ -295,16 +295,16 @@ export function createCompassView(root, config, page) {
     };
   }
 
-  bindSaveButton(card.querySelector('[data-save-image]'), async () => {
+  bindSaveButton(card.querySelector('[data-save-image]'), async (shape) => {
     const { title, subtitle, sources } = imageText();
-    const frame = await imageFrame({ title, subtitle, sources, flag: page.flag });
-    const { inner } = imageWell(frame.ctx, frame.top, frame.bottom - frame.top);
+    const frame = await imageFrame({ title, subtitle, sources, flag: page.flag, size: shape });
+    const { inner } = imageWell(frame.ctx, frame.top, frame.bottom - frame.top, { width: frame.width });
     const plot = compassPlot(inner.w, inner.h, { top: PAD.top * SCALE, right: PAD.right * SCALE, bottom: PAD.bottom * SCALE, left: PAD.left * SCALE });
     plot.x += inner.x;
     plot.y += inner.y;
     const size = Math.round(Math.min(plot.w, plot.h) * 0.07);
     paintCompass(frame.ctx, plot, { markers: placeMarkers(shownItems(), plot, size, widthOf(size)), parties: config.parties, logos, size, k: SCALE });
-    await handOver([{ canvas: frame.canvas, filename: imageName(page.country, 'party-positions', state.survey) }], title);
+    await handOver([{ canvas: frame.canvas, filename: sizedName(imageName(page.country, 'party-positions', state.survey), shape) }], title);
   });
 
   // ---------- The video (lib/compass-reel.js) ----------

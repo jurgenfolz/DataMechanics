@@ -1,5 +1,6 @@
 // World choropleth on a Mercator projection.
-// Used by the metric page and the home page spotlight. Needs the global `echarts`, and Django's gettext and interpolate.
+// Used by the metric page and the home page spotlight, and through createChoropleth by the maps of one country's states
+// (lib/states-view.js). Needs the global `echarts`, and Django's gettext and interpolate.
 import { loadImage, MONO, whenFinished, wrap } from './chart-image.js';
 import { escapeHtml, formatValue } from './format.js';
 
@@ -7,8 +8,8 @@ import { escapeHtml, formatValue } from './format.js';
 export const DIVERGING = ['#e66767', '#ab5b5b', '#724d4e', '#3a3d41', '#455a75', '#4e79ac', '#5598e7'];
 // Metrics without a better direction: one blue ramp, dark (low) to light (high).
 export const SEQUENTIAL = ['#0d366b', '#104281', '#1c5cab', '#2a78d6', '#5598e7', '#86b6ef', '#cde2fb'];
-const NO_DATA = '#2a2c2f';
-const BORDER = '#121416';
+export const NO_DATA = '#2a2c2f';
+export const BORDER = '#121416';
 const HOVER = '#ffd700';
 const WORLD = 'WLD';
 
@@ -19,7 +20,7 @@ const MAX_LATITUDE = 85;
 // Width / height of the projected map, Antarctica left out (latitudes -56 to 84).
 export const MAP_ASPECT = 1.54;
 
-function project([lon, lat]) {
+export function project([lon, lat]) {
   const phi = Math.max(-MAX_LATITUDE, Math.min(MAX_LATITUDE, lat)) * RAD;
   return [lon * RAD * 100, -Math.log(Math.tan(Math.PI / 4 + phi / 2)) * 100];
 }
@@ -87,12 +88,24 @@ export function colorScale(series, values) {
 }
 
 // ---------- The map ----------
-export function createWorldMap(element, { units, onSelect, roam = false, animate = true }) {
+// The shapes a map draws: their name in ECharts, how they load, their width over height, the property that holds
+// each shape's code, and the name of a shape without data.
+const WORLD_SHAPES = { name: 'world', load: loadShapes, aspect: MAP_ASPECT, key: 'iso3', nameOf: (code) => names.get(code) };
+
+export function createWorldMap(element, options) {
+  return createChoropleth(element, { ...options, shapes: WORLD_SHAPES });
+}
+
+/** A choropleth of any shapes (WORLD_SHAPES is the world's); `data` gives each shape's values by year. */
+export function createChoropleth(element, { units, shapes, onSelect, roam = false, animate = true }) {
   const chart = echarts.init(element, null, { renderer: 'canvas' });
   let current = null;
 
-  // The map's width in pixels, as large as the box allows without stretching it.
-  const fit = () => Math.min(element.clientWidth, element.clientHeight * MAP_ASPECT) * 0.98;
+  // The size ECharts gives the map, as large as the box allows without stretching it: its width when it is wider than
+  // tall, its height otherwise.
+  const fit = () => (shapes.aspect >= 1
+    ? Math.min(element.clientWidth, element.clientHeight * shapes.aspect)
+    : Math.min(element.clientHeight, element.clientWidth / shapes.aspect)) * 0.98;
   const observer = new ResizeObserver(() => {
     chart.resize();
     if (current) chart.setOption({ series: [{ layoutSize: fit() }] });
@@ -106,7 +119,7 @@ export function createWorldMap(element, { units, onSelect, roam = false, animate
   }
 
   async function render(data, year) {
-    await loadShapes();
+    await shapes.load();
     const rule = units[data.unit];
     const yearIndex = data.years.indexOf(year);
     const rows = Object.entries(data.values)
@@ -127,7 +140,7 @@ export function createWorldMap(element, { units, onSelect, roam = false, animate
         extraCssText: 'border-radius:10px;box-shadow:0 12px 30px rgb(0 0 0 / .5);',
         formatter(params) {
           const country = data.countries[params.name];
-          const name = escapeHtml(country?.name || names.get(params.name) || params.name);
+          const name = escapeHtml(country?.name || shapes.nameOf(params.name) || params.name);
           const flag = country?.flag ? `<img src="${escapeHtml(country.flag)}" alt="">` : '';
           if (params.data?.raw === undefined) {
             const muted = escapeHtml(interpolate(gettext('No data for %s'), [year]));
@@ -140,8 +153,8 @@ export function createWorldMap(element, { units, onSelect, roam = false, animate
       },
       series: [{
         type: 'map',
-        map: 'world',
-        nameProperty: 'iso3',
+        map: shapes.name,
+        nameProperty: shapes.key,
         projection: { project, unproject },
         roam,
         scaleLimit: { min: 1, max: 8 },
@@ -173,8 +186,10 @@ export function createWorldMap(element, { units, onSelect, roam = false, animate
   return { render, dispose, chart, get current() { return current; } };
 }
 
-/** The legend under a map: a colour bar with its end values, and the "No data" swatch. */
-export function renderLegend(container, data, scale, units) {
+/** The legend under a map: a colour bar with its end values, and the "No data" swatch.
+ * `median` names the middle value's place, where the colours of a better direction turn.
+ */
+export function renderLegend(container, data, scale, units, median = gettext('Median country')) {
   const rule = units[data.unit];
   const stops = scale.colors.map((c, i) => `${c} ${(i / (scale.colors.length - 1)) * 100}%`).join(', ');
   const [left, right] = scale.diverging ? [gettext('Worse'), gettext('Better')] : [gettext('Lower'), gettext('Higher')];
@@ -199,7 +214,7 @@ export function renderLegend(container, data, scale, units) {
     tick.textContent = formatValue(value, rule);
     ends.append(tick);
   }
-  if (scale.diverging) ends.children[1].title = gettext('Median country');
+  if (scale.diverging) ends.children[1].title = median;
   block.append(leftLabel, bar, rightLabel, ends);
 
   const noData = document.createElement('span');
@@ -212,11 +227,11 @@ export function renderLegend(container, data, scale, units) {
 const FONT = 'Archivo, "Helvetica Neue", Arial, sans-serif';
 
 /** What saveChartImage needs for a map: its proportions, and how to draw it with its legend and top list under it. */
-export function mapImageParts(data, year, units) {
+export function mapImageParts(data, year, units, shapes = WORLD_SHAPES) {
   return {
-    aspect: MAP_ASPECT,
+    aspect: shapes.aspect,
     async draw(element) {
-      const map = createWorldMap(element, { units, animate: false });
+      const map = createChoropleth(element, { units, shapes, animate: false });
       const finished = whenFinished(map.chart);
       const { scale } = await map.render(data, year);
       await finished;
@@ -298,6 +313,8 @@ export async function paintTopList(ctx, box, data, year, units) {
     ctx.font = `500 14px ${MONO}`;
     ctx.fillStyle = '#8b8f94';
     ctx.fillText(String(n + 1), x, y);
+    // Without flags (a country's states), the names take their place.
+    const nameX = flags.some(Boolean) ? x + 68 : x + 28;
     if (flags[n]) {
       ctx.save();
       ctx.beginPath();
@@ -314,7 +331,7 @@ export async function paintTopList(ctx, box, data, year, units) {
     ctx.fillText(value, x + columnW, y);
     ctx.textAlign = 'left';
     ctx.font = `500 18px ${FONT}`;
-    ctx.fillText(wrap(ctx, data.countries[iso3]?.name || iso3, columnW - valueW - 84, 1)[0], x + 68, y);
+    ctx.fillText(wrap(ctx, data.countries[iso3]?.name || iso3, columnW - valueW - (nameX - x) - 16, 1)[0], nameX, y);
   });
   ctx.restore();
 }

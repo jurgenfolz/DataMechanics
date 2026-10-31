@@ -1,0 +1,64 @@
+{% load i18n %}{% comment %}Crime suspects by nationality, for a Politics page tab: static/js/lib/crime-view.js wires it.
+Its attributes are its own (data-crime-*): politics-page.js looks up data-view, data-table and the like in the whole page.{% endcomment %}
+  <section class="card chart-card crime-card" aria-labelledby="crime-title" data-crime-card>
+    <div class="chart-card__head">
+      <h2 class="chart-card__title" id="crime-title"><span class="chart-card__name">{% translate "Crime suspects by nationality" %}</span> <span>· {{ crime.year }}</span></h2>
+      <div class="pol-chart__tools">
+        <div class="picker" data-crime-offences>
+          <button class="picker__button" type="button" data-picker-button aria-haspopup="tree" aria-expanded="false" aria-label="{% translate "Choose offences" %}">
+            <span data-picker-label>{% translate "All offences" %}</span>
+            <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <div class="picker__panel picker__panel--wide" data-picker-panel hidden>
+            <input class="picker__search" data-picker-search type="search" placeholder="{% translate "Search offences" %}" aria-label="{% translate "Search offences" %}"
+                   role="combobox" aria-controls="crime-offence-list" aria-expanded="true" autocomplete="off">
+            <ul class="picker__list picker__list--tall" id="crime-offence-list" data-picker-list role="tree" aria-multiselectable="true" aria-label="{% translate "Offences" %}"></ul>
+          </div>
+        </div>
+        <button class="picker__button crime-top" type="button" data-crime-top aria-pressed="true"
+                title="{% blocktranslate with count=crime.highest name=country.local_name %}The {{ count }} foreign nationalities with the highest shares for the chosen offences, and the citizens of {{ name }}{% endblocktranslate %}">{% blocktranslate with count=crime.highest %}Top {{ count }}{% endblocktranslate %}</button>
+        <div class="picker" data-crime-nationalities>
+          <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="{% translate "Choose nationalities" %}">
+            <span data-picker-label>{% translate "Choose nationalities" %}</span>
+            <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <div class="picker__panel" data-picker-panel hidden>
+            <input class="picker__search" data-picker-search type="search" placeholder="{% translate "Search nationalities" %}" aria-label="{% translate "Search nationalities" %}"
+                   role="combobox" aria-controls="crime-picker-list" aria-expanded="true" autocomplete="off">
+            <p class="picker__hint" data-picker-hint hidden></p>
+            <ul class="picker__list" id="crime-picker-list" data-picker-list role="listbox" aria-multiselectable="true" aria-label="{% translate "Nationalities" %}"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="pol-chart__summary" data-crime-summary></p>
+    <div class="toggle-group">
+      <span class="toggle-group__key"><i style="background:#c98500"></i>{% blocktranslate with name=country.local_name %}Citizens of {{ name }}{% endblocktranslate %}</span>
+      <span class="toggle-group__key"><i style="background:#3987e5"></i>{% translate "Foreign nationals" %}</span>
+    </div>
+    <p class="source-line">{% translate "Sources:" %} {% for source in crime.sources %}<a href="{{ source.url }}">{{ source.name }}</a>{% if source.updated %} ({% blocktranslate with date=source.updated %}updated {{ date }}{% endblocktranslate %}){% endif %}{% if not forloop.last %}; {% endif %}{% endfor %}{% if crime.loaded %} · {% blocktranslate with date=crime.loaded %}loaded {{ date }}{% endblocktranslate %}{% endif %}</p>
+    <div class="well crime-well" data-crime-well>
+      {% include "partials/save_image.html" %}
+      <p class="war-empty" data-crime-empty hidden></p>
+      <div class="map-canvas" data-crime-chart role="img" aria-label="{% translate "Column chart of crime suspects by nationality, as a share of each nationality's people. The table below lists the numbers." %}"></div>
+    </div>
+    <p class="pol-chart__note" data-crime-overlap hidden>{% blocktranslate trimmed %}
+      With more than one kind of offence chosen, the police count a person suspected of several once for each, so the shares can run high.
+      Only one kind of offence at a time, or all of them, counts each person once.
+    {% endblocktranslate %}</p>
+    <p class="pol-chart__note">{% blocktranslate trimmed %}
+      A suspect is not a convict: the police count each person they suspect once a year, however many offences, and not every suspect is charged or convicted.
+    {% endblocktranslate %}</p>
+    <p class="pol-chart__note">{% blocktranslate trimmed with foreign=crime.text.foreign all=crime.text.foreignAll name=country.local_name %}
+      Offences against residence and asylum law are left out, since only foreigners can break them: with them, {{ all }} of foreign nationals were suspects, not {{ foreign }}.
+      People who are citizens of {{ name }} and of another country count as citizens of {{ name }}, in both counts.
+    {% endblocktranslate %}</p>
+    <p class="pol-chart__note">{% blocktranslate trimmed with floor=crime.text.floor name=country.local_name %}
+      Only nationalities with at least {{ floor }} people in {{ name }} are listed: with fewer, a handful of suspects moves the share a lot.
+    {% endblocktranslate %}</p>
+    {% for note in crime.notes %}<p class="pol-chart__note">{{ note }}</p>{% endfor %}
+    <details class="numbers">
+      <summary>{% translate "Show the numbers" %}</summary>
+      <div class="table-scroll table-scroll--tall"><table data-crime-table></table></div>
+    </details>
+  </section>

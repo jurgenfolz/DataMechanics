@@ -477,7 +477,7 @@ a.value-pill:hover { background: var(--gold-wash); box-shadow: 0 0 16px rgb(255 
 }
 /* One phrase per line on wide screens; they wrap naturally on phones. */
 .intro__title span { display: inline-block; }
-.intro__text { margin-top: 20px; max-width: 62ch; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
+.intro__text { margin-top: 20px; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
 .intro__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .intro__actions .button { height: 44px; padding: 0 20px; font-size: 0.9375rem; }
 
@@ -707,8 +707,8 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   line-height: 1;
   letter-spacing: -0.02em;
 }
-.metric-head__summary { margin-top: 10px; font-size: 1.125rem; color: var(--ink); max-width: 60ch; }
-.metric-head__about { margin-top: 12px; max-width: 72ch; color: var(--ink-2); line-height: 1.65; }
+.metric-head__summary { margin-top: 10px; font-size: 1.125rem; color: var(--ink); }
+.metric-head__about { margin-top: 12px; color: var(--ink-2); line-height: 1.65; }
 .metric-head .chips { margin-top: 16px; }
 
 .series-tabs {
@@ -723,7 +723,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 /* Tabs that do not fit scroll; the fade shows there is more (metric-page.js sets the class). */
 .series-tabs.is-overflowing { mask-image: linear-gradient(90deg, #000 88%, transparent); }
 /* What the open measure means, when it needs saying (e.g. PPP). */
-.series-note { margin-top: 12px; max-width: 72ch; font-size: 0.875rem; line-height: 1.55; color: var(--ink-2); }
+.series-note { margin-top: 12px; font-size: 0.875rem; line-height: 1.55; color: var(--ink-2); }
 .series-tabs button {
   position: relative;
   flex-shrink: 0;
@@ -781,6 +781,42 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .chart-save.is-busy svg { animation: chart-save-busy 900ms ease-in-out infinite alternate; }
 @keyframes chart-save-busy { to { opacity: 0.3; } }
 @media (hover: none) { .chart-save { opacity: 0.45; } }
+.chart-save[aria-expanded="true"] { opacity: 1; color: var(--gold); }
+/* The save button's menu (js/lib/chart-image.js, bindSaveButton): the image's shapes, each with its size. It hangs under the button. */
+.save-menu {
+  position: fixed;
+  z-index: 60;
+  display: grid;
+  gap: 2px;
+  min-width: 230px;
+  padding: 6px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.55);
+  transform-origin: top right;
+  animation: pop 160ms var(--ease-out);
+}
+.save-menu[hidden] { display: none; }
+.save-menu__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 2px 18px;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.save-menu__item:hover, .save-menu__item:focus-visible { background: var(--raised); outline: none; }
+.save-menu__item:focus-visible { box-shadow: inset 0 0 0 1px var(--gold); }
+.save-menu__name { font-weight: 700; font-size: 0.875rem; }
+.save-menu__size { font-family: var(--mono); font-size: 0.8125rem; font-weight: 600; color: var(--ink-2); }
+.save-menu__use { grid-column: 1 / -1; font-size: 0.75rem; color: var(--ink-3); }
 
 /* Where the saved image's chart is drawn, out of sight. */
 .chart-image-stage { position: fixed; left: -10000px; top: 0; pointer-events: none; }
@@ -794,6 +830,31 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .map-well { aspect-ratio: 1.54 / 1; max-height: 580px; }
 .map-well--spotlight { aspect-ratio: 1.5 / 1; }
 .line-well { height: clamp(320px, 36vw, 420px); }
+/* Every country ranked in one year: a table that scrolls inside a fixed height, its head staying put. */
+.chart-card__filters { display: flex; flex-wrap: wrap; gap: 10px; }
+.rank-table__scroll { max-height: clamp(420px, 60vh, 640px); margin-top: 14px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line); border-radius: 10px; background: var(--well); }
+.rank-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.875rem; }
+.rank-table thead th { position: sticky; top: 0; z-index: 1; padding: 0; background: var(--raised); border-bottom: 1px solid var(--line); text-align: left; }
+.rank-table thead th.is-numeric { text-align: right; }
+.rank-table thead button {
+  display: inline-flex; align-items: center; gap: 6px; width: 100%; padding: 12px 14px; border: 0; background: none;
+  color: var(--ink-3); font: inherit; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase;
+  text-align: inherit; cursor: pointer; transition: color 150ms ease;
+}
+.rank-table thead th.is-numeric button { justify-content: flex-end; }
+.rank-table thead button:hover, .rank-table thead th[aria-sort]:not([aria-sort="none"]) button { color: var(--ink); }
+.rank-table thead button:focus-visible { outline: none; box-shadow: inset var(--gold-glow); }
+.rank-table__arrow { width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: 0; transform: translateY(-2px) rotate(45deg); transition: opacity 150ms ease, transform 200ms ease; }
+.rank-table th[aria-sort="ascending"] .rank-table__arrow { opacity: 1; transform: translateY(2px) rotate(-135deg); }
+.rank-table th[aria-sort="descending"] .rank-table__arrow { opacity: 1; transform: translateY(-2px) rotate(45deg); }
+.rank-table tbody td { padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.rank-table tbody tr:last-child td { border-bottom: 0; }
+.rank-table tbody tr { transition: background-color 120ms ease; }
+.rank-table tbody tr:hover { background: var(--raised); }
+.rank-table__rank { width: 1%; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-3); text-align: right; }
+.rank-table__country { display: flex; align-items: center; gap: 10px; }
+.rank-table__country .flag { width: 24px; height: 18px; border-radius: 3px; object-fit: cover; flex-shrink: 0; }
+.rank-table__value { font-family: var(--mono); font-weight: 600; text-align: right; white-space: nowrap; color: var(--ink); }
 
 .select {
   position: relative;
@@ -897,6 +958,78 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   background: var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' fill='none' stroke='%23121416' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat center;
 }
 .picker__option--world { border-bottom: 1px solid var(--line); border-radius: 6px 6px 0 0; margin-bottom: 4px; }
+.picker__name { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.picker__name > :first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.picker__meta { flex-shrink: 0; font-family: var(--mono); font-size: 0.6875rem; font-style: normal; color: var(--ink-3); }
+/* The world events' picker (js/lib/events.js): each option shows its kind's icon in its colour. */
+.picker__icon { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 18px; }
+.picker__icon svg { width: 16px; height: 16px; }
+.picker--events .picker__button { font-weight: 600; color: var(--ink-2); gap: 8px; }
+.picker--events .picker__button > svg:first-child { width: 14px; height: 14px; color: var(--gold); }
+.picker--events .picker__button.is-set { color: var(--ink); }
+.chart-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* The chosen events under a chart: the kind's icon, the title and the date, like the countries' keys. */
+.event-keys { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.event-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 4px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--well);
+  font-size: 0.8125rem;
+}
+.event-key a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.event-key a:hover { color: var(--gold); }
+.event-key__when { font-family: var(--mono); font-size: 0.6875rem; color: var(--ink-3); white-space: nowrap; }
+.event-key button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+}
+.event-key button:hover { background: var(--raised); color: var(--ink); }
+.event-key button svg { width: 10px; height: 10px; }
+.event-icon { display: inline-flex; flex-shrink: 0; }
+.event-icon svg { display: block; }
+/* A card over a chart, on hover over an event's chip (js/lib/events.js). */
+.chart-tip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  max-width: 280px;
+  padding: 10px 12px;
+  background: #17191b;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.5);
+  pointer-events: none;
+}
+.chart-tip .tip__head { gap: 6px; }
+.chart-tip p { margin: 6px 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--ink-2); }
+/* A tree of choices (js/lib/tree-picker.js): each level sits further in, and a parent with some of its items checked shows a dash. */
+.picker__panel--wide { width: min(420px, calc(100vw - 4 * var(--gutter))); }
+.picker__list--tall { max-height: min(420px, 60vh); }
+.picker__option--tree { grid-template-columns: 18px minmax(0, 1fr); padding-left: calc(8px + var(--depth, 0) * 18px); }
+.picker__option--tree[aria-level="1"] { font-weight: 600; border-bottom: 1px solid var(--line); border-radius: 6px 6px 0 0; margin-bottom: 4px; }
+.picker__option--tree[aria-level="2"] { font-weight: 600; }
+.picker__option[aria-checked="true"] .picker__check {
+  border-color: var(--gold);
+  background: var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' fill='none' stroke='%23121416' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat center;
+}
+.picker__option[aria-checked="mixed"] .picker__check {
+  border-color: var(--gold);
+  background: var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='2' viewBox='0 0 10 2'%3E%3Cpath d='M1 1h8' fill='none' stroke='%23121416' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat center;
+}
 
 .series-keys { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .series-key {
@@ -959,6 +1092,23 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .downloads p { font-size: 0.8125rem; color: var(--ink-3); }
 .text-link { color: var(--ink-2); font-weight: 600; font-size: 0.875rem; text-decoration-color: var(--line-strong); }
 .text-link:hover { color: var(--gold); text-decoration-color: var(--gold); }
+
+/* ---------- Compare ---------- */
+
+/* The two measures, each after the stroke of its line's colour: the chart's legend. */
+.compare-axes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin-top: 16px; }
+.compare-axis { display: flex; min-width: 0; }
+.compare-axis__key { flex-shrink: 0; width: 14px; height: 2px; border-radius: 2px; transition: opacity 150ms ease; }
+.compare-axis__key.is-off { opacity: 0.25; }
+.compare-axis__name { flex-shrink: 0; white-space: nowrap; }
+.compare-axis select { flex: 1; min-width: 0; text-overflow: ellipsis; }
+.compare-sources { margin-top: 12px; }
+.compare-sources .source-line { margin-top: 2px; }
+.source-line__metric { color: var(--ink-2); font-weight: 600; }
+.compare-missing { margin-top: 10px; font-size: 0.8125rem; color: var(--ink-3); }
+@media (max-width: 720px) {
+  .compare-axes { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* Chart tooltip (ECharts renders it; these are its contents) */
 .tip { font-family: var(--font); font-size: 0.8125rem; color: var(--ink); min-width: 160px; }
@@ -1078,7 +1228,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 }
 .about__photo { width: 96px; height: 96px; border-radius: 50%; box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px rgb(255 215 0 / 0.55); }
 .about h2 { font-weight: 700; font-stretch: var(--condensed); font-size: 1.625rem; line-height: 1.1; }
-.about p { margin-top: 8px; max-width: 68ch; color: var(--ink-2); }
+.about p { margin-top: 8px; color: var(--ink-2); }
 .about__links { display: flex; flex-direction: column; gap: 10px; }
 
 .site-footer { margin-top: 40px; border-top: 1px solid var(--line); }
@@ -1128,6 +1278,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  overflow: hidden;
   background: var(--party, #999999);
   color: #121416;
   font-family: var(--mono);
@@ -1233,9 +1384,9 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 /* A measure without data for the country shows its message alone (politics-page.js, showEmpty). */
 .pol-chart.is-empty :is(.year-slicer, .pol-chart__note, .timeline-bar, .timeline, .ranking, .timeline__note, .numbers, .term-well .chart-save) { display: none; }
 .chart-card__title .chart-card__name { color: var(--ink); font-weight: 700; }
-.pol-chart__summary { margin-top: 6px; max-width: 72ch; color: var(--ink-2); }
+.pol-chart__summary { margin-top: 6px; color: var(--ink-2); }
 .pol-chart .series-tabs { margin-top: 18px; }
-.pol-chart__note { margin-top: 12px; max-width: 90ch; font-size: 0.8125rem; color: var(--ink-3); }
+.pol-chart__note { margin-top: 12px; font-size: 0.8125rem; color: var(--ink-3); }
 .pol-chart__tools { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; }
 /* The dropdown's swatch: the group's dashed line, as a legend for it. */
 .compare-select__line { width: 22px; height: 0; border-top: 2px dashed #c9ccd0; }
@@ -1324,6 +1475,14 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .timeline-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 18px; }
 .timeline-bar .series-tabs { flex: 1; margin-top: 0; }
 .pol-credits { margin-top: 18px; }
+/* A kind of crime by state: the map, with the states ranked beside it; one under the other on a phone. */
+.pol-states__body { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(220px, 1fr); gap: 24px; align-items: start; margin-top: 16px; }
+.pol-states .map-well { aspect-ratio: auto; height: clamp(380px, 40vw, 540px); max-height: none; margin-top: 0; }
+.pol-states__list { max-height: clamp(380px, 40vw, 540px); overflow-y: auto; }
+.pol-states__list li { grid-template-columns: 22px minmax(0, 1fr) auto; }
+/* With flags (Brazil's states), a column for them, as the metrics' ranking has. */
+.pol-states__list li:has(> .flag) { grid-template-columns: 22px auto minmax(0, 1fr) auto; }
+.pol-states__list button[aria-current] { color: var(--gold); }
 .term-well { height: clamp(380px, 42vw, 520px); }
 .term-empty { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; color: var(--ink-3); text-align: center; z-index: 1; }
 
@@ -1377,12 +1536,19 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .compass-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
 .compass-note { padding: 22px 24px; }
 .compass-note h2 { font-weight: 700; font-size: 1.125rem; }
-.compass-note p { margin-top: 10px; max-width: 68ch; color: var(--ink-2); }
+.compass-note p { margin-top: 10px; color: var(--ink-2); }
 .compass-limits { display: grid; gap: 10px; margin: 12px 0 0; padding-left: 1.1em; color: var(--ink-2); }
 .compass-limits strong { color: var(--ink); }
 /* ---------- The seats in Congress (templates/politics/_congress.html, static/js/lib/hemicycle.js) ---------- */
 .congress-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 20px; align-items: start; margin-top: 16px; }
 .congress-well { height: clamp(260px, 34vw, 440px); }
+/* Crime suspects by nationality: columns at this height; on phones the chart draws rows and sets the height itself (lib/suspects-chart.js). */
+.crime-well { height: clamp(340px, 36vw, 460px); }
+.crime-well.is-slanted { height: clamp(410px, calc(36vw + 70px), 530px); }
+/* The notes under the crime chart take the card's whole width. */
+/* Top 20: lit while the chart shows the highest shares, which follow the chosen offences. */
+.crime-top[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-wash); color: var(--ink); }
+.crime-top:focus-visible { outline: none; box-shadow: var(--gold-glow); }
 .congress-canvas { position: absolute; inset: 0; display: block; }
 .seat-list { display: grid; margin: 0; padding: 0; list-style: none; max-height: 440px; overflow-y: auto; }
 .seat-row {
@@ -1655,6 +1821,9 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   .chart-card { padding: 16px 14px; }
   .pol-head__flag { width: 52px; height: 52px; }
   .term-well { height: 400px; }
+  .pol-states__body { grid-template-columns: 1fr; }
+  .pol-states .map-well { height: 400px; }
+  .pol-states__list { max-height: 400px; }
   /* Phones: the years move under the name, so the name keeps its room. */
   .term-row { grid-template-columns: 16px auto minmax(0, 1fr) 3rem auto; gap: 0 10px; padding-inline: 4px 8px; }
   .term-row__years, .term-row__values { display: none; }
@@ -1671,7 +1840,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 @media (prefers-reduced-motion: reduce) {
   .chart-save.is-busy svg { animation: none; }
   .spin { animation: none; }
-  .slide.is-entering, .picker__panel, .menu.is-open .menu__panel, .site-header.is-nav-open .nav { animation: none; }
+  .slide.is-entering, .picker__panel, .save-menu, .menu.is-open .menu__panel, .site-header.is-nav-open .nav { animation: none; }
   .button:active, .round-btn:active { transform: none; }
 }
 
@@ -1679,12 +1848,12 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 /* ---------- Conflicts: World War II ---------- */
 
 .section-title { font-weight: 700; font-stretch: var(--condensed); font-size: 1.75rem; line-height: 1.1; letter-spacing: -0.01em; }
-.chart-note { max-width: 82ch; margin-top: 14px; font-size: 0.8125rem; line-height: 1.6; color: var(--ink-3); }
+.chart-note { margin-top: 14px; font-size: 0.8125rem; line-height: 1.6; color: var(--ink-3); }
 
 .war-head { margin-top: 14px; }
 .war-head h1 { font-weight: 700; font-stretch: var(--condensed); font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.02em; }
 .war-head__years { margin-top: 8px; font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--ink-3); }
-.war-head__lead { margin-top: 14px; max-width: 62ch; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
+.war-head__lead { margin-top: 14px; font-size: 1.125rem; line-height: 1.6; color: var(--ink-2); }
 .war-head__credit { margin-top: 10px; font-size: 0.875rem; color: var(--ink-3); }
 .war-head__credit a, .war-sources a { color: var(--ink-2); text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
 .war-head__credit a:hover, .war-sources a:hover { color: var(--gold); text-decoration-color: var(--gold); }
@@ -1699,7 +1868,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 
 /* Casualties by country: a chart card like the metrics pages', with the parts to show as checkable pills. */
 .war-card { position: relative; margin-top: 40px; scroll-margin-top: 80px; }
-.war-card__summary { margin-top: 8px; max-width: 72ch; font-size: 0.9375rem; color: var(--ink-2); }
+.war-card__summary { margin-top: 8px; font-size: 0.9375rem; color: var(--ink-2); }
 .toggle-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 14px; }
 .toggle {
   display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 10px;
@@ -1815,7 +1984,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .war-timeline__head::before { content: ""; position: absolute; top: -4px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
 
 .war-sources { margin-top: 56px; scroll-margin-top: 80px; }
-.war-sources__list { margin: 14px 0 0; padding: 0; list-style: none; max-width: 90ch; }
+.war-sources__list { margin: 14px 0 0; padding: 0; list-style: none; }
 .war-sources__list li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; line-height: 1.6; color: var(--ink-2); }
 
 /* Battle by battle: the Politics timeline's rows, with flags for logos and two casualty bars on one scale. */
@@ -1824,6 +1993,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .battle-head { margin-top: 18px; }
 .battle-list .term-row--battle.is-lit { background: var(--raised); }
 .battle-list .term-row--event { grid-template-columns: 8.5rem 20px minmax(0, 1fr) 24px; cursor: default; }
+.battle-list .term-row--battle .term-row__years span { display: block; }
 .battle-row__picture { display: block; width: 56px; height: 40px; border-radius: 6px; object-fit: cover; background: var(--well); }
 .battle-row__picture--none { box-shadow: inset 0 0 0 1px var(--line); }
 .battle-row__name {
@@ -1875,6 +2045,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
   .battle-list .term-row--battle .term-row__rail { grid-column: 1; grid-row: 1 / span 4; }
   /* Politics hides a term's years on phones; a battle keeps its dates, over its name. */
   .battle-list .term-row--battle .term-row__years { display: block; grid-column: 2; grid-row: 1; text-align: left; font-size: 0.6875rem; white-space: normal; }
+  .battle-list .term-row--battle .term-row__years span { display: inline; }
   .battle-list .term-row--battle .term-row__who { grid-column: 2; grid-row: 2; }
   .battle-list .term-row--battle .battle-row__values { grid-column: 2; grid-row: 3; grid-auto-flow: column; justify-content: start; gap: 14px; margin-top: 2px; }
   .battle-list .term-row--battle .battle-row__result { grid-column: 2; grid-row: 4; justify-self: start; text-align: left; }

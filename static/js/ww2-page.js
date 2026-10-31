@@ -2,7 +2,7 @@
 // battle map with the war's timeline under it, and the battles one by one. The casualties chart and the map save as
 // Instagram images. The chart's state (countries, parts) lives in the URL so a view can be shared.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
-import { SCALE, bindSaveButton, handOver, imageFrame, imageName, imageWell, saveChartImage } from './lib/chart-image.js';
+import { SCALE, bindSaveButton, handOver, imageFrame, imageName, imageWell, saveChartImage, sizedName } from './lib/chart-image.js';
 import { createBattleList } from './lib/battle-list.js';
 import { casualtiesImageParts, createCasualtiesChart } from './lib/casualties-chart.js';
 import { createPicker } from './lib/picker.js';
@@ -104,7 +104,8 @@ function syncUrl() {
 
 drawCasualties();
 
-bindSaveButton(casualtiesCard.querySelector('[data-save-image]'), () => saveChartImage({
+bindSaveButton(casualtiesCard.querySelector('[data-save-image]'), (size) => saveChartImage({
+  size,
   title: gettext('World War II: casualties by country'),
   subtitle: state.show.soldiers && state.show.civilians ? gettext('Deaths in the war, soldiers and civilians, lowest to highest estimate.')
     : state.show.soldiers ? gettext('Military deaths, lowest to highest estimate.') : gettext('Civilian deaths, lowest to highest estimate.'),
@@ -187,17 +188,18 @@ function paintKeys(ctx, x, y, keysToPaint) {
   ctx.restore();
 }
 
-bindSaveButton(warCard.querySelector('[data-war-save]'), async () => {
+bindSaveButton(warCard.querySelector('[data-war-save]'), async (size) => {
   const title = gettext('World War II: the battles');
   const subtitle = current.whole ? gettext('Every battle on the map, 1937 to 1945. Circles: casualties of both sides.')
     : interpolate(gettext('The war on %s. Circles: casualties of both sides.'), [formatDay(current.day)]);
-  const { canvas, ctx, top, bottom } = await imageFrame({
+  const { canvas, ctx, top, bottom, width } = await imageFrame({
     title,
     subtitle,
     sources: [sourceText(config.sources.battles), sourceText(config.sources.borders)],
+    size,
   });
-  const height = Math.min(bottom - top - 44, (canvas.width - 104) / viewAspect(view) + 60);
-  const { well, inner } = imageWell(ctx, top, height);
+  const height = Math.min(bottom - top - 44, (width - 104) / viewAspect(view) + 60);
+  const { well, inner } = imageWell(ctx, top, height, { width });
   ctx.save();
   ctx.translate(inner.x, inner.y);
   ctx.scale(SCALE, SCALE);
@@ -209,7 +211,7 @@ bindSaveButton(warCard.querySelector('[data-war-save]'), async () => {
     { color: '#2a2c2f', label: gettext('Not at war') },
   ]);
   const day = current.whole ? '' : fromDay(current.day).toISOString().slice(0, 10);
-  await handOver([{ canvas, filename: imageName('world-war-ii', 'battles', day) }], title);
+  await handOver([{ canvas, filename: sizedName(imageName('world-war-ii', 'battles', day), size) }], title);
 });
 
 // ---------- Battle by battle ----------

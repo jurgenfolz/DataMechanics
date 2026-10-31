@@ -17,13 +17,13 @@ export const FORMATS = {
   reel: {
     width: 1080, height: 1920, pad: 56, scale: 2.2, cardZoom: 2.3, nowZoom: 2.2, rankZoom: 2,
     safe: { top: 250, bottom: 1920 - 320, right: 1080 - 160 },
-    type: { title: 84, flag: 76, subtitle: 30, explanation: 28, explanationLines: 4, year: 320 },
+    type: { title: 76, flag: 70, subtitle: 30, explanation: 28, explanationLines: 4, year: 320 },
   },
   // YouTube and LinkedIn, on a computer. Nothing lies over the frame for long, so margins are enough.
   wide: {
     width: 1920, height: 1080, pad: 64, scale: 1.6, cardZoom: 1.7, nowZoom: 1.6, rankZoom: 1.5,
     safe: { top: 56, bottom: 1080 - 48, right: 1920 - 64 },
-    type: { title: 72, flag: 66, subtitle: 28, explanation: 24, explanationLines: 2, year: 300 },
+    type: { title: 66, flag: 60, subtitle: 28, explanation: 24, explanationLines: 2, year: 300 },
   },
 };
 
@@ -40,39 +40,33 @@ export const easeInOut = (v) => (v < 0.5 ? 4 * v ** 3 : 1 - (-2 * v + 2) ** 3 / 
 
 let gear = null;  // the site's logo, for the line under the title; frameReady loads it
 
-// The country's round flag, then the title with the unit its values are in, in grey after it.
-// Under them, the subtitle, the metric's explanation, and the site's name in the explanation's type, a little faded.
+// The country's round flag, then the title, and under it the unit its values are in, in grey, smaller than the title
+// but larger than the subtitle. Under them, the subtitle, the metric's explanation, and the site's name in the
+// explanation's type, a little faded.
 export function paintHeader(ctx, F, { title, flag, unit, subtitle, explanation }) {
   const T = F.type;
   const lead = T.title + 4;  // a title line's height
+  const unitSize = Math.round(T.title * 0.62);
   let y = F.safe.top;
   if (flag) paintRoundFlag(ctx, flag, F.pad, y + T.title * 0.52, T.flag);
-  // The title's lines start right of the flag; everything under them starts at the edge again.
-  const left = flag ? F.pad + T.flag + 22 : F.pad;
-  const width = F.width - F.pad - left;
+  // The title's first line starts right of the flag; its other lines, and everything under them, start at the edge.
+  const indent = flag ? T.flag + 22 : 0;
+  const width = F.width - 2 * F.pad;
   ctx.textBaseline = 'top';
   ctx.font = `700 condensed ${T.title}px ${FONT}`;
-  const lines = wrap(ctx, title, width, 2);
-  const tail = unit ? ` · ${unit}` : '';
-  ctx.font = `500 condensed ${T.title}px ${FONT}`;
-  const tailWidth = ctx.measureText(tail).width;
+  const lines = wrap(ctx, title, width, 2, width - indent);
   lines.forEach((line, i) => {
     ctx.font = `700 condensed ${T.title}px ${FONT}`;
     ctx.fillStyle = INK;
-    ctx.fillText(line, left, y);
-    const last = i === lines.length - 1;
-    const lineWidth = ctx.measureText(line).width;
+    ctx.fillText(line, F.pad + (i === 0 ? indent : 0), y);
     y += lead;
-    if (!last || !tail) return;
-    ctx.font = `500 condensed ${T.title}px ${FONT}`;
-    ctx.fillStyle = INK_3;
-    // The unit follows the title on its last line, or takes a line of its own when it does not fit.
-    if (lineWidth + tailWidth <= width) ctx.fillText(tail, left + lineWidth, y - lead);
-    else {
-      ctx.fillText(unit, left, y);
-      y += lead;
-    }
   });
+  if (unit) {
+    ctx.font = `500 condensed ${unitSize}px ${FONT}`;
+    ctx.fillStyle = INK_3;
+    ctx.fillText(wrap(ctx, unit, width, 1)[0], F.pad, y);
+    y += unitSize + 10;
+  }
   ctx.fillStyle = INK_2;
   ctx.font = `500 ${T.subtitle}px ${FONT}`;
   y += 6;
@@ -140,4 +134,38 @@ export function panel(ctx, box, accent) {
   ctx.strokeStyle = RULE;
   ctx.lineWidth = 1.5;
   ctx.stroke();
+}
+
+// Shows a video over the page (.reel-stage) and hands its frames to tools/reel.py through window.reel; `mode` 'record'
+// only does the second. A click pauses the video.
+export function presentReel(reel, filename, mode) {
+  const stage = document.createElement('div');
+  stage.className = 'reel-stage';
+  stage.append(reel.canvas);
+  document.body.append(stage);
+  reel.draw(0);
+  window.reel = {
+    ready: true,
+    fps: FPS,
+    frames: reel.frames,
+    filename,
+    width: reel.canvas.width,
+    height: reel.canvas.height,
+    frame(n) {
+      reel.draw(n);
+      return reel.canvas.toDataURL('image/png');
+    },
+  };
+  if (mode === 'record') return;
+  let elapsed = 0;
+  let last = null;
+  let paused = false;
+  stage.addEventListener('click', () => { paused = !paused; });
+  const play = (now) => {
+    if (!paused && last !== null) elapsed += now - last;
+    last = now;
+    reel.draw(Math.floor((elapsed / 1000) * FPS) % reel.frames);
+    requestAnimationFrame(play);
+  };
+  requestAnimationFrame(play);
 }

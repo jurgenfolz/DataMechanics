@@ -118,7 +118,7 @@
       borders from <a href="{{ url }}">CShapes 2.0</a>, ETH Zürich
     {% endblocktranslate %}{% if battles_load %} · {% blocktranslate with date=battles_load.loaded_at|date:"SHORT_DATE_FORMAT" %}fetched {{ date }}{% endblocktranslate %}{% endif %}</p>
     <div class="well war-well">
-      <button class="chart-save" type="button" data-war-save title="{% translate "Save as image (1080 × 1350, for Instagram)" %}" aria-label="{% translate "Save the map as an image" %}">{% include "partials/icon.html" with name="image" size="16" %}</button>
+      <button class="chart-save" type="button" data-war-save title="{% translate "Save as image" %}" aria-label="{% translate "Save the map as an image" %}">{% include "partials/icon.html" with name="image" size="16" %}</button>
       <canvas class="war-map" data-war-map role="img" aria-label="{% translate "Map of the battles of World War II, with countries coloured by the side they fought on at the chosen date. The table below lists every battle." %}"></canvas>
       <button class="pill-button war-reset" type="button" data-war-reset>{% translate "Whole map" %}</button>
       <p class="war-caption" data-war-caption aria-live="polite"></p>

@@ -1,6 +1,8 @@
 """Builds data/politics/<country>/positions.csv: where expert surveys place a country's parties on two axes.
 
-Brazil has three surveys, Germany and Austria two (CHES Europe 2024 and the Global Party Survey 2019).
+Brazil has three surveys, Germany, Austria, France and the United Kingdom two (CHES Europe 2024 and the Global
+Party Survey 2019), Italy one (CHES Europe 2024: the Global Party Survey placed Lega, Forza Italia and Fratelli d'Italia
+as one coalition).
 Run it with `.venv/bin/python tools/party_positions.py`; it downloads the surveys and writes the files.
 The site reads the file through the curated ETL (providers/curated/party_positions.py), not this script.
 
@@ -31,6 +33,7 @@ import csv
 import functools
 import io
 import statistics
+from decimal import ROUND_HALF_UP, Decimal
 import urllib.request
 from pathlib import Path
 
@@ -44,13 +47,13 @@ GPS = 'https://dataverse.harvard.edu/api/access/datafile/3679272'  # Global Part
 LEFT_RIGHT = 'https://dataverse.harvard.edu/api/access/datafile/6417803'  # Bolognesi, Ribeiro and Codato 2018, doi:10.7910/DVN/RDR3AK
 CHES_EUROPE = 'https://github.com/chesdata/chesdata.github.io/releases/download/ches-europe/CHES_2024_ALL_Stacked_Expert.csv'
 
-# Germany and Austria: the folder in data/politics/, then each survey's name for the country and its names for the
-# parties -> our keys. The parties are those in the national parliament, and in Germany those that won at least
-# 3 percent in 2025.
+# The European countries: the folder in data/politics/, then each survey's name for the country and its names for the
+# parties -> our keys (or our key and the party's name then, where it differs): every party the survey placed, in
+# parliament or not. The Global Party Survey placed Italy's centre-right as one coalition, so Italy has CHES only.
 EUROPE = {
     'germany': {
         'ches': ('Germany', {'CDU': 'cdu', 'CSU': 'csu', 'SPD': 'spd', 'Grunen': 'gruene', 'FDP': 'fdp', 'AfD': 'afd',
-                             'DL': 'linke', 'BSW': 'bsw'}),
+                             'DL': 'linke', 'BSW': 'bsw', 'FW': 'fw'}),
         'gps': ('DEU', {'Christian Democratic Union': 'cdu', 'Christian Social Union in Bavaria': 'csu',
                         'Social Democratic Party': 'spd', 'Alliance 90/The Greens': 'gruene', 'Free Democratic Party': 'fdp',
                         'Alternative for Germany': 'afd', 'The Left': 'linke'}),
@@ -59,7 +62,27 @@ EUROPE = {
         'ches': ('Austria', {'OVP': 'ovp', 'SPO': 'spo', 'FPO': 'fpo', 'NEOS': 'neos', 'Grune': 'gruene'}),
         'gps': ('AUT', {"Austrian People's Party": 'ovp', 'Social Democratic Party of Austria': 'spo',
                         'Freedom Party of Austria': 'fpo', 'NEOS – The New Austria': 'neos',
-                        'The Greens – The Green Alternative': 'gruene'}),
+                        'The Greens – The Green Alternative': 'gruene', 'Peter Pilz List': 'jetzt'}),
+    },
+    'france': {
+        'ches': ('France', {'RN': 'rn', 'PCF': 'pcf', 'RE': 're', 'MoDem': 'modem', 'Horizons': 'horizons', 'LR': 'lr',
+                            'PS': 'ps', 'FI': 'lfi', 'LE/EELV': 'ecologistes', 'REC': 'reconquete'}),
+        # UDI is left out: only four experts placed it on the social axis, fewer than the five the site asks for.
+        'gps': ('FRA', {'La République En Marche': ('re', 'La République En Marche'), 'The Republicans': 'lr',
+                        'National Rally': 'rn', 'Democratic Movement': 'modem', 'Socialist Party': 'ps',
+                        'La France Insoumise': 'lfi'}),
+    },
+    'italy': {
+        'ches': ('Italy', {'Lega': 'lega', 'FI': 'fi', 'SVP': 'svp', 'A': ('azione', 'Azione–Italia Viva'), 'EV': 'ev', '+E': 'piu_europa',
+                           'PD': 'pd', 'SI': 'si', 'FDI': 'fdi', 'MS5': 'm5s'}),
+    },
+    'united-kingdom': {
+        'ches': ('United Kingdom', {'LAB': 'lab', 'CONS': 'con', 'REF UK': 'reform', 'LIBDEM': 'ld', 'GPEW': 'green',
+                                    'SNP': 'snp', 'Plaid': 'plaid'}),
+        'gps': ('GBR', {'Conservative Party': 'con', 'Labour Party': 'lab', 'Liberal Democrats': 'ld',
+                        'Scottish National Party': 'snp', 'Plaid Cymru': 'plaid', 'Green Party': 'green',
+                        'Brexit Party': ('reform', 'Brexit Party'), 'Democratic Unionist Party': 'dup', 'Sinn Féin': 'sf',
+                        'UK Independence Party': 'ukip'}),
     },
 }
 
@@ -155,7 +178,7 @@ def gps(iso='BRA', parties=GPS_PARTIES):
     for slot in range(1, 11):
         name = rows[0][f'CPARTY{slot}'].removeprefix(f'{iso}_').strip('  Â')
         if name not in parties:
-            continue  # a party no longer relevant, like Austria's Liste Pilz
+            continue  # a party we have no profile for
         key, then = parties[name]
         answers = lambda question: [x for x in (number(r[f'{question}_{slot}']) for r in rows) if x is not None and 0 <= x <= 10]
         economic, social = answers('Q3.1'), answers('Q3.3')
@@ -207,10 +230,16 @@ def ches_europe(country, parties):
     """A country's places in CHES Europe 2024, from its experts' answers; `parties` maps CHES's names to our keys."""
     rows = [row for row in csv.DictReader(io.StringIO(download(CHES_EUROPE).lstrip('\ufeff'))) if row['cname'] == country]
     for name, key in parties.items():
+        key, then = key if isinstance(key, tuple) else (key, '')
         answers = lambda question: [x for x in (number(r[question]) for r in rows if r['party_name'] == name)
                                     if x is not None and 0 <= x <= 10]
         economic, social = answers('lrecon'), answers('galtan')
-        yield 'ches-europe', key, '', statistics.mean(economic), statistics.mean(social), min(len(economic), len(social))
+        yield 'ches-europe', key, then, statistics.mean(economic), statistics.mean(social), min(len(economic), len(social))
+
+
+def two(value):
+    """A value with two decimals, rounded half up (8.225 -> 8.23), from its shortest decimal form, not its binary one."""
+    return str(Decimal(repr(value)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))
 
 
 def write(path, rows):
@@ -219,8 +248,8 @@ def write(path, rows):
         writer.writerow(['survey', 'party', 'name_at_survey', 'economic', 'social', 'experts', 'inferred', 'inferred_from',
                          'economic_fit', 'social_fit'])
         for survey, key, then, economic, social, experts, how, origin, economic_fit, social_fit in rows:
-            fits = [f'{value:.2f}' if value != '' else '' for value in (economic_fit, social_fit)]
-            writer.writerow([survey, key, then, f'{economic:.2f}', f'{social:.2f}', experts, how, origin, *fits])
+            fits = [two(value) if value != '' else '' for value in (economic_fit, social_fit)]
+            writer.writerow([survey, key, then, two(economic), two(social), experts, how, origin, *fits])
     print(f'{path}: {len(rows)} rows')
 
 
@@ -231,10 +260,12 @@ def main():
         rows += [(*row, '', '', '', '') for row in measured]
         rows += list(inferred(survey, measured, scores))
     write(OUTPUT, rows)
-    # Germany and Austria: every survey's own places, none inferred.
+    # The European countries: every survey's own places, none inferred.
     for folder, surveys in EUROPE.items():
-        iso, names = surveys['gps']
-        measured = [*ches_europe(*surveys['ches']), *gps(iso, {name: (key, '') for name, key in names.items()})]
+        measured = list(ches_europe(*surveys['ches']))
+        if 'gps' in surveys:
+            iso, names = surveys['gps']
+            measured += gps(iso, {name: key if isinstance(key, tuple) else (key, '') for name, key in names.items()})
         write(DATA / folder / 'positions.csv', [(*row, '', '', '', '') for row in measured])
 
 

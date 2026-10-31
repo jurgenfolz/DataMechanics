@@ -231,21 +231,23 @@ def in_window(years, window):
     return [year for year in years if not window or window[0] <= year <= window[1]]
 
 
-def chart_data(metric, series, country, window=None, compare=comparison.DEFAULT):
+def chart_data(metric, series, country, window=None, compare=comparison.DEFAULT, values=None):
     """Everything the country page draws for one series. `window` limits the presidents' changes and rankings to
     those years; the chart's line always has every year.
     `compare` names the group in politics.comparison.GROUPS that the country is measured against; None compares with
     nothing, and so does a group without values for this series.
+    `values` ({year: value}) stands in for the metric's own table, for a series only this country has (crime): it has no group to compare with.
     """
     direction = politics_better(metric, series)
     items = tenures(country.iso3)
     first_year = next((t.years()[0] for t in items if t.years()), None)
-    values = country_values(metric, series, country.iso3)
+    found_groups = comparison.values(metric, series) if values is None else {}
+    values = country_values(metric, series, country.iso3) if values is None else values
     # Years before the first presidency would have no colour, so the line starts the year before it.
     points = sorted([year, value] for year, value in values.items() if first_year and year >= first_year - 1)
     # A group can be compared when it has values in the years of the country's line, which it then runs beside.
     groups = {key: {year: value for year, value in found.items() if points and points[0][0] <= year <= points[-1][0]}
-              for key, found in comparison.values(metric, series).items()}
+              for key, found in found_groups.items()}
     comparable = [key for key, found in groups.items() if found]
     group = groups[compare] if compare in comparable else {}
     compare = compare if group else None

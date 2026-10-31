@@ -5,7 +5,7 @@ Political tables start with pol_ (see CLAUDE.md, Data design).
 
 from django.db import models
 
-from geo.models import Country
+from geo.models import Country, State
 
 
 class Party(models.Model):
@@ -65,11 +65,11 @@ class PartyProfile(models.Model):
     logo_licence = models.CharField(max_length=50, blank=True)
     logo_author = models.CharField(max_length=200, blank=True)
     position = models.CharField(max_length=60, blank=True, help_text="Where Wikipedia puts the party, e.g. 'centre|centre-right' for a range; empty where it gives none.")
-    ideologies = models.CharField(max_length=300, help_text="Its main ideologies on Wikipedia, ';'-separated keys of compass.IDEOLOGIES.")
+    ideologies = models.CharField(max_length=300, blank=True, help_text="Its main ideologies on Wikipedia, ';'-separated keys of compass.IDEOLOGIES; empty for a group that is not a party.")
     views_source = models.URLField(max_length=500, help_text='The Wikipedia article the position and ideologies come from.')
     merged_into = models.CharField(max_length=100, blank=True, help_text='The party it merged into, if it no longer exists.')
     ended_year = models.PositiveSmallIntegerField(null=True, blank=True)
-    congress = models.CharField(max_length=30, blank=True, help_text="The code the Chamber's and the Senate's open data give the party.")
+    congress = models.CharField(max_length=100, blank=True, help_text="The code(s) the houses' open data give the party or its group, ';'-separated where the houses differ.")
 
     class Meta:
         db_table = 'pol_party_profile'
@@ -112,7 +112,7 @@ class Legislator(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, db_column='iso3', related_name='+')
     member_id = models.CharField(max_length=20, help_text="The source's own id for the member.")
     name = models.CharField(max_length=200)
-    party = models.CharField(max_length=30, help_text="The party's code in the source's data, e.g. PL; empty for none.")
+    party = models.CharField(max_length=60, help_text="The party's or group's code in the source's data, e.g. PL; empty for none.")
     state = models.CharField(max_length=2, help_text='The state the member represents, e.g. SP.')
 
     class Meta:
@@ -161,3 +161,71 @@ class PartyLeftRight(models.Model):
 
     def __str__(self):
         return f'{self.party}: {self.score:.2f}'
+
+
+
+class NationalityPopulation(models.Model):
+    """The people of each nationality living in a country on 31 December of a year.
+
+    The row without a nationality is every foreign national together, the stateless and the unknown included.
+    """
+
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='+', help_text='The country they live in.')
+    nationality = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True, related_name='+',
+                                    help_text='Empty for every foreign national together.')
+    year = models.PositiveSmallIntegerField()
+    source_name = models.CharField(max_length=100, help_text="The nationality's name in the source.")
+    population = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'pol_population_nationality'
+        ordering = ['country', '-population']
+
+    def __str__(self):
+        return f'{self.country_id} {self.year}: {self.source_name}'
+
+
+class Suspects(models.Model):
+    """Crime suspects the police registered in one year, by nationality and kind of offence.
+
+    The police count a suspect once for each kind of offence: one suspected of theft and of fraud counts in both.
+    The row without a nationality is every foreign national together.
+    """
+
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='+', help_text='The country whose police counted them.')
+    nationality = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True, related_name='+',
+                                    help_text='Empty for every foreign national together.')
+    year = models.PositiveSmallIntegerField()
+    offence = models.CharField(max_length=6, help_text='The key of the police crime statistics, e.g. 510000 for fraud; ------ is every offence.')
+    suspects = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'pol_suspects_nationality_offence'
+        verbose_name_plural = 'suspects'
+
+    def __str__(self):
+        return f'{self.country_id} {self.year} {self.offence}: {self.nationality_id or "foreign"}'
+
+
+class CrimeYear(models.Model):
+    """One measure of one kind of crime in a country, or in one of its states, in one year: recorded cases, cases per
+    100,000 people, and the like. A row without a state is the whole country.
+
+    politics/crime_series.py names each country's kinds of crime and measures, and their sources.
+    """
+
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='+')
+    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, blank=True, related_name='+',
+                              help_text='Empty for the whole country.')
+    year = models.PositiveSmallIntegerField()
+    crime = models.CharField(max_length=40, help_text="The kind of crime: a key of the country's list in politics/crime_series.py.")
+    measure = models.CharField(max_length=20, help_text="What is counted: a series field of that kind of crime, e.g. cases or rate.")
+    value = models.FloatField()
+
+    class Meta:
+        db_table = 'pol_crime_year'
+        constraints = [models.UniqueConstraint(fields=['country', 'state', 'crime', 'measure', 'year'], nulls_distinct=False,
+                                               name='pol_crime_year_unique')]
+
+    def __str__(self):
+        return f'{self.country_id} {self.year} {self.crime} {self.measure}: {self.value}'

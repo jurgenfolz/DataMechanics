@@ -135,7 +135,7 @@ def events():
         {
             'date': event.date.isoformat(), 'kind': event.kind, 'region': event.region, 'name': event.local_name,
             'source': event.source_url, 'wiki': article_url(event.source_url),
-            'text': {'kind': str(Event.KINDS[event.kind]), 'date': date_format(event.date, 'DATE_FORMAT')},
+            'text': {'kind': str(Event.KINDS[event.kind])},
         }
         for event in Event.objects.all()
     ]

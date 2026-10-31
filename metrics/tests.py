@@ -53,7 +53,7 @@ class SearchTests(TestCase):
         slugs = [m.slug for m in search.find('gdp')]
         self.assertEqual(slugs[:3], ['gdp', 'gdp-per-capita', 'gdp-growth'])
         self.assertIn('government-debt', slugs)
-        self.assertEqual([m.slug for m in search.find('gdp person')], ['gdp-per-capita'])
+        self.assertEqual([m.slug for m in search.find('gdp person')], ['gdp-per-capita', 'gdp-per-capita-long-run'])
         self.assertEqual(search.find('no such thing'), [])
 
     def test_category_filter(self):

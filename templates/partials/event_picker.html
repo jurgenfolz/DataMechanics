@@ -1,0 +1,14 @@
+{% load i18n %}{% comment %}The world events' picker (js/lib/picker.js with js/lib/events.js), beside a chart's country picker.{% endcomment %}
+<div class="picker picker--events" data-events-picker>
+  <button class="picker__button" type="button" data-picker-button aria-haspopup="listbox" aria-expanded="false" aria-label="{% translate "Choose world events" %}">
+    {% include "partials/icon.html" with name="events" size="14" %}
+    <span data-picker-label>{% translate "World events" %}</span>
+    <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+  </button>
+  <div class="picker__panel" data-picker-panel hidden>
+    <input class="picker__search" data-picker-search type="search" placeholder="{% translate "Search events" %}" aria-label="{% translate "Search events" %}"
+           role="combobox" aria-controls="events-list" aria-expanded="true" autocomplete="off">
+    <p class="picker__hint" data-picker-hint hidden></p>
+    <ul class="picker__list picker__list--tall" id="events-list" data-picker-list role="listbox" aria-multiselectable="true" aria-label="{% translate "World events" %}"></ul>
+  </div>
+</div>

@@ -1,7 +1,8 @@
 """The office a country's Politics page follows, and the words the page uses for it.
 
-Brazil and the United States follow their presidents. Germany follows its chancellors, because its president has little
-power. German and Portuguese need whole sentences per office, so each office has its own strings.
+Brazil, France and the United States follow their presidents. Germany and Austria follow their chancellors, and Italy and
+the United Kingdom their prime ministers, because their heads of state have little power.
+German and Portuguese need whole sentences per office, so each office has its own strings.
 """
 
 from dataclasses import dataclass
@@ -33,6 +34,13 @@ OFFICES = {
         subtitle=_('%(name)s, chancellor by chancellor'),
         count=ngettext_lazy('%(count)s chancellor since %(year)s', '%(count)s chancellors since %(year)s', 'count'),
     ),
+    'prime-minister': Office(
+        title=_('%(name)s by prime minister'),
+        lead=_('Every metric we have, prime minister by prime minister, since %(year)s.'),
+        by_leader=_('By prime minister'),
+        subtitle=_('%(name)s, prime minister by prime minister'),
+        count=ngettext_lazy('%(count)s prime minister since %(year)s', '%(count)s prime ministers since %(year)s', 'count'),
+    ),
 }
 
 
@@ -51,6 +59,8 @@ ROLES = {
     'Military junta': Role(None, _('Military junta')),
     'Chancellor': Role('chancellor'),
     'Acting chancellor': Role('chancellor', _('Acting chancellor'), acting=True),
+    'Prime minister': Role('prime-minister'),
+    'Acting prime minister': Role('prime-minister', _('Acting prime minister'), acting=True),
 }
 
 

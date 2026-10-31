@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.politics_index, name='index'),
     path('<slug:slug>/', views.country_page, name='country'),
     path('<slug:slug>/data.json', views.country_data, name='data'),
+    path('<slug:slug>/states.json', views.country_states, name='states'),
 ]

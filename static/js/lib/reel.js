@@ -10,11 +10,13 @@
 // A ranking by president closes the reel: by change per year, or, with a group, by how far ahead of it each leader
 // left the country.
 // Without a comparison group the reel has neither the group's pass nor its values.
+// The world events chosen on the page (lib/events.js) pop in above the plot as the line passes their dates.
 // Frames are drawn on demand, and frame n is the same every time, so a recorder can take its time over each one.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 import {
   createStage, FONT, imageWell, loadImage, MONO, paintGround, whenFinished, wrap,
 } from './chart-image.js';
+import { layoutEvents, paintEvents } from './events.js';
 import { formatAmount, formatValue, shortRule } from './format.js';
 import { BRIDGE } from './gaps.js';
 import { createTermChart, GROUP_COLOR, paintLogoTile, paintTrend } from './term-chart.js';
@@ -56,7 +58,7 @@ const RANK_TREND = 1.35;  // the changes in the ranking
  * `data` is the country page's data for the chosen years (politics/views.py, country_data), and `range` those years.
  * Resolves to { canvas, frames, draw(n) }: draw(n) paints frame n on the canvas.
  */
-export async function createReel({ format = 'reel', data, range, units, title, flag, subtitle, explanation, rankingTitle, source }) {
+export async function createReel({ format = 'reel', data, range, units, title, flag, subtitle, explanation, rankingTitle, source, events = [] }) {
   const F = FORMATS[format];
   await frameReady();
   const terms = data.presidencies.filter((p) => p.summary && p.inWindow !== false);
@@ -80,7 +82,8 @@ export async function createReel({ format = 'reel', data, range, units, title, f
   const sourceTop = paintFooter(baseCtx, F, [source, credits], bottom);
   const { well, inner } = imageWell(baseCtx, top, sourceTop - 28 - top, { width: F.width, pad: F.pad });
   const nowBox = { x: well.x, w: well.w, y: bottom + 24, h: (ROW + 12) * F.nowZoom };
-  const chart = await chartLayers(data, range, units, inner, F.scale, compared);
+  const chart = await chartLayers(data, range, units, inner, F.scale, compared, events);
+  const marks = layoutEvents(events, chart.x, { left: chart.plot.left, right: chart.plot.right, scale: F.scale });
 
   const columns = compared ? valueColumns(data) : changeColumns();
   const rank = rankingLayout(baseCtx, ranking, well, F.rankZoom, columns, compared ? 32 : 22);
@@ -118,6 +121,11 @@ export async function createReel({ format = 'reel', data, range, units, title, f
     ctx.drawImage(chart.axes, inner.x, inner.y, inner.w, inner.h);
     ctx.globalAlpha = 1;
     reveal(chart.line, tipX);
+    // An event pops in as the line reaches its date; a span's shade grows with the line.
+    paintEvents(ctx, marks, {
+      plot: chart.plot, scale: F.scale, xOf: chart.x, tipX: comparing ? Infinity : tipX,
+      shownOf: (event) => easeOut(clamp(((comparing ? Infinity : year) - event.at) / 0.4)),
+    });
     paintMarks(ctx, terms, chart, year);
     // The line drawn so far, in pixels: cards keep off it.
     const drawn = chart.points.filter(([at]) => at <= year).map(([at, value]) => [chart.x(at), chart.y(value)]);
@@ -214,10 +222,12 @@ function storyboard(terms, [first, last], comparison) {
 
 // ---------- The chart, drawn once in two layers ----------
 // The axes alone, and the line alone, each as an image. A frame shows the axes and the line up to its tip.
-async function chartLayers(data, range, units, inner, scale, compared) {
+async function chartLayers(data, range, units, inner, scale, compared, events) {
   const stage = createStage(inner.w / scale, inner.h / scale);
   try {
-    const term = createTermChart(stage.element, { units, animate: false, slider: false });
+    // The events keep their room above the plot, but the frames paint them (paintEvents).
+    const term = createTermChart(stage.element, { units, animate: false, slider: false, showEvents: false });
+    const render = () => term.render(data, range, events);
     const settle = async (change) => {
       const finished = whenFinished(term.chart);
       change();
@@ -228,8 +238,12 @@ async function chartLayers(data, range, units, inner, scale, compared) {
     }));
     // Series 0 is the country's line, 1 its lone dots, 2 the comparison group's dashed line (lib/term-chart.js).
     const hidden = { lineStyle: { opacity: 0 }, areaStyle: { opacity: 0 }, itemStyle: { opacity: 0 } };
-    await settle(() => term.render(data, range));
-    await settle(() => term.chart.setOption({ series: [hidden, hidden, hidden] }));
+    await settle(render);
+    // The axes alone: no grid lines across the plot, neither the value grid nor the dashed lines where terms begin.
+    await settle(() => term.chart.setOption({
+      yAxis: { splitLine: { show: false } },
+      series: [{ ...hidden, markLine: { lineStyle: { opacity: 0 } } }, hidden, hidden],
+    }));
     const axes = await snapshot();
     // The other layers' axes keep their room but take no colour, so the layers line up.
     const none = 'rgba(0, 0, 0, 0)';
@@ -237,12 +251,12 @@ async function chartLayers(data, range, units, inner, scale, compared) {
       xAxis: { axisLabel: { color: none }, axisLine: { lineStyle: { color: none } } },
       yAxis: { axisLabel: { color: none }, splitLine: { lineStyle: { color: none } } },
     };
-    await settle(() => term.render(data, range));
+    await settle(render);
     await settle(() => term.chart.setOption({ ...bare, series: [{ markLine: { lineStyle: { opacity: 0 } } }, {}, hidden] }));
     const line = await snapshot();
     let group = null;
     if (compared) {
-      await settle(() => term.render(data, range));
+      await settle(render);
       await settle(() => term.chart.setOption({ ...bare, series: [{ ...hidden, markLine: { lineStyle: { opacity: 0 } } }, hidden, {}] }));
       group = await snapshot();
     }

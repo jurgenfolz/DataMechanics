@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-25 22:46+0000\n"
+"POT-Creation-Date: 2026-10-30 21:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,47 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/js/compare-page.js:57
+msgid "Choose a country"
+msgstr "Land wählen"
+
+#: static/js/compare-page.js:65 static/js/metric-page.js:85
+#: static/js/politics-page.js:76
+msgid "World events"
+msgstr "Weltereignisse"
+
+#: static/js/compare-page.js:66 static/js/metric-page.js:86
+#: static/js/politics-page.js:77
+msgid "No event matches."
+msgstr "Kein Ereignis passt."
+
+#: static/js/compare-page.js:119 static/js/metric-page.js:157
+msgid "World"
+msgstr "Welt"
+
+#: static/js/compare-page.js:154
+#, javascript-format
+msgid "%s (CSV)"
+msgstr "%s (CSV)"
+
+#: static/js/compare-page.js:157
+msgid "Every country and year of each metric, with the source on each row."
+msgstr ""
+"Jedes Land und jedes Jahr jeder Kennzahl, mit der Quelle in jeder Zeile."
+
+#: static/js/compare-page.js:192
+msgid "%(measure)s has no data for %(country)s."
+msgstr "%(measure)s: keine Daten für %(country)s."
+
+#: static/js/compare-page.js:230 static/js/lib/reel.js:765
+#: static/js/metric-page.js:299 static/js/politics-page.js:411
+msgid "Year"
+msgstr "Jahr"
+
+#: static/js/compare-page.js:281
+msgid "%(first)s and %(second)s"
+msgstr "%(first)s und %(second)s"
 
 #: static/js/home.js:37
 msgid ""
@@ -28,7 +69,7 @@ msgstr ""
 
 #: static/js/home.js:38
 msgid "%(label)s, %(year)s. Brighter blue is higher."
-msgstr "%(label)s, %(year)s. Helleres Blau ist höher."
+msgstr "%(label)s, %(year)s. Je heller das Blau, desto höher der Wert."
 
 #: static/js/lib/battle-list.js:22 static/js/lib/war-map.js:175
 msgid "Read on Wikipedia"
@@ -57,48 +98,78 @@ msgstr "%s seiner Bevölkerung von 1939"
 msgid "Up to the highest estimate"
 msgstr "Bis zur höchsten Schätzung"
 
-#: static/js/lib/compass-reel.js:136 static/js/lib/compass-reel.js:220
+#: static/js/lib/chart-image.js:355
+msgid "Portrait"
+msgstr "Hochformat"
+
+#: static/js/lib/chart-image.js:355
+msgid "Instagram"
+msgstr "Instagram"
+
+#: static/js/lib/chart-image.js:355
+msgid "Wide"
+msgstr "Querformat"
+
+#: static/js/lib/chart-image.js:355
+msgid "LinkedIn, X and slides"
+msgstr "LinkedIn, X und Folien"
+
+#: static/js/lib/compare-chart.js:91 static/js/lib/line-chart.js:152
+#: static/js/lib/world-map.js:222 static/js/lib/world-map.js:283
+#: static/js/lib/world-map.js:287
+msgid "No data"
+msgstr "Keine Daten"
+
+#: static/js/lib/compare-chart.js:181
+msgid "right axis"
+msgstr "rechte Achse"
+
+#: static/js/lib/compare-chart.js:181
+msgid "left axis"
+msgstr "linke Achse"
+
+#: static/js/lib/compass-reel.js:137 static/js/lib/compass-reel.js:221
 msgid "Inferred, not measured."
 msgstr "Abgeleitet, nicht gemessen."
 
-#: static/js/lib/compass-reel.js:155 static/js/lib/compass-reel.js:236
+#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
 #: static/js/lib/compass-view.js:146
 msgid "Economy"
 msgstr "Wirtschaft"
 
-#: static/js/lib/compass-reel.js:155 static/js/lib/compass-reel.js:236
+#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
 #: static/js/lib/compass-view.js:146
 msgid "Left"
 msgstr "Links"
 
-#: static/js/lib/compass-reel.js:155 static/js/lib/compass-reel.js:236
+#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
 #: static/js/lib/compass-view.js:146
 msgid "Right"
 msgstr "Rechts"
 
-#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
+#: static/js/lib/compass-reel.js:157 static/js/lib/compass-reel.js:238
 #: static/js/lib/compass-view.js:147
 msgid "Social values"
 msgstr "Gesellschaftliche Werte"
 
-#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
-#: static/js/lib/compass-view.js:147 static/js/lib/compass.js:185
+#: static/js/lib/compass-reel.js:157 static/js/lib/compass-reel.js:238
+#: static/js/lib/compass-view.js:147 static/js/lib/compass.js:186
 msgid "Progressive"
 msgstr "Progressiv"
 
-#: static/js/lib/compass-reel.js:156 static/js/lib/compass-reel.js:237
-#: static/js/lib/compass-view.js:147 static/js/lib/compass.js:183
+#: static/js/lib/compass-reel.js:157 static/js/lib/compass-reel.js:238
+#: static/js/lib/compass-view.js:147 static/js/lib/compass.js:184
 msgid "Conservative"
 msgstr "Konservativ"
 
-#: static/js/lib/compass-reel.js:248
+#: static/js/lib/compass-reel.js:249
 #, javascript-format
 msgid "%s party, as experts placed it"
 msgid_plural "%s parties, as experts placed them"
 msgstr[0] "%s Partei, wie Fachleute sie verortet haben"
 msgstr[1] "%s Parteien, wie Fachleute sie verortet haben"
 
-#: static/js/lib/compass-reel.js:260
+#: static/js/lib/compass-reel.js:261
 msgid ""
 "These are estimates from one survey. Other surveys place some parties "
 "elsewhere, and parties change."
@@ -116,7 +187,7 @@ msgstr "Alle Parteien"
 
 #: static/js/lib/compass-view.js:57
 msgid "No party matches."
-msgstr "Keine Partei passt."
+msgstr "Keine Partei gefunden."
 
 #: static/js/lib/compass-view.js:140
 #, javascript-format
@@ -130,24 +201,24 @@ msgid "Views: Wikipedia"
 msgstr "Ansichten: Wikipedia"
 
 #: static/js/lib/compass-view.js:225 static/js/lib/compass-view.js:294
-#: static/js/lib/congress-view.js:143 static/js/lib/congress-view.js:229
-#: static/js/lib/congress-view.js:264 static/js/politics-page.js:255
-#: static/js/ww2-page.js:20
+#: static/js/lib/congress-view.js:144 static/js/lib/congress-view.js:230
+#: static/js/lib/congress-view.js:270 static/js/lib/crime-view.js:186
+#: static/js/politics-page.js:320 static/js/ww2-page.js:20
 msgid "Source:"
 msgstr "Quelle:"
 
 #: static/js/lib/compass-view.js:244
 msgid ""
-"%(parties)s are inferred from where 519 political scientists put them on one"
-" left-right scale in 2018 (Bolognesi, Ribeiro and Codato). For the parties "
-"%(survey)s did place, that scale explains %(economic)s of the differences on"
-" the economy and %(social)s on social values."
+"%(parties)s are inferred from where 519 political scientists put them on one "
+"left-right scale in 2018 (Bolognesi, Ribeiro and Codato). For the parties "
+"%(survey)s did place, that scale explains %(economic)s of the differences on "
+"the economy and %(social)s on social values."
 msgstr ""
 "%(parties)s sind daraus abgeleitet, wo 519 Politikwissenschaftler sie 2018 "
-"auf einer Links-rechts-Skala verorteten (Bolognesi, Ribeiro und Codato). Bei"
-" den Parteien, die %(survey)s verortet hat, erklärt diese Skala %(economic)s"
-" der Unterschiede bei der Wirtschaft und %(social)s bei den "
-"gesellschaftlichen Werten."
+"auf einer Links-rechts-Skala verorteten (Bolognesi, Ribeiro und Codato). Bei "
+"den Parteien, die %(survey)s verortet hat, erklärt diese Skala %(economic)s "
+"der Unterschiede bei der Wirtschaft und %(social)s bei den gesellschaftlichen"
+" Werten."
 
 #: static/js/lib/compass-view.js:248
 msgid "%(parties)s are the average of the parties that merged into them."
@@ -162,7 +233,7 @@ msgstr "Abgeleitet, mit * markiert:"
 msgid "inferred"
 msgstr "abgeleitet"
 
-#: static/js/lib/compass-view.js:261 static/js/politics-page.js:346
+#: static/js/lib/compass-view.js:261 static/js/politics-page.js:411
 msgid "Party"
 msgstr "Partei"
 
@@ -190,11 +261,11 @@ msgstr "Wie Fachleute die Parteien verortet haben · %(survey)s, %(years)s"
 msgid "*: inferred places. Logos: Wikimedia Commons, in the public domain."
 msgstr "*: abgeleitete Plätze. Logos: Wikimedia Commons, gemeinfrei."
 
-#: static/js/lib/compass.js:178
+#: static/js/lib/compass.js:179
 msgid "Economic left"
 msgstr "Wirtschaftlich links"
 
-#: static/js/lib/compass.js:180
+#: static/js/lib/compass.js:181
 msgid "Economic right"
 msgstr "Wirtschaftlich rechts"
 
@@ -215,27 +286,27 @@ msgstr ""
 "Dieselben %(seats)s Sitze, nach Partei gefärbt. Als Nächstes die %(count)s "
 "größten Parteien, von den wenigsten Sitzen bis zu den meisten."
 
-#: static/js/lib/congress-reel.js:296 static/js/lib/congress-view.js:224
+#: static/js/lib/congress-reel.js:296 static/js/lib/congress-view.js:225
 msgid "Left, centre and right"
 msgstr "Links, Mitte und rechts"
 
-#: static/js/lib/congress-view.js:55 static/js/lib/congress-view.js:237
+#: static/js/lib/congress-view.js:55 static/js/lib/congress-view.js:242
 msgid "seats"
 msgstr "Sitze"
 
-#: static/js/lib/congress-view.js:110
+#: static/js/lib/congress-view.js:111
 msgid "%(place)s, from %(parties)s"
-msgstr "%(place)s, aus %(parties)s"
+msgstr "%(place)s, Durchschnitt aus %(parties)s"
 
-#: static/js/lib/congress-view.js:117
+#: static/js/lib/congress-view.js:118
 msgid "Seats by party"
 msgstr "Sitze nach Partei"
 
-#: static/js/lib/congress-view.js:121
+#: static/js/lib/congress-view.js:122
 msgid "Seats by bloc"
 msgstr "Sitze nach Block"
 
-#: static/js/lib/congress-view.js:140
+#: static/js/lib/congress-view.js:141
 msgid ""
 "left and right as %(experts)s political scientists placed the parties in "
 "%(year)s"
@@ -243,136 +314,331 @@ msgstr ""
 "links und rechts, wie %(experts)s Politikwissenschaftler die Parteien "
 "%(year)s verorteten"
 
-#: static/js/lib/congress-view.js:142
+#: static/js/lib/congress-view.js:143
 msgid "%(members)s of %(seats)s seats filled"
 msgstr "%(members)s von %(seats)s Sitzen besetzt"
 
-#: static/js/lib/congress-view.js:143 static/js/lib/congress-view.js:229
-#: static/js/lib/congress-view.js:264
+#: static/js/lib/congress-view.js:144 static/js/lib/congress-view.js:230
+#: static/js/lib/congress-view.js:270 static/js/lib/crime-view.js:222
 msgid "Sources:"
 msgstr "Quellen:"
 
-#: static/js/lib/congress-view.js:144
+#: static/js/lib/congress-view.js:145
 msgid ""
-"The %(house)s as a half circle of %(seats)s dots, one for each seat, "
-"coloured by party. The table beside it lists the seats."
+"The %(house)s as a half circle of %(seats)s dots, one for each seat, coloured"
+" by party. The table beside it lists the seats."
 msgstr ""
 "%(house)s, dargestellt als Halbkreis aus %(seats)s Punkten, einer je Sitz, "
 "nach Partei gefärbt. Die Tabelle daneben listet die Sitze auf."
 
-#: static/js/lib/congress-view.js:227
+#: static/js/lib/congress-view.js:228
 msgid "%(house)s · %(seats)s seats, %(when)s"
 msgstr "%(house)s · %(seats)s Sitze, %(when)s"
 
-#: static/js/lib/congress-view.js:251
+#: static/js/lib/congress-view.js:257
 msgid "%(seats)s seats, from %(from)s to %(to)s"
 msgstr "%(seats)s Sitze, vom %(from)s bis %(to)s"
 
-#: static/js/lib/congress-view.js:251
+#: static/js/lib/congress-view.js:257
 msgid "%(seats)s seats, since %(from)s"
 msgstr "%(seats)s Sitze, seit dem %(from)s"
 
-#: static/js/lib/congress-view.js:261
+#: static/js/lib/congress-view.js:267
 msgid ""
-"Left, centre and right as %(experts)s political scientists placed the "
-"parties in %(year)s."
+"Left, centre and right as %(experts)s political scientists placed the parties"
+" in %(year)s."
 msgstr ""
-"Links, Mitte und rechts, wie %(experts)s Politikwissenschaftler die Parteien"
-" %(year)s verorteten."
+"Links, Mitte und rechts, wie %(experts)s Politikwissenschaftler die Parteien "
+"%(year)s verorteten."
 
-#: static/js/lib/line-chart.js:139 static/js/lib/world-map.js:207
-#: static/js/lib/world-map.js:268 static/js/lib/world-map.js:272
-msgid "No data"
-msgstr "Keine Daten"
+#: static/js/lib/crime-reel.js:198
+msgid "of them were suspects"
+msgstr "davon waren tatverdächtig"
 
-#: static/js/lib/picker.js:10
+#: static/js/lib/crime-reel.js:198 static/js/lib/suspects-chart.js:105
+msgid "of its people were suspects"
+msgstr "ihrer Staatsangehörigen waren tatverdächtig"
+
+#: static/js/lib/crime-reel.js:204 static/js/lib/crime-view.js:170
+#: static/js/lib/suspects-chart.js:106
+msgid "Suspects"
+msgstr "Tatverdächtige"
+
+#: static/js/lib/crime-reel.js:217
+msgid "What these shares cannot show"
+msgstr "Was diese Anteile nicht zeigen können"
+
+#: static/js/lib/crime-view.js:40
+#, javascript-format
+msgid "Citizens of %s"
+msgstr "Staatsangehörige von %s"
+
+#: static/js/lib/crime-view.js:66
+msgid "All offences"
+msgstr "Alle Straftaten"
+
+#: static/js/lib/crime-view.js:68
+msgid "No offence"
+msgstr "Keine Straftat"
+
+#: static/js/lib/crime-view.js:74
+msgid "All offences but those against residence and asylum law"
+msgstr "Alle Straftaten außer Verstößen gegen das Aufenthalts- und Asylrecht"
+
+#: static/js/lib/crime-view.js:77
+#, javascript-format
+msgid "%s kind of offence"
+msgid_plural "%s kinds of offence"
+msgstr[0] "%s Deliktsart"
+msgstr[1] "%s Deliktsarten"
+
+#: static/js/lib/crime-view.js:83
+msgid "No offence matches."
+msgstr "Keine Straftat gefunden."
+
+#: static/js/lib/crime-view.js:92
+msgid "Choose nationalities"
+msgstr "Staatsangehörigkeiten wählen"
+
+#: static/js/lib/crime-view.js:93
+msgid "No nationality matches."
+msgstr "Keine Staatsangehörigkeit gefunden."
+
+#: static/js/lib/crime-view.js:126
+msgid ""
+"Shown: the %(count)s foreign nationality with the highest share, and the "
+"citizens of %(country)s."
+msgid_plural ""
+"Shown: the %(count)s foreign nationalities with the highest shares, and the "
+"citizens of %(country)s."
+msgstr[0] ""
+"Gezeigt: die %(count)s ausländische Staatsangehörigkeit mit dem höchsten "
+"Anteil und die Staatsangehörigen von %(country)s."
+msgstr[1] ""
+"Gezeigt: die %(count)s ausländischen Staatsangehörigkeiten mit den höchsten "
+"Anteilen und die Staatsangehörigen von %(country)s."
+
+#: static/js/lib/crime-view.js:141
+msgid "Choose a nationality to see its share."
+msgstr "Wählen Sie eine Staatsangehörigkeit, um ihren Anteil zu sehen."
+
+#: static/js/lib/crime-view.js:142
+msgid "Choose a kind of offence to see the shares."
+msgstr "Wählen Sie eine Deliktsart, um die Anteile zu sehen."
+
+#: static/js/lib/crime-view.js:158
+msgid ""
+"The share of each nationality’s people in %(country)s whom the police "
+"registered as a suspect in %(year)s: %(own)s of the citizens of %(country)s, "
+"%(foreign)s of all foreign nationals together."
+msgstr ""
+"Der Anteil der Menschen jeder Staatsangehörigkeit in %(country)s, die die "
+"Polizei %(year)s als Tatverdächtige registrierte: %(own)s der "
+"Staatsangehörigen von %(country)s, %(foreign)s aller ausländischen "
+"Staatsangehörigen zusammen."
+
+#: static/js/lib/crime-view.js:159
+msgid ""
+"The share of each nationality’s people in %(country)s whom the police "
+"registered as a suspect of the chosen offences in %(year)s: %(own)s of the "
+"citizens of %(country)s, %(foreign)s of all foreign nationals together."
+msgstr ""
+"Der Anteil der Menschen jeder Staatsangehörigkeit in %(country)s, die die "
+"Polizei %(year)s als Tatverdächtige der gewählten Straftaten registrierte: "
+"%(own)s der Staatsangehörigen von %(country)s, %(foreign)s aller "
+"ausländischen Staatsangehörigen zusammen."
+
+#: static/js/lib/crime-view.js:170
+msgid "Nationality"
+msgstr "Staatsangehörigkeit"
+
+#: static/js/lib/crime-view.js:170
+msgid "Share of its people"
+msgstr "Anteil der Staatsangehörigen"
+
+#: static/js/lib/crime-view.js:187
+#, javascript-format
+msgid "updated %s"
+msgstr "Stand %s"
+
+#: static/js/lib/crime-view.js:193
+msgid ""
+"Suspects in %(year)s as a share of each nationality’s people in %(country)s"
+msgstr ""
+"Tatverdächtige %(year)s als Anteil der Menschen jeder Staatsangehörigkeit in "
+"%(country)s"
+
+#: static/js/lib/crime-view.js:195
+msgid ""
+"%(offences)s: suspects in %(year)s as a share of each nationality’s people"
+msgstr ""
+"%(offences)s: Tatverdächtige %(year)s als Anteil der Menschen jeder "
+"Staatsangehörigkeit"
+
+#: static/js/lib/crime-view.js:210
+#, javascript-format
+msgid ""
+"The share of each nationality’s people in %s whom the police registered as a "
+"suspect."
+msgstr ""
+"Der Anteil der Menschen jeder Staatsangehörigkeit in %s, die die Polizei als "
+"Tatverdächtige registrierte."
+
+#: static/js/lib/crime-view.js:213
+msgid ""
+"With several kinds of offence chosen, a person suspected of more than one "
+"counts once for each."
+msgstr ""
+"Bei mehreren Deliktsarten zählt eine Person, die mehrerer Delikte verdächtig "
+"ist, bei jeder einmal."
+
+#: static/js/lib/crime-view.js:226
+msgid "All foreign nationals together"
+msgstr "Alle ausländischen Staatsangehörigen zusammen"
+
+#: static/js/lib/events.js:96
+#, javascript-format
+msgid "since %s"
+msgstr "seit %s"
+
+#: static/js/lib/events.js:244 static/js/metric-page.js:289
+#: static/js/ww2-page.js:71
+#, javascript-format
+msgid "Remove %s"
+msgstr "%s entfernen"
+
+#: static/js/lib/picker.js:13
 msgid "Choose countries"
 msgstr "Länder wählen"
 
-#: static/js/lib/picker.js:10
+#: static/js/lib/picker.js:13
 msgid "No country matches."
 msgstr "Kein Land gefunden."
 
-#: static/js/lib/picker.js:48
+#: static/js/lib/picker.js:53
 #, javascript-format
 msgid "%s country is the limit. Remove one to add another."
 msgid_plural "%s countries is the limit. Remove one to add another."
 msgstr[0] ""
-"%s Land ist die Grenze. Entfernen Sie eines, um ein anderes hinzuzufügen."
+"Höchstens %s Land. Entfernen Sie eines, um ein anderes hinzuzufügen."
 msgstr[1] ""
-"%s Länder sind die Grenze. Entfernen Sie eines, um ein anderes hinzuzufügen."
+"Höchstens %s Länder. Entfernen Sie eines, um ein anderes hinzuzufügen."
 
-#: static/js/lib/picker.js:49
+#: static/js/lib/picker.js:54
 #, javascript-format
 msgid "Pick up to %s country."
 msgid_plural "Pick up to %s countries."
 msgstr[0] "Wählen Sie bis zu %s Land."
 msgstr[1] "Wählen Sie bis zu %s Länder."
 
-#: static/js/lib/reel.js:417
+#: static/js/lib/rank-table.js:11
+msgid "Africa"
+msgstr "Afrika"
+
+#: static/js/lib/rank-table.js:12
+msgid "Asia"
+msgstr "Asien"
+
+#: static/js/lib/rank-table.js:13
+msgid "Europe"
+msgstr "Europa"
+
+#: static/js/lib/rank-table.js:14
+msgid "North America"
+msgstr "Nordamerika"
+
+#: static/js/lib/rank-table.js:15
+msgid "Oceania"
+msgstr "Ozeanien"
+
+#: static/js/lib/rank-table.js:16
+msgid "South America"
+msgstr "Südamerika"
+
+#: static/js/lib/rank-table.js:53
+msgid "Rank"
+msgstr "Rang"
+
+#: static/js/lib/rank-table.js:53
+msgid "Country"
+msgstr "Land"
+
+#: static/js/lib/reel.js:431
 msgid "Start of term"
 msgstr "Beginn der Amtszeit"
 
-#: static/js/lib/reel.js:417 static/js/lib/reel.js:481
-#: static/js/lib/term-chart.js:232 static/js/lib/term-chart.js:482
-#: static/js/lib/timeline.js:242 static/js/politics-page.js:280
+#: static/js/lib/reel.js:431 static/js/lib/reel.js:495
+#: static/js/lib/term-chart.js:248 static/js/lib/term-chart.js:510
+#: static/js/lib/timeline.js:242 static/js/politics-page.js:345
 msgid "In office"
 msgstr "Im Amt"
 
-#: static/js/lib/reel.js:417 static/js/lib/reel.js:481
-#: static/js/lib/term-chart.js:232 static/js/lib/term-chart.js:482
+#: static/js/lib/reel.js:431 static/js/lib/reel.js:495
+#: static/js/lib/term-chart.js:248 static/js/lib/term-chart.js:510
 msgid "End of term"
 msgstr "Ende der Amtszeit"
 
-#: static/js/lib/reel.js:693
+#: static/js/lib/reel.js:707
 msgid "At end of term"
 msgstr "Am Ende der Amtszeit"
 
-#: static/js/lib/reel.js:730 static/js/lib/timeline.js:109
-#: static/js/lib/timeline.js:283 static/js/politics-page.js:316
+#: static/js/lib/reel.js:744 static/js/lib/timeline.js:109
+#: static/js/lib/timeline.js:283 static/js/politics-page.js:381
 msgid "Total"
 msgstr "Gesamt"
 
-#: static/js/lib/reel.js:730 static/js/lib/timeline.js:137
-#: static/js/politics-page.js:315
+#: static/js/lib/reel.js:744 static/js/lib/timeline.js:137
+#: static/js/politics-page.js:380
 msgid "Per year"
 msgstr "Pro Jahr"
 
-#: static/js/lib/reel.js:751 static/js/metric-page.js:218
-#: static/js/politics-page.js:346
-msgid "Year"
-msgstr "Jahr"
-
-#: static/js/lib/reel.js:882
+#: static/js/lib/reel.js:896
 msgid "Change since start"
 msgstr "Seit Amtsbeginn"
 
-#: static/js/lib/term-chart.js:594
+#: static/js/lib/states-reel.js:194
+#, javascript-format
+msgid "of %s"
+msgstr "von %s"
+
+#: static/js/lib/states-reel.js:296
+msgid "Best first"
+msgstr "Beste zuerst"
+
+#: static/js/lib/states-reel.js:296
+msgid "Highest first"
+msgstr "Höchste zuerst"
+
+#: static/js/lib/suspects-chart.js:180
+msgid "Foreign nationals"
+msgstr "Ausländische Staatsangehörige"
+
+#: static/js/lib/term-chart.js:622
 #, javascript-format
 msgid "Up %s, better"
 msgstr "Um %s gestiegen, besser"
 
-#: static/js/lib/term-chart.js:594
+#: static/js/lib/term-chart.js:622
 #, javascript-format
 msgid "Up %s, worse"
 msgstr "Um %s gestiegen, schlechter"
 
-#: static/js/lib/term-chart.js:594
+#: static/js/lib/term-chart.js:622
 #, javascript-format
 msgid "Up %s"
 msgstr "Um %s gestiegen"
 
-#: static/js/lib/term-chart.js:595
+#: static/js/lib/term-chart.js:623
 #, javascript-format
 msgid "Down %s, better"
 msgstr "Um %s gesunken, besser"
 
-#: static/js/lib/term-chart.js:595
+#: static/js/lib/term-chart.js:623
 #, javascript-format
 msgid "Down %s, worse"
 msgstr "Um %s gesunken, schlechter"
 
-#: static/js/lib/term-chart.js:595
+#: static/js/lib/term-chart.js:623
 #, javascript-format
 msgid "Down %s"
 msgstr "Um %s gesunken"
@@ -390,21 +656,25 @@ msgstr[0] ""
 msgstr[1] ""
 "%s Amtszeiten ohne genug Daten zu dieser Messgröße sind nicht aufgeführt."
 
+#: static/js/lib/tree-picker.js:24
+msgid "Nothing matches."
+msgstr "Nichts gefunden."
+
 #: static/js/lib/war-map.js:174
 msgid "Killed, wounded, missing and captured"
 msgstr "Gefallene, Verwundete, Vermisste und Gefangene"
 
-#: static/js/lib/war-map.js:264 static/js/ww2-page.js:207
+#: static/js/lib/war-map.js:264 static/js/ww2-page.js:209
 msgid "Allies"
 msgstr "Alliierte"
 
-#: static/js/lib/war-map.js:264 static/js/ww2-page.js:208
+#: static/js/lib/war-map.js:264 static/js/ww2-page.js:210
 msgid "Axis"
 msgstr "Achsenmächte"
 
-#: static/js/lib/war-map.js:264 static/js/ww2-page.js:209
+#: static/js/lib/war-map.js:264 static/js/ww2-page.js:211
 msgid "Not at war"
-msgstr "Nicht im Krieg"
+msgstr "Nicht kriegführend"
 
 #: static/js/lib/war-timeline.js:127
 msgid "Pause"
@@ -412,93 +682,111 @@ msgstr "Pause"
 
 #: static/js/lib/war-timeline.js:127
 msgid "Play the war"
-msgstr "Krieg abspielen"
+msgstr "Kriegsverlauf abspielen"
 
-#: static/js/lib/world-map.js:133
+#: static/js/lib/world-map.js:146
 #, javascript-format
 msgid "No data for %s"
 msgstr "Keine Daten für %s"
 
-#: static/js/lib/world-map.js:138
+#: static/js/lib/world-map.js:151
 msgid "%(year)s · rank %(rank)s of %(count)s"
 msgstr "%(year)s · Rang %(rank)s von %(count)s"
 
-#: static/js/lib/world-map.js:180 static/js/lib/world-map.js:238
-msgid "Worse"
-msgstr "Schlechter"
-
-#: static/js/lib/world-map.js:180 static/js/lib/world-map.js:238
-msgid "Better"
-msgstr "Besser"
-
-#: static/js/lib/world-map.js:180 static/js/lib/world-map.js:238
-msgid "Lower"
-msgstr "Niedriger"
-
-#: static/js/lib/world-map.js:180 static/js/lib/world-map.js:238
-msgid "Higher"
-msgstr "Höher"
-
-#: static/js/lib/world-map.js:202
+#: static/js/lib/world-map.js:192
 msgid "Median country"
 msgstr "Medianland"
 
-#: static/js/lib/world-map.js:293 static/js/metric-page.js:151
+#: static/js/lib/world-map.js:195 static/js/lib/world-map.js:253
+msgid "Worse"
+msgstr "Schlechter"
+
+#: static/js/lib/world-map.js:195 static/js/lib/world-map.js:253
+msgid "Better"
+msgstr "Besser"
+
+#: static/js/lib/world-map.js:195 static/js/lib/world-map.js:253
+msgid "Lower"
+msgstr "Niedriger"
+
+#: static/js/lib/world-map.js:195 static/js/lib/world-map.js:253
+msgid "Higher"
+msgstr "Höher"
+
+#: static/js/lib/world-map.js:308 static/js/metric-page.js:228
 #, javascript-format
 msgid "Highest values, %s"
 msgstr "Höchste Werte, %s"
 
-#: static/js/metric-page.js:110
-msgid "World"
-msgstr "Welt"
+#: static/js/metric-page.js:191
+#| msgid "All countries"
+msgid "All continents"
+msgstr "Alle Kontinente"
 
-#: static/js/metric-page.js:205 static/js/politics-page.js:125
+#: static/js/metric-page.js:195
+msgid ""
+"%(shown)s of the %(count)s countries with a value in %(year)s. The rank is "
+"each country's place among all of them."
+msgstr ""
+"%(shown)s der %(count)s Länder mit einem Wert für %(year)s. Der Rang ist der "
+"Platz des Landes unter allen."
+
+#: static/js/metric-page.js:196
+#| msgid "%(count)s country with a value in %(year)s, the highest first."
+#| msgid_plural ""
+#| "%(count)s countries with a value in %(year)s, the highest first."
+msgid "%(count)s country with a value in %(year)s, ranked by it."
+msgid_plural "%(count)s countries with a value in %(year)s, ranked by it."
+msgstr[0] "%(count)s Land mit einem Wert für %(year)s, danach gereiht."
+msgstr[1] "%(count)s Länder mit einem Wert für %(year)s, danach gereiht."
+
+#: static/js/metric-page.js:286 static/js/politics-page.js:174
 #: static/js/ww2-page.js:68
 #, javascript-format
 msgid "%s (no data)"
 msgstr "%s (keine Daten)"
 
-#: static/js/metric-page.js:208 static/js/ww2-page.js:71
+#: static/js/metric-page.js:389
 #, javascript-format
-msgid "Remove %s"
-msgstr "%s entfernen"
+msgid "Top %s each year"
+msgstr "Top %s jedes Jahr"
 
-#: static/js/politics-page.js:91
+#: static/js/politics-page.js:138
 msgid "The data did not load. Reload the page to try again."
 msgstr ""
 "Die Daten wurden nicht geladen. Laden Sie die Seite neu, um es erneut zu "
 "versuchen."
 
-#: static/js/politics-page.js:103
+#: static/js/politics-page.js:152
 #, javascript-format
 msgid "No data for %s on this measure yet."
 msgstr "Noch keine Daten für %s zu dieser Messgröße."
 
-#: static/js/politics-page.js:218
+#: static/js/politics-page.js:270
 msgid ""
 "%(title)s in %(name)s over time, coloured by the leader in office. The list "
 "below gives the change during each term."
 msgstr ""
-"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die"
-" Liste darunter zeigt die Veränderung während jeder Amtszeit."
+"%(title)s in %(name)s im Zeitverlauf, eingefärbt nach der Person im Amt. Die "
+"Liste darunter zeigt die Veränderung während jeder Amtszeit."
 
-#: static/js/politics-page.js:249
+#: static/js/politics-page.js:314
 msgid "Source: not loaded yet."
 msgstr "Quelle: noch nicht geladen."
 
-#: static/js/politics-page.js:253
+#: static/js/politics-page.js:316
 msgid "updated %(date)s"
 msgstr "Stand %(date)s"
 
-#: static/js/politics-page.js:254
+#: static/js/politics-page.js:317
 msgid "fetched %(date)s"
 msgstr "abgerufen am %(date)s"
 
-#: static/js/politics-page.js:278
+#: static/js/politics-page.js:343
 msgid "%(years)s, %(name)s, %(parties)s: from %(start)s to %(end)s."
 msgstr "%(years)s, %(name)s, %(parties)s: von %(start)s auf %(end)s."
 
-#: static/js/politics-page.js:346
+#: static/js/politics-page.js:411
 msgid "In office on 1 July"
 msgstr "Im Amt am 1. Juli"
 
@@ -514,35 +802,35 @@ msgstr ""
 msgid "fetched %s"
 msgstr "abgerufen am %s"
 
-#: static/js/ww2-page.js:108
+#: static/js/ww2-page.js:109
 msgid "World War II: casualties by country"
 msgstr "Zweiter Weltkrieg: Verluste nach Land"
 
-#: static/js/ww2-page.js:109
+#: static/js/ww2-page.js:110
 msgid "Deaths in the war, soldiers and civilians, lowest to highest estimate."
 msgstr ""
-"Tote des Krieges, Soldaten und Zivilisten, von der niedrigsten bis zur "
-"höchsten Schätzung."
+"Kriegstote, Soldaten und Zivilisten, von der niedrigsten bis zur höchsten "
+"Schätzung."
 
-#: static/js/ww2-page.js:110
+#: static/js/ww2-page.js:111
 msgid "Military deaths, lowest to highest estimate."
-msgstr "Militärische Tote, von der niedrigsten bis zur höchsten Schätzung."
+msgstr "Getötete Soldaten, von der niedrigsten bis zur höchsten Schätzung."
 
-#: static/js/ww2-page.js:110
+#: static/js/ww2-page.js:111
 msgid "Civilian deaths, lowest to highest estimate."
-msgstr "Zivile Tote, von der niedrigsten bis zur höchsten Schätzung."
+msgstr "Getötete Zivilisten, von der niedrigsten bis zur höchsten Schätzung."
 
-#: static/js/ww2-page.js:191
+#: static/js/ww2-page.js:192
 msgid "World War II: the battles"
 msgstr "Zweiter Weltkrieg: die Schlachten"
 
-#: static/js/ww2-page.js:192
+#: static/js/ww2-page.js:193
 msgid ""
 "Every battle on the map, 1937 to 1945. Circles: casualties of both sides."
 msgstr ""
 "Jede Schlacht auf der Karte, 1937 bis 1945. Kreise: Verluste beider Seiten."
 
-#: static/js/ww2-page.js:193
+#: static/js/ww2-page.js:194
 #, javascript-format
 msgid "The war on %s. Circles: casualties of both sides."
 msgstr "Der Krieg am %s. Kreise: Verluste beider Seiten."

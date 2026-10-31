@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 507 372" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-83.9555,-1123.38)">
+        <g>
+            <g id="Logo_du_parti_Reconquête.svg" transform="matrix(10.8191,0,0,10.8191,-1079.72,1274.96)">
+                <clipPath id="_clip1">
+                    <rect x="146.24" y="-14.01" width="8.115" height="34.374"/>
+                </clipPath>
+                <g clip-path="url(#_clip1)">
+                    <g transform="matrix(1,0,0,1,-154.355,-20.3635)">
+                        <g id="Groupe_559" transform="matrix(1,0,0,1,-25.512,-165.23)">
+                            <g id="Groupe_557" transform="matrix(1,0,0,1,63.917,171.512)">
+                                <g id="Tracé_378" transform="matrix(1,0,0,1,-448.764,-182.211)">
+                                    <path d="M666.587,216L666.587,190.427L659.779,190.427L659.779,182.864L681.743,182.864L681.743,190.427L674.935,190.427L674.935,216L666.587,216Z" style="fill:rgb(11,11,102);fill-rule:nonzero;"/>
+                                </g>
+                                <g id="Tracé_379" transform="matrix(1,0,0,1,-488.081,-182.211)">
+                                    <path d="M724.578,216L724.578,182.864L742.411,182.864L742.411,190.427L732.925,190.427L732.925,195.521L742.451,195.521L742.451,203.085L732.925,203.085L732.925,208.44L742.451,208.44L742.451,216L724.578,216Z" style="fill:rgb(11,11,102);fill-rule:nonzero;"/>
+                                </g>
+                            </g>
+                            <g id="Groupe_558" transform="matrix(1,0,0,1,326.092,172.105)">
+                                <g id="Rectangle_382" transform="matrix(1,0,0,1,0,25.632)">
+                                    <rect x="0" y="0" width="8.129" height="7.568" style="fill:rgb(230,0,0);"/>
+                                </g>
+                                <rect id="Rectangle_383" x="0" y="0" width="8.129" height="20.272" style="fill:rgb(230,0,0);"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g id="Logo_du_parti_Reconquête.svg1" serif:id="Logo_du_parti_Reconquête.svg" transform="matrix(10.8191,0,0,10.8191,1753.94,1274.96)">
+                <clipPath id="_clip2">
+                    <rect x="-154.355" y="-14.01" width="35.737" height="34.374"/>
+                </clipPath>
+                <g clip-path="url(#_clip2)">
+                    <g transform="matrix(1,0,0,1,-154.355,-20.3635)">
+                        <g id="Groupe_5591" serif:id="Groupe_559" transform="matrix(1,0,0,1,-25.512,-165.23)">
+                            <g transform="matrix(1,0,0,1,-59.258,-10.699)">
+                                <g id="Groupe_5571" serif:id="Groupe_557">
+                                    <path id="Tracé_371" d="M123.175,216L123.175,182.864L142.207,182.864L141.183,190.427L131.522,190.427L131.522,195.521L141.048,195.521L141.048,203.085L131.522,203.085L131.522,208.44L141.183,208.44L142.208,216L123.175,216Z" style="fill:rgb(11,11,102);fill-rule:nonzero;"/>
+                                </g>
+                            </g>
+                            <g id="Groupe_5581" serif:id="Groupe_558">
+                            </g>
+                            <g id="Tracé_381" transform="matrix(1,0,0,1,0,-10.699)">
+                                <path d="M28.151,199.986L25.512,208.116L33.133,208.116L33.133,216L41.262,216L41.262,208.111L46.268,208.111L51.455,216L61.131,216L54.121,205.88C57.33,203.396 59.191,199.543 59.143,195.486C59.143,188.513 53.943,182.86 47.531,182.86L33.131,182.86L33.131,196.354L41.26,196.354L41.26,190.989L47.528,190.989C49.416,190.989 51.011,193.048 51.011,195.489C51.011,197.93 49.416,199.989 47.528,199.989L28.151,199.986Z" style="fill:rgb(11,11,102);fill-rule:nonzero;"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

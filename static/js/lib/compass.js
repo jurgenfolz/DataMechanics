@@ -102,9 +102,10 @@ export function markerAt(markers, x, y, size) {
  * `highlight` is the key of a marker to lift above the others, which then fade to `fade`.
  * `k` scales lines and type, for the saved image and the video.
  * `type` sets the axes' type in pixels, { names, ticks }: by default it grows with `k`; a video sets its own, to read on a phone.
+ * `grid` false leaves out the grid lines: the videos show the axes alone.
  */
-export function paintCompass(ctx, plot, { markers, parties, logos, size, shown = () => 1, highlight = null, fade = 0.4, k = 1, type = null }) {
-  paintAxes(ctx, plot, k, type || { names: 11 * k, ticks: 10 * k });
+export function paintCompass(ctx, plot, { markers, parties, logos, size, shown = () => 1, highlight = null, fade = 0.4, k = 1, type = null, grid = true }) {
+  paintAxes(ctx, plot, k, type || { names: 11 * k, ticks: 10 * k }, grid);
   const order = highlight ? [...markers.filter((m) => m.key !== highlight), ...markers.filter((m) => m.key === highlight)] : markers;
   for (const marker of order) {
     const appeared = shown(marker.key);
@@ -136,12 +137,12 @@ export function paintCompass(ctx, plot, { markers, parties, logos, size, shown =
   }
 }
 
-function paintAxes(ctx, plot, k, type) {
+function paintAxes(ctx, plot, k, type, grid) {
   const { x, y, w, h } = plot;
   ctx.save();
   ctx.lineWidth = 1 * k;
   ctx.strokeStyle = GRID;
-  for (const tick of TICKS) {
+  for (const tick of grid ? TICKS : []) {
     ctx.beginPath();
     ctx.moveTo(x + (tick / 10) * w, y);
     ctx.lineTo(x + (tick / 10) * w, y + h);

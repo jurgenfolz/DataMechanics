@@ -1,14 +1,17 @@
 // A filter: a button that opens a searchable list, each item with its image and a check.
 // The metric pages and the WW2 page pick countries with it, by flag; the party compass picks parties, by logo.
-// An option is { id, name, image, label?, world? }: `label` is how the button names it, the name by default.
+// An option is { id, name, image, label?, world?, meta?, svg?, color? }: `label` is how the button names it, the name
+// by default. An option with `svg` shows that icon in `color` instead of its image (the world events), and `meta`
+// (an event's year) follows its name in grey; the search matches it too.
 // A `world` option (World on a metric page) is listed like the others but does not count towards `max`.
 // With `allLabel`, the button says it ("All parties") while every option is picked.
+// With `single`, picking an option closes the list: the page keeps one choice (the Compare page's country).
 // gettext, ngettext and interpolate are Django's, from the translation catalog base.html loads.
 import { escapeHtml } from './format.js';
 
 export function createPicker(root, {
   onToggle, max = Infinity, imageClass = 'flag', emptyLabel = gettext('Choose countries'), noMatch = gettext('No country matches.'),
-  allLabel = '',
+  allLabel = '', single = false,
 }) {
   const button = root.querySelector('[data-picker-button]');
   const label = root.querySelector('[data-picker-label]');
@@ -28,7 +31,8 @@ export function createPicker(root, {
 
   function renderList() {
     const query = search.value.trim().toLowerCase();
-    visible = options.filter((o) => !query || o.name.toLowerCase().includes(query) || o.id.toLowerCase() === query);
+    visible = options.filter((o) => !query || o.name.toLowerCase().includes(query) || o.id.toLowerCase() === query
+      || (o.meta && o.meta.toLowerCase().includes(query)));
     active = Math.min(active, Math.max(visible.length - 1, 0));
     const full = countedSelected() >= max;
     list.innerHTML = visible.map((o, i) => {
@@ -37,8 +41,9 @@ export function createPicker(root, {
       return `<li id="picker-${o.id}" role="option" class="picker__option${o.world ? ' picker__option--world' : ''}${i === active ? ' is-active' : ''}"`
         + ` aria-selected="${isSelected}" aria-disabled="${disabled}" data-id="${o.id}">`
         + `<span class="picker__check" aria-hidden="true"></span>`
-        + `<img class="${imageClass}" src="${escapeHtml(o.image)}" alt="" loading="lazy">`
-        + `<span>${escapeHtml(o.name)}</span></li>`;
+        + (o.svg ? `<span class="picker__icon" style="color:${escapeHtml(o.color)}">${o.svg}</span>`
+          : `<img class="${imageClass}" src="${escapeHtml(o.image)}" alt="" loading="lazy">`)
+        + `<span class="picker__name">${escapeHtml(o.name)}${o.meta ? `<em class="picker__meta">${escapeHtml(o.meta)}</em>` : ''}</span></li>`;
     }).join('') || `<li class="picker__hint">${escapeHtml(noMatch)}</li>`;
     search.setAttribute('aria-activedescendant', visible[active] ? `picker-${visible[active].id}` : '');
     // Without a limit there is nothing to say.
@@ -63,6 +68,7 @@ export function createPicker(root, {
     if (!option) return;
     if (!selected.has(id) && !option.world && countedSelected() >= max) return;
     onToggle(id);
+    if (single) close();
   }
 
   function open() {
@@ -110,6 +116,7 @@ export function createPicker(root, {
   });
 
   return {
+    root,
     setOptions(next) { options = next; renderList(); renderLabel(); },
     setSelected(ids) { selected = new Set(ids); if (!panel.hidden) renderList(); renderLabel(); },
   };

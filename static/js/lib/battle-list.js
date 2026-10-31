@@ -4,7 +4,7 @@
 // Pressing a battle shows it on the map; every entry links to its Wikipedia article. The region tabs filter both.
 // gettext and interpolate are Django's, from the translation catalog base.html loads.
 import { escapeHtml } from './format.js';
-import { SIDE_COLORS, formatDay, formatRange, placeTip } from './ww2.js';
+import { SIDE_COLORS, formatDay, formatRange, placeTip, toDay } from './ww2.js';
 import { WINNER_COLORS, battleTip } from './war-map.js';
 
 const FLAGS_SHOWN = 3;
@@ -38,12 +38,13 @@ export function createBattleList(root, { battles, events, states, units, onPick 
     item.className = 'term-row term-row--battle';
     item.style.setProperty('--party', WINNER_COLORS[battle.winner]);
     item.dataset.region = battle.region;
-    const dates = battle.startDay === battle.endDay ? formatDay(battle.startDay)
-      : `${formatDay(battle.startDay, 'month')} – ${formatDay(battle.endDay, 'month')}`;
+    // The start and the end on a line each, so a long month ("set. de 1939") fits the column.
+    const dates = battle.startDay === battle.endDay ? escapeHtml(formatDay(battle.startDay))
+      : `<span>${escapeHtml(formatDay(battle.startDay, 'month'))} –</span> <span>${escapeHtml(formatDay(battle.endDay, 'month'))}</span>`;
     // The pie: each side's share of the lowest estimates; a battle without a figure for a side shows the other's whole.
     const share = battle.low ? (100 * (battle.alliesCasualties[0] || 0)) / battle.low : 50;
     const picture = battle.image ? `<img class="battle-row__picture" src="${escapeHtml(battle.image)}" alt="" loading="lazy">` : '<span class="battle-row__picture battle-row__picture--none"></span>';
-    item.innerHTML = `<span class="term-row__years">${escapeHtml(dates)}</span><span class="term-row__rail"></span>${picture}`
+    item.innerHTML = `<span class="term-row__years">${dates}</span><span class="term-row__rail"></span>${picture}`
       + `<span class="term-row__who"><button type="button" class="battle-row__name" aria-pressed="false">${escapeHtml(battle.name)}</button>`
       + `<span class="battle-row__sides"><span>${flags(battle.allies, states)}</span><span>${flags(battle.axis, states)}</span><span class="battle-row__theatre">${escapeHtml(battle.text.theatre)}</span></span></span>`
       + `<span class="battle-row__values"><span><i style="background:${SIDE_COLORS.allies}"></i>${escapeHtml(formatRange(battle.alliesCasualties, units))}</span>`
@@ -71,7 +72,7 @@ export function createBattleList(root, { battles, events, states, units, onPick 
     item.className = 'term-row term-row--event';
     item.style.setProperty('--party', KIND_COLORS[event.kind]);
     item.dataset.region = event.region;
-    item.innerHTML = `<span class="term-row__years">${escapeHtml(event.text.date)}</span><span class="term-row__rail"></span>`
+    item.innerHTML = `<span class="term-row__years">${escapeHtml(formatDay(toDay(event.date)))}</span><span class="term-row__rail"></span>`
       + `<span class="term-row__who"><strong>${escapeHtml(event.name)}</strong><span>${escapeHtml(event.text.kind)}</span></span>`
       + wikiLink(event.wiki);
     return item;

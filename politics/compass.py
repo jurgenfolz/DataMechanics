@@ -60,8 +60,9 @@ SURVEYS = {
                  'to 10, between October and December 2024: one for economic issues such as taxes, privatization and the '
                  'welfare state, one for social and cultural values, from expanded personal freedoms to order and '
                  'tradition. A party’s place is the average of their answers.'),
-        citation=('Rovny, J., Polk, J., Bakker, R., Hooghe, L., Jolly, S., Marks, G., Steenbergen, M. and Vachudova, M. A. '
-                  '(2025). The 2024 Chapel Hill Expert Survey on political party positioning in Europe.'),
+        citation=('Rovny, J., Bakker, R., Hooghe, L., Jolly, S., Marks, G., Polk, J., Steenbergen, M. and Vachudova, M. A. '
+                  '(2025). The 2024 Chapel Hill Expert Survey on political party positioning in Europe: Twenty-five years '
+                  'of party positional data. Electoral Studies 97.'),
         url='https://www.chesdata.eu/ches-europe',
         licence='',
     ),
@@ -108,9 +109,56 @@ CONTEXT = {
             _('<strong>The surveys do not always agree.</strong> They asked different experts different questions, five '
               'years apart. Switch the survey to see how far a party moves: the AfD, for one, sits further right on the '
               'economy in CHES than in the Global Party Survey.'),
-            _('<strong>Small parties are missing.</strong> The chart shows the parties in the Bundestag and those that won '
-              'at least 3 percent of the vote in 2025. SSW, the party of the Danish and Frisian minorities, holds a seat '
-              'but is in neither survey.'),
+            _('<strong>Small parties are missing.</strong> The chart shows every party a survey placed, in the Bundestag or '
+              'not, and the surveys leave out most small ones. SSW, the party of the Danish and Frisian minorities, holds a '
+              'seat in the Bundestag but is in neither survey.'),
+        ),
+        'credits': _("Positions: CHES Europe and the Global Party Survey, as each survey's notes describe. Views: Wikipedia, "
+                     "linked from each party. Logos: Wikimedia Commons."),
+    },
+    'FRA': {
+        'limits': (
+            _('<strong>Each survey shows one moment.</strong> The Global Party Survey asked in 2019 and CHES at the end of '
+              '2024. Parties have changed since: Renaissance was La République En Marche in 2019, and Horizons and '
+              'Reconquête were founded in 2021. They, the PCF and Les Écologistes are only in CHES.'),
+            _('<strong>The surveys do not always agree.</strong> They asked different experts different questions, five '
+              'years apart. Switch the survey to see how far a party moves: the MoDem, for one, sits further left on the '
+              'economy and further towards order and tradition in CHES than in the Global Party Survey, whose experts '
+              'placed it on the economy only five times.'),
+            _('<strong>Small parties are missing.</strong> The chart shows every party a survey placed, in Parliament or not, '
+              'and the surveys leave out most small ones. Neither places Éric Ciotti’s UDR, launched under that name in '
+              '2024, which has its own group in the Assemblée.'),
+        ),
+        'credits': _("Positions: CHES Europe and the Global Party Survey, as each survey's notes describe. Views: Wikipedia, "
+                     "linked from each party. Logos: Wikimedia Commons."),
+    },
+    'ITA': {
+        'limits': (
+            _('<strong>One survey, one moment.</strong> CHES asked at the end of 2024. The Global Party Survey of 2019 placed '
+              'Lega, Forza Italia and Fratelli d’Italia as one coalition, so this chart shows CHES alone. Parties have '
+              'changed since: Futuro Nazionale, which Roberto Vannacci founded in February 2026 after leaving the Lega, is '
+              'in no survey.'),
+            _('<strong>Allies sit apart.</strong> Europa Verde and Sinistra Italiana form one alliance, Alleanza Verdi e '
+              'Sinistra, with one group in the Chamber, but CHES places the two parties apart.'),
+            _('<strong>Small parties are missing.</strong> The chart shows every party CHES placed, in parliament or not. '
+              'CHES places Azione, which its codebook lists with Italia Viva, their joint list of 2022, but not Italia Viva '
+              'on its own, nor Noi Moderati, Futuro Nazionale and Sud chiama Nord, which all hold seats.'),
+        ),
+        'credits': _("Positions: CHES Europe, as the survey's notes describe. Views: Wikipedia, linked from each party. "
+                     "Logos: Wikimedia Commons."),
+    },
+    'GBR': {
+        'limits': (
+            _('<strong>Each survey shows one moment.</strong> The Global Party Survey asked in 2019 and CHES at the end of '
+              '2024. Parties have changed since: Reform UK was called the Brexit Party until January 2021, and Labour was '
+              'led by Jeremy Corbyn in 2019 and by Keir Starmer in 2024.'),
+            _('<strong>The surveys do not always agree.</strong> They asked different experts different questions, five '
+              'years apart. Switch the survey to see how far a party moves: Labour, for one, sits nearer the centre on the '
+              'economy in CHES than in the Global Party Survey.'),
+            _('<strong>Small parties are missing.</strong> CHES places only parties from Great Britain; the Global Party '
+              'Survey also places the DUP and Sinn Féin from Northern Ireland, and UKIP. Neither places the SDLP, Alliance, '
+              'the UUP, TUV, Your Party or Restore Britain. The Greens here are the Green Party of England and Wales: the '
+              'Scottish Greens and the Green Party in Northern Ireland are separate parties.'),
         ),
         'credits': _("Positions: CHES Europe and the Global Party Survey, as each survey's notes describe. Views: Wikipedia, "
                      "linked from each party. Logos: Wikimedia Commons."),
@@ -118,11 +166,13 @@ CONTEXT = {
     'AUT': {
         'limits': (
             _('<strong>Each survey shows one moment.</strong> The Global Party Survey asked in 2019 and CHES at the end of '
-              '2024, after the election of September 2024.'),
+              '2024, after the election of September 2024. JETZT – Liste Pilz, which only the Global Party Survey places, '
+              'lost its seats at the election of September 2019.'),
             _('<strong>The surveys do not always agree.</strong> They asked different experts different questions, five '
               'years apart. Switch the survey to see how far a party moves: the FPÖ, for one, sits further towards order '
               'and tradition in CHES than in the Global Party Survey.'),
-            _('<strong>Small parties are missing.</strong> The chart shows the parties in the Nationalrat.'),
+            _('<strong>Small parties are missing.</strong> The chart shows every party a survey placed, and the surveys '
+              'leave out most small ones, the KPÖ among them.'),
         ),
         'credits': _("Positions: CHES Europe and the Global Party Survey, as each survey's notes describe. Views: Wikipedia, "
                      "linked from each party. Logos: Wikimedia Commons."),
@@ -142,12 +192,17 @@ POSITIONS = {
 
 # The ideologies Wikipedia names for the parties, as written in party_profiles.csv.
 IDEOLOGIES = {
+    'alter-globalization': _('alter-globalization'),
     'anti-corruption': _('anti-corruption'),
+    'autonomism': _('autonomism'),
     'big tent': _('big tent'),
     'Bolsonarism': _('Bolsonarism'),
     'Brazilian nationalism': _('Brazilian nationalism'),
+    'British nationalism': _('British nationalism'),
+    'British unionism': _('British unionism'),
     'Catholic social teaching': _('Catholic social teaching'),
     'Christian democracy': _('Christian democracy'),
+    'Christian nationalism': _('Christian nationalism'),
     'Christian right': _('Christian right'),
     'Christian solidarism': _('Christian solidarism'),
     'classical liberalism': _('classical liberalism'),
@@ -161,37 +216,63 @@ IDEOLOGIES = {
     'eco-feminism': _('eco-feminism'),
     'eco-socialism': _('eco-socialism'),
     'economic liberalism': _('economic liberalism'),
+    'English nationalism': _('English nationalism'),
     'environmentalism': _('environmentalism'),
+    'ethnic nationalism': _('ethnic nationalism'),
     'Euroscepticism': _('Euroscepticism'),
     'federalism': _('federalism'),
+    'French nationalism': _('French nationalism'),
     'Frisian minority interests': _('Frisian minority interests'),
+    'German and Ladin minority interests': _('German and Ladin minority interests'),
     'green politics': _('green politics'),
+    'hard Euroscepticism': _('hard Euroscepticism'),
+    'Irish nationalism': _('Irish nationalism'),
+    'Irish republicanism': _('Irish republicanism'),
+    'Irish reunification': _('Irish reunification'),
+    'Islamophobia': _('Islamophobia'),
     'labourism': _('labourism'),
     'left-conservatism': _('left-conservatism'),
+    'left-wing nationalism': _('left-wing nationalism'),
     'left-wing populism': _('left-wing populism'),
     'liberal conservatism': _('liberal conservatism'),
     'liberalism': _('liberalism'),
     'libertarianism': _('libertarianism'),
     'national conservatism': _('national conservatism'),
     'national liberalism': _('national liberalism'),
+    'nationalism': _('nationalism'),
+    'neo-nationalism': _('neo-nationalism'),
     'neoliberalism': _('neoliberalism'),
+    'nonsectarianism': _('nonsectarianism'),
     'parliamentarism': _('parliamentarism'),
     'paternalistic conservatism': _('paternalistic conservatism'),
+    'populism': _('populism'),
+    'post-fascism': _('post-fascism'),
+    'pro-Europeanism': _('pro-Europeanism'),
     'progressivism': _('progressivism'),
     'regionalism': _('regionalism'),
+    'right-libertarianism': _('right-libertarianism'),
     'right-wing populism': _('right-wing populism'),
+    'Scottish independence': _('Scottish independence'),
+    'Scottish nationalism': _('Scottish nationalism'),
     'social conservatism': _('social conservatism'),
     'social democracy': _('social democracy'),
     'social liberalism': _('social liberalism'),
-    'socialism': _('socialism'),
     'socialism of the 21st century': _('socialism of the 21st century'),
+    'socialism': _('socialism'),
+    'soft Euroscepticism': _('soft Euroscepticism'),
     'Third Way': _('Third Way'),
+    'Ulster loyalism': _('Ulster loyalism'),
+    'ultraconservatism': _('ultraconservatism'),
+    'ultranationalism': _('ultranationalism'),
     'völkisch nationalism': _('völkisch nationalism'),
+    'Welsh independence': _('Welsh independence'),
+    'Welsh nationalism': _('Welsh nationalism'),
 }
 
 
 def has_compass(country):
-    return PartyProfile.objects.filter(country=country).exists()
+    """A country has a compass when a survey places its parties. Profiles alone only name the seats in parliament."""
+    return PartyPosition.objects.filter(party__country=country).exists()
 
 
 def position_text(position):
@@ -213,7 +294,8 @@ def party_info(party):
         'logoOnDark': f'{settings.MEDIA_URL}{party.logo_on_dark}' if party.logo_on_dark else '',
         'color': party.color,
         'position': position_text(party.position),
-        'ideologies': [str(IDEOLOGIES[term]) for term in party.ideologies.split(';')],
+        # A group that is not a party (the Lords' crossbenchers, a Speaker) has none.
+        'ideologies': [str(IDEOLOGIES[term]) for term in party.ideologies.split(';') if term],
         'viewsSource': party.views_source,
         'ended': gettext('Merged into %(party)s in %(year)s.') % {'party': party.merged_into, 'year': party.ended_year}
         if party.merged_into else '',

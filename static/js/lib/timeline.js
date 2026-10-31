@@ -3,7 +3,7 @@
 // The images keep each row exactly as on the page, at SCALE times its size. Rows that do not fit go on the next image.
 // gettext, ngettext and interpolate are Django's, from the translation catalog base.html loads.
 import {
-  handOver, imageFrame, imageName, imageWell, loadImage, MONO, paintPageNumber, SCALE, wrap,
+  handOver, imageFrame, imageName, imageWell, loadImage, MONO, paintPageNumber, SCALE, sizedName, wrap,
 } from './chart-image.js';
 import { paintLogoTile, paintTrend, toneOf } from './term-chart.js';
 
@@ -82,16 +82,16 @@ export function omittedNote(data) {
 }
 
 /**
- * Saves a view (the timeline, or the ranking by party or by president) as 1080 × 1350 images: as many rows on each as
- * fit, and as many images as it takes. The footer names the data's source; a logo whose licence asks for credit adds it
- * on the image that shows it.
+ * Saves a view (the timeline, or the ranking by party or by president) as images in shape `size` (SIZES in chart-image.js):
+ * as many rows on each as fit, and as many images as it takes. The footer names the data's source; a logo whose licence
+ * asks for credit adds it on the image that shows it.
  */
-export async function saveTimelineImages({ data, view = 'timeline', title, subtitle, source, flag, nameParts }) {
+export async function saveTimelineImages({ data, view = 'timeline', title, subtitle, source, flag, nameParts, size = 'portrait' }) {
   const timeline = view === 'timeline';
   const rows = timeline ? timelineRows(data) : groupRows(data, view);
   const logoFiles = [...new Set(rows.flatMap((row) => row.logos.map((party) => party.logo)).filter(Boolean))];
   const logos = new Map(await Promise.all(logoFiles.map(async (src) => [src, await loadImage(src)])));
-  const text = (shown) => ({ title, subtitle, flag, sources: [source, logoCredits(shown)] });
+  const text = (shown) => ({ title, subtitle, flag, sources: [source, logoCredits(shown)], size });
 
   // Room is measured with every credit in the footer, so no image runs short when its own credits are fewer.
   const probe = await imageFrame(text(rows));
@@ -113,7 +113,7 @@ export async function saveTimelineImages({ data, view = 'timeline', title, subti
   for (let page = 0; page < pages; page += 1) {
     const shown = rows.slice(page * perImage, (page + 1) * perImage);
     const frame = await imageFrame(text(shown));
-    const { well, inner } = imageWell(frame.ctx, probe.top, room, { strip: true });
+    const { well, inner } = imageWell(frame.ctx, probe.top, room, { strip: true, width: frame.width });
     const ctx = frame.ctx;
     ctx.save();
     ctx.translate(inner.x, inner.y);
@@ -127,7 +127,7 @@ export async function saveTimelineImages({ data, view = 'timeline', title, subti
     }
     ctx.restore();
     paintPageNumber(ctx, well, page + 1, pages);
-    images.push({ canvas: frame.canvas, filename: imageName(...nameParts, timeline ? '' : view, pages > 1 ? page + 1 : '') });
+    images.push({ canvas: frame.canvas, filename: sizedName(imageName(...nameParts, timeline ? '' : view, pages > 1 ? page + 1 : ''), size) });
   }
   await handOver(images, title);
 }

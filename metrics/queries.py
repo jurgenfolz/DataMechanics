@@ -40,11 +40,12 @@ def chart_data(metric, series):
         values.setdefault(iso3, [None] * len(years))[year - years[0]] = _trim(value)
 
     countries = {
-        c.iso3: {'name': str(metric.world_label) if c.iso3 == WORLD else c.local_name, 'flag': flag_url(c.iso3, c.iso2)}
+        c.iso3: {'name': str(metric.world_label) if c.iso3 == WORLD else c.local_name, 'flag': flag_url(c.iso3, c.iso2),
+                 'continent': c.continent}  # Natural Earth's continent, an English key the page translates
         for c in Country.objects.filter(iso3__in=values)
     }
     return {
-        'field': series.field, 'label': series.label, 'unit': series.unit,
+        'field': series.field, 'label': series.label, 'unit': series.unit, 'measuredIn': str(series.measured_in),
         'better': series.better, 'logScale': series.log_scale, 'note': str(series.note),
         'years': years,
         'mapYear': _map_year(values, years),
