@@ -1297,7 +1297,7 @@ a.chip:hover { border-color: var(--gold); color: var(--gold); }
 .country-card__current { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; background: var(--well); font-size: 0.9375rem; line-height: 1.3; }
 .country-card__current strong { display: block; }
 .country-card__label { display: block; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
-.country-card--soon { justify-content: center; gap: 8px; border-style: dashed; background: transparent; }
+.country-card--soon { justify-content: center; gap: 18px; border-style: dashed; background: transparent; }
 .country-card--soon .country-card__name { font-size: 1.25rem; color: var(--ink-2); }
 .country-card--soon .country-card__meta { max-width: 34ch; line-height: 1.5; }
 .country-card__cta { display: flex; align-items: center; gap: 6px; margin-top: auto; color: var(--gold); font-weight: 700; font-size: 0.875rem; }

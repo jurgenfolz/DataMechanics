@@ -1,0 +1,23 @@
+name: Request a country
+description: Ask for a country to be added to Politics mode.
+title: "Add <country> to Politics mode"
+labels: ["country request"]
+body:
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      description: Which country would you like to see?
+      placeholder: Argentina
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources you know
+      description: Links that list its leaders, their parties and dates, or a survey that places its parties. Optional, but it speeds things up.
+  - type: textarea
+    id: why
+    attributes:
+      label: Anything else
+      description: What would you like to compare, or anything we should know about this country's offices.

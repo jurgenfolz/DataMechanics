@@ -32,10 +32,13 @@
       <span class="country-card__cta">{% blocktranslate with name=card.country.local_name %}Open {{ name }}{% endblocktranslate %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</span>
     </a>
     {% endfor %}
-    <div class="card country-card country-card--soon">
-      <span class="country-card__name">{% translate "More countries soon" %}</span>
-      <span class="country-card__meta">{% translate "Every country needs its leaders, dates and parties checked by hand before it is added." %}</span>
-    </div>
+    <a class="card country-card country-card--soon" href="{{ GITHUB_URL }}/issues/new?template=country_request.yml" rel="noopener">
+      <span>
+        <span class="country-card__name">{% translate "More countries soon" %}</span>
+        <span class="country-card__meta">{% translate "Every country needs its leaders, dates and parties checked by hand before it is added. Tell us which one you miss." %}</span>
+      </span>
+      <span class="country-card__cta">{% translate "Request a country" %} {% include "partials/icon.html" with name="arrow-right" size="16" %}</span>
+    </a>
   </div>
 </div>
 {% endblock %}
